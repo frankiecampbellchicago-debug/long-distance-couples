@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Interactive dates, a countdown to your next visit, deep talks, travel planning and advice for long-distance couples.">
+<title>Halfway</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap">
+<style>
+/* Layout: an airmail envelope. Striped edges frame each band; two cities, two clocks, one midpoint. */
+:root{
+  --paper:#f6f3ee; --card:#ffffff; --ink:#1d2333; --muted:#5d6577; --line:#dcd8d0;
+  --red:#c8323c; --blue:#21459c; --stamp:#e7eefc; --night:#141a2e; --neon:#ff4fa3; --neon2:#4be3ff;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --pixel:"Press Start 2P", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#12151f; --card:#1b2030; --ink:#ece9e3; --muted:#a3a9b8; --line:#2d3346;
+  --red:#ef5a62; --blue:#7f9cf0; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#12151f; --card:#1b2030; --ink:#ece9e3; --muted:#a3a9b8; --line:#2d3346;
+  --red:#ef5a62; --blue:#7f9cf0; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--body)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.airmail{height:10px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,transparent 14px 22px,var(--blue) 22px 36px,transparent 36px 44px)}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font:600 15px var(--body);cursor:pointer;text-decoration:none;background:var(--blue);color:#fff}
+.btn:hover{filter:brightness(1.1)}
+.btn:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+
+/* nav */
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px}
+.logo{font:24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{flex:none}
+.navlinks{display:flex;gap:24px;align-items:center;font-weight:500;font-size:15px}
+.navlinks a{text-decoration:none;color:var(--muted)}
+.navlinks a:hover{color:var(--ink)}
+@media (max-width:1020px){.navlinks a:not(.btn){display:none}}
+
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding-block:48px 72px}
+.hero h1{font-size:clamp(40px,6vw,68px);margin-block:16px 20px}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p.lede{font-size:19px;color:var(--muted);max-width:34ch}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:36px}}
+
+.postcard{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(20,26,46,.45);overflow:hidden;min-width:0}
+.postcard .inner{padding:22px;display:grid;gap:18px}
+.clocks{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch}
+.clock{display:grid;gap:6px;min-width:0}
+.clock label{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.clock select{font:600 15px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px;width:100%;min-width:0}
+.clock .time{font:500 clamp(26px,4vw,34px)/1 var(--mono);font-variant-numeric:tabular-nums}
+.clock .day{font-size:13px;color:var(--muted)}
+.dash{align-self:center;color:var(--muted);font:12px var(--mono);text-align:center;writing-mode:horizontal-tb}
+.dash svg{display:block;margin:0 auto 4px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px dashed var(--line);padding-top:16px;gap:8px}
+.stat b{display:block;font:500 20px var(--mono);font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.meet{display:flex;align-items:center;gap:14px;background:var(--stamp);border-radius:6px;padding:14px}
+.stampbox{flex:none;width:54px;height:62px;border:2px dashed var(--blue);border-radius:3px;display:grid;place-items:center;font:20px var(--display);color:var(--blue)}
+.meet p{font-size:14px;color:var(--muted)}
+.meet strong{display:block;font:20px var(--display);color:var(--ink)}
+@media (max-width:480px){.clocks{grid-template-columns:1fr}.dash{display:none}.stats{grid-template-columns:1fr 1fr}}
+
+/* sections */
+section.band{padding-block:80px}
+.sechead{display:grid;gap:14px;max-width:640px;margin-bottom:44px}
+.sechead h2{font-size:clamp(32px,4.5vw,48px)}
+.sechead p{color:var(--muted);font-size:18px}
+
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:860px){.dates{grid-template-columns:1fr}}
+.date{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.date .copy{padding:24px;display:grid;gap:10px}
+.date h3{font-size:28px}
+.date .copy p{color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tags span{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted)}
+
+/* arcade mock */
+.arcade{background:var(--night);color:#fff;padding:24px;display:grid;gap:16px;position:relative;min-height:250px}
+.arcade .marquee{font:12px/1.6 var(--pixel);color:var(--neon);text-shadow:0 0 10px var(--neon);text-align:center}
+.cabinets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cab{border:2px solid var(--neon2);border-radius:4px;padding:12px 6px;text-align:center;font:9px/1.6 var(--pixel);color:var(--neon2);box-shadow:0 0 14px -4px var(--neon2) inset;cursor:pointer;background:transparent}
+.cab.on{border-color:var(--neon);color:var(--neon);box-shadow:0 0 18px -2px var(--neon)}
+.cab .ico{font-size:18px;display:block;margin-bottom:6px}
+.players{display:flex;justify-content:space-between;font:9px var(--pixel);color:#c7cbe0}
+.players b{color:var(--neon2);font-weight:400}
+.scores{font:10px var(--pixel);color:#fff;text-align:center}
+@media (prefers-reduced-motion:no-preference){.blink{animation:blink 1.2s steps(2) infinite}}
+@keyframes blink{50%{opacity:.25}}
+
+/* restaurant mock */
+.table{background:linear-gradient(180deg,#2a1b17,#3a2620);color:#f6ead8;padding:24px;display:grid;gap:12px;min-height:250px}
+.table .venue{font:22px var(--display);display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.table .venue small{font:11px var(--mono);letter-spacing:.1em;color:#d8b98a}
+.bubble{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px 12px 12px 2px;padding:10px 14px;font-size:14px;max-width:92%}
+.bubble.you{justify-self:end;border-radius:12px 12px 2px 12px;background:rgba(216,185,138,.18)}
+.bubble .who{display:block;font:11px var(--mono);color:#d8b98a;letter-spacing:.08em;margin-bottom:2px}
+.recipe{font:12px/1.7 var(--mono);color:#e9d6b8;border-top:1px dashed rgba(255,255,255,.2);padding-top:10px}
+
+/* travel */
+.travel{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:860px){.travel{grid-template-columns:1fr}}
+.tcard{border-top:3px solid var(--blue);padding-top:18px;display:grid;gap:10px;align-content:start}
+.tcard:nth-child(2){border-color:var(--red)}
+.tcard h3{font-size:24px}
+.tcard p{color:var(--muted)}
+.countdown{display:flex;gap:10px;margin-top:6px}
+.countdown div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;text-align:center;min-width:64px}
+.countdown b{display:block;font:500 24px var(--mono);font-variant-numeric:tabular-nums}
+.countdown span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.step{display:grid;gap:8px;align-content:start}
+.step::before{counter-increment:s;content:"0" counter(s);font:500 14px var(--mono);color:var(--red)}
+.step h3{font-size:22px}
+.step p{color:var(--muted)}
+
+/* waitlist */
+.join{background:var(--blue);color:#fff}
+.join .wrap{padding-block:72px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+@media (max-width:860px){.join .wrap{grid-template-columns:1fr}}
+.join h2{font-size:clamp(32px,4.5vw,46px)}
+.join p{opacity:.85;margin-top:12px;font-size:17px}
+.join form{display:grid;gap:12px}
+.join input{font:16px var(--body);padding:14px 16px;border-radius:8px;border:0;width:100%;background:#fff;color:#1d2333}
+.join .btn{background:var(--red);justify-content:center}
+.join .note{font-size:13px;opacity:.8}
+.join .done{background:rgba(255,255,255,.12);padding:16px;border-radius:8px}
+
+/* countdown band */
+.cdband{background:var(--night);color:#f1f0ec}
+.cdband .wrap{padding-block:72px;display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
+@media (max-width:860px){.cdband .wrap{grid-template-columns:1fr}}
+.cdband .eyebrow{color:#ff8a90}
+.cdband h2{font-size:clamp(32px,4.5vw,48px);margin-block:12px}
+.cdband p{color:#b9bdcc}
+.cdcontrols{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;align-items:end}
+.cdcontrols label{display:grid;gap:6px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#b9bdcc}
+.cdcontrols input{font:15px var(--body);padding:10px 12px;border-radius:6px;border:1px solid #3a4160;background:#1d2440;color:#fff;color-scheme:dark}
+.bigcd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bigcd div{border:1px solid #333b58;border-radius:8px;padding:18px 8px;text-align:center;background:#1a2038}
+.bigcd b{display:block;font:500 clamp(30px,6vw,56px)/1 var(--mono);font-variant-numeric:tabular-nums;color:#fff}
+.bigcd span{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#9aa0b6}
+.cdcaption{grid-column:1/-1;font:13px var(--mono);color:#ff8a90;text-align:center;margin-top:6px}
+
+/* deep talks */
+.talks{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start}
+@media (max-width:760px){.talks{grid-template-columns:1fr}}
+.cats{display:grid;gap:8px}
+.cat{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;font:600 15px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer}
+.cat[aria-pressed="true"]{border-color:var(--blue);background:var(--stamp)}
+.pill{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--red);color:#fff;white-space:nowrap}
+.pill.free{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:clamp(24px,4vw,44px);min-height:280px;display:grid;gap:22px;align-content:space-between;position:relative;overflow:hidden;min-width:0}
+.qcard .qnum{font:500 12px var(--mono);color:var(--muted);letter-spacing:.1em}
+.qcard .q{font:clamp(24px,3.4vw,36px)/1.25 var(--display);text-wrap:balance}
+.qcard .actions{display:flex;gap:10px;flex-wrap:wrap}
+.qcard.locked .q{filter:blur(7px);user-select:none}
+.lockmsg{position:absolute;inset:auto 24px 24px 24px;background:var(--stamp);border-radius:8px;padding:16px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.lockmsg p{font-size:15px}
+
+/* articles */
+.ad{border:1px dashed var(--muted);border-radius:6px;display:grid;place-items:center;text-align:center;color:var(--muted);gap:4px;padding:18px;background:repeating-linear-gradient(135deg,transparent 0 10px,color-mix(in srgb,var(--line) 35%,transparent) 10px 11px)}
+.ad small{font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.ad strong{font:600 16px var(--body);color:var(--ink)}
+.adbanner{min-height:110px;margin-bottom:56px}
+.articles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:900px){.articles{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.articles{grid-template-columns:1fr}}
+.post{display:grid;gap:10px;align-content:start;text-decoration:none;min-width:0}
+.post .thumb{aspect-ratio:16/10;max-width:100%;border-radius:6px;display:grid;place-items:center;font:44px var(--display);color:#fff}
+.post .meta{display:flex;gap:10px;align-items:center;font:500 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.post h3{font-size:22px;line-height:1.2}
+.post p{color:var(--muted);font-size:15px}
+.post:hover h3{color:var(--blue)}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+@media (max-width:860px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px;display:flex;flex-direction:column;gap:16px}
+.plan.feat{border:2px solid var(--blue);box-shadow:0 18px 40px -26px var(--blue)}
+.plan h3{font-size:26px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.price{font:500 36px var(--mono);font-variant-numeric:tabular-nums}
+.price small{font:14px var(--body);color:var(--muted)}
+.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;flex:1}
+.plan li{padding-left:22px;position:relative;font-size:15px}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--blue);font-weight:700}
+.plan li.no{color:var(--muted)}
+.plan li.no::before{content:"–";color:var(--muted)}
+.plan .btn{justify-content:center}
+.book{display:flex;gap:16px;align-items:center}
+.cover{flex:none;width:70px;height:96px;border-radius:2px 6px 6px 2px;background:var(--red);color:#fff;font:11px/1.2 var(--display);padding:8px;display:flex;align-items:end;box-shadow:inset 6px 0 0 rgba(0,0,0,.18)}
+
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="airmail"></div>
+<nav><div class="wrap">
+  <a class="logo" href="#top" aria-label="Halfway home">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="7" cy="15" r="5" fill="var(--blue)"/><circle cx="23" cy="15" r="5" fill="var(--red)"/><path d="M12 15h6" stroke="var(--ink)" stroke-width="2" stroke-dasharray="2 2"/></svg>
+    Halfway
+  </a>
+  <div class="navlinks">
+    <a href="#dates">Dates</a><a href="#countdown">Countdown</a><a href="#talks">Deep Talks</a><a href="#travel">Travel</a><a href="#articles">Articles</a><a href="#pricing">Pricing</a>
+    <a class="btn" href="#join">Join the waitlist</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <span class="eyebrow">For long-distance couples</span>
+    <h1>Date night, even <em>miles apart.</em></h1>
+    <p class="lede">Go on interactive dates, count down to your next visit, have the conversations that keep you close, and plan trips together. All in one place built for couples living apart.</p>
+    <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See the dates</a></div>
+  </div>
+
+  <div class="postcard" aria-label="Your distance">
+    <div class="airmail"></div>
+    <div class="inner">
+      <div class="clocks">
+        <div class="clock"><label for="cityA">You're in</label><select id="cityA"></select><div class="time" id="timeA">--:--</div><div class="day" id="dayA"></div></div>
+        <div class="dash"><svg width="40" height="12" aria-hidden="true"><path d="M2 6h36" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg><span id="gap"></span></div>
+        <div class="clock"><label for="cityB">They're in</label><select id="cityB"></select><div class="time" id="timeB">--:--</div><div class="day" id="dayB"></div></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="miles">–</b><span>miles apart</span></div>
+        <div class="stat"><b id="flight">–</b><span>approx. flight</span></div>
+        <div class="stat"><b id="overlap">–</b><span>shared awake hours</span></div>
+      </div>
+      <div class="meet">
+        <div class="stampbox" aria-hidden="true">½</div>
+        <div><p>Meet halfway in</p><strong id="mid">–</strong><p id="midnote"></p></div>
+      </div>
+    </div>
+  </div>
+</div></header>
+
+<div class="airmail"></div>
+
+<section class="band" id="dates"><div class="wrap">
+  <div class="sechead">
+    <span class="eyebrow">Virtual dates</span>
+    <h2>Somewhere to go together.</h2>
+    <p>A video call works, but you end up just staring at each other. Each Halfway date gives you something to do together.</p>
+  </div>
+  <div class="dates">
+    <article class="date">
+      <div class="arcade" aria-label="Arcade date preview">
+        <div class="marquee">★ HALFWAY ARCADE ★<br><span class="blink">INSERT COIN · 2 PLAYERS</span></div>
+        <div class="cabinets" role="group" aria-label="Pick a cabinet">
+          <button class="cab on" type="button"><span class="ico">◆</span>CO-OP<br>PUZZLE</button>
+          <button class="cab" type="button"><span class="ico">▲</span>AIR<br>HOCKEY</button>
+          <button class="cab" type="button"><span class="ico">●</span>SKEE<br>BALL</button>
+        </div>
+        <div class="players"><span>P1 <b>YOU</b></span><span class="scores" id="tickets">TICKETS 0420</span><span>P2 <b>THEM</b></span></div>
+      </div>
+      <div class="copy">
+        <h3>Arcade Night</h3>
+        <p>Walk into a shared arcade, pick a cabinet, and play two-player co-op games in real time. Win tickets as a team and trade them in for prizes you send to each other.</p>
+        <div class="tags"><span>Co-op games</span><span>Shared ticket jar</span><span>Voice chat</span></div>
+      </div>
+    </article>
+
+    <article class="date">
+      <div class="table" aria-label="Restaurant date preview">
+        <div class="venue">Table for Two <small>RESERVED · 8:00 PM YOUR TIME</small></div>
+        <div class="bubble"><span class="who">AI WAITER</span>Good evening, you two. Tonight we're cooking together. Shrimp scampi, about 25 minutes. Shall I read you the shopping list?</div>
+        <div class="bubble you"><span class="who">YOU</span>Yes! Is it okay if one of us doesn't have shrimp?</div>
+        <div class="bubble"><span class="who">AI WAITER</span>Of course. Chicken works the same way. I'll walk you both through it step by step.</div>
+        <div class="recipe">STEP 3 OF 8 · Both of you: garlic into the pan, 60 seconds ⏱</div>
+      </div>
+      <div class="copy">
+        <h3>Table for Two</h3>
+        <p>Sit down at a virtual restaurant with an AI waiter who takes your orders, tells stories, and walks you both through cooking the same recipe in your own kitchens.</p>
+        <div class="tags"><span>AI waiter</span><span>Cook-along recipes</span><span>Swaps for what you have</span></div>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<section class="cdband" id="countdown"><div class="wrap">
+  <div>
+    <span class="eyebrow">Countdown</span>
+    <h2>Every day apart is one day closer.</h2>
+    <p>Set the day you'll see each other next. You both get the same countdown on your phones, plus a little nudge when it's one week, one day, and one hour away.</p>
+    <div class="cdcontrols">
+      <label for="visitDate">Next visit<input id="visitDate" type="datetime-local"></label>
+      <label for="visitName">Their name<input id="visitName" type="text" placeholder="Jordan" maxlength="24"></label>
+    </div>
+  </div>
+  <div class="bigcd" aria-live="polite">
+    <div><b id="cdD">0</b><span>days</span></div>
+    <div><b id="cdH">00</b><span>hours</span></div>
+    <div><b id="cdM">00</b><span>min</span></div>
+    <div><b id="cdS">00</b><span>sec</span></div>
+    <p class="cdcaption" id="cdCap"></p>
+  </div>
+</div></section>
+
+<section class="band" id="talks"><div class="wrap">
+  <div class="sechead">
+    <span class="eyebrow">Deep Talks</span>
+    <h2>Questions for the nights you want more than "how was your day."</h2>
+    <p>Pick a topic and take turns answering. Save the ones that started something good.</p>
+  </div>
+  <div class="talks">
+    <div class="cats" id="cats" role="group" aria-label="Question topics"></div>
+    <div class="qcard" id="qcard">
+      <span class="qnum" id="qnum"></span>
+      <p class="q" id="q"></p>
+      <div class="actions">
+        <button class="btn" type="button" id="nextQ">Next question</button>
+        <button class="btn ghost" type="button" id="saveQ">Save for later</button>
+      </div>
+      <div class="lockmsg" id="lockmsg" hidden>
+        <p><strong>This topic is part of Halfway Plus.</strong><br>Unlock 500+ questions across every topic.</p>
+        <a class="btn" href="#pricing">See Plus</a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" id="travel" style="padding-top:0"><div class="wrap">
+  <div class="sechead">
+    <span class="eyebrow">Travel together</span>
+    <h2>Plan the next time you're in the same room.</h2>
+    <p>Halfway keeps your visits in one place, from the countdown to the trip itself.</p>
+  </div>
+  <div class="travel">
+    <div class="tcard">
+      <h3>Fare alerts</h3>
+      <p>Tell us your two home airports. We'll let you know when flights between them drop, so you can see each other more often for less.</p>
+    </div>
+    <div class="tcard">
+      <h3>Meet halfway</h3>
+      <p>Find cities between you, compare flight times and prices for both of you, and pick a weekend that splits the trip fairly.</p>
+    </div>
+    <div class="tcard">
+      <h3>Shared trip board</h3>
+      <p>Save places you want to go together, split costs, and keep tickets and itineraries where you can both see them.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" id="articles" style="padding-top:0"><div class="wrap">
+  <div class="ad adbanner" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Your brand here</strong><span>Banner ad space · 970 × 90</span></div>
+  <div class="sechead">
+    <span class="eyebrow">Articles</span>
+    <h2>Advice from couples who made the distance work.</h2>
+    <p>Guides, real stories, and expert advice on staying close, handling hard weeks, and closing the distance for good.</p>
+  </div>
+  <div class="articles">
+    <a class="post" href="#articles"><div class="thumb" style="background:var(--blue)">7</div><div class="meta"><span>Communication</span><span>6 min</span></div><h3>7 ways to stop your calls from feeling like a status report</h3><p>Small changes that turn "what did you eat today" into real conversation.</p></a>
+    <a class="post" href="#articles"><div class="thumb" style="background:var(--red)">✈</div><div class="meta"><span>Travel</span><span>8 min</span></div><h3>How to fly cheaper when you're visiting every month</h3><p>Fare tracking, points cards, and the best days to book.</p></a>
+    <div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>
+    <a class="post" href="#articles"><div class="thumb" style="background:#2e7d6b">↔</div><div class="meta"><span>Closing the gap</span><span>10 min</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p></a>
+    <a class="post" href="#articles"><div class="thumb" style="background:#8a5a2b">♥</div><div class="meta"><span>Real stories</span><span>5 min</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p></a>
+    <a class="post" href="#pricing"><div class="thumb" style="background:var(--night)">🔒</div><div class="meta"><span class="pill">Plus</span><span>12 min</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p></a>
+  </div>
+</div></section>
+
+<div class="airmail"></div>
+
+<section class="band" id="how"><div class="wrap">
+  <div class="sechead"><span class="eyebrow">How it works</span><h2>Ready in a minute.</h2></div>
+  <div class="steps">
+    <div class="step"><h3>Pair up</h3><p>Create an account and send your partner an invite code. Your cities and time zones set themselves.</p></div>
+    <div class="step"><h3>Pick a date</h3><p>Choose the arcade, the restaurant, or a new date we add each month. Halfway finds a time that works for both of you.</p></div>
+    <div class="step"><h3>Show up</h3><p>You both get a reminder, join from your phone or laptop, and spend the evening together.</p></div>
+  </div>
+</div></section>
+
+<section class="band" id="pricing" style="padding-top:0"><div class="wrap">
+  <div class="sechead"><span class="eyebrow">Pricing</span><h2>Start free. Upgrade when you're ready.</h2><p>One Plus subscription covers both of you.</p></div>
+  <div class="plans">
+    <div class="plan">
+      <h3>Free</h3>
+      <div class="price">$0</div>
+      <ul>
+        <li>Visit countdown</li>
+        <li>2 interactive dates a month</li>
+        <li>Starter Deep Talks questions</li>
+        <li>Free articles</li>
+        <li class="no">Includes ads</li>
+      </ul>
+      <a class="btn ghost" href="#join">Get started</a>
+    </div>
+    <div class="plan feat">
+      <h3>Plus <span class="pill">Most popular</span></h3>
+      <div class="price">$7.99 <small>/ month per couple</small></div>
+      <ul>
+        <li>Unlimited arcade and restaurant dates</li>
+        <li>Every Deep Talks topic (500+ questions)</li>
+        <li>Fare alerts and the shared trip board</li>
+        <li>All Plus articles</li>
+        <li>No ads</li>
+      </ul>
+      <a class="btn" href="#join">Try Plus free for 7 days</a>
+    </div>
+    <div class="plan">
+      <h3>The Book</h3>
+      <div class="book"><div class="cover">Closer Than It Looks</div><div class="price">$14.99 <small>one time</small></div></div>
+      <ul>
+        <li><em>Closer Than It Looks</em>: the complete guide to long-distance love</li>
+        <li>12 chapters, from the first goodbye to closing the distance</li>
+        <li>Ebook and PDF, yours to keep</li>
+        <li>Free with a yearly Plus plan</li>
+      </ul>
+      <a class="btn ghost" href="#join">Buy the book</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="join" id="join"><div class="wrap">
+  <div>
+    <h2>Be the first couple through the door.</h2>
+    <p>Join the waitlist for early access and a free first month of Plus for you and your partner.</p>
+  </div>
+  <div>
+    <form id="joinForm" novalidate>
+      <label for="email" class="note">Your email</label>
+      <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+      <button class="btn" type="submit">Join the waitlist</button>
+      <p class="note" id="formMsg">Preview only. Sign-ups aren't collected yet.</p>
+    </form>
+    <div class="done" id="done" hidden>You're on the list (preview). Sign-ups will be saved once the site goes live.</div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Halfway</span><span>Made for people who are worth the distance.</span></div></footer>
+
+<script>
+const C=[
+ ["Chicago, IL",41.88,-87.63,"America/Chicago"],["New York, NY",40.71,-74.01,"America/New_York"],["Los Angeles, CA",34.05,-118.24,"America/Los_Angeles"],
+ ["Atlanta, GA",33.75,-84.39,"America/New_York"],["Dallas, TX",32.78,-96.80,"America/Chicago"],["Houston, TX",29.76,-95.37,"America/Chicago"],
+ ["Miami, FL",25.76,-80.19,"America/New_York"],["Denver, CO",39.74,-104.99,"America/Denver"],["Seattle, WA",47.61,-122.33,"America/Los_Angeles"],
+ ["Phoenix, AZ",33.45,-112.07,"America/Phoenix"],["Boston, MA",42.36,-71.06,"America/New_York"],["Nashville, TN",36.16,-86.78,"America/Chicago"],
+ ["Detroit, MI",42.33,-83.05,"America/Detroit"],["Minneapolis, MN",44.98,-93.27,"America/Chicago"],["New Orleans, LA",29.95,-90.07,"America/Chicago"],
+ ["Las Vegas, NV",36.17,-115.14,"America/Los_Angeles"],["Kansas City, MO",39.10,-94.58,"America/Chicago"],["St. Louis, MO",38.63,-90.20,"America/Chicago"],
+ ["Charlotte, NC",35.23,-80.84,"America/New_York"],["Washington, DC",38.91,-77.04,"America/New_York"],["Salt Lake City, UT",40.76,-111.89,"America/Denver"],
+ ["Albuquerque, NM",35.08,-106.65,"America/Denver"],["Oklahoma City, OK",35.47,-97.52,"America/Chicago"],["Omaha, NE",41.26,-95.93,"America/Chicago"],
+ ["Pittsburgh, PA",40.44,-79.99,"America/New_York"],["Columbus, OH",39.96,-83.00,"America/New_York"],["Memphis, TN",35.15,-90.05,"America/Chicago"],
+ ["Toronto, ON",43.65,-79.38,"America/Toronto"],["Mexico City",19.43,-99.13,"America/Mexico_City"],["Honolulu, HI",21.31,-157.86,"Pacific/Honolulu"],
+ ["London, UK",51.51,-0.13,"Europe/London"],["Paris, France",48.86,2.35,"Europe/Paris"],["Reykjavík, Iceland",64.15,-21.94,"Atlantic/Reykjavik"],
+ ["Lagos, Nigeria",6.52,3.38,"Africa/Lagos"],["Madrid, Spain",40.42,-3.70,"Europe/Madrid"],["Berlin, Germany",52.52,13.40,"Europe/Berlin"],
+ ["Tokyo, Japan",35.68,139.69,"Asia/Tokyo"],["Seoul, South Korea",37.57,126.98,"Asia/Seoul"],["Manila, Philippines",14.60,120.98,"Asia/Manila"],
+ ["Sydney, Australia",-33.87,151.21,"Australia/Sydney"],["São Paulo, Brazil",-23.55,-46.63,"America/Sao_Paulo"],["Dubai, UAE",25.20,55.27,"Asia/Dubai"]
+];
+const A=document.getElementById("cityA"),B=document.getElementById("cityB");
+C.forEach((c,i)=>{A.add(new Option(c[0],i));B.add(new Option(c[0],i))});
+A.value=0;B.value=1;
+try{const s=JSON.parse(localStorage.getItem("halfway-cities")||"null");if(s){A.value=s[0];B.value=s[1]}}catch(e){}
+
+const rad=d=>d*Math.PI/180,deg=r=>r*180/Math.PI;
+function dist(a,b){const R=3958.8,dLa=rad(b[1]-a[1]),dLo=rad(b[2]-a[2]);const h=Math.sin(dLa/2)**2+Math.cos(rad(a[1]))*Math.cos(rad(b[1]))*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+function midpoint(a,b){const la1=rad(a[1]),lo1=rad(a[2]),la2=rad(b[1]),dLo=rad(b[2]-a[2]);const bx=Math.cos(la2)*Math.cos(dLo),by=Math.cos(la2)*Math.sin(dLo);
+ const la=Math.atan2(Math.sin(la1)+Math.sin(la2),Math.sqrt((Math.cos(la1)+bx)**2+by**2)),lo=lo1+Math.atan2(by,Math.cos(la1)+bx);return [null,deg(la),deg(lo)]}
+function offsetMin(tz){const d=new Date();const p=new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}).formatToParts(d).reduce((o,x)=>(o[x.type]=x.value,o),{});
+ return (Date.UTC(+p.year,p.month-1,+p.day,+p.hour%24,+p.minute)-Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),d.getUTCHours(),d.getUTCMinutes()))/60000}
+const fmtT=tz=>new Intl.DateTimeFormat("en-US",{timeZone:tz,hour:"numeric",minute:"2-digit"}).format(new Date());
+const fmtD=tz=>new Intl.DateTimeFormat("en-US",{timeZone:tz,weekday:"long"}).format(new Date());
+
+function update(){
+  const a=C[A.value],b=C[B.value];
+  document.getElementById("timeA").textContent=fmtT(a[3]);document.getElementById("dayA").textContent=fmtD(a[3]);
+  document.getElementById("timeB").textContent=fmtT(b[3]);document.getElementById("dayB").textContent=fmtD(b[3]);
+  const diff=(offsetMin(b[3])-offsetMin(a[3]))/60;
+  document.getElementById("gap").textContent=diff===0?"same time":(diff>0?"+":"−")+Math.abs(diff)+"h";
+  const mi=dist(a,b);
+  document.getElementById("miles").textContent=Math.round(mi).toLocaleString();
+  const hrs=mi<1?0:mi/500+0.5;
+  document.getElementById("flight").textContent=mi<1?"—":Math.floor(hrs)+"h "+String(Math.round((hrs%1)*60)).padStart(2,"0")+"m";
+  // awake hours 8:00–23:00 local, count overlap
+  let ov=0;for(let h=8;h<23;h++){const t=h+diff;const tt=((t%24)+24)%24;if(tt>=8&&tt<23)ov++}
+  document.getElementById("overlap").textContent=ov+" h";
+  const m=midpoint(a,b);let best=null,bd=1e9;
+  C.forEach((c,i)=>{if(i==A.value||i==B.value)return;const d=dist(m,c);if(d<bd){bd=d;best=c}});
+  const mid=document.getElementById("mid"),note=document.getElementById("midnote");
+  if(mi<1){mid.textContent="You're already there";note.textContent="Pick two different cities."}
+  else if(bd>600){mid.textContent="Pick a spot together";note.textContent="The midpoint is far from any big city. Halfway suggests nearby options."}
+  else{mid.textContent=best[0];note.textContent=Math.round(dist(a,best)).toLocaleString()+" mi for you · "+Math.round(dist(b,best)).toLocaleString()+" mi for them"}
+}
+[A,B].forEach(s=>s.addEventListener("change",()=>{try{localStorage.setItem("halfway-cities",JSON.stringify([A.value,B.value]))}catch(e){}update()}));
+update();setInterval(update,30000);
+
+// visit countdown (defaults to an example date 23 days out)
+const vd=document.getElementById("visitDate"),vn=document.getElementById("visitName");
+const pad=n=>String(n).padStart(2,"0");
+const toLocalInput=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes());
+let saved=null;try{saved=JSON.parse(localStorage.getItem("halfway-visit")||"null")}catch(e){}
+const ex=new Date(Date.now()+23*86400000);ex.setHours(18,30,0,0);
+vd.value=saved&&saved.date?saved.date:toLocalInput(ex);vn.value=saved&&saved.name?saved.name:"";
+function cd(){
+  const t=new Date(vd.value).getTime();let s=isNaN(t)?0:Math.max(0,Math.floor((t-Date.now())/1000));
+  document.getElementById("cdD").textContent=Math.floor(s/86400);document.getElementById("cdH").textContent=pad(Math.floor(s%86400/3600));
+  document.getElementById("cdM").textContent=pad(Math.floor(s%3600/60));document.getElementById("cdS").textContent=pad(s%60);
+  const who=vn.value.trim()||"your person";
+  document.getElementById("cdCap").textContent=isNaN(t)?"Pick a date to start the countdown.":s===0?"Today's the day. Go see "+who+"!":"until you see "+who;
+}
+[vd,vn].forEach(el=>el.addEventListener("input",()=>{try{localStorage.setItem("halfway-visit",JSON.stringify({date:vd.value,name:vn.value}))}catch(e){}cd()}));
+cd();setInterval(cd,1000);
+
+// deep talks
+const TALKS={
+ "Getting closer":{free:true,q:["What's a small thing I do that makes you feel loved, even from far away?","When did you first know this was more than a crush?","What's something you've never told me because it felt too small to mention?","What do you miss most about being in the same room as me?","What's a memory of us you replay when you can't sleep?","What's one way I could support you better this month?"]},
+ "Dreams & future":{free:true,q:["Picture an ordinary Tuesday five years from now. What does it look like?","Which city could you see us building a life in, and why?","What's one thing you want to do together before we close the distance?","What does 'home' mean to you?","What's a dream you've put on hold that I could help with?"]},
+ "Just for fun":{free:true,q:["If we had one free plane ticket to anywhere tonight, where are we going?","What would our couple name be on a reality show?","What's the most 'us' meal you can think of?","Which song should be our countdown anthem?","If we opened a restaurant together, what's on the menu?"]},
+ "Trust & hard stuff":{free:false,q:["When do you feel the distance the most, and what helps?","Is there anything you've been holding back because you didn't want to worry me?"]},
+ "Intimacy":{free:false,q:["What makes you feel closest to me when we're apart?"]},
+ "Money & moving":{free:false,q:["How should we split the cost of visits so it feels fair to both of us?"]}
+};
+let cat="Getting closer",idx=0;
+const catsEl=document.getElementById("cats");
+Object.keys(TALKS).forEach(k=>{const b=document.createElement("button");b.type="button";b.className="cat";b.setAttribute("aria-pressed",k===cat);
+ b.innerHTML="<span>"+k+"</span>"+(TALKS[k].free?'<span class="pill free">Free</span>':'<span class="pill">Plus</span>');
+ b.addEventListener("click",()=>{cat=k;idx=0;catsEl.querySelectorAll(".cat").forEach(x=>x.setAttribute("aria-pressed",x===b));showQ()});catsEl.appendChild(b)});
+function showQ(){const t=TALKS[cat],card=document.getElementById("qcard");card.classList.toggle("locked",!t.free);
+ document.getElementById("lockmsg").hidden=t.free;document.getElementById("nextQ").hidden=!t.free;document.getElementById("saveQ").hidden=!t.free;
+ document.getElementById("q").textContent=t.q[idx%t.q.length];
+ document.getElementById("qnum").textContent=cat.toUpperCase()+" · "+(t.free?"QUESTION "+((idx%t.q.length)+1)+" OF "+t.q.length:"PLUS");
+ document.getElementById("saveQ").textContent="Save for later"}
+document.getElementById("nextQ").addEventListener("click",()=>{idx++;showQ()});
+document.getElementById("saveQ").addEventListener("click",e=>{e.target.textContent="Saved ✓"});
+showQ();
+
+// arcade cabinets
+let tix=420;document.querySelectorAll(".cab").forEach(c=>c.addEventListener("click",()=>{document.querySelectorAll(".cab").forEach(x=>x.classList.remove("on"));c.classList.add("on");tix+=Math.floor(Math.random()*40)+10;document.getElementById("tickets").textContent="TICKETS "+String(tix).padStart(4,"0")}));
+
+// waitlist (preview)
+document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefault();const em=document.getElementById("email");
+ if(!/^\S+@\S+\.\S+$/.test(em.value)){document.getElementById("formMsg").textContent="Enter an email like name@example.com.";em.focus();return}
+ e.target.hidden=true;document.getElementById("done").hidden=false});
+</script>
+</body>
+</html>
