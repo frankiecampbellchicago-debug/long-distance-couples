@@ -75,14 +75,64 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .hero h1 em{font-style:normal;color:var(--red)}
 .hero p.lede{font-size:20px;color:var(--muted);max-width:40ch}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-#travel .postcard{max-width:640px;margin-bottom:40px}
+/* travel */
+.tgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;align-items:start}
+@media (max-width:940px){.tgrid{grid-template-columns:1fr}}
+.search{position:relative}
+.search input{font:600 15px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:9px 10px;width:100%;min-width:0;text-overflow:ellipsis}
+.search input:focus{outline:3px solid var(--red);outline-offset:1px;background:var(--card)}
+.results{position:absolute;z-index:20;left:0;right:0;top:calc(100% + 4px);margin:0;padding:4px;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:0 16px 30px -18px rgba(47,36,27,.6);max-height:280px;overflow:auto;min-width:220px}
+.results li{display:grid;gap:1px;padding:8px 10px;border-radius:6px;cursor:pointer}
+.results li strong{font-weight:600;font-size:15px}
+.results li span{font-size:12px;color:var(--muted)}
+.results li[aria-selected="true"],.results li:hover{background:var(--stamp)}
+.clock .ap{font:500 11px var(--mono);color:var(--blue)}
+.sstatus{font-size:12px;color:var(--red);min-height:0}
+.sstatus:empty{display:none}
+.midlinks{margin-top:4px;font-size:14px}
+.midlinks a{color:var(--blue);font-weight:600}
+.fare{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(47,36,27,.45);padding:22px;display:grid;gap:14px;min-width:0}
+.fare h3{font-size:26px}
+.fsub{color:var(--muted);font-size:15px}
+.route{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start}
+.code{display:grid;gap:4px;min-width:0}
+.code span,.dates2 span{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.code input{font:500 28px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:6px 10px;width:100%}
+.code small{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.swap{margin-top:22px;width:40px;height:40px;font-size:18px}
+.dates2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dates2 label{display:grid;gap:4px;min-width:0}
+.dates2 em{font-style:normal;text-transform:none;letter-spacing:0}
+.dates2 input{font:15px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-width:0}
+.code input:focus-visible,.dates2 input:focus-visible{outline:3px solid var(--red);outline-offset:1px}
+.fmsg{font-size:13px;color:var(--red)}
+.fmsg:empty{display:none}
+.fbtns{display:flex;flex-wrap:wrap;gap:8px}
+.fbtns .btn{padding:11px 18px;font-size:14px}
+.fbtns a[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.wbtn{background:var(--red);color:var(--card);justify-self:start}
+.wbtn:disabled{opacity:.45;cursor:not-allowed}
+.watch{border-top:1px dashed var(--line);padding-top:14px;display:grid;gap:10px}
+.watch h4{margin:0;font:18px var(--display);font-weight:400}
+.wempty,.fnote{font-size:13px;color:var(--muted)}
+#watchList{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+#watchList li{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.wroute{display:grid}
+.wroute strong{font:500 16px var(--mono)}
+.wroute span{font-size:12px;color:var(--muted)}
+.wacts{display:flex;gap:12px;align-items:center;font-size:13px;font-weight:600}
+.wacts a{color:var(--blue)}
+.wx{background:none;border:0;color:var(--muted);font:600 13px var(--body);cursor:pointer;text-decoration:underline}
+.soon{margin-top:28px;display:flex;gap:16px;align-items:flex-start;border-top:3px solid var(--blue);padding-top:18px;max-width:720px}
+.soon h3{font-size:22px}
+.soon p{color:var(--muted)}
+@media (max-width:480px){.route{grid-template-columns:1fr auto 1fr}.code input{font-size:22px}.dates2{grid-template-columns:1fr}}
 
 .postcard{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(47,36,27,.45);overflow:hidden;min-width:0}
 .postcard .inner{padding:22px;display:grid;gap:18px}
 .clocks{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch}
 .clock{display:grid;gap:6px;min-width:0}
 .clock label{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.clock select{font:600 15px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px;width:100%;min-width:0}
 .clock .time{font:500 clamp(26px,4vw,34px)/1 var(--mono);font-variant-numeric:tabular-nums}
 .clock .day{font-size:13px;color:var(--muted)}
 .dash{align-self:center;color:var(--muted);font:12px var(--mono);text-align:center;writing-mode:horizontal-tb}
@@ -107,12 +157,6 @@ section.band{padding-block:80px}
 .tags span{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted)}
 
 /* travel */
-.travel{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-@media (max-width:860px){.travel{grid-template-columns:1fr}}
-.tcard{border-top:3px solid var(--blue);padding-top:18px;display:grid;gap:10px;align-content:start}
-.tcard:nth-child(2){border-color:var(--red)}
-.tcard h3{font-size:24px}
-.tcard p{color:var(--muted)}
 .countdown{display:flex;gap:10px;margin-top:6px}
 .countdown div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;text-align:center;min-width:64px}
 .countdown b{display:block;font:500 24px var(--mono);font-variant-numeric:tabular-nums}
@@ -356,14 +400,25 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   <div class="sechead">
     <span class="eyebrow">Travel together</span>
     <h2>Plan the next time you're in the same room.</h2>
-    <p>Love Is In The Air keeps your visits in one place, from the countdown to the trip itself.</p>
+    <p>Search your two cities, see each other's time, find a fair place to meet, and check real flight prices between you.</p>
   </div>
+  <div class="tgrid">
   <div class="postcard" aria-label="Your distance">
     <div class="inner">
       <div class="clocks">
-        <div class="clock"><label for="cityA">You're in</label><select id="cityA"></select><div class="time" id="timeA">--:--</div><div class="day" id="dayA"></div></div>
+        <div class="clock">
+          <label for="cityA">You're in</label>
+          <div class="search"><input id="cityA" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="listA" autocomplete="off" spellcheck="false" placeholder="Search for a city"><ul class="results" id="listA" role="listbox" hidden></ul></div>
+          <div class="time" id="timeA">--:--</div><div class="day" id="dayA"></div><div class="ap" id="apA"></div>
+          <p class="sstatus" id="statusA" role="status"></p>
+        </div>
         <div class="dash"><svg width="40" height="12" aria-hidden="true"><path d="M2 6h36" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg><span id="gap"></span></div>
-        <div class="clock"><label for="cityB">They're in</label><select id="cityB"></select><div class="time" id="timeB">--:--</div><div class="day" id="dayB"></div></div>
+        <div class="clock">
+          <label for="cityB">They're in</label>
+          <div class="search"><input id="cityB" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="listB" autocomplete="off" spellcheck="false" placeholder="Search for a city"><ul class="results" id="listB" role="listbox" hidden></ul></div>
+          <div class="time" id="timeB">--:--</div><div class="day" id="dayB"></div><div class="ap" id="apB"></div>
+          <p class="sstatus" id="statusB" role="status"></p>
+        </div>
       </div>
       <div class="stats">
         <div class="stat"><b id="miles">–</b><span>miles apart</span></div>
@@ -372,24 +427,41 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
       </div>
       <div class="meet">
         <div class="stampbox" aria-hidden="true">½</div>
-        <div><p>Meet halfway in</p><strong id="mid">–</strong><p id="midnote"></p></div>
+        <div><p>Meet halfway in</p><strong id="mid">–</strong><p id="midnote"></p>
+          <p class="midlinks" id="midLinks" hidden><a id="midYou" target="_blank" rel="noopener">Your flights there</a> · <a id="midThem" target="_blank" rel="noopener">Their flights there</a></p></div>
       </div>
     </div>
   </div>
-  <div class="travel">
-    <div class="tcard">
-      <h3>Fare alerts</h3>
-      <p>Tell us your two home airports. We'll let you know when flights between them drop, so you can see each other more often for less.</p>
+
+  <div class="fare" aria-labelledby="fareTitle">
+    <h3 id="fareTitle">Fare watch</h3>
+    <p class="fsub">We fill in your nearest airports. Check live prices, then save the route to keep an eye on it.</p>
+    <div class="route">
+      <label class="code" for="fareFrom"><span>From</span><input id="fareFrom" type="text" inputmode="text" maxlength="3" autocomplete="off" spellcheck="false"><small id="fareFromName"></small></label>
+      <button class="round swap" type="button" id="fareSwap" aria-label="Swap airports">&#8646;</button>
+      <label class="code" for="fareTo"><span>To</span><input id="fareTo" type="text" inputmode="text" maxlength="3" autocomplete="off" spellcheck="false"><small id="fareToName"></small></label>
     </div>
-    <div class="tcard">
-      <h3>Meet halfway</h3>
-      <p>Find cities between you, compare flight times and prices for both of you, and pick a weekend that splits the trip fairly.</p>
+    <div class="dates2">
+      <label for="fareDep"><span>Leave</span><input id="fareDep" type="date"></label>
+      <label for="fareRet"><span>Return <em>(optional)</em></span><input id="fareRet" type="date"></label>
     </div>
-    <div class="tcard">
-      <h3>Shared trip board</h3>
-      <p>Save places you want to go together, split costs, and keep tickets and itineraries where you can both see them.</p>
+    <p class="fmsg" id="fareMsg" role="status"></p>
+    <div class="fbtns">
+      <a class="btn" id="fareGoogle" target="_blank" rel="noopener">Check prices on Google Flights</a>
+      <a class="btn ghost" id="fareKayak" target="_blank" rel="noopener">Kayak</a>
+      <a class="btn ghost" id="fareSky" target="_blank" rel="noopener">Skyscanner</a>
+    </div>
+    <button class="btn wbtn" type="button" id="fareWatch">Watch this route</button>
+    <div class="watch">
+      <h4>Your watch list</h4>
+      <p class="wempty" id="watchEmpty">No routes yet. Save one above and it stays here on this device.</p>
+      <ul id="watchList"></ul>
+      <p class="fnote">Want an email when prices drop? Open the route on Google Flights and turn on <b>Track prices</b>. Automatic alerts from Love Is In The Air are coming soon.</p>
     </div>
   </div>
+  </div>
+
+  <div class="soon"><span class="pill free">Coming soon</span><div><h3>Shared trip board</h3><p>Save places you want to go together, split costs, and keep tickets and itineraries where you can both see them.</p></div></div>
 </div></section>
 
 <section class="band" id="articles" style="padding-top:0"><div class="wrap">
@@ -482,59 +554,6 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 
 <script src="js/deep-talks.js"></script>
 <script>
-const C=[
- ["Chicago, IL",41.88,-87.63,"America/Chicago"],["New York, NY",40.71,-74.01,"America/New_York"],["Los Angeles, CA",34.05,-118.24,"America/Los_Angeles"],
- ["Atlanta, GA",33.75,-84.39,"America/New_York"],["Dallas, TX",32.78,-96.80,"America/Chicago"],["Houston, TX",29.76,-95.37,"America/Chicago"],
- ["Miami, FL",25.76,-80.19,"America/New_York"],["Denver, CO",39.74,-104.99,"America/Denver"],["Seattle, WA",47.61,-122.33,"America/Los_Angeles"],
- ["Phoenix, AZ",33.45,-112.07,"America/Phoenix"],["Boston, MA",42.36,-71.06,"America/New_York"],["Nashville, TN",36.16,-86.78,"America/Chicago"],
- ["Detroit, MI",42.33,-83.05,"America/Detroit"],["Minneapolis, MN",44.98,-93.27,"America/Chicago"],["New Orleans, LA",29.95,-90.07,"America/Chicago"],
- ["Las Vegas, NV",36.17,-115.14,"America/Los_Angeles"],["Kansas City, MO",39.10,-94.58,"America/Chicago"],["St. Louis, MO",38.63,-90.20,"America/Chicago"],
- ["Charlotte, NC",35.23,-80.84,"America/New_York"],["Washington, DC",38.91,-77.04,"America/New_York"],["Salt Lake City, UT",40.76,-111.89,"America/Denver"],
- ["Albuquerque, NM",35.08,-106.65,"America/Denver"],["Oklahoma City, OK",35.47,-97.52,"America/Chicago"],["Omaha, NE",41.26,-95.93,"America/Chicago"],
- ["Pittsburgh, PA",40.44,-79.99,"America/New_York"],["Columbus, OH",39.96,-83.00,"America/New_York"],["Memphis, TN",35.15,-90.05,"America/Chicago"],
- ["Toronto, ON",43.65,-79.38,"America/Toronto"],["Mexico City",19.43,-99.13,"America/Mexico_City"],["Honolulu, HI",21.31,-157.86,"Pacific/Honolulu"],
- ["London, UK",51.51,-0.13,"Europe/London"],["Paris, France",48.86,2.35,"Europe/Paris"],["Reykjavík, Iceland",64.15,-21.94,"Atlantic/Reykjavik"],
- ["Lagos, Nigeria",6.52,3.38,"Africa/Lagos"],["Madrid, Spain",40.42,-3.70,"Europe/Madrid"],["Berlin, Germany",52.52,13.40,"Europe/Berlin"],
- ["Tokyo, Japan",35.68,139.69,"Asia/Tokyo"],["Seoul, South Korea",37.57,126.98,"Asia/Seoul"],["Manila, Philippines",14.60,120.98,"Asia/Manila"],
- ["Sydney, Australia",-33.87,151.21,"Australia/Sydney"],["São Paulo, Brazil",-23.55,-46.63,"America/Sao_Paulo"],["Dubai, UAE",25.20,55.27,"Asia/Dubai"]
-];
-const A=document.getElementById("cityA"),B=document.getElementById("cityB");
-C.forEach((c,i)=>{A.add(new Option(c[0],i));B.add(new Option(c[0],i))});
-A.value=0;B.value=1;
-try{const s=JSON.parse(localStorage.getItem("halfway-cities")||"null");if(s){A.value=s[0];B.value=s[1]}}catch(e){}
-
-const rad=d=>d*Math.PI/180,deg=r=>r*180/Math.PI;
-function dist(a,b){const R=3958.8,dLa=rad(b[1]-a[1]),dLo=rad(b[2]-a[2]);const h=Math.sin(dLa/2)**2+Math.cos(rad(a[1]))*Math.cos(rad(b[1]))*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
-function midpoint(a,b){const la1=rad(a[1]),lo1=rad(a[2]),la2=rad(b[1]),dLo=rad(b[2]-a[2]);const bx=Math.cos(la2)*Math.cos(dLo),by=Math.cos(la2)*Math.sin(dLo);
- const la=Math.atan2(Math.sin(la1)+Math.sin(la2),Math.sqrt((Math.cos(la1)+bx)**2+by**2)),lo=lo1+Math.atan2(by,Math.cos(la1)+bx);return [null,deg(la),deg(lo)]}
-function offsetMin(tz){const d=new Date();const p=new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}).formatToParts(d).reduce((o,x)=>(o[x.type]=x.value,o),{});
- return (Date.UTC(+p.year,p.month-1,+p.day,+p.hour%24,+p.minute)-Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),d.getUTCHours(),d.getUTCMinutes()))/60000}
-const fmtT=tz=>new Intl.DateTimeFormat("en-US",{timeZone:tz,hour:"numeric",minute:"2-digit"}).format(new Date());
-const fmtD=tz=>new Intl.DateTimeFormat("en-US",{timeZone:tz,weekday:"long"}).format(new Date());
-
-function update(){
-  const a=C[A.value],b=C[B.value];
-  document.getElementById("timeA").textContent=fmtT(a[3]);document.getElementById("dayA").textContent=fmtD(a[3]);
-  document.getElementById("timeB").textContent=fmtT(b[3]);document.getElementById("dayB").textContent=fmtD(b[3]);
-  const diff=(offsetMin(b[3])-offsetMin(a[3]))/60;
-  document.getElementById("gap").textContent=diff===0?"same time":(diff>0?"+":"−")+Math.abs(diff)+"h";
-  const mi=dist(a,b);
-  document.getElementById("miles").textContent=Math.round(mi).toLocaleString();
-  const hrs=mi<1?0:mi/500+0.5;
-  document.getElementById("flight").textContent=mi<1?"—":Math.floor(hrs)+"h "+String(Math.round((hrs%1)*60)).padStart(2,"0")+"m";
-  // awake hours 8:00–23:00 local, count overlap
-  let ov=0;for(let h=8;h<23;h++){const t=h+diff;const tt=((t%24)+24)%24;if(tt>=8&&tt<23)ov++}
-  document.getElementById("overlap").textContent=ov+" h";
-  const m=midpoint(a,b);let best=null,bd=1e9;
-  C.forEach((c,i)=>{if(i==A.value||i==B.value)return;const d=dist(m,c);if(d<bd){bd=d;best=c}});
-  const mid=document.getElementById("mid"),note=document.getElementById("midnote");
-  if(mi<1){mid.textContent="You're already there";note.textContent="Pick two different cities."}
-  else if(bd>600){mid.textContent="Pick a spot together";note.textContent="The midpoint is far from any big city. We'll suggest nearby options."}
-  else{mid.textContent=best[0];note.textContent=Math.round(dist(a,best)).toLocaleString()+" mi for you · "+Math.round(dist(b,best)).toLocaleString()+" mi for them"}
-}
-[A,B].forEach(s=>s.addEventListener("change",()=>{try{localStorage.setItem("halfway-cities",JSON.stringify([A.value,B.value]))}catch(e){}update()}));
-update();setInterval(update,30000);
-
 // visit countdown (defaults to an example date 23 days out)
 const vd=document.getElementById("visitDate"),vn=document.getElementById("visitName");
 const pad=n=>String(n).padStart(2,"0");
@@ -675,5 +694,7 @@ document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefau
  if(!/^\S+@\S+\.\S+$/.test(em.value)){document.getElementById("formMsg").textContent="Enter an email like name@example.com.";em.focus();return}
  e.target.hidden=true;document.getElementById("done").hidden=false});
 </script>
+<script src="js/airports.js"></script>
+<script src="js/travel.js"></script>
 </body>
 </html>
