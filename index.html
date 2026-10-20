@@ -54,14 +54,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 
 /* hero */
 .top{--ink:#2a1f17;--muted:#4f4034;--line:rgba(42,31,23,.35);--blue:#2c4a7a;--onblue:#ffffff;--red:#a8362f;color:var(--ink);min-height:100svh;display:flex;flex-direction:column;
-  background:linear-gradient(90deg,rgba(244,233,214,.94) 0%,rgba(244,233,214,.82) 38%,rgba(244,233,214,.15) 68%,rgba(244,233,214,0) 100%),
-  url("images/hero.jpg") center top/cover no-repeat;
-  background:linear-gradient(90deg,rgba(244,233,214,.94) 0%,rgba(244,233,214,.82) 38%,rgba(244,233,214,.15) 68%,rgba(244,233,214,0) 100%),
-  image-set(url("images/hero.webp") type("image/webp"),url("images/hero.jpg") type("image/jpeg")) center top/cover no-repeat}
+  background:linear-gradient(rgba(244,233,214,.6),rgba(244,233,214,.6)),url("images/hero-blur.jpg") center/cover no-repeat #efe2c8}
 .top .hero{flex:1;display:flex}
 .top .btn.ghost{background:rgba(255,250,240,.6)}
-@media (max-width:760px){.top{background:linear-gradient(180deg,rgba(244,233,214,.86),rgba(244,233,214,.9) 40%,rgba(244,233,214,.9) 75%,rgba(244,233,214,.7)),url("images/hero.jpg") center top/cover no-repeat}}
-.hero .wrap{position:relative;flex:1;display:flex;align-items:center;padding-block:32px 64px}
+.hero .wrap{flex:1;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;padding-block:16px 40px}
+.heroimg{display:block;height:calc(100svh - 150px);min-height:360px;max-height:760px;width:auto;max-width:100%;border-radius:6px;box-shadow:0 24px 50px -20px rgba(42,31,23,.55)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:28px}.heroimg{height:auto;min-height:0;width:100%;max-width:520px}}
 .herotext{position:relative;z-index:1}
 .hero h1{font-size:clamp(40px,min(7vw,11svh),92px);margin-block:0 22px}
 .hero h1 em{font-style:normal;color:var(--red)}
@@ -265,6 +263,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <p class="lede">Dates, deep talks, and a countdown to your next visit.</p>
     <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See what's inside</a></div>
   </div>
+  <picture><source srcset="images/hero.webp" type="image/webp"><img class="heroimg" src="images/hero.jpg" width="1122" height="1402" alt="A vintage postcard reading Love is in the air, on airmail envelopes under a map with a plane tracing a heart"></picture>
 </div></header>
 </div>
 
