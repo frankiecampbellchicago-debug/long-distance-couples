@@ -16,12 +16,6 @@
     const h = Math.sin(dLa / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLo / 2) ** 2;
     return 2 * 3958.8 * Math.asin(Math.sqrt(h));
   }
-  function midpoint(a, b) {
-    const la1 = rad(a.lat), lo1 = rad(a.lon), la2 = rad(b.lat), dLo = rad(b.lon - a.lon);
-    const bx = Math.cos(la2) * Math.cos(dLo), by = Math.cos(la2) * Math.sin(dLo);
-    const la = Math.atan2(Math.sin(la1) + Math.sin(la2), Math.sqrt((Math.cos(la1) + bx) ** 2 + by ** 2));
-    return { lat: deg(la), lon: deg(lo1 + Math.atan2(by, Math.cos(la1) + bx)) };
-  }
   function offsetMin(tz) {
     const d = new Date();
     const p = new Intl.DateTimeFormat("en-US", { timeZone: tz, hour12: false, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
@@ -77,6 +71,7 @@
     }
     function choose(i) {
       const r = results[i]; if (!r) return;
+      meetPick = 0;
       cities[idx] = { name: r.name, label: [r.name, r.admin1, r.country].filter(Boolean).join(", "), lat: r.latitude, lon: r.longitude, tz: r.timezone || "UTC" };
       input.value = cities[idx].label; status.textContent = "";
       store.set("liita-cities", cities); close(); update(true);
@@ -200,6 +195,54 @@
   [depEl, retEl].forEach(el => el.addEventListener("change", refreshFare));
   document.querySelectorAll(".fbtns a").forEach(a => a.addEventListener("click", e => { if (a.getAttribute("aria-disabled") === "true") e.preventDefault(); }));
 
+  // ---------- meet halfway ----------
+  // Pick the airport cities that make the trip as even as possible for both people:
+  // score = the longer of the two trips, plus a penalty for how lopsided they are.
+  let meetOptions = [], meetPick = 0;
+  const flightTime = d => { const h = d / 500 + 0.5; return Math.floor(h) + "h " + pad(Math.round((h % 1) * 60)) + "m"; };
+  const cityName = ap => ap[1].replace(/ \(.*\)$/, "");
+  function findMeetups(a, b, total) {
+    const seen = new Set(), out = [];
+    AIRPORTS.forEach(ap => {
+      if (ap[1].includes("(")) return;                    // main airports only
+      const city = cityName(ap); if (seen.has(city)) return; seen.add(city);
+      const p = apPoint(ap), da = miles(a, p), db = miles(b, p);
+      if (da < 120 || db < 120) return;                   // not either person's home area
+      if (da + db > total * 1.6 + 300) return;            // has to be roughly on the way
+      out.push({ ap, da, db, score: Math.max(da, db) + 0.5 * Math.abs(da - db) });
+    });
+    return out.sort((x, y) => x.score - y.score).slice(0, 4);
+  }
+  function renderMeet(na, nb, total) {
+    const mid = $("mid"), note = $("midnote"), ml = $("midLinks"), alts = $("midAlts");
+    alts.innerHTML = "";
+    if (total < 150) {
+      mid.textContent = "You're already close"; note.textContent = "You live less than 150 miles apart. Just pick a weekend!"; ml.hidden = true; return;
+    }
+    if (!meetOptions.length) {
+      mid.textContent = "Pick a spot together"; note.textContent = "We couldn't find a big airport between you. Try a city along the way."; ml.hidden = true; return;
+    }
+    if (meetPick >= meetOptions.length) meetPick = 0;
+    const o = meetOptions[meetPick];
+    mid.textContent = cityName(o.ap) + " (" + o.ap[0] + ")";
+    note.textContent = "You: " + Math.round(o.da).toLocaleString() + " mi, about " + flightTime(o.da) + " · Them: " + Math.round(o.db).toLocaleString() + " mi, about " + flightTime(o.db);
+    ml.hidden = !(na.ap && nb.ap);
+    if (na.ap && nb.ap) {
+      $("midYou").href = links(na.ap[0], o.ap[0], depEl.value, retEl.value).google;
+      $("midThem").href = links(nb.ap[0], o.ap[0], depEl.value, retEl.value).google;
+    }
+    if (meetOptions.length > 1) {
+      const lab = document.createElement("span"); lab.textContent = "Other fair picks:"; alts.appendChild(lab);
+      meetOptions.forEach((x, i) => {
+        if (i === meetPick) return;
+        const btn = document.createElement("button"); btn.type = "button"; btn.className = "malt";
+        btn.textContent = cityName(x.ap) + " (" + x.ap[0] + ")";
+        btn.addEventListener("click", () => { meetPick = i; renderMeet(na, nb, total); });
+        alts.appendChild(btn);
+      });
+    }
+  }
+
   // ---------- main update ----------
   function update(citiesChanged) {
     const [a, b] = cities;
@@ -218,25 +261,8 @@
     $("apA").textContent = na.ap ? "Nearest airport: " + na.ap[0] + " · " + Math.round(na.mi) + " mi" : "";
     $("apB").textContent = nb.ap ? "Nearest airport: " + nb.ap[0] + " · " + Math.round(nb.mi) + " mi" : "";
 
-    // meet halfway: closest airport city to the midpoint, not in either home area
-    const m = midpoint(a, b); let best = null, bd = Infinity; const seen = new Set();
-    AIRPORTS.forEach(ap => {
-      const city = ap[1].replace(/ \(.*\)$/, ""); if (seen.has(city)) return; seen.add(city);
-      const p = apPoint(ap); if (miles(p, a) < 150 || miles(p, b) < 150) return;
-      const d = miles(m, p); if (d < bd) { bd = d; best = ap; }
-    });
-    const mid = $("mid"), note = $("midnote"), ml = $("midLinks");
-    if (mi < 150) { mid.textContent = "You're already close"; note.textContent = "You live less than 150 miles apart. Just pick a weekend!"; ml.hidden = true; }
-    else if (!best || bd > 450) { mid.textContent = "Pick a spot together"; note.textContent = "There's no big airport near your halfway point. Try a city along the way."; ml.hidden = true; }
-    else {
-      mid.textContent = best[1].replace(/ \(.*\)$/, "") + " (" + best[0] + ")";
-      note.textContent = Math.round(miles(a, apPoint(best))).toLocaleString() + " mi for you · " + Math.round(miles(b, apPoint(best))).toLocaleString() + " mi for them";
-      ml.hidden = !(na.ap && nb.ap);
-      if (na.ap && nb.ap) {
-        $("midYou").href = links(na.ap[0], best[0], depEl.value, retEl.value).google;
-        $("midThem").href = links(nb.ap[0], best[0], depEl.value, retEl.value).google;
-      }
-    }
+    if (citiesChanged) meetOptions = findMeetups(a, b, mi);
+    renderMeet(na, nb, mi);
     if (citiesChanged && na.ap && nb.ap) { fromEl.value = na.ap[0]; toEl.value = nb.ap[0]; }
     refreshFare();
   }

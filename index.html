@@ -91,6 +91,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .sstatus:empty{display:none}
 .midlinks{margin-top:4px;font-size:14px}
 .midlinks a{color:var(--blue);font-weight:600}
+.midalts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-size:12px;color:var(--muted)}
+.midalts:empty{display:none}
+.malt{font:600 12px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:pointer}
+.malt:hover{border-color:var(--ink)}
+.malt:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 .fare{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(47,36,27,.45);padding:22px;display:grid;gap:14px;min-width:0}
 .fare h3{font-size:26px}
 .fsub{color:var(--muted);font-size:15px}
@@ -428,7 +433,8 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
       <div class="meet">
         <div class="stampbox" aria-hidden="true">½</div>
         <div><p>Meet halfway in</p><strong id="mid">–</strong><p id="midnote"></p>
-          <p class="midlinks" id="midLinks" hidden><a id="midYou" target="_blank" rel="noopener">Your flights there</a> · <a id="midThem" target="_blank" rel="noopener">Their flights there</a></p></div>
+          <p class="midlinks" id="midLinks" hidden><a id="midYou" target="_blank" rel="noopener">Your flights there</a> · <a id="midThem" target="_blank" rel="noopener">Their flights there</a></p>
+          <div class="midalts" id="midAlts"></div></div>
       </div>
     </div>
   </div>
