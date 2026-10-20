@@ -144,7 +144,8 @@ section.band{padding-block:80px}
 .dcard.k-together .where{color:var(--red)}
 .dcard h3{font-size:24px;line-height:1.15}
 .dcard .facts{margin-top:auto;display:flex;gap:12px;font:500 12px var(--mono);color:var(--muted)}
-.dcard .glyph{font-size:30px;line-height:1;color:var(--red)}
+.dcard .glyph{width:52px;height:52px;flex:none;color:var(--blue);margin-block:4px}
+.dcard.k-together .glyph{color:var(--red)}
 .dcard.k-arcade{background:#120f24;border-color:var(--neon);color:#fff;box-shadow:0 0 24px -6px var(--neon)}
 .dcard.k-arcade .where{color:var(--neon2)}
 .dcard.k-arcade h3{font:15px/1.5 var(--pixel);color:var(--neon);text-shadow:0 0 10px var(--neon)}
@@ -159,7 +160,15 @@ section.band{padding-block:80px}
 .carctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:4px}
 .round{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center}
 .round:hover{border-color:var(--ink)}
-.detail{margin:28px auto 0;max-width:720px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:grid;gap:10px}
+.detail{margin:28px auto 0;max-width:720px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:grid;gap:10px;grid-template-columns:auto 1fr;column-gap:22px}
+.detail>*:not(.dicon){grid-column:2}
+.dicon{grid-row:1/span 5;align-self:start;width:84px;height:84px;border-radius:14px;display:grid;place-items:center;background:var(--stamp);color:var(--blue)}
+.dicon svg{width:52px;height:52px}
+.dicon.k-together{color:var(--red)}
+.dicon.k-arcade{background:#120f24;color:var(--neon)}
+.dicon.k-table{background:#3a2620;color:#e2c08f}
+.dicon.k-plus{background:var(--blue);color:var(--onblue)}
+@media (max-width:560px){.detail{grid-template-columns:1fr}.detail>*:not(.dicon){grid-column:1}.dicon{grid-row:auto;width:64px;height:64px}.dicon svg{width:40px;height:40px}}
 .detail .where{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
 .detail h3{font-size:30px}
 .detail p{color:var(--muted)}
@@ -167,7 +176,7 @@ section.band{padding-block:80px}
 .detail .facts span{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted)}
 .detail .btn{justify-self:start;margin-top:6px}
 .counter{font:500 12px var(--mono);color:var(--muted);min-width:64px;text-align:center}
-@media (max-width:560px){.stage{height:330px}.dcard{width:180px;height:250px;margin-left:-90px;top:36px}.dcard h3{font-size:21px}.detail{padding:20px}}
+@media (max-width:560px){.dcard .glyph{width:44px;height:44px}.stage{height:330px}.dcard{width:180px;height:250px;margin-left:-90px;top:36px}.dcard h3{font-size:21px}.detail{padding:20px}}
 
 /* countdown band */
 .cdband{background:var(--night);color:#f1f0ec}
@@ -281,6 +290,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <button class="round" type="button" id="nextD" aria-label="Next date">&#8594;</button>
   </div>
   <div class="detail" id="detail" aria-live="polite">
+    <span class="dicon" id="dIcon"></span>
     <span class="where" id="dWhere"></span>
     <h3 id="dTitle"></h3>
     <p id="dText"></p>
@@ -532,26 +542,47 @@ cd();setInterval(cd,1000);
 
 // date carousel: virtual dates + date ideas on one spinning ring
 const DATES=[
- {k:"arcade",where:"Virtual date · In the app",g:"★",t:"Arcade Night",d:"Walk into a shared arcade, pick a cabinet, and play two-player co-op games in real time. Win tickets as a team and trade them in for prizes you send to each other.",f:["In the app","30–60 min","Co-op games","Shared ticket jar"],tags:["app","fun","adventurous"]},
- {k:"table",where:"Virtual date · In the app",g:"♨",t:"Table for Two",d:"Sit down at a virtual restaurant with an AI waiter who takes your orders, tells stories, and walks you both through cooking the same recipe in your own kitchens.",f:["In the app","1 hr","AI waiter","Cook-along recipes"],tags:["app","cozy"]},
- {k:"apart",t:"Movie night, in sync",d:"Count down and press play on the same movie at the same second. Keep a call open for the commentary.",f:["Free","2–3 hrs"],tags:["free","cozy"]},
- {k:"apart",t:"Order each other dinner",d:"Each of you picks a meal and has it delivered to the other's door. Eat together on video.",f:["$$","1 hr"],tags:["cozy"]},
- {k:"apart",t:"Stargazing call",d:"Go outside on the same night, open a star map app, and try to find the same constellation.",f:["Free","1 hr"],tags:["free","cozy"]},
- {k:"together",t:"Recreate your first date",d:"Same place, same order, same outfits if you can. Talk about what you were thinking back then.",f:["$$","An evening"],tags:["cozy"]},
- {k:"apart",t:"Our story playlist",d:"Take turns adding songs that tell the story of your relationship, then listen start to finish together.",f:["Free","1 hr"],tags:["free"]},
- {k:"apart",t:"Virtual museum trip",d:"Pick a museum with a free online tour, like the Louvre or the Smithsonian, and explore it side by side.",f:["Free","1–2 hrs"],tags:["free"]},
- {k:"together",t:"Tourist in my city",d:"Each of you plans one day showing the other your favorite spots, the places you've always wanted to show them.",f:["$$","1 day"],tags:[]},
- {k:"apart",t:"Letters on the same night",d:"Mail each other a handwritten letter, then open them together on a call.",f:["$","1 week"],tags:["cozy"]},
- {k:"apart",t:"Two-person book club",d:"Read the same book, one chapter a week, and talk it through every Sunday.",f:["$","Ongoing"],tags:["cozy"]},
- {k:"together",t:"Meet somewhere new",d:"Split the trip and meet in a city neither of you has been to. Use Travel to find one between you.",f:["$$$","Weekend"],tags:["adventurous"]},
- {k:"apart",t:"Same-box cook-off",d:"Buy the same five ingredients and see who makes the better dinner. Vote on looks and taste.",f:["$$","1–2 hrs"],tags:[]},
- {k:"apart",t:"Online escape room",d:"Book a two-player virtual escape room and solve it as a team on video.",f:["$$","1 hr"],tags:["adventurous"]},
- {k:"together",t:"Build a time capsule",d:"Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.",f:["Free","1 hr"],tags:["free","cozy"]},
- {k:"apart",t:"Neighborhood walk-along",d:"Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.",f:["Free","45 min"],tags:["free"]},
- {k:"together",t:"Take a class together",d:"Pottery, salsa, or a cooking class. You leave with a new skill and a story.",f:["$$","2–3 hrs"],tags:["adventurous"]},
- {k:"plus",where:"Love Is In The Air Plus",g:"+",t:"200+ more date ideas",d:"Holiday dates, anniversary plans, and new ideas every month, plus unlimited virtual dates.",f:["Plus"],tags:["all-only"]}
+ {k:"arcade",where:"Virtual date · In the app",i:"arcade",t:"Arcade Night",d:"Walk into a shared arcade, pick a cabinet, and play two-player co-op games in real time. Win tickets as a team and trade them in for prizes you send to each other.",f:["In the app","30–60 min","Co-op games","Shared ticket jar"],tags:["app","fun","adventurous"]},
+ {k:"table",where:"Virtual date · In the app",i:"cloche",t:"Table for Two",d:"Sit down at a virtual restaurant with an AI waiter who takes your orders, tells stories, and walks you both through cooking the same recipe in your own kitchens.",f:["In the app","1 hr","AI waiter","Cook-along recipes"],tags:["app","cozy"]},
+ {k:"apart",i:"popcorn",t:"Movie night, in sync",d:"Count down and press play on the same movie at the same second. Keep a call open for the commentary.",f:["Free","2–3 hrs"],tags:["free","cozy"]},
+ {k:"apart",i:"takeout",t:"Order each other dinner",d:"Each of you picks a meal and has it delivered to the other's door. Eat together on video.",f:["$$","1 hr"],tags:["cozy"]},
+ {k:"apart",i:"moon",t:"Stargazing call",d:"Go outside on the same night, open a star map app, and try to find the same constellation.",f:["Free","1 hr"],tags:["free","cozy"]},
+ {k:"together",i:"heart",t:"Recreate your first date",d:"Same place, same order, same outfits if you can. Talk about what you were thinking back then.",f:["$$","An evening"],tags:["cozy"]},
+ {k:"apart",i:"music",t:"Our story playlist",d:"Take turns adding songs that tell the story of your relationship, then listen start to finish together.",f:["Free","1 hr"],tags:["free"]},
+ {k:"apart",i:"museum",t:"Virtual museum trip",d:"Pick a museum with a free online tour, like the Louvre or the Smithsonian, and explore it side by side.",f:["Free","1–2 hrs"],tags:["free"]},
+ {k:"together",i:"map",t:"Tourist in my city",d:"Each of you plans one day showing the other your favorite spots, the places you've always wanted to show them.",f:["$$","1 day"],tags:[]},
+ {k:"apart",i:"letter",t:"Letters on the same night",d:"Mail each other a handwritten letter, then open them together on a call.",f:["$","1 week"],tags:["cozy"]},
+ {k:"apart",i:"book",t:"Two-person book club",d:"Read the same book, one chapter a week, and talk it through every Sunday.",f:["$","Ongoing"],tags:["cozy"]},
+ {k:"together",i:"plane",t:"Meet somewhere new",d:"Split the trip and meet in a city neither of you has been to. Use Travel to find one between you.",f:["$$$","Weekend"],tags:["adventurous"]},
+ {k:"apart",i:"pan",t:"Same-box cook-off",d:"Buy the same five ingredients and see who makes the better dinner. Vote on looks and taste.",f:["$$","1–2 hrs"],tags:[]},
+ {k:"apart",i:"key",t:"Online escape room",d:"Book a two-player virtual escape room and solve it as a team on video.",f:["$$","1 hr"],tags:["adventurous"]},
+ {k:"together",i:"hourglass",t:"Build a time capsule",d:"Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.",f:["Free","1 hr"],tags:["free","cozy"]},
+ {k:"apart",i:"phone",t:"Neighborhood walk-along",d:"Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.",f:["Free","45 min"],tags:["free"]},
+ {k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, or a cooking class. You leave with a new skill and a story.",f:["$$","2–3 hrs"],tags:["adventurous"]},
+ {k:"plus",where:"Love Is In The Air Plus",i:"sparkle",t:"200+ more date ideas",d:"Holiday dates, anniversary plans, and new ideas every month, plus unlimited virtual dates.",f:["Plus"],tags:["all-only"]}
 ];
 const WHERE={apart:"While apart",together:"When you visit"};
+const ICONS={
+ arcade:'<rect x="3" y="15" width="18" height="6" rx="2"/><path d="M12 15V9"/><circle cx="12" cy="6.5" r="2.8"/><circle cx="17.5" cy="18" r=".9"/>',
+ cloche:'<path d="M4 18a8 8 0 0 1 16 0Z"/><path d="M3 20.5h18"/><path d="M12 10V8.5"/><circle cx="12" cy="7.5" r="1"/>',
+ popcorn:'<path d="M6 10.5 7.6 21h8.8L18 10.5Z"/><path d="M10.4 10.5 10.8 21M13.6 10.5 13.2 21"/><circle cx="8.2" cy="8.4" r="2.2"/><circle cx="12" cy="6.6" r="2.5"/><circle cx="15.8" cy="8.4" r="2.2"/>',
+ takeout:'<path d="M5 9.5h14l-1.6 11H6.6Z"/><path d="m5 9.5 2-4.5h10l2 4.5"/><path d="M9.5 5c0-2.2 5-2.2 5 0"/>',
+ moon:'<path d="M15.5 4.5a7.5 7.5 0 1 0 4.5 11.8A8.2 8.2 0 0 1 15.5 4.5Z"/><path d="M6 3v3.5M4.25 4.75h3.5M19.5 3v2M18.5 4h2"/>',
+ heart:'<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20Z"/><path d="M19.5 2.5v3M18 4h3"/>',
+ music:'<path d="M9 18V6.5l10-2.2V16"/><path d="m9 9.5 10-2.2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/>',
+ museum:'<path d="M3 9.5 12 4l9 5.5Z"/><path d="M5.5 11v7M9.8 11v7M14.2 11v7M18.5 11v7"/><path d="M3.5 20.5h17"/>',
+ map:'<path d="m3 6.5 6-2.2 6 2.2 6-2.2v13.4l-6 2.2-6-2.2-6 2.2Z"/><path d="M9 4.3v13.4M15 6.5v13.4"/>',
+ letter:'<rect x="3" y="5.5" width="18" height="13.5" rx="1.6"/><path d="m3.5 6.5 8.5 6.3 8.5-6.3"/>',
+ book:'<path d="M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5Z"/><path d="M12 6.5v13"/>',
+ plane:'<path d="M21.5 3.5 2.5 11l7 2.5 2.5 7Z"/><path d="m9.5 13.5 12-10"/>',
+ pan:'<circle cx="9.5" cy="14" r="6"/><path d="M15.5 14H22"/><path d="M7.5 3.5c-1 1.1 1 2.2 0 3.3M11.5 3.5c-1 1.1 1 2.2 0 3.3"/>',
+ key:'<circle cx="8" cy="15" r="4.2"/><path d="m11 12 9-9M16.5 6.5l2.2 2.2M14.3 8.7l2 2"/>',
+ hourglass:'<path d="M6 3h12M6 21h12"/><path d="M7.5 3c0 4.5 4.5 5.5 4.5 9s-4.5 4.5-4.5 9M16.5 3c0 4.5-4.5 5.5-4.5 9s4.5 4.5 4.5 9"/>',
+ phone:'<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/><path d="M12 7.2a2.2 2.2 0 0 1 2.2 2.2c0 1.8-2.2 3.6-2.2 3.6s-2.2-1.8-2.2-3.6A2.2 2.2 0 0 1 12 7.2Z"/>',
+ vase:'<path d="M9 3h6"/><path d="M10 3c0 2.5-4 4-4 9 0 5 3 8.5 6 8.5s6-3.5 6-8.5c0-5-4-6.5-4-9"/><path d="M7 12.5h10"/>',
+ sparkle:'<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z"/><path d="M19 15.5v4M17 17.5h4"/>'
+};
+const svgIcon=(k,cls)=>'<svg class="'+cls+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[k]||"")+'</svg>';
 const FILTERS=[["all","All dates"],["app","In the app"],["apart","While apart"],["together","When you visit"],["free","Free"],["cozy","Cozy"],["adventurous","Adventurous"]];
 const stage=document.getElementById("stage"),ring=document.getElementById("ring"),chipsEl=document.getElementById("chips");
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -563,9 +594,8 @@ FILTERS.forEach(([k,label])=>{const b=document.createElement("button");b.type="b
 function build(){
   list=DATES.filter(d=>filt==="all"||d.k===filt||d.tags.includes(filt));
   ring.innerHTML="";cards=list.map((d,i)=>{const c=document.createElement("button");c.type="button";c.className="dcard k-"+d.k;c.tabIndex=-1;
-    c.innerHTML='<span class="where"></span><span class="glyph" aria-hidden="true"></span><h3></h3><span class="facts"></span>';
+    c.innerHTML='<span class="where"></span>'+svgIcon(d.i,"glyph")+'<h3></h3><span class="facts"></span>';
     c.querySelector(".where").textContent=d.where?d.where.replace(" · In the app",""):WHERE[d.k];
-    c.querySelector(".glyph").textContent=d.g||(d.k==="apart"?"♡":"✈");
     c.querySelector("h3").textContent=d.t;c.querySelector(".facts").textContent=d.f.slice(0,2).join("  ·  ");
     c.addEventListener("click",()=>{if(!moved){stopAuto();goTo(i)}});ring.appendChild(c);return c});
   step=360/list.length;rot=0;front=-1;size();render();
@@ -582,7 +612,7 @@ function render(){
   if(f!==front){front=f;showDetail()}
 }
 function showDetail(){const d=list[front];if(!d)return;
-  document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;
+  document.getElementById("dIcon").innerHTML=svgIcon(d.i,"");document.getElementById("dIcon").className="dicon k-"+d.k;document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;
   const fx=document.getElementById("dFacts");fx.innerHTML="";d.f.forEach(t=>{const s=document.createElement("span");s.textContent=t;fx.appendChild(s)});
   document.getElementById("dLink").hidden=d.k!=="plus";
   document.getElementById("counter").textContent=(front+1)+" / "+list.length;
