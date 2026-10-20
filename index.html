@@ -156,6 +156,10 @@ section.band{padding-block:80px}
 .join .done{background:rgba(255,255,255,.12);padding:16px;border-radius:8px}
 
 /* date ideas */
+.subhead{font-size:clamp(24px,3vw,30px);margin-bottom:20px}
+.subgroup{margin-top:64px;padding-top:40px;border-top:1px solid var(--line)}
+.subgroup .subhead{margin-bottom:8px}
+.subnote{color:var(--muted);margin-bottom:24px;max-width:60ch}
 .ideabar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:24px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{font:600 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer}
@@ -252,7 +256,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     Love Is In The Air
   </a>
   <div class="navlinks">
-    <a href="#dates">Virtual Dates</a><a href="#ideas">Date Ideas</a><a href="#countdown">Countdown</a><a href="#talks">Deep Talks</a><a href="#travel">Travel</a><a href="#articles">Articles</a><a href="#pricing">Pricing</a>
+    <a href="#dates">Dates</a><a href="#countdown">Countdown</a><a href="#talks">Deep Talks</a><a href="#travel">Travel</a><a href="#articles">Articles</a><a href="#pricing">Pricing</a>
     <a class="btn" href="#join">Join the waitlist</a>
   </div>
 </div></nav>
@@ -271,14 +275,15 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 
 <section class="band" id="dates"><div class="wrap">
   <div class="sechead">
-    <span class="eyebrow">Virtual dates</span>
+    <span class="eyebrow">Dates</span>
     <h2>Somewhere to go together.</h2>
-    <p>A video call works, but you end up just staring at each other. Each Love Is In The Air date gives you something to do together.</p>
+    <p>A video call works, but you end up just staring at each other. Play and cook together in the app, or pick an idea for tonight or your next visit.</p>
   </div>
+  <h3 class="subhead">Virtual dates in the app</h3>
   <div class="dates">
     <article class="date">
       <div class="arcade" aria-label="Arcade date preview">
-        <div class="marquee">★ HALFWAY ARCADE ★<br><span class="blink">INSERT COIN · 2 PLAYERS</span></div>
+        <div class="marquee">★ THE LOVE ARCADE ★<br><span class="blink">INSERT COIN · 2 PLAYERS</span></div>
         <div class="cabinets" role="group" aria-label="Pick a cabinet">
           <button class="cab on" type="button"><span class="ico">◆</span>CO-OP<br>PUZZLE</button>
           <button class="cab" type="button"><span class="ico">▲</span>AIR<br>HOCKEY</button>
@@ -308,13 +313,10 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
       </div>
     </article>
   </div>
-</div></section>
 
-<section class="band" id="ideas" style="padding-top:0"><div class="wrap">
-  <div class="sechead">
-    <span class="eyebrow">Date ideas</span>
-    <h2>Need a plan for this weekend?</h2>
-    <p>Ideas for nights you're apart and the days you finally get together. Filter by what you're in the mood for, or let us pick.</p>
+  <div class="subgroup" id="ideas">
+    <h3 class="subhead">Date ideas</h3>
+    <p class="subnote">For nights you're apart and the days you finally get together. Filter by mood, or let us pick.</p>
   </div>
   <div class="ideabar">
     <div class="chips" id="chips" role="group" aria-label="Filter date ideas"></div>
