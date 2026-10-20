@@ -9,21 +9,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap">
 <style>
-/* Layout: clean single-column hero; two cities, two clocks, one midpoint. */
+/* Palette: "Love Is In The Air" vintage airmail, sampled from the hero postcard.
+   Paper + sepia ink as the base, postmark red and airmail navy as accents, sky/map/gold as soft washes.
+   One deliberate look for every viewer, so no dark-mode variant. */
 :root{
-  --paper:#f6f3ee; --card:#ffffff; --ink:#1d2333; --muted:#5d6577; --line:#dcd8d0;
-  --red:#c8323c; --blue:#21459c; --onblue:#ffffff; --stamp:#e7eefc; --night:#141a2e; --neon:#ff4fa3; --neon2:#4be3ff;
+  color-scheme:light;
+  --paper:#f4e9d4;   /* aged postcard */
+  --paper2:#ecdcbf;  /* envelope kraft, alternate surfaces */
+  --card:#fbf5e9;    /* fresh notepaper */
+  --ink:#2f241b;     /* sepia ink: text */
+  --muted:#6b5848;   /* faded ink: secondary text */
+  --line:#d9c6a5;    /* pencil rule */
+  --red:#a8362f;     /* postmark red: hearts, highlights */
+  --rose:#c98b84;    /* rose stamp */
+  --blue:#2c4a7a;    /* airmail navy: buttons, links */
+  --onblue:#fbf5e9;
+  --sky:#9fb4c8;     /* watercolor sky */
+  --sage:#7f8f6c;    /* map green */
+  --gold:#c3954e;    /* brass / old gold */
+  --navy:#22344f;    /* night airmail: dark bands */
+  --stamp:#ebe0c9;   /* tinted panel */
   --display:"Young Serif", Georgia, "Times New Roman", serif;
   --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
   --pixel:"Press Start 2P", ui-monospace, monospace;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#12151f; --card:#1b2030; --ink:#ece9e3; --muted:#a3a9b8; --line:#2d3346;
-  --red:#ef5a62; --blue:#7f9cf0; --onblue:#0f1426; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }}
-:root[data-theme="dark"]{
-  --paper:#12151f; --card:#1b2030; --ink:#ece9e3; --muted:#a3a9b8; --line:#2d3346;
-  --red:#ef5a62; --blue:#7f9cf0; --onblue:#0f1426; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -53,10 +63,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
-.top{--ink:#2a1f17;--muted:#4f4034;--line:rgba(42,31,23,.35);--blue:#2c4a7a;--onblue:#ffffff;--red:#a8362f;color:var(--ink);min-height:100svh;display:flex;flex-direction:column;
+.top{--line:rgba(47,36,27,.3);color:var(--ink);min-height:100svh;display:flex;flex-direction:column;
   background:linear-gradient(rgba(244,233,214,.6),rgba(244,233,214,.6)),url("images/hero-blur.jpg") center/cover no-repeat #efe2c8}
 .top .hero{flex:1;display:flex}
-.top .btn.ghost{background:rgba(255,250,240,.6)}
+.top .btn.ghost{background:rgba(251,245,233,.6)}
 .hero .wrap{flex:1;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;padding-block:16px 40px}
 .heroimg{display:block;height:calc(100svh - 150px);min-height:360px;max-height:760px;width:auto;max-width:100%;border-radius:6px;box-shadow:0 24px 50px -20px rgba(42,31,23,.55)}
 @media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:28px}.heroimg{height:auto;min-height:0;width:100%;max-width:520px}}
@@ -67,7 +77,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 #travel .postcard{max-width:640px;margin-bottom:40px}
 
-.postcard{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(20,26,46,.45);overflow:hidden;min-width:0}
+.postcard{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(47,36,27,.45);overflow:hidden;min-width:0}
 .postcard .inner{padding:22px;display:grid;gap:18px}
 .clocks{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch}
 .clock{display:grid;gap:6px;min-width:0}
@@ -123,10 +133,10 @@ section.band{padding-block:80px}
 .join h2{font-size:clamp(32px,4.5vw,46px)}
 .join p{opacity:.85;margin-top:12px;font-size:17px}
 .join form{display:grid;gap:12px}
-.join input{font:16px var(--body);padding:14px 16px;border-radius:8px;border:0;width:100%;background:#fff;color:#1d2333}
+.join input{font:16px var(--body);padding:14px 16px;border-radius:8px;border:0;width:100%;background:var(--card);color:var(--ink)}
 .join .btn{background:var(--red);justify-content:center}
 .join .note{font-size:13px;opacity:.8}
-.join .done{background:rgba(255,255,255,.12);padding:16px;border-radius:8px}
+.join .done{background:rgba(251,245,233,.14);padding:16px;border-radius:8px}
 
 /* date carousel */
 .ideabar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px}
@@ -139,7 +149,7 @@ section.band{padding-block:80px}
 .stage{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
 .dcard::after{content:"";position:absolute;inset:-1px;border-radius:inherit;background:var(--paper);opacity:var(--fade,0);pointer-events:none}
 .dcard{position:absolute;left:50%;top:40px;width:210px;height:280px;margin-left:-105px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);
-  padding:20px;display:flex;flex-direction:column;gap:10px;text-align:left;font:inherit;cursor:pointer;will-change:transform,opacity;box-shadow:0 20px 40px -28px rgba(0,0,0,.6)}
+  padding:20px;display:flex;flex-direction:column;gap:10px;text-align:left;font:inherit;cursor:pointer;will-change:transform,opacity;box-shadow:0 20px 40px -26px rgba(47,36,27,.55)}
 .dcard .where{font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
 .dcard.k-together .where{color:var(--red)}
 .dcard h3{font-size:24px;line-height:1.15}
@@ -150,14 +160,14 @@ section.band{padding-block:80px}
 .stamp svg{display:block;width:100%;height:100%}
 .dcard .glyph{margin-block:4px}
 .stamp.big{--sz:96px;transform:rotate(-4deg)}
-.dcard.k-arcade{background:#120f24;border-color:var(--neon);color:#fff;box-shadow:0 0 24px -6px var(--neon)}
-.dcard.k-arcade .where{color:var(--neon2)}
-.dcard.k-arcade h3{font:15px/1.5 var(--pixel);color:var(--neon);text-shadow:0 0 10px var(--neon)}
-.dcard.k-arcade .facts{color:#b9bdd8}
-.dcard.k-table{background:linear-gradient(180deg,#2a1b17,#3e2a22);border-color:#5a3d2f;color:#f6ead8}
+.dcard.k-arcade{background:var(--card);border:2px dashed var(--red)}
+.dcard.k-arcade .where{color:var(--blue)}
+.dcard.k-arcade h3{font:15px/1.5 var(--pixel);color:var(--red)}
+.dcard.k-arcade .facts{color:var(--muted)}
+.dcard.k-table{background:linear-gradient(180deg,#4a3326,#5c4030);border-color:#6b4c39;color:#f4e9d4}
 .dcard.k-table .where{color:#d8b98a}
 .dcard.k-table .facts{color:#d8c3a5}
-.dcard.k-plus{background:var(--blue);border-color:var(--blue);color:var(--onblue)}
+.dcard.k-plus{background:var(--navy);border-color:var(--navy);color:var(--onblue)}
 .dcard.k-plus .where,.dcard.k-plus .facts{color:var(--onblue);opacity:.85}
 .carctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:4px}
 .round{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center}
@@ -176,20 +186,20 @@ section.band{padding-block:80px}
 @media (max-width:560px){.dcard .stamp{--sz:56px}.stage{height:330px}.dcard{width:180px;height:250px;margin-left:-90px;top:36px}.dcard h3{font-size:21px}.detail{padding:20px}}
 
 /* countdown band */
-.cdband{background:var(--night);color:#f1f0ec}
+.cdband{background:var(--navy);color:var(--paper)}
 .cdband .wrap{padding-block:72px;display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
 @media (max-width:860px){.cdband .wrap{grid-template-columns:1fr}}
-.cdband .eyebrow{color:#ff8a90}
+.cdband .eyebrow{color:#e8a59c}
 .cdband h2{font-size:clamp(32px,4.5vw,48px);margin-block:12px}
-.cdband p{color:#b9bdcc}
+.cdband p{color:#c9cfd8}
 .cdcontrols{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;align-items:end}
-.cdcontrols label{display:grid;gap:6px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#b9bdcc}
-.cdcontrols input{font:15px var(--body);padding:10px 12px;border-radius:6px;border:1px solid #3a4160;background:#1d2440;color:#fff;color-scheme:dark}
+.cdcontrols label{display:grid;gap:6px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#c9cfd8}
+.cdcontrols input{font:15px var(--body);padding:10px 12px;border-radius:6px;border:1px solid #4a5d7c;background:#2b4060;color:var(--paper);color-scheme:dark}
 .bigcd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.bigcd div{border:1px solid #333b58;border-radius:8px;padding:18px 8px;text-align:center;background:#1a2038}
-.bigcd b{display:block;font:500 clamp(30px,6vw,56px)/1 var(--mono);font-variant-numeric:tabular-nums;color:#fff}
-.bigcd span{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#9aa0b6}
-.cdcaption{grid-column:1/-1;font:13px var(--mono);color:#ff8a90;text-align:center;margin-top:6px}
+.bigcd div{border:1px solid #4a5d7c;border-radius:8px;padding:18px 8px;text-align:center;background:#2b4060}
+.bigcd b{display:block;font:500 clamp(30px,6vw,56px)/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--paper)}
+.bigcd span{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#aab5c6}
+.cdcaption{grid-column:1/-1;font:13px var(--mono);color:#e8a59c;text-align:center;margin-top:6px}
 
 /* deep talks */
 .talks{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start}
@@ -197,7 +207,7 @@ section.band{padding-block:80px}
 .cats{display:grid;gap:8px}
 .cat{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;font:600 15px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer}
 .cat[aria-pressed="true"]{border-color:var(--blue);background:var(--stamp)}
-.pill{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--red);color:#fff;white-space:nowrap}
+.pill{font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--red);color:var(--card);white-space:nowrap}
 .pill.free{background:transparent;color:var(--muted);border:1px solid var(--line)}
 .qcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:clamp(24px,4vw,44px);min-height:280px;display:grid;gap:22px;align-content:space-between;position:relative;overflow:hidden;min-width:0}
 .qcard .qnum{font:500 12px var(--mono);color:var(--muted);letter-spacing:.1em}
@@ -216,7 +226,7 @@ section.band{padding-block:80px}
 @media (max-width:900px){.articles{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.articles{grid-template-columns:1fr}}
 .post{display:grid;gap:10px;align-content:start;text-decoration:none;min-width:0}
-.post .thumb{aspect-ratio:16/10;max-width:100%;border-radius:6px;display:grid;place-items:center;font:44px var(--display);color:#fff}
+.post .thumb{aspect-ratio:16/10;max-width:100%;border-radius:6px;display:grid;place-items:center;font:44px var(--display);color:var(--card)}
 .post .meta{display:flex;gap:10px;align-items:center;font:500 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .post h3{font-size:22px;line-height:1.2}
 .post p{color:var(--muted);font-size:15px}
@@ -237,7 +247,7 @@ section.band{padding-block:80px}
 .plan li.no::before{content:"–";color:var(--muted)}
 .plan .btn{justify-content:center}
 .book{display:flex;gap:16px;align-items:center}
-.cover{flex:none;width:70px;height:96px;border-radius:2px 6px 6px 2px;background:var(--red);color:#fff;font:11px/1.2 var(--display);padding:8px;display:flex;align-items:end;box-shadow:inset 6px 0 0 rgba(0,0,0,.18)}
+.cover{flex:none;width:70px;height:96px;border-radius:2px 6px 6px 2px;background:var(--red);color:var(--card);font:11px/1.2 var(--display);padding:8px;display:flex;align-items:end;box-shadow:inset 6px 0 0 rgba(0,0,0,.18)}
 
 footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted)}
 </style>
@@ -393,9 +403,9 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <a class="post" href="#articles"><div class="thumb" style="background:var(--blue)">7</div><div class="meta"><span>Communication</span><span>6 min</span></div><h3>7 ways to stop your calls from feeling like a status report</h3><p>Small changes that turn "what did you eat today" into real conversation.</p></a>
     <a class="post" href="#articles"><div class="thumb" style="background:var(--red)">✈</div><div class="meta"><span>Travel</span><span>8 min</span></div><h3>How to fly cheaper when you're visiting every month</h3><p>Fare tracking, points cards, and the best days to book.</p></a>
     <div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>
-    <a class="post" href="#articles"><div class="thumb" style="background:#2e7d6b">↔</div><div class="meta"><span>Closing the gap</span><span>10 min</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p></a>
-    <a class="post" href="#articles"><div class="thumb" style="background:#8a5a2b">♥</div><div class="meta"><span>Real stories</span><span>5 min</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p></a>
-    <a class="post" href="#pricing"><div class="thumb" style="background:var(--night)">🔒</div><div class="meta"><span class="pill">Plus</span><span>12 min</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p></a>
+    <a class="post" href="#articles"><div class="thumb" style="background:var(--sage)">↔</div><div class="meta"><span>Closing the gap</span><span>10 min</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p></a>
+    <a class="post" href="#articles"><div class="thumb" style="background:var(--gold)">♥</div><div class="meta"><span>Real stories</span><span>5 min</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p></a>
+    <a class="post" href="#pricing"><div class="thumb" style="background:var(--navy)">🔒</div><div class="meta"><span class="pill">Plus</span><span>12 min</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p></a>
   </div>
 </div></section>
 
@@ -583,7 +593,7 @@ const ICONS={
  vase:'<path d="M9 3h6"/><path d="M10 3c0 2.5-4 4-4 9 0 5 3 8.5 6 8.5s6-3.5 6-8.5c0-5-4-6.5-4-9"/><path d="M7 12.5h10"/>',
  sparkle:'<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z"/><path d="M19 15.5v4M17 17.5h4"/>'
 };
-const WASH={apart:"#9fb4c8",together:"#d6a093",arcade:"#c9a3c4",table:"#dcb37a",plus:"#a9bfa0"};
+const WASH={apart:"#9fb4c8",together:"#d6a093",arcade:"#c98b84",table:"#d9b479",plus:"#a9b896"};
 const svgIcon=(k,cls,kind)=>'<span class="stamp '+cls+'" aria-hidden="true"><span class="face"><svg viewBox="0 0 24 24">'+
   '<circle cx="12.6" cy="12.9" r="8.6" fill="'+(WASH[kind]||WASH.apart)+'" opacity=".75" filter="url(#wash)"/>'+
   '<g fill="none" stroke="#4a3527" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" filter="url(#inked)">'+(ICONS[k]||"")+'</g></svg></span></span>';
