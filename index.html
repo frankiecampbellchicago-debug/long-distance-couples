@@ -345,7 +345,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
         <button class="btn ghost" type="button" id="saveQ">Save for later</button>
       </div>
       <div class="lockmsg" id="lockmsg" hidden>
-        <p><strong>This topic is part of Love Is In The Air Plus.</strong><br>Unlock 500+ questions across every topic.</p>
+        <p><strong>This topic is part of Love Is In The Air Plus.</strong><br>Unlock 150 more questions across three more topics.</p>
         <a class="btn" href="#pricing">See Plus</a>
       </div>
     </div>
@@ -428,7 +428,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
       <ul>
         <li>Visit countdown</li>
         <li>2 interactive dates a month</li>
-        <li>Starter Deep Talks questions</li>
+        <li>150 Deep Talks questions in 3 topics</li>
         <li>Date ideas starter list</li>
         <li>Free articles</li>
         <li class="no">Includes ads</li>
@@ -440,7 +440,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
       <div class="price">$7.99 <small>/ month per couple</small></div>
       <ul>
         <li>Unlimited arcade and restaurant dates</li>
-        <li>Every Deep Talks topic (500+ questions)</li>
+        <li>All 6 Deep Talks topics (300 questions)</li>
         <li>200+ date ideas, with new ones every month</li>
         <li>Fare alerts and the shared trip board</li>
         <li>All Plus articles</li>
@@ -480,6 +480,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
+<script src="js/deep-talks.js"></script>
 <script>
 const C=[
  ["Chicago, IL",41.88,-87.63,"America/Chicago"],["New York, NY",40.71,-74.01,"America/New_York"],["Los Angeles, CA",34.05,-118.24,"America/Los_Angeles"],
@@ -654,14 +655,7 @@ addEventListener("resize",()=>{size();render()});
 build();
 
 // deep talks
-const TALKS={
- "Getting closer":{free:true,q:["What's a small thing I do that makes you feel loved, even from far away?","When did you first know this was more than a crush?","What's something you've never told me because it felt too small to mention?","What do you miss most about being in the same room as me?","What's a memory of us you replay when you can't sleep?","What's one way I could support you better this month?"]},
- "Dreams & future":{free:true,q:["Picture an ordinary Tuesday five years from now. What does it look like?","Which city could you see us building a life in, and why?","What's one thing you want to do together before we close the distance?","What does 'home' mean to you?","What's a dream you've put on hold that I could help with?"]},
- "Just for fun":{free:true,q:["If we had one free plane ticket to anywhere tonight, where are we going?","What would our couple name be on a reality show?","What's the most 'us' meal you can think of?","Which song should be our countdown anthem?","If we opened a restaurant together, what's on the menu?"]},
- "Trust & hard stuff":{free:false,q:["When do you feel the distance the most, and what helps?","Is there anything you've been holding back because you didn't want to worry me?"]},
- "Intimacy":{free:false,q:["What makes you feel closest to me when we're apart?"]},
- "Money & moving":{free:false,q:["How should we split the cost of visits so it feels fair to both of us?"]}
-};
+const TALKS=window.DEEP_TALKS;
 let cat="Getting closer",idx=0;
 const catsEl=document.getElementById("cats");
 Object.keys(TALKS).forEach(k=>{const b=document.createElement("button");b.type="button";b.className="cat";b.setAttribute("aria-pressed",k===cat);
