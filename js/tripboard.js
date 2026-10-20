@@ -15,6 +15,16 @@
   const partnerLower = () => partnerName() || "your partner";
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 
+  // ---------- open / close ----------
+  const toggle = $("boardToggle"), body = $("boardBody");
+  function setOpen(open) {
+    body.hidden = !open; toggle.setAttribute("aria-expanded", String(open));
+    $("boardToggleLabel").textContent = open ? "Minimize" : "Open";
+    try { localStorage.setItem(KEY + "-open", open ? "1" : "0"); } catch (e) {}
+  }
+  toggle.addEventListener("click", () => setOpen(body.hidden));
+  try { if (localStorage.getItem(KEY + "-open") === "1") setOpen(true); } catch (e) {}
+
   // ---------- data ----------
   function exampleBoard() {
     const start = ($("fareDep") && $("fareDep").value) || addDays(iso(new Date()), 14);
@@ -223,15 +233,6 @@
     $("cnt-costs").textContent = t ? t.costs.length : 0;
     $("cnt-places").textContent = board.places.length;
   }
-  // ---------- open / close ----------
-  const toggle = $("boardToggle"), body = $("boardBody");
-  function setOpen(open) {
-    body.hidden = !open; toggle.setAttribute("aria-expanded", String(open));
-    $("boardToggleLabel").textContent = open ? "Minimize" : "Open";
-    try { localStorage.setItem(KEY + "-open", open ? "1" : "0"); } catch (e) {}
-  }
-  toggle.addEventListener("click", () => setOpen(body.hidden));
-  try { if (localStorage.getItem(KEY + "-open") === "1") setOpen(true); } catch (e) {}
   function renderSummary() {
     const n = board.trips.length, t = trip();
     $("boardSum").textContent = !n ? "No trips yet. Open to plan your next visit."
