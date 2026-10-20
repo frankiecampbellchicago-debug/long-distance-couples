@@ -231,6 +231,7 @@
       $("midYou").href = links(na.ap[0], o.ap[0], depEl.value, retEl.value).google;
       $("midThem").href = links(nb.ap[0], o.ap[0], depEl.value, retEl.value).google;
     }
+    $("midPlan").onclick = () => window.TripBoard && window.TripBoard.newTrip({ name: "Weekend in " + cityName(o.ap), place: cityName(o.ap), start: depEl.value, end: retEl.value });
     if (meetOptions.length > 1) {
       const lab = document.createElement("span"); lab.textContent = "Other fair picks:"; alts.appendChild(lab);
       meetOptions.forEach((x, i) => {
