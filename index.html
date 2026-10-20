@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Interactive dates, a countdown to your next visit, deep talks, travel planning and advice for long-distance couples.">
-<title>Halfway</title>
+<title>Love Is In The Air</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap">
@@ -46,6 +46,7 @@ a{color:inherit}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px}
 .logo{font:24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo svg{flex:none}
+@media (max-width:480px){.logo{font-size:19px;gap:8px}nav .btn{padding:10px 14px;font-size:14px}}
 .navlinks{display:flex;gap:24px;align-items:center;font-weight:500;font-size:15px}
 .navlinks a{text-decoration:none;color:var(--muted)}
 .navlinks a:hover{color:var(--ink)}
@@ -217,9 +218,9 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 <body>
 <div class="airmail"></div>
 <nav><div class="wrap">
-  <a class="logo" href="#top" aria-label="Halfway home">
-    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="7" cy="15" r="5" fill="var(--blue)"/><circle cx="23" cy="15" r="5" fill="var(--red)"/><path d="M12 15h6" stroke="var(--ink)" stroke-width="2" stroke-dasharray="2 2"/></svg>
-    Halfway
+  <a class="logo" href="#top" aria-label="Love Is In The Air home">
+    <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><path d="M2 26c6-2 9-6 13-11" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M22 25C13 19 11 14 13.5 10.2 15.6 7.3 19.4 7.7 22 10.6 24.6 7.7 28.4 7.3 30.5 10.2 33 14 31 19 22 25Z" fill="var(--red)"/></svg>
+    Love Is In The Air
   </a>
   <div class="navlinks">
     <a href="#dates">Dates</a><a href="#countdown">Countdown</a><a href="#talks">Deep Talks</a><a href="#travel">Travel</a><a href="#articles">Articles</a><a href="#pricing">Pricing</a>
@@ -262,7 +263,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   <div class="sechead">
     <span class="eyebrow">Virtual dates</span>
     <h2>Somewhere to go together.</h2>
-    <p>A video call works, but you end up just staring at each other. Each Halfway date gives you something to do together.</p>
+    <p>A video call works, but you end up just staring at each other. Each Love Is In The Air date gives you something to do together.</p>
   </div>
   <div class="dates">
     <article class="date">
@@ -334,7 +335,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
         <button class="btn ghost" type="button" id="saveQ">Save for later</button>
       </div>
       <div class="lockmsg" id="lockmsg" hidden>
-        <p><strong>This topic is part of Halfway Plus.</strong><br>Unlock 500+ questions across every topic.</p>
+        <p><strong>This topic is part of Love Is In The Air Plus.</strong><br>Unlock 500+ questions across every topic.</p>
         <a class="btn" href="#pricing">See Plus</a>
       </div>
     </div>
@@ -345,7 +346,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   <div class="sechead">
     <span class="eyebrow">Travel together</span>
     <h2>Plan the next time you're in the same room.</h2>
-    <p>Halfway keeps your visits in one place, from the countdown to the trip itself.</p>
+    <p>Love Is In The Air keeps your visits in one place, from the countdown to the trip itself.</p>
   </div>
   <div class="travel">
     <div class="tcard">
@@ -386,7 +387,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   <div class="sechead"><span class="eyebrow">How it works</span><h2>Ready in a minute.</h2></div>
   <div class="steps">
     <div class="step"><h3>Pair up</h3><p>Create an account and send your partner an invite code. Your cities and time zones set themselves.</p></div>
-    <div class="step"><h3>Pick a date</h3><p>Choose the arcade, the restaurant, or a new date we add each month. Halfway finds a time that works for both of you.</p></div>
+    <div class="step"><h3>Pick a date</h3><p>Choose the arcade, the restaurant, or a new date we add each month. We find a time that works for both of you.</p></div>
     <div class="step"><h3>Show up</h3><p>You both get a reminder, join from your phone or laptop, and spend the evening together.</p></div>
   </div>
 </div></section>
@@ -448,7 +449,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   </div>
 </div></section>
 
-<footer><div class="wrap"><span>© 2026 Halfway</span><span>Made for people who are worth the distance.</span></div></footer>
+<footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
 <script>
 const C=[
@@ -498,7 +499,7 @@ function update(){
   C.forEach((c,i)=>{if(i==A.value||i==B.value)return;const d=dist(m,c);if(d<bd){bd=d;best=c}});
   const mid=document.getElementById("mid"),note=document.getElementById("midnote");
   if(mi<1){mid.textContent="You're already there";note.textContent="Pick two different cities."}
-  else if(bd>600){mid.textContent="Pick a spot together";note.textContent="The midpoint is far from any big city. Halfway suggests nearby options."}
+  else if(bd>600){mid.textContent="Pick a spot together";note.textContent="The midpoint is far from any big city. We'll suggest nearby options."}
   else{mid.textContent=best[0];note.textContent=Math.round(dist(a,best)).toLocaleString()+" mi for you · "+Math.round(dist(b,best)).toLocaleString()+" mi for them"}
 }
 [A,B].forEach(s=>s.addEventListener("change",()=>{try{localStorage.setItem("halfway-cities",JSON.stringify([A.value,B.value]))}catch(e){}update()}));
