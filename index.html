@@ -136,9 +136,18 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .board{grid-template-columns:minmax(0,1fr)}
 .tripmeta input,.bform input,.bform select{width:100%}
 @media (max-width:560px){.board{padding:18px}}
-.bhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:14px}
-.bhead h3{font-size:28px}
-.bsub{color:var(--muted);font-size:15px}
+.bhead{margin:0;font-size:inherit}
+.btoggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:var(--ink)}
+.btl{display:grid;gap:2px;min-width:0}
+.bname{font:28px var(--display)}
+.btoggle .chev{flex:none;width:40px;height:40px;padding:9px;border:1.5px solid var(--line);border-radius:50%;transition:transform .2s}
+.btoggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.btoggle:hover .chev{border-color:var(--ink)}
+.btoggle:focus-visible{outline:3px solid var(--red);outline-offset:6px;border-radius:6px}
+.bbody{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+.bbody>*{min-width:0}
+@media (prefers-reduced-motion:reduce){.btoggle .chev{transition:none}}
+.bsub{color:var(--muted);font-size:15px;font-family:var(--body)}
 .bactions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .bactions select,.bform select,.bform input,.tripmeta input,#shareLink{font:15px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:9px 10px;min-width:0;max-width:100%}
 .bactions select{font-weight:600;max-width:260px}
@@ -528,14 +537,16 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   </div>
 
   <div class="board" id="tripBoard" aria-labelledby="boardTitle">
-    <div class="bhead">
-      <div><h3 id="boardTitle">Trip board</h3><p class="bsub">Plans, tickets, costs, and your bucket list, all in one place.</p></div>
+    <h3 class="bhead" id="boardTitle"><button class="btoggle" type="button" id="boardToggle" aria-expanded="false" aria-controls="boardBody">
+      <span class="btl"><span class="bname">Trip board</span><span class="bsub" id="boardSum">Plans, tickets, costs, and your bucket list, all in one place.</span></span>
+      <svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button></h3>
+    <div class="bbody" id="boardBody" hidden>
       <div class="bactions">
         <label class="vh" for="tripPick">Choose a trip</label><select id="tripPick"></select>
         <button class="btn ghost" type="button" id="tripNew">New trip</button>
         <button class="btn" type="button" id="boardShare">Share with your partner</button>
       </div>
-    </div>
 
     <div class="bnote" id="bImport" hidden><p id="bImportText"></p><div class="brow"><button class="btn" type="button" id="bImportYes">Use shared board</button><button class="btn ghost" type="button" id="bImportNo">Keep mine</button></div></div>
     <div class="bnote" id="bShare" hidden>
@@ -611,6 +622,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
           <button class="btn" type="submit">Add place</button>
         </form>
       </div>
+    </div>
     </div>
   </div>
 </div></section>

@@ -223,7 +223,21 @@
     $("cnt-costs").textContent = t ? t.costs.length : 0;
     $("cnt-places").textContent = board.places.length;
   }
-  function renderAll() { renderTripPicker(); renderTabs(); renderPlans(); renderTickets(); renderCosts(); renderPlaces(); renderCounts(); }
+  // ---------- open / close ----------
+  const toggle = $("boardToggle"), body = $("boardBody");
+  function setOpen(open) {
+    body.hidden = !open; toggle.setAttribute("aria-expanded", String(open));
+    try { localStorage.setItem(KEY + "-open", open ? "1" : "0"); } catch (e) {}
+  }
+  toggle.addEventListener("click", () => setOpen(body.hidden));
+  try { if (localStorage.getItem(KEY + "-open") === "1") setOpen(true); } catch (e) {}
+  function renderSummary() {
+    const n = board.trips.length, t = trip();
+    $("boardSum").textContent = !n ? "No trips yet. Open to plan your next visit."
+      : n + (n === 1 ? " trip" : " trips") + (t ? " · " + (t.name || "Untitled trip") + (t.start ? ", " + dayLabel(t.start) : "") : "");
+  }
+
+  function renderAll() { renderSummary(); renderTripPicker(); renderTabs(); renderPlans(); renderTickets(); renderCosts(); renderPlaces(); renderCounts(); }
 
   // ---------- share by link ----------
   const enc = obj => btoa(unescape(encodeURIComponent(JSON.stringify(obj)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -246,11 +260,11 @@
     history.replaceState(null, "", location.pathname + location.search + "#travel");
     if (incoming) {
       $("bImportText").textContent = "Your partner shared a trip board with " + incoming.trips.length + (incoming.trips.length === 1 ? " trip" : " trips") + " and " + incoming.places.length + " places. Do you want to use it?";
-      $("bImport").hidden = false;
+      $("bImport").hidden = false; setOpen(true);
       setTimeout(() => $("tripBoard").scrollIntoView({ behavior: "smooth", block: "start" }), 400);
     } else {
       $("bImportText").textContent = "That shared link didn't open. Ask your partner to copy it again and send the whole link.";
-      $("bImport").hidden = false; $("bImportYes").hidden = true; $("bImportNo").textContent = "OK";
+      $("bImport").hidden = false; setOpen(true); $("bImportYes").hidden = true; $("bImportNo").textContent = "OK";
     }
   }
   $("bImportYes").addEventListener("click", () => { board = incoming; board.active = board.active || (board.trips[0] && board.trips[0].id); save(); $("bImport").hidden = true; renderAll(); });
@@ -258,7 +272,7 @@
 
   if ($("visitName")) $("visitName").addEventListener("input", renderCosts);
   window.TripBoard = {
-    newTrip(o) { const t = newTrip(o); tab = "plans"; renderTabs(); $("tripBoard").scrollIntoView({ behavior: "smooth", block: "start" }); return t; }
+    newTrip(o) { setOpen(true); const t = newTrip(o); tab = "plans"; renderTabs(); $("tripBoard").scrollIntoView({ behavior: "smooth", block: "start" }); return t; }
   };
   renderAll();
 })();
