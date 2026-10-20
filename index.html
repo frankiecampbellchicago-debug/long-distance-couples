@@ -140,9 +140,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .btoggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:var(--ink)}
 .btl{display:grid;gap:2px;min-width:0}
 .bname{font:28px var(--display)}
-.btoggle .chev{flex:none;width:40px;height:40px;padding:9px;border:1.5px solid var(--line);border-radius:50%;transition:transform .2s}
+.tctl{flex:none;display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:999px;padding:6px 8px 6px 16px;font:600 14px var(--body);color:var(--ink);background:var(--paper)}
+.btoggle .chev{flex:none;width:22px;height:22px;transition:transform .2s}
 .btoggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
-.btoggle:hover .chev{border-color:var(--ink)}
+.btoggle:hover .tctl{border-color:var(--ink)}
+.btoggle[aria-expanded="true"] .tctl{background:var(--card)}
 .btoggle:focus-visible{outline:3px solid var(--red);outline-offset:6px;border-radius:6px}
 .bbody{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
 .bbody>*{min-width:0}
@@ -539,7 +541,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   <div class="board" id="tripBoard" aria-labelledby="boardTitle">
     <h3 class="bhead" id="boardTitle"><button class="btoggle" type="button" id="boardToggle" aria-expanded="false" aria-controls="boardBody">
       <span class="btl"><span class="bname">Trip board</span><span class="bsub" id="boardSum">Plans, tickets, costs, and your bucket list, all in one place.</span></span>
-      <svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="tctl"><span class="tlabel" id="boardToggleLabel">Open</span><svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </button></h3>
     <div class="bbody" id="boardBody" hidden>
       <div class="bactions">

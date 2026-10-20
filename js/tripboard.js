@@ -227,6 +227,7 @@
   const toggle = $("boardToggle"), body = $("boardBody");
   function setOpen(open) {
     body.hidden = !open; toggle.setAttribute("aria-expanded", String(open));
+    $("boardToggleLabel").textContent = open ? "Minimize" : "Open";
     try { localStorage.setItem(KEY + "-open", open ? "1" : "0"); } catch (e) {}
   }
   toggle.addEventListener("click", () => setOpen(body.hidden));
