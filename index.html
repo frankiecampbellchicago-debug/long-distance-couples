@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap">
 <style>
-/* Layout: an airmail envelope. Striped edges frame each band; two cities, two clocks, one midpoint. */
+/* Layout: clean single-column hero; two cities, two clocks, one midpoint. */
 :root{
   --paper:#f6f3ee; --card:#ffffff; --ink:#1d2333; --muted:#5d6577; --line:#dcd8d0;
   --red:#c8323c; --blue:#21459c; --onblue:#ffffff; --stamp:#e7eefc; --night:#141a2e; --neon:#ff4fa3; --neon2:#4be3ff;
@@ -32,7 +32,6 @@ img{max-width:100%}
 [hidden]{display:none!important}
 body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--body)}
 .wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.airmail{height:10px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,transparent 14px 22px,var(--blue) 22px 36px,transparent 36px 44px)}
 h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.1}
 p{margin:0}
 .eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
@@ -54,10 +53,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
-.hero .wrap{position:relative;padding-block:clamp(64px,10vw,128px)}
+.hero .wrap{position:relative;min-height:calc(100svh - 84px);display:flex;align-items:center;padding-block:32px 48px}
 .herotext{position:relative;z-index:1}
-.hero .flight{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);width:min(30vw,320px);height:auto}
-.hero h1{font-size:clamp(46px,8vw,104px);margin-block:18px 22px;max-width:11ch}
+.hero .flight{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);width:min(22vw,280px);height:auto}
+.hero h1{font-size:clamp(40px,min(7vw,11svh),92px);margin-block:0 22px}
 .hero h1 em{font-style:normal;color:var(--red)}
 .hero p.lede{font-size:20px;color:var(--muted);max-width:40ch}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
@@ -242,7 +241,6 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 </style>
 </head>
 <body>
-<div class="airmail"></div>
 <nav><div class="wrap">
   <a class="logo" href="#top" aria-label="Love Is In The Air home">
     <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><path d="M2 26c6-2 9-6 13-11" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M22 25C13 19 11 14 13.5 10.2 15.6 7.3 19.4 7.7 22 10.6 24.6 7.7 28.4 7.3 30.5 10.2 33 14 31 19 22 25Z" fill="var(--red)"/></svg>
@@ -256,8 +254,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 
 <header class="hero" id="top"><div class="wrap">
   <div class="herotext">
-    <span class="eyebrow">For long-distance couples</span>
-    <h1>Date night, even <em>miles apart.</em></h1>
+    <h1>Date night,<br> even <em>miles apart.</em></h1>
     <p class="lede">Dates, deep talks, and a countdown to your next visit.</p>
     <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See what's inside</a></div>
   </div>
@@ -270,7 +267,6 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 </div></header>
 
 
-<div class="airmail"></div>
 
 <section class="band" id="dates"><div class="wrap">
   <div class="sechead">
@@ -376,7 +372,6 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <p>Love Is In The Air keeps your visits in one place, from the countdown to the trip itself.</p>
   </div>
   <div class="postcard" aria-label="Your distance">
-    <div class="airmail"></div>
     <div class="inner">
       <div class="clocks">
         <div class="clock"><label for="cityA">You're in</label><select id="cityA"></select><div class="time" id="timeA">--:--</div><div class="day" id="dayA"></div></div>
@@ -427,7 +422,6 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
   </div>
 </div></section>
 
-<div class="airmail"></div>
 
 <section class="band" id="how"><div class="wrap">
   <div class="sechead"><span class="eyebrow">How it works</span><h2>Ready in a minute.</h2></div>
