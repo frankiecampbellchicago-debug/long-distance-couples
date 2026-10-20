@@ -47,10 +47,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .logo{font:24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo svg{flex:none}
 @media (max-width:480px){.logo{font-size:19px;gap:8px}nav .btn{padding:10px 14px;font-size:14px}}
-.navlinks{display:flex;gap:24px;align-items:center;font-weight:500;font-size:15px}
+.navlinks{display:flex;gap:20px;align-items:center;font-weight:500;font-size:15px}
 .navlinks a{text-decoration:none;color:var(--muted)}
 .navlinks a:hover{color:var(--ink)}
-@media (max-width:1020px){.navlinks a:not(.btn){display:none}}
+@media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
 .hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding-block:48px 72px}
@@ -148,6 +148,28 @@ section.band{padding-block:80px}
 .join .note{font-size:13px;opacity:.8}
 .join .done{background:rgba(255,255,255,.12);padding:16px;border-radius:8px}
 
+/* date ideas */
+.ideabar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:24px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.tonight{display:flex;gap:18px;align-items:center;background:var(--stamp);border-radius:10px;padding:18px 22px;margin-bottom:24px;flex-wrap:wrap}
+.tonight strong{font:24px var(--display);font-weight:400}
+.tonight p{color:var(--muted);flex-basis:100%}
+.ideas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.ideas{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ideas{grid-template-columns:1fr}}
+.idea{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.idea .where{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.idea .where.together{color:var(--red)}
+.idea h3{font-size:21px;line-height:1.2}
+.idea p{color:var(--muted);font-size:15px}
+.idea .facts{display:flex;gap:12px;font:500 12px var(--mono);color:var(--muted);margin-top:4px}
+.idea.more{background:var(--blue);border-color:var(--blue);color:#fff;text-decoration:none}
+.idea.more .where,.idea.more p{color:rgba(255,255,255,.88)}
+.idea.pick{outline:3px solid var(--red);outline-offset:2px}
+
 /* countdown band */
 .cdband{background:var(--night);color:#f1f0ec}
 .cdband .wrap{padding-block:72px;display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
@@ -223,7 +245,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     Love Is In The Air
   </a>
   <div class="navlinks">
-    <a href="#dates">Dates</a><a href="#countdown">Countdown</a><a href="#talks">Deep Talks</a><a href="#travel">Travel</a><a href="#articles">Articles</a><a href="#pricing">Pricing</a>
+    <a href="#dates">Virtual Dates</a><a href="#ideas">Date Ideas</a><a href="#countdown">Countdown</a><a href="#talks">Deep Talks</a><a href="#travel">Travel</a><a href="#articles">Articles</a><a href="#pricing">Pricing</a>
     <a class="btn" href="#join">Join the waitlist</a>
   </div>
 </div></nav>
@@ -298,6 +320,20 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
       </div>
     </article>
   </div>
+</div></section>
+
+<section class="band" id="ideas" style="padding-top:0"><div class="wrap">
+  <div class="sechead">
+    <span class="eyebrow">Date ideas</span>
+    <h2>Need a plan for this weekend?</h2>
+    <p>Ideas for nights you're apart and the days you finally get together. Filter by what you're in the mood for, or let us pick.</p>
+  </div>
+  <div class="ideabar">
+    <div class="chips" id="chips" role="group" aria-label="Filter date ideas"></div>
+    <button class="btn" type="button" id="surprise">Pick one for us</button>
+  </div>
+  <div class="tonight" id="tonight" hidden aria-live="polite"><span class="eyebrow">Tonight</span><strong id="tonightT"></strong><p id="tonightP"></p></div>
+  <div class="ideas" id="ideaGrid"></div>
 </div></section>
 
 <section class="cdband" id="countdown"><div class="wrap">
@@ -402,6 +438,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
         <li>Visit countdown</li>
         <li>2 interactive dates a month</li>
         <li>Starter Deep Talks questions</li>
+        <li>Date ideas starter list</li>
         <li>Free articles</li>
         <li class="no">Includes ads</li>
       </ul>
@@ -413,6 +450,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
       <ul>
         <li>Unlimited arcade and restaurant dates</li>
         <li>Every Deep Talks topic (500+ questions)</li>
+        <li>200+ date ideas, with new ones every month</li>
         <li>Fare alerts and the shared trip board</li>
         <li>All Plus articles</li>
         <li>No ads</li>
@@ -521,6 +559,41 @@ function cd(){
 }
 [vd,vn].forEach(el=>el.addEventListener("input",()=>{try{localStorage.setItem("halfway-visit",JSON.stringify({date:vd.value,name:vn.value}))}catch(e){}cd()}));
 cd();setInterval(cd,1000);
+
+// date ideas
+const IDEAS=[
+ ["apart","Movie night, in sync","Count down and press play on the same movie at the same second. Keep a call open for the commentary.","Free","2–3 hrs",["free","cozy"]],
+ ["apart","Order each other dinner","Each of you picks a meal and has it delivered to the other's door. Eat together on video.","$$","1 hr",["cozy"]],
+ ["apart","Stargazing call","Go outside on the same night, open a star map app, and try to find the same constellation.","Free","1 hr",["free","cozy"]],
+ ["apart","Our story playlist","Take turns adding songs that tell the story of your relationship, then listen start to finish together.","Free","1 hr",["free"]],
+ ["apart","Virtual museum trip","Pick a museum with a free online tour, like the Louvre or the Smithsonian, and explore it side by side.","Free","1–2 hrs",["free"]],
+ ["apart","Letters on the same night","Mail each other a handwritten letter, then open them together on a call.","$","1 week",["cozy"]],
+ ["apart","Two-person book club","Read the same book, one chapter a week, and talk it through every Sunday.","$","Ongoing",["cozy"]],
+ ["apart","Same-box cook-off","Buy the same five ingredients and see who makes the better dinner. Vote on looks and taste.","$$","1–2 hrs",[]],
+ ["apart","Online escape room","Book a two-player virtual escape room and solve it as a team on video.","$$","1 hr",["adventurous"]],
+ ["apart","Neighborhood walk-along","Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.","Free","45 min",["free"]],
+ ["together","Recreate your first date","Same place, same order, same outfits if you can. Talk about what you were thinking back then.","$$","An evening",["cozy"]],
+ ["together","Tourist in my city","Each of you plans one day showing the other your favorite spots, the places you've always wanted to show them.","$$","1 day",[]],
+ ["together","Meet somewhere new","Split the trip and meet in a city neither of you has been to. Use Travel to find one between you.","$$$","Weekend",["adventurous"]],
+ ["together","Build a time capsule","Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.","Free","1 hr",["free","cozy"]],
+ ["together","Take a class together","Pottery, salsa, or a cooking class. You leave with a new skill and a story.","$$","2–3 hrs",["adventurous"]]
+];
+const FILTERS=[["all","All ideas"],["apart","While apart"],["together","When you visit"],["free","Free"],["cozy","Cozy"],["adventurous","Adventurous"]];
+let filt="all";
+const chipsEl=document.getElementById("chips"),grid=document.getElementById("ideaGrid");
+FILTERS.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=label;b.setAttribute("aria-pressed",k===filt);
+ b.addEventListener("click",()=>{filt=k;chipsEl.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));document.getElementById("tonight").hidden=true;renderIdeas()});chipsEl.appendChild(b)});
+const matches=i=>filt==="all"||i[0]===filt||i[5].includes(filt);
+function renderIdeas(){grid.innerHTML="";
+ IDEAS.filter(matches).forEach(i=>{const a=document.createElement("article");a.className="idea";
+  a.innerHTML='<span class="where '+i[0]+'">'+(i[0]==="apart"?"While apart":"When you visit")+'</span><h3></h3><p></p><div class="facts"><span>'+i[3]+'</span><span>'+i[4]+'</span></div>';
+  a.querySelector("h3").textContent=i[1];a.querySelector("p").textContent=i[2];a.dataset.title=i[1];grid.appendChild(a)});
+ const m=document.createElement("a");m.className="idea more";m.href="#pricing";
+ m.innerHTML='<span class="where">Love Is In The Air Plus</span><h3>200+ more date ideas</h3><p>Holiday dates, anniversary plans, and new ideas every month.</p>';grid.appendChild(m)}
+document.getElementById("surprise").addEventListener("click",()=>{const list=IDEAS.filter(matches),i=list[Math.floor(Math.random()*list.length)];
+ document.getElementById("tonightT").textContent=i[1];document.getElementById("tonightP").textContent=i[2]+" ("+i[3]+" · "+i[4]+")";document.getElementById("tonight").hidden=false;
+ grid.querySelectorAll(".idea").forEach(c=>c.classList.toggle("pick",c.dataset.title===i[1]))});
+renderIdeas();
 
 // deep talks
 const TALKS={
