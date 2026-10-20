@@ -12,7 +12,7 @@
 /* Layout: an airmail envelope. Striped edges frame each band; two cities, two clocks, one midpoint. */
 :root{
   --paper:#f6f3ee; --card:#ffffff; --ink:#1d2333; --muted:#5d6577; --line:#dcd8d0;
-  --red:#c8323c; --blue:#21459c; --stamp:#e7eefc; --night:#141a2e; --neon:#ff4fa3; --neon2:#4be3ff;
+  --red:#c8323c; --blue:#21459c; --onblue:#ffffff; --stamp:#e7eefc; --night:#141a2e; --neon:#ff4fa3; --neon2:#4be3ff;
   --display:"Young Serif", Georgia, "Times New Roman", serif;
   --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
@@ -20,10 +20,10 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#12151f; --card:#1b2030; --ink:#ece9e3; --muted:#a3a9b8; --line:#2d3346;
-  --red:#ef5a62; --blue:#7f9cf0; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }}
+  --red:#ef5a62; --blue:#7f9cf0; --onblue:#0f1426; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }}
 :root[data-theme="dark"]{
   --paper:#12151f; --card:#1b2030; --ink:#ece9e3; --muted:#a3a9b8; --line:#2d3346;
-  --red:#ef5a62; --blue:#7f9cf0; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }
+  --red:#ef5a62; --blue:#7f9cf0; --onblue:#0f1426; --stamp:#222b45; --night:#0b0e19; color-scheme:dark }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -37,7 +37,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;l
 p{margin:0}
 .eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
 a{color:inherit}
-.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font:600 15px var(--body);cursor:pointer;text-decoration:none;background:var(--blue);color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font:600 15px var(--body);cursor:pointer;text-decoration:none;background:var(--blue);color:var(--onblue)}
 .btn:hover{filter:brightness(1.1)}
 .btn:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
@@ -50,15 +50,19 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .navlinks{display:flex;gap:20px;align-items:center;font-weight:500;font-size:15px}
 .navlinks a{text-decoration:none;color:var(--muted)}
 .navlinks a:hover{color:var(--ink)}
+.navlinks a.btn{color:var(--onblue)}
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
-.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding-block:48px 72px}
-.hero h1{font-size:clamp(40px,6vw,68px);margin-block:16px 20px}
+.hero .wrap{position:relative;padding-block:clamp(64px,10vw,128px)}
+.herotext{position:relative;z-index:1}
+.hero .flight{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);width:min(30vw,320px);height:auto}
+.hero h1{font-size:clamp(46px,8vw,104px);margin-block:18px 22px;max-width:11ch}
 .hero h1 em{font-style:normal;color:var(--red)}
-.hero p.lede{font-size:19px;color:var(--muted);max-width:34ch}
+.hero p.lede{font-size:20px;color:var(--muted);max-width:40ch}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:36px}}
+@media (max-width:860px){.hero .flight{display:none}}
+#travel .postcard{max-width:640px;margin-bottom:40px}
 
 .postcard{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(20,26,46,.45);overflow:hidden;min-width:0}
 .postcard .inner{padding:22px;display:grid;gap:18px}
@@ -137,7 +141,7 @@ section.band{padding-block:80px}
 .step p{color:var(--muted)}
 
 /* waitlist */
-.join{background:var(--blue);color:#fff}
+.join{background:var(--blue);color:var(--onblue)}
 .join .wrap{padding-block:72px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
 @media (max-width:860px){.join .wrap{grid-template-columns:1fr}}
 .join h2{font-size:clamp(32px,4.5vw,46px)}
@@ -166,8 +170,8 @@ section.band{padding-block:80px}
 .idea h3{font-size:21px;line-height:1.2}
 .idea p{color:var(--muted);font-size:15px}
 .idea .facts{display:flex;gap:12px;font:500 12px var(--mono);color:var(--muted);margin-top:4px}
-.idea.more{background:var(--blue);border-color:var(--blue);color:#fff;text-decoration:none}
-.idea.more .where,.idea.more p{color:rgba(255,255,255,.88)}
+.idea.more{background:var(--blue);border-color:var(--blue);color:var(--onblue);text-decoration:none}
+.idea.more .where,.idea.more p{color:var(--onblue);opacity:.85}
 .idea.pick{outline:3px solid var(--red);outline-offset:2px}
 
 /* countdown band */
@@ -251,33 +255,20 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 </div></nav>
 
 <header class="hero" id="top"><div class="wrap">
-  <div>
+  <div class="herotext">
     <span class="eyebrow">For long-distance couples</span>
     <h1>Date night, even <em>miles apart.</em></h1>
-    <p class="lede">Go on interactive dates, count down to your next visit, have the conversations that keep you close, and plan trips together. All in one place built for couples living apart.</p>
-    <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See the dates</a></div>
+    <p class="lede">Dates, deep talks, and a countdown to your next visit.</p>
+    <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See what's inside</a></div>
   </div>
-
-  <div class="postcard" aria-label="Your distance">
-    <div class="airmail"></div>
-    <div class="inner">
-      <div class="clocks">
-        <div class="clock"><label for="cityA">You're in</label><select id="cityA"></select><div class="time" id="timeA">--:--</div><div class="day" id="dayA"></div></div>
-        <div class="dash"><svg width="40" height="12" aria-hidden="true"><path d="M2 6h36" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg><span id="gap"></span></div>
-        <div class="clock"><label for="cityB">They're in</label><select id="cityB"></select><div class="time" id="timeB">--:--</div><div class="day" id="dayB"></div></div>
-      </div>
-      <div class="stats">
-        <div class="stat"><b id="miles">–</b><span>miles apart</span></div>
-        <div class="stat"><b id="flight">–</b><span>approx. flight</span></div>
-        <div class="stat"><b id="overlap">–</b><span>shared awake hours</span></div>
-      </div>
-      <div class="meet">
-        <div class="stampbox" aria-hidden="true">½</div>
-        <div><p>Meet halfway in</p><strong id="mid">–</strong><p id="midnote"></p></div>
-      </div>
-    </div>
-  </div>
+  <svg class="flight" viewBox="0 0 320 220" aria-hidden="true">
+    <path d="M20 190 C 90 40, 230 30, 300 150" fill="none" stroke="var(--line)" stroke-width="2.5" stroke-dasharray="6 8" stroke-linecap="round"/>
+    <circle cx="20" cy="190" r="9" fill="var(--blue)"/>
+    <circle cx="300" cy="150" r="9" fill="var(--red)"/>
+    <path transform="translate(146 56)" d="M14 25C5 19 2 13 4.5 9.2 6.6 6.3 10.4 6.7 14 9.9 17.6 6.7 21.4 6.3 23.5 9.2 26 13 23 19 14 25Z" fill="var(--red)"/>
+  </svg>
 </div></header>
+
 
 <div class="airmail"></div>
 
@@ -383,6 +374,25 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <span class="eyebrow">Travel together</span>
     <h2>Plan the next time you're in the same room.</h2>
     <p>Love Is In The Air keeps your visits in one place, from the countdown to the trip itself.</p>
+  </div>
+  <div class="postcard" aria-label="Your distance">
+    <div class="airmail"></div>
+    <div class="inner">
+      <div class="clocks">
+        <div class="clock"><label for="cityA">You're in</label><select id="cityA"></select><div class="time" id="timeA">--:--</div><div class="day" id="dayA"></div></div>
+        <div class="dash"><svg width="40" height="12" aria-hidden="true"><path d="M2 6h36" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg><span id="gap"></span></div>
+        <div class="clock"><label for="cityB">They're in</label><select id="cityB"></select><div class="time" id="timeB">--:--</div><div class="day" id="dayB"></div></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="miles">–</b><span>miles apart</span></div>
+        <div class="stat"><b id="flight">–</b><span>approx. flight</span></div>
+        <div class="stat"><b id="overlap">–</b><span>shared awake hours</span></div>
+      </div>
+      <div class="meet">
+        <div class="stampbox" aria-hidden="true">½</div>
+        <div><p>Meet halfway in</p><strong id="mid">–</strong><p id="midnote"></p></div>
+      </div>
+    </div>
   </div>
   <div class="travel">
     <div class="tcard">
