@@ -92,36 +92,9 @@ section.band{padding-block:80px}
 .sechead h2{font-size:clamp(32px,4.5vw,48px)}
 .sechead p{color:var(--muted);font-size:18px}
 
-.dates{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-@media (max-width:860px){.dates{grid-template-columns:1fr}}
-.date{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
-.date .copy{padding:24px;display:grid;gap:10px}
-.date h3{font-size:28px}
-.date .copy p{color:var(--muted)}
+
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .tags span{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted)}
-
-/* arcade mock */
-.arcade{background:var(--night);color:#fff;padding:24px;display:grid;gap:16px;position:relative;min-height:250px}
-.arcade .marquee{font:12px/1.6 var(--pixel);color:var(--neon);text-shadow:0 0 10px var(--neon);text-align:center}
-.cabinets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.cab{border:2px solid var(--neon2);border-radius:4px;padding:12px 6px;text-align:center;font:9px/1.6 var(--pixel);color:var(--neon2);box-shadow:0 0 14px -4px var(--neon2) inset;cursor:pointer;background:transparent}
-.cab.on{border-color:var(--neon);color:var(--neon);box-shadow:0 0 18px -2px var(--neon)}
-.cab .ico{font-size:18px;display:block;margin-bottom:6px}
-.players{display:flex;justify-content:space-between;font:9px var(--pixel);color:#c7cbe0}
-.players b{color:var(--neon2);font-weight:400}
-.scores{font:10px var(--pixel);color:#fff;text-align:center}
-@media (prefers-reduced-motion:no-preference){.blink{animation:blink 1.2s steps(2) infinite}}
-@keyframes blink{50%{opacity:.25}}
-
-/* restaurant mock */
-.table{background:linear-gradient(180deg,#2a1b17,#3a2620);color:#f6ead8;padding:24px;display:grid;gap:12px;min-height:250px}
-.table .venue{font:22px var(--display);display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
-.table .venue small{font:11px var(--mono);letter-spacing:.1em;color:#d8b98a}
-.bubble{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px 12px 12px 2px;padding:10px 14px;font-size:14px;max-width:92%}
-.bubble.you{justify-self:end;border-radius:12px 12px 2px 12px;background:rgba(216,185,138,.18)}
-.bubble .who{display:block;font:11px var(--mono);color:#d8b98a;letter-spacing:.08em;margin-bottom:2px}
-.recipe{font:12px/1.7 var(--mono);color:#e9d6b8;border-top:1px dashed rgba(255,255,255,.2);padding-top:10px}
 
 /* travel */
 .travel{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -155,31 +128,46 @@ section.band{padding-block:80px}
 .join .note{font-size:13px;opacity:.8}
 .join .done{background:rgba(255,255,255,.12);padding:16px;border-radius:8px}
 
-/* date ideas */
-.subhead{font-size:clamp(24px,3vw,30px);margin-bottom:20px}
-.subgroup{margin-top:64px;padding-top:40px;border-top:1px solid var(--line)}
-.subgroup .subhead{margin-bottom:8px}
-.subnote{color:var(--muted);margin-bottom:24px;max-width:60ch}
-.ideabar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:24px}
+/* date carousel */
+.ideabar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{font:600 14px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.chip:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-.tonight{display:flex;gap:18px;align-items:center;background:var(--stamp);border-radius:10px;padding:18px 22px;margin-bottom:24px;flex-wrap:wrap}
-.tonight strong{font:24px var(--display);font-weight:400}
-.tonight p{color:var(--muted);flex-basis:100%}
-.ideas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:900px){.ideas{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.ideas{grid-template-columns:1fr}}
-.idea{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
-.idea .where{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
-.idea .where.together{color:var(--red)}
-.idea h3{font-size:21px;line-height:1.2}
-.idea p{color:var(--muted);font-size:15px}
-.idea .facts{display:flex;gap:12px;font:500 12px var(--mono);color:var(--muted);margin-top:4px}
-.idea.more{background:var(--blue);border-color:var(--blue);color:var(--onblue);text-decoration:none}
-.idea.more .where,.idea.more p{color:var(--onblue);opacity:.85}
-.idea.pick{outline:3px solid var(--red);outline-offset:2px}
+.chip:focus-visible,.dcard:focus-visible,.stage:focus-visible,.round:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.stage{position:relative;height:360px;perspective:1300px;overflow:hidden;overflow:clip;touch-action:pan-y;cursor:grab;user-select:none;border-radius:12px}
+.stage.dragging{cursor:grabbing}
+.stage{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.dcard::after{content:"";position:absolute;inset:-1px;border-radius:inherit;background:var(--paper);opacity:var(--fade,0);pointer-events:none}
+.dcard{position:absolute;left:50%;top:40px;width:210px;height:280px;margin-left:-105px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  padding:20px;display:flex;flex-direction:column;gap:10px;text-align:left;font:inherit;cursor:pointer;will-change:transform,opacity;box-shadow:0 20px 40px -28px rgba(0,0,0,.6)}
+.dcard .where{font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.dcard.k-together .where{color:var(--red)}
+.dcard h3{font-size:24px;line-height:1.15}
+.dcard .facts{margin-top:auto;display:flex;gap:12px;font:500 12px var(--mono);color:var(--muted)}
+.dcard .glyph{font-size:30px;line-height:1;color:var(--red)}
+.dcard.k-arcade{background:#120f24;border-color:var(--neon);color:#fff;box-shadow:0 0 24px -6px var(--neon)}
+.dcard.k-arcade .where{color:var(--neon2)}
+.dcard.k-arcade h3{font:15px/1.5 var(--pixel);color:var(--neon);text-shadow:0 0 10px var(--neon)}
+.dcard.k-arcade .glyph{color:var(--neon2)}
+.dcard.k-arcade .facts{color:#b9bdd8}
+.dcard.k-table{background:linear-gradient(180deg,#2a1b17,#3e2a22);border-color:#5a3d2f;color:#f6ead8}
+.dcard.k-table .where{color:#d8b98a}
+.dcard.k-table .glyph{color:#d8b98a}
+.dcard.k-table .facts{color:#d8c3a5}
+.dcard.k-plus{background:var(--blue);border-color:var(--blue);color:var(--onblue)}
+.dcard.k-plus .where,.dcard.k-plus .facts,.dcard.k-plus .glyph{color:var(--onblue);opacity:.85}
+.carctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:4px}
+.round{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center}
+.round:hover{border-color:var(--ink)}
+.detail{margin:28px auto 0;max-width:720px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;display:grid;gap:10px}
+.detail .where{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.detail h3{font-size:30px}
+.detail p{color:var(--muted)}
+.detail .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.detail .facts span{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted)}
+.detail .btn{justify-self:start;margin-top:6px}
+.counter{font:500 12px var(--mono);color:var(--muted);min-width:64px;text-align:center}
+@media (max-width:560px){.stage{height:330px}.dcard{width:180px;height:250px;margin-left:-90px;top:36px}.dcard h3{font-size:21px}.detail{padding:20px}}
 
 /* countdown band */
 .cdband{background:var(--night);color:#f1f0ec}
@@ -279,51 +267,26 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <h2>Somewhere to go together.</h2>
     <p>A video call works, but you end up just staring at each other. Play and cook together in the app, or pick an idea for tonight or your next visit.</p>
   </div>
-  <h3 class="subhead">Virtual dates in the app</h3>
-  <div class="dates">
-    <article class="date">
-      <div class="arcade" aria-label="Arcade date preview">
-        <div class="marquee">★ THE LOVE ARCADE ★<br><span class="blink">INSERT COIN · 2 PLAYERS</span></div>
-        <div class="cabinets" role="group" aria-label="Pick a cabinet">
-          <button class="cab on" type="button"><span class="ico">◆</span>CO-OP<br>PUZZLE</button>
-          <button class="cab" type="button"><span class="ico">▲</span>AIR<br>HOCKEY</button>
-          <button class="cab" type="button"><span class="ico">●</span>SKEE<br>BALL</button>
-        </div>
-        <div class="players"><span>P1 <b>YOU</b></span><span class="scores" id="tickets">TICKETS 0420</span><span>P2 <b>THEM</b></span></div>
-      </div>
-      <div class="copy">
-        <h3>Arcade Night</h3>
-        <p>Walk into a shared arcade, pick a cabinet, and play two-player co-op games in real time. Win tickets as a team and trade them in for prizes you send to each other.</p>
-        <div class="tags"><span>Co-op games</span><span>Shared ticket jar</span><span>Voice chat</span></div>
-      </div>
-    </article>
-
-    <article class="date">
-      <div class="table" aria-label="Restaurant date preview">
-        <div class="venue">Table for Two <small>RESERVED · 8:00 PM YOUR TIME</small></div>
-        <div class="bubble"><span class="who">AI WAITER</span>Good evening, you two. Tonight we're cooking together. Shrimp scampi, about 25 minutes. Shall I read you the shopping list?</div>
-        <div class="bubble you"><span class="who">YOU</span>Yes! Is it okay if one of us doesn't have shrimp?</div>
-        <div class="bubble"><span class="who">AI WAITER</span>Of course. Chicken works the same way. I'll walk you both through it step by step.</div>
-        <div class="recipe">STEP 3 OF 8 · Both of you: garlic into the pan, 60 seconds ⏱</div>
-      </div>
-      <div class="copy">
-        <h3>Table for Two</h3>
-        <p>Sit down at a virtual restaurant with an AI waiter who takes your orders, tells stories, and walks you both through cooking the same recipe in your own kitchens.</p>
-        <div class="tags"><span>AI waiter</span><span>Cook-along recipes</span><span>Swaps for what you have</span></div>
-      </div>
-    </article>
-  </div>
-
-  <div class="subgroup" id="ideas">
-    <h3 class="subhead">Date ideas</h3>
-    <p class="subnote">For nights you're apart and the days you finally get together. Filter by mood, or let us pick.</p>
-  </div>
   <div class="ideabar">
-    <div class="chips" id="chips" role="group" aria-label="Filter date ideas"></div>
-    <button class="btn" type="button" id="surprise">Pick one for us</button>
+    <div class="chips" id="chips" role="group" aria-label="Filter dates"></div>
   </div>
-  <div class="tonight" id="tonight" hidden aria-live="polite"><span class="eyebrow">Tonight</span><strong id="tonightT"></strong><p id="tonightP"></p></div>
-  <div class="ideas" id="ideaGrid"></div>
+  <div class="stage" id="stage" tabindex="0" aria-roledescription="carousel" aria-label="All dates. Use the left and right arrow keys to turn.">
+    <div id="ring"></div>
+  </div>
+  <div class="carctrl">
+    <button class="round" type="button" id="prevD" aria-label="Previous date">&#8592;</button>
+    <span class="counter" id="counter"></span>
+    <button class="btn" type="button" id="spinD">Spin for a date</button>
+    <span class="counter" aria-hidden="true"></span>
+    <button class="round" type="button" id="nextD" aria-label="Next date">&#8594;</button>
+  </div>
+  <div class="detail" id="detail" aria-live="polite">
+    <span class="where" id="dWhere"></span>
+    <h3 id="dTitle"></h3>
+    <p id="dText"></p>
+    <div class="facts" id="dFacts"></div>
+    <a class="btn" id="dLink" href="#pricing" hidden>See Plus</a>
+  </div>
 </div></section>
 
 <section class="cdband" id="countdown"><div class="wrap">
@@ -567,40 +530,84 @@ function cd(){
 [vd,vn].forEach(el=>el.addEventListener("input",()=>{try{localStorage.setItem("halfway-visit",JSON.stringify({date:vd.value,name:vn.value}))}catch(e){}cd()}));
 cd();setInterval(cd,1000);
 
-// date ideas
-const IDEAS=[
- ["apart","Movie night, in sync","Count down and press play on the same movie at the same second. Keep a call open for the commentary.","Free","2–3 hrs",["free","cozy"]],
- ["apart","Order each other dinner","Each of you picks a meal and has it delivered to the other's door. Eat together on video.","$$","1 hr",["cozy"]],
- ["apart","Stargazing call","Go outside on the same night, open a star map app, and try to find the same constellation.","Free","1 hr",["free","cozy"]],
- ["apart","Our story playlist","Take turns adding songs that tell the story of your relationship, then listen start to finish together.","Free","1 hr",["free"]],
- ["apart","Virtual museum trip","Pick a museum with a free online tour, like the Louvre or the Smithsonian, and explore it side by side.","Free","1–2 hrs",["free"]],
- ["apart","Letters on the same night","Mail each other a handwritten letter, then open them together on a call.","$","1 week",["cozy"]],
- ["apart","Two-person book club","Read the same book, one chapter a week, and talk it through every Sunday.","$","Ongoing",["cozy"]],
- ["apart","Same-box cook-off","Buy the same five ingredients and see who makes the better dinner. Vote on looks and taste.","$$","1–2 hrs",[]],
- ["apart","Online escape room","Book a two-player virtual escape room and solve it as a team on video.","$$","1 hr",["adventurous"]],
- ["apart","Neighborhood walk-along","Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.","Free","45 min",["free"]],
- ["together","Recreate your first date","Same place, same order, same outfits if you can. Talk about what you were thinking back then.","$$","An evening",["cozy"]],
- ["together","Tourist in my city","Each of you plans one day showing the other your favorite spots, the places you've always wanted to show them.","$$","1 day",[]],
- ["together","Meet somewhere new","Split the trip and meet in a city neither of you has been to. Use Travel to find one between you.","$$$","Weekend",["adventurous"]],
- ["together","Build a time capsule","Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.","Free","1 hr",["free","cozy"]],
- ["together","Take a class together","Pottery, salsa, or a cooking class. You leave with a new skill and a story.","$$","2–3 hrs",["adventurous"]]
+// date carousel: virtual dates + date ideas on one spinning ring
+const DATES=[
+ {k:"arcade",where:"Virtual date · In the app",g:"★",t:"Arcade Night",d:"Walk into a shared arcade, pick a cabinet, and play two-player co-op games in real time. Win tickets as a team and trade them in for prizes you send to each other.",f:["In the app","30–60 min","Co-op games","Shared ticket jar"],tags:["app","fun","adventurous"]},
+ {k:"table",where:"Virtual date · In the app",g:"♨",t:"Table for Two",d:"Sit down at a virtual restaurant with an AI waiter who takes your orders, tells stories, and walks you both through cooking the same recipe in your own kitchens.",f:["In the app","1 hr","AI waiter","Cook-along recipes"],tags:["app","cozy"]},
+ {k:"apart",t:"Movie night, in sync",d:"Count down and press play on the same movie at the same second. Keep a call open for the commentary.",f:["Free","2–3 hrs"],tags:["free","cozy"]},
+ {k:"apart",t:"Order each other dinner",d:"Each of you picks a meal and has it delivered to the other's door. Eat together on video.",f:["$$","1 hr"],tags:["cozy"]},
+ {k:"apart",t:"Stargazing call",d:"Go outside on the same night, open a star map app, and try to find the same constellation.",f:["Free","1 hr"],tags:["free","cozy"]},
+ {k:"together",t:"Recreate your first date",d:"Same place, same order, same outfits if you can. Talk about what you were thinking back then.",f:["$$","An evening"],tags:["cozy"]},
+ {k:"apart",t:"Our story playlist",d:"Take turns adding songs that tell the story of your relationship, then listen start to finish together.",f:["Free","1 hr"],tags:["free"]},
+ {k:"apart",t:"Virtual museum trip",d:"Pick a museum with a free online tour, like the Louvre or the Smithsonian, and explore it side by side.",f:["Free","1–2 hrs"],tags:["free"]},
+ {k:"together",t:"Tourist in my city",d:"Each of you plans one day showing the other your favorite spots, the places you've always wanted to show them.",f:["$$","1 day"],tags:[]},
+ {k:"apart",t:"Letters on the same night",d:"Mail each other a handwritten letter, then open them together on a call.",f:["$","1 week"],tags:["cozy"]},
+ {k:"apart",t:"Two-person book club",d:"Read the same book, one chapter a week, and talk it through every Sunday.",f:["$","Ongoing"],tags:["cozy"]},
+ {k:"together",t:"Meet somewhere new",d:"Split the trip and meet in a city neither of you has been to. Use Travel to find one between you.",f:["$$$","Weekend"],tags:["adventurous"]},
+ {k:"apart",t:"Same-box cook-off",d:"Buy the same five ingredients and see who makes the better dinner. Vote on looks and taste.",f:["$$","1–2 hrs"],tags:[]},
+ {k:"apart",t:"Online escape room",d:"Book a two-player virtual escape room and solve it as a team on video.",f:["$$","1 hr"],tags:["adventurous"]},
+ {k:"together",t:"Build a time capsule",d:"Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.",f:["Free","1 hr"],tags:["free","cozy"]},
+ {k:"apart",t:"Neighborhood walk-along",d:"Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.",f:["Free","45 min"],tags:["free"]},
+ {k:"together",t:"Take a class together",d:"Pottery, salsa, or a cooking class. You leave with a new skill and a story.",f:["$$","2–3 hrs"],tags:["adventurous"]},
+ {k:"plus",where:"Love Is In The Air Plus",g:"+",t:"200+ more date ideas",d:"Holiday dates, anniversary plans, and new ideas every month, plus unlimited virtual dates.",f:["Plus"],tags:["all-only"]}
 ];
-const FILTERS=[["all","All ideas"],["apart","While apart"],["together","When you visit"],["free","Free"],["cozy","Cozy"],["adventurous","Adventurous"]];
-let filt="all";
-const chipsEl=document.getElementById("chips"),grid=document.getElementById("ideaGrid");
+const WHERE={apart:"While apart",together:"When you visit"};
+const FILTERS=[["all","All dates"],["app","In the app"],["apart","While apart"],["together","When you visit"],["free","Free"],["cozy","Cozy"],["adventurous","Adventurous"]];
+const stage=document.getElementById("stage"),ring=document.getElementById("ring"),chipsEl=document.getElementById("chips");
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let filt="all",list=[],cards=[],rot=0,step=0,radius=400,anim=null,auto=!reduce,front=-1;
+
 FILTERS.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=label;b.setAttribute("aria-pressed",k===filt);
- b.addEventListener("click",()=>{filt=k;chipsEl.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));document.getElementById("tonight").hidden=true;renderIdeas()});chipsEl.appendChild(b)});
-const matches=i=>filt==="all"||i[0]===filt||i[5].includes(filt);
-function renderIdeas(){grid.innerHTML="";
- IDEAS.filter(matches).forEach(i=>{const a=document.createElement("article");a.className="idea";
-  a.innerHTML='<span class="where '+i[0]+'">'+(i[0]==="apart"?"While apart":"When you visit")+'</span><h3></h3><p></p><div class="facts"><span>'+i[3]+'</span><span>'+i[4]+'</span></div>';
-  a.querySelector("h3").textContent=i[1];a.querySelector("p").textContent=i[2];a.dataset.title=i[1];grid.appendChild(a)});
- const m=document.createElement("a");m.className="idea more";m.href="#pricing";
- m.innerHTML='<span class="where">Love Is In The Air Plus</span><h3>200+ more date ideas</h3><p>Holiday dates, anniversary plans, and new ideas every month.</p>';grid.appendChild(m)}
-document.getElementById("surprise").addEventListener("click",()=>{const list=IDEAS.filter(matches),i=list[Math.floor(Math.random()*list.length)];
- document.getElementById("tonightT").textContent=i[1];document.getElementById("tonightP").textContent=i[2]+" ("+i[3]+" · "+i[4]+")";document.getElementById("tonight").hidden=false;
- grid.querySelectorAll(".idea").forEach(c=>c.classList.toggle("pick",c.dataset.title===i[1]))});
-renderIdeas();
+ b.addEventListener("click",()=>{filt=k;chipsEl.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));build()});chipsEl.appendChild(b)});
+
+function build(){
+  list=DATES.filter(d=>filt==="all"||d.k===filt||d.tags.includes(filt));
+  ring.innerHTML="";cards=list.map((d,i)=>{const c=document.createElement("button");c.type="button";c.className="dcard k-"+d.k;c.tabIndex=-1;
+    c.innerHTML='<span class="where"></span><span class="glyph" aria-hidden="true"></span><h3></h3><span class="facts"></span>';
+    c.querySelector(".where").textContent=d.where?d.where.replace(" · In the app",""):WHERE[d.k];
+    c.querySelector(".glyph").textContent=d.g||(d.k==="apart"?"♡":"✈");
+    c.querySelector("h3").textContent=d.t;c.querySelector(".facts").textContent=d.f.slice(0,2).join("  ·  ");
+    c.addEventListener("click",()=>{if(!moved){stopAuto();goTo(i)}});ring.appendChild(c);return c});
+  step=360/list.length;rot=0;front=-1;size();render();
+}
+function size(){const w=stage.clientWidth,cw=cards[0]?cards[0].offsetWidth:210;
+  const ideal=(cw+24)/2/Math.tan(Math.PI/Math.max(list.length,3));radius=Math.max(cw*0.9,ideal)}
+const norm=a=>((a%360)+540)%360-180;
+function render(){
+  cards.forEach((c,i)=>{const th=norm(i*step-rot),r=th*Math.PI/180,cos=Math.cos(r);
+    const k=(cos+1)/2;
+    c.style.transform="translate3d("+(Math.sin(r)*radius).toFixed(1)+"px,0,"+((cos-1)*radius).toFixed(1)+"px) rotateY("+th.toFixed(2)+"deg)";
+    c.style.setProperty("--fade",(0.9*(1-Math.pow(k,1.6))).toFixed(3));c.style.zIndex=Math.round(k*1000);c.style.pointerEvents=cos>0.2?"auto":"none";c.style.visibility=cos>-0.05?"visible":"hidden"});
+  const f=((Math.round(rot/step)%list.length)+list.length)%list.length;
+  if(f!==front){front=f;showDetail()}
+}
+function showDetail(){const d=list[front];if(!d)return;
+  document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;
+  const fx=document.getElementById("dFacts");fx.innerHTML="";d.f.forEach(t=>{const s=document.createElement("span");s.textContent=t;fx.appendChild(s)});
+  document.getElementById("dLink").hidden=d.k!=="plus";
+  document.getElementById("counter").textContent=(front+1)+" / "+list.length;
+  cards.forEach((c,i)=>c.setAttribute("aria-current",i===front?"true":"false"))}
+function tween(to,ms,done){cancelAnimationFrame(anim);const from=rot,t0=performance.now();ms=reduce?1:ms;
+  const tick=now=>{const p=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-p,3);rot=from+(to-from)*e;render();if(p<1)anim=requestAnimationFrame(tick);else if(done)done()};anim=requestAnimationFrame(tick)}
+function goTo(i){const cur=rot/step;let target=Math.round(cur)+((i-Math.round(cur))%list.length+list.length)%list.length;
+  if(target-cur>list.length/2)target-=list.length;tween(target*step,600)}
+function stopAuto(){auto=false}
+document.getElementById("prevD").addEventListener("click",()=>{stopAuto();tween((Math.round(rot/step)-1)*step,500)});
+document.getElementById("nextD").addEventListener("click",()=>{stopAuto();tween((Math.round(rot/step)+1)*step,500)});
+document.getElementById("spinD").addEventListener("click",()=>{stopAuto();const pick=Math.floor(Math.random()*list.length);
+  const base=Math.ceil(rot/360)*360+720;tween(base+pick*step,2600)});
+stage.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){e.preventDefault();document.getElementById("nextD").click()}if(e.key==="ArrowLeft"){e.preventDefault();document.getElementById("prevD").click()}});
+// drag to turn
+let dragX=null,dragRot=0,moved=false;
+stage.addEventListener("pointerdown",e=>{dragX=e.clientX;dragRot=rot;moved=false;cancelAnimationFrame(anim);stopAuto()});
+addEventListener("pointermove",e=>{if(dragX===null)return;const dx=e.clientX-dragX;if(Math.abs(dx)>5){moved=true;stage.classList.add("dragging")}
+  if(moved){rot=dragRot-dx*0.3;render()}});
+addEventListener("pointerup",()=>{if(dragX===null)return;dragX=null;stage.classList.remove("dragging");if(moved)tween(Math.round(rot/step)*step,450);setTimeout(()=>moved=false,0)});
+// slow idle spin until someone touches it
+let last=performance.now();
+(function idle(now){if(auto&&!stage.matches(":hover")){rot+=(now-last)*0.008;render()}last=now;if(auto)requestAnimationFrame(idle)})(last);
+addEventListener("resize",()=>{size();render()});
+build();
 
 // deep talks
 const TALKS={
@@ -624,9 +631,6 @@ function showQ(){const t=TALKS[cat],card=document.getElementById("qcard");card.c
 document.getElementById("nextQ").addEventListener("click",()=>{idx++;showQ()});
 document.getElementById("saveQ").addEventListener("click",e=>{e.target.textContent="Saved ✓"});
 showQ();
-
-// arcade cabinets
-let tix=420;document.querySelectorAll(".cab").forEach(c=>c.addEventListener("click",()=>{document.querySelectorAll(".cab").forEach(x=>x.classList.remove("on"));c.classList.add("on");tix+=Math.floor(Math.random()*40)+10;document.getElementById("tickets").textContent="TICKETS "+String(tix).padStart(4,"0")}));
 
 // waitlist (preview)
 document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefault();const em=document.getElementById("email");
