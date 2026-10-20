@@ -53,14 +53,20 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
-.hero .wrap{position:relative;min-height:calc(100svh - 84px);display:flex;align-items:center;padding-block:32px 48px}
+.top{--ink:#2a1f17;--muted:#4f4034;--line:rgba(42,31,23,.35);--blue:#2c4a7a;--onblue:#ffffff;--red:#a8362f;color:var(--ink);min-height:100svh;display:flex;flex-direction:column;
+  background:linear-gradient(90deg,rgba(244,233,214,.94) 0%,rgba(244,233,214,.82) 38%,rgba(244,233,214,.15) 68%,rgba(244,233,214,0) 100%),
+  url("images/hero.jpg") center top/cover no-repeat;
+  background:linear-gradient(90deg,rgba(244,233,214,.94) 0%,rgba(244,233,214,.82) 38%,rgba(244,233,214,.15) 68%,rgba(244,233,214,0) 100%),
+  image-set(url("images/hero.webp") type("image/webp"),url("images/hero.jpg") type("image/jpeg")) center top/cover no-repeat}
+.top .hero{flex:1;display:flex}
+.top .btn.ghost{background:rgba(255,250,240,.6)}
+@media (max-width:760px){.top{background:linear-gradient(180deg,rgba(244,233,214,.86),rgba(244,233,214,.9) 40%,rgba(244,233,214,.9) 75%,rgba(244,233,214,.7)),url("images/hero.jpg") center top/cover no-repeat}}
+.hero .wrap{position:relative;flex:1;display:flex;align-items:center;padding-block:32px 64px}
 .herotext{position:relative;z-index:1}
-.hero .flight{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);width:min(22vw,280px);height:auto}
 .hero h1{font-size:clamp(40px,min(7vw,11svh),92px);margin-block:0 22px}
 .hero h1 em{font-style:normal;color:var(--red)}
 .hero p.lede{font-size:20px;color:var(--muted);max-width:40ch}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-@media (max-width:860px){.hero .flight{display:none}}
 #travel .postcard{max-width:640px;margin-bottom:40px}
 
 .postcard{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(20,26,46,.45);overflow:hidden;min-width:0}
@@ -241,6 +247,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 </style>
 </head>
 <body>
+<div class="top">
 <nav><div class="wrap">
   <a class="logo" href="#top" aria-label="Love Is In The Air home">
     <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><path d="M2 26c6-2 9-6 13-11" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M22 25C13 19 11 14 13.5 10.2 15.6 7.3 19.4 7.7 22 10.6 24.6 7.7 28.4 7.3 30.5 10.2 33 14 31 19 22 25Z" fill="var(--red)"/></svg>
@@ -258,13 +265,8 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <p class="lede">Dates, deep talks, and a countdown to your next visit.</p>
     <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See what's inside</a></div>
   </div>
-  <svg class="flight" viewBox="0 0 320 220" aria-hidden="true">
-    <path d="M20 190 C 90 40, 230 30, 300 150" fill="none" stroke="var(--line)" stroke-width="2.5" stroke-dasharray="6 8" stroke-linecap="round"/>
-    <circle cx="20" cy="190" r="9" fill="var(--blue)"/>
-    <circle cx="300" cy="150" r="9" fill="var(--red)"/>
-    <path transform="translate(146 56)" d="M14 25C5 19 2 13 4.5 9.2 6.6 6.3 10.4 6.7 14 9.9 17.6 6.7 21.4 6.3 23.5 9.2 26 13 23 19 14 25Z" fill="var(--red)"/>
-  </svg>
 </div></header>
+</div>
 
 
 
