@@ -88,6 +88,15 @@ def same(a, b):
     return [x["u"] for x in a[:12]] == [x["u"] for x in b[:12]]
 
 
+def filters_ok(kind, base, flt):
+    """True if the filter changes the list. Checks twice, since a page can come back unfiltered by accident."""
+    for _ in range(2):
+        test = listing(kind, flt)
+        if test and not same(test, base):
+            return True
+    return False
+
+
 def main():
     # Rotten Tomatoes ignores filters it doesn't recognize and shows everything, so compare each
     # service and genre against the unfiltered list and drop any that don't actually filter.
@@ -97,8 +106,7 @@ def main():
 
     services = []
     for slug, name in SERVICES:
-        test = listing("movie", "affiliates:" + slug)
-        if test and not same(test, base["movie"]):
+        if filters_ok("movie", base["movie"], "affiliates:" + slug):
             services.append((slug, name))
         else:
             print("skipping service", slug)
@@ -106,8 +114,7 @@ def main():
     for kind in SECTION:
         genres[kind] = []
         for slug, name in GENRES[kind]:
-            test = listing(kind, "genres:" + slug)
-            if test and not same(test, base[kind]):
+            if filters_ok(kind, base[kind], "genres:" + slug):
                 genres[kind].append((slug, name))
             else:
                 print("skipping", kind, "genre", slug)
