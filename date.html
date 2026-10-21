@@ -244,6 +244,83 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .addbtn{justify-self:start;margin-top:2px;font:600 13px var(--body);color:var(--red);background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
 .addbtn.on{background:var(--red);border-color:var(--red);color:var(--card)}
 #spotMore{display:block;margin:0 auto}
+.fmsg{font-size:13px;color:var(--red)}
+.fmsg:empty{display:none}
+.wx{background:none;border:0;color:var(--muted);font:600 13px var(--body);cursor:pointer;text-decoration:underline}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* trip board */
+.board{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(47,36,27,.45);padding:24px;display:grid;gap:18px;min-width:0}
+.board>*,.bpanel>*{min-width:0}
+.board{grid-template-columns:minmax(0,1fr)}
+.tripmeta input,.bform input,.bform select{width:100%}
+@media (max-width:560px){.board{padding:18px}}
+.bhead{margin:0;font-size:inherit}
+.btoggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:var(--ink)}
+.btl{display:grid;gap:2px;min-width:0}
+.bname{font:28px var(--display)}
+.tctl{flex:none;display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:999px;padding:6px 8px 6px 16px;font:600 14px var(--body);color:var(--ink);background:var(--paper)}
+.btoggle .chev{flex:none;width:22px;height:22px;transition:transform .2s}
+.btoggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.btoggle:hover .tctl{border-color:var(--ink)}
+.btoggle[aria-expanded="true"] .tctl{background:var(--card)}
+.btoggle:focus-visible{outline:3px solid var(--red);outline-offset:6px;border-radius:6px}
+.bbody{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+.bbody>*{min-width:0}
+@media (prefers-reduced-motion:reduce){.btoggle .chev{transition:none}}
+.bsub{color:var(--muted);font-size:15px;font-family:var(--body)}
+.bactions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bactions select,.bform select,.bform input,.tripmeta input,#shareLink{font:15px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:9px 10px;min-width:0;max-width:100%}
+.bactions select{font-weight:600;max-width:260px}
+.bactions .btn{padding:10px 16px;font-size:14px}
+.bnote{background:var(--stamp);border-radius:8px;padding:14px 16px;display:grid;gap:10px}
+.brow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#shareLink{flex:1 1 260px;font:13px var(--mono)}
+.bempty-trip{display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted)}
+.tripmeta{display:grid;grid-template-columns:2fr 1.4fr 1fr 1fr auto;gap:10px;align-items:end}
+.tripmeta label,.bform label{display:grid;gap:4px;min-width:0}
+.tripmeta span,.bform label span{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tripmeta .tm-name input{font:20px var(--display)}
+.tripmeta .wx{padding-bottom:10px}
+@media (max-width:860px){.tripmeta{grid-template-columns:1fr 1fr}.tripmeta .tm-name{grid-column:1/-1}}
+.bexample{font-size:13px;color:var(--muted);background:var(--paper);border:1px dashed var(--line);border-radius:6px;padding:8px 12px}
+.btabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.btab{font:600 15px var(--body);color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;white-space:nowrap}
+.btab span{font:500 11px var(--mono);background:var(--paper2);color:var(--muted);border-radius:999px;padding:2px 7px;margin-left:4px}
+.btab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--red)}
+.btab:focus-visible{outline:3px solid var(--red);outline-offset:-3px}
+.bpanel{display:grid;gap:16px;padding-top:6px}
+.blist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.bday{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--red);padding-top:8px}
+.bitem{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}
+.btime{font:500 13px var(--mono);color:var(--blue);min-width:72px}
+.btext{flex:1;min-width:0;display:grid;overflow-wrap:anywhere}
+.btext small{color:var(--muted);font-size:12px}
+.bamt{font:500 15px var(--mono);font-variant-numeric:tabular-nums}
+.bx{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid transparent;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer}
+.bx:hover{border-color:var(--line);color:var(--red)}
+.bempty{color:var(--muted);font-size:14px;padding:6px 0}
+.tkinfo{flex:1;min-width:0;display:grid;gap:1px}
+.tkkind{font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.tkwhen{font-size:12px;color:var(--muted)}
+.tkcode{font:500 14px var(--mono);letter-spacing:.08em;background:var(--card);border:1px dashed var(--muted);border-radius:4px;padding:5px 9px;color:var(--ink);cursor:pointer}
+.csum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.csum div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px}
+.csum span{display:block;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.csum b{font:500 22px var(--mono);font-variant-numeric:tabular-nums}
+.settle{grid-column:1/-1;font:20px var(--display);color:var(--red)}
+.settle.even{color:var(--sage)}
+@media (max-width:560px){.csum{grid-template-columns:1fr 1fr}.csum div:first-child{grid-column:1/-1}}
+.pl input[type=checkbox]{width:20px;height:20px;accent-color:var(--red);flex:none}
+.pl.done strong{text-decoration:line-through;color:var(--muted)}
+.badd2{flex:none;font:600 13px var(--body);color:var(--blue);background:none;border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer}
+.pnote{font-size:14px;color:var(--muted)}
+.bform{display:flex;flex-wrap:wrap;gap:10px;align-items:end;border-top:1px dashed var(--line);padding-top:14px}
+.bform label{flex:0 1 150px}
+.bform .grow{flex:1 1 240px}
+.bform .btn{padding:10px 18px;font-size:14px}
+.bform .fmsg{flex-basis:100%}
+.bform input:focus-visible,.bform select:focus-visible,.tripmeta input:focus-visible,.bactions select:focus-visible{outline:3px solid var(--red);outline-offset:1px}
+.boardwrap .board{margin-top:0;margin-bottom:40px}
 /* sky guide */
 .fform.sky{grid-template-columns:1fr 1fr}
 .skyopts{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
@@ -271,12 +348,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .skyfacts.compact span{font-size:13px}
 .both{background:var(--card);border:1.5px dashed var(--rose);border-radius:12px;padding:18px;display:grid;gap:10px}
 .both h3{font-size:24px}
-.bnote{color:var(--muted);font-size:15px}
-.blist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media (max-width:720px){.blist{grid-template-columns:minmax(0,1fr)}}
-.blist li{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
-.blist li>strong{font:400 19px var(--display)}
-.blist li>span{font-size:13px;color:var(--muted)}
+.bothnote{color:var(--muted);font-size:15px}
+.bothlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.bothlist{grid-template-columns:minmax(0,1fr)}}
+.bothlist li{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.bothlist li>strong{font:400 19px var(--display)}
+.bothlist li>span{font-size:13px;color:var(--muted)}
 .pair{display:grid;gap:2px;margin-top:6px;font-size:14px;color:var(--blue)}
 .pair b{color:var(--ink);font-weight:600}
 .chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
@@ -444,6 +521,98 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="credit" id="museumCredit" hidden>All tours are free and run by the museums or Google Arts &amp; Culture. Open the same link on both devices, or share your screen.</p>
     </section>
 
+    <section class="boardwrap" id="boardWrap" hidden>
+  <div class="board" id="tripBoard" aria-labelledby="boardTitle">
+      <h3 class="bhead" id="boardTitle"><button class="btoggle" type="button" id="boardToggle" aria-expanded="false" aria-controls="boardBody">
+        <span class="btl"><span class="bname">Trip board</span><span class="bsub" id="boardSum">Plans, tickets, costs, and your bucket list, all in one place.</span></span>
+        <span class="tctl"><span class="tlabel" id="boardToggleLabel">Open</span><svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button></h3>
+      <div class="bbody" id="boardBody" hidden>
+        <div class="bactions">
+          <label class="vh" for="tripPick">Choose a trip</label><select id="tripPick"></select>
+          <button class="btn ghost" type="button" id="tripNew">New trip</button>
+          <button class="btn" type="button" id="boardShare">Share with your partner</button>
+        </div>
+  
+      <div class="bnote" id="bImport" hidden><p id="bImportText"></p><div class="brow"><button class="btn" type="button" id="bImportYes">Use shared board</button><button class="btn ghost" type="button" id="bImportNo">Keep mine</button></div></div>
+      <div class="bnote" id="bShare" hidden>
+        <p>Send this link to your partner. When they open it, they get a copy of this board. After you make changes, send a new link.</p>
+        <div class="brow"><label class="vh" for="shareLink">Share link</label><input id="shareLink" readonly><button class="btn" type="button" id="shareCopy">Copy link</button><button class="wx" type="button" id="shareClose">Close</button></div>
+      </div>
+  
+      <div class="bempty-trip" id="noTrip" hidden><p>No trips yet. Start one for your next visit.</p><button class="btn" type="button" id="noTripNew">Plan a trip</button></div>
+  
+      <div class="tripmeta" id="tripMeta">
+        <label class="tm-name" for="tName"><span>Trip name</span><input id="tName" maxlength="60"></label>
+        <label for="tPlace"><span>Where</span><input id="tPlace" maxlength="60" placeholder="City"></label>
+        <label for="tStart"><span>From</span><input id="tStart" type="date"></label>
+        <label for="tEnd"><span>To</span><input id="tEnd" type="date"></label>
+        <button class="wx" type="button" id="tDelete">Delete trip</button>
+      </div>
+      <p class="bexample" id="bExample" hidden>This is an example so you can see how the board works. <button class="wx" type="button" id="bClearEx">Clear example</button></p>
+  
+      <div id="tripTabs">
+        <div class="btabs" role="tablist" aria-label="Trip board sections">
+          <button class="btab" type="button" role="tab" data-tab="plans" aria-controls="p-plans">Plans <span id="cnt-plans">0</span></button>
+          <button class="btab" type="button" role="tab" data-tab="tickets" aria-controls="p-tickets">Tickets <span id="cnt-tickets">0</span></button>
+          <button class="btab" type="button" role="tab" data-tab="costs" aria-controls="p-costs">Costs <span id="cnt-costs">0</span></button>
+          <button class="btab" type="button" role="tab" data-tab="places" aria-controls="p-places">Places to go <span id="cnt-places">0</span></button>
+        </div>
+  
+        <div class="bpanel" id="p-plans" role="tabpanel">
+          <ul class="blist" id="planList"></ul>
+          <form class="bform" id="planForm" novalidate>
+            <label for="planDay"><span>Day</span><input id="planDay" type="date"></label>
+            <label for="planTime"><span>Time</span><input id="planTime" type="time"></label>
+            <label class="grow" for="planText"><span>Plan</span><input id="planText" maxlength="120" placeholder="Dinner at the place with the rooftop"></label>
+            <button class="btn" type="submit">Add plan</button>
+          </form>
+        </div>
+  
+        <div class="bpanel" id="p-tickets" role="tabpanel" hidden>
+          <ul class="blist" id="ticketList"></ul>
+          <form class="bform" id="ticketForm" novalidate>
+            <label for="tkKind"><span>Type</span><select id="tkKind"><option>Flight</option><option>Train</option><option>Bus</option><option>Hotel</option><option>Event</option><option>Other</option></select></label>
+            <label class="grow" for="tkTitle"><span>What</span><input id="tkTitle" maxlength="80" placeholder="ORD → PIT, United 1234"></label>
+            <label for="tkCode"><span>Confirmation code</span><input id="tkCode" maxlength="30" spellcheck="false"></label>
+            <label for="tkWhen"><span>When</span><input id="tkWhen" type="datetime-local"></label>
+            <button class="btn" type="submit">Add ticket</button>
+          </form>
+        </div>
+  
+        <div class="bpanel" id="p-costs" role="tabpanel" hidden>
+          <div class="csum">
+            <div><span>Trip total</span><b id="costTotal">$0.00</b></div>
+            <div><span>Your share</span><b id="costYou">$0.00</b></div>
+            <div><span>Their share</span><b id="costThem">$0.00</b></div>
+            <p class="settle" id="costSettle"></p>
+          </div>
+          <ul class="blist" id="costList"></ul>
+          <form class="bform" id="costForm" novalidate>
+            <label class="grow" for="costWhat"><span>What</span><input id="costWhat" maxlength="60" placeholder="Dinner"></label>
+            <label for="costAmt"><span>Amount ($)</span><input id="costAmt" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+            <label for="costPaid"><span>Paid by</span><select id="costPaid"><option value="me">You</option><option value="them">Them</option></select></label>
+            <label for="costSplit"><span>Split</span><select id="costSplit"><option value="half">50/50</option><option value="me">Just for you</option><option value="them">Just for them</option></select></label>
+            <button class="btn" type="submit">Add cost</button>
+            <p class="fmsg" id="costMsg" role="status"></p>
+          </form>
+        </div>
+  
+        <div class="bpanel" id="p-places" role="tabpanel" hidden>
+          <p class="pnote">Your bucket list of places to go together. It stays the same across all your trips.</p>
+          <ul class="blist" id="placeList"></ul>
+          <form class="bform" id="placeForm" novalidate>
+            <label class="grow" for="plName"><span>Place or thing to do</span><input id="plName" maxlength="80" placeholder="See the northern lights"></label>
+            <label for="plWhere"><span>Where</span><input id="plWhere" maxlength="60" placeholder="City or country"></label>
+            <label for="plKind"><span>Type</span><select id="plKind"><option>See</option><option>Do</option><option>Eat</option><option>Stay</option></select></label>
+            <button class="btn" type="submit">Add place</button>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+    </section>
+
     <section class="finder" id="books" aria-labelledby="bookTitle" hidden>
       <div>
         <h2 id="bookTitle">Find your next book</h2>
@@ -562,8 +731,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
         <section class="both" id="skyBoth" aria-labelledby="bothTitle" hidden>
           <h3 id="bothTitle">You can both see</h3>
-          <p class="bnote" id="bothNote"></p>
-          <ul class="blist" id="bothList"></ul>
+          <p class="bothnote" id="bothNote"></p>
+          <ul class="bothlist" id="bothList"></ul>
           <div class="chips" id="bothCons"></div>
         </section>
         <div class="seg whose" id="skyWhose" role="group" aria-label="Whose constellations" hidden><button type="button" data-who="me" aria-pressed="true">Your constellations</button><button type="button" data-who="them" aria-pressed="false">Their constellations</button></div>
@@ -604,12 +773,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=fe940e9f"></script>
+<script src="js/dates.js?v=c2dd9461"></script>
+<script src="js/tripboard.js?v=6d5f8997"></script>
 <script src="js/locate.js?v=35a0f460"></script>
 <script src="js/citytour.js?v=a213a187"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=52015806"></script>
+<script src="js/date-page.js?v=1ef2e0f5"></script>
 </body>
 </html>

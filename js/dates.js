@@ -93,9 +93,9 @@ window.DATE_MORE={
   steps:["Pick a book together with the search on this page, and alternate who chooses.","Read one chapter a week, whenever it suits you.","Meet every Sunday on a call to talk it through.","Mark a passage for each other as you read."],
   need:["Two copies of the book, or an ebook","30 minutes a week"],
   tip:"Short books keep it going. Start with something you can finish in a month."},
- "meet-somewhere-new":{
-  steps:["Use Travel on the home page to find a city that's fair to both of you.","Check flights from both cities on the same dates.","Book a place to stay together and plan a few things to do.","Explore it as first-timers, together."],
-  need:["A weekend","Flights or a drive","A trip board to keep plans in one place"],
+ "meet-somewhere-new":{tool:"board",
+  steps:["Use Travel on the home page to find a city that's fair to both of you.","Check flights from both cities on the same dates.","Book a place to stay together, and put your plans, tickets and costs on the trip board on this page.","Explore it as first-timers, together."],
+  need:["A weekend","Flights or a drive","The trip board on this page, shared with your partner"],
   tip:"Arrive on the same day so neither of you waits alone."},
  "cook-off":{tool:"recipes",
   steps:["Pick a recipe with the search on this page, or agree on five ingredients you can both find.","Each of you buys them, plus pantry basics like salt, oil, and spices.","Set a timer and cook on video.","Show off your plates and vote on looks and taste."],

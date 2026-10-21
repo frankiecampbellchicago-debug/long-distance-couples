@@ -2,6 +2,7 @@
 // "Share with your partner" sends a copy of the board as a link.
 (function () {
   const $ = id => document.getElementById(id);
+  if (!$("tripBoard")) return;
   const KEY = "liita-board";
   const pad = n => String(n).padStart(2, "0");
   const iso = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
@@ -23,6 +24,8 @@
     try { localStorage.setItem(KEY + "-open", open ? "1" : "0"); } catch (e) {}
   }
   toggle.addEventListener("click", () => setOpen(body.hidden));
+  // date pages show the board already open, without changing how the home page remembers it
+  window.openTripBoard = () => { body.hidden = false; toggle.setAttribute("aria-expanded", "true"); $("boardToggleLabel").textContent = "Minimize"; };
   try { if (localStorage.getItem(KEY + "-open") === "1") setOpen(true); } catch (e) {}
 
   // ---------- data ----------
@@ -259,7 +262,7 @@
   const m = location.hash.match(/^#board=([A-Za-z0-9_-]+)$/);
   if (m) {
     try { const b = dec(m[1]); if (valid(b)) incoming = b; } catch (e) {}
-    history.replaceState(null, "", location.pathname + location.search + "#travel");
+    history.replaceState(null, "", location.pathname + location.search + ($("travel") ? "#travel" : ""));
     if (incoming) {
       $("bImportText").textContent = "Your partner shared a trip board with " + incoming.trips.length + (incoming.trips.length === 1 ? " trip" : " trips") + " and " + incoming.places.length + " places. Do you want to use it?";
       $("bImport").hidden = false; setOpen(true);
