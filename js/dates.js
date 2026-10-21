@@ -64,9 +64,9 @@ window.DATE_MORE={
   steps:["Ask your partner for their delivery address. Keep it a surprise if you can.","Use the search on this page to find places near them, and pick a food you know they love.","Open the restaurant in Uber Eats and send dinner to their door.","They do the same for you. Eat together on video when both meals arrive."],
   need:["Each other's addresses","A delivery app like Uber Eats","A video call"],
   tip:"Time the orders so both meals land within a few minutes of each other."},
- "stargazing":{
-  steps:["Check the weather in both cities and pick a clear night.","Each of you goes outside, away from bright lights if you can.","Open a free star map app like Stellarium or SkyView.","Find the moon or a bright constellation, then talk about what you can each see."],
-  need:["A clear night","A star map app","A blanket and a warm drink"],
+ "stargazing":{tool:"stars",
+  steps:["Check the weather in both cities and pick a clear night.","Each of you puts your city in the sky guide on this page to see what's up that night and where to look.","Go outside, away from bright lights if you can, and give your eyes 15 minutes to adjust.","Find the moon or a bright constellation, then talk about what you can each see."],
+  need:["A clear night","The sky guide on this page, or a star map app like Stellarium","A blanket and a warm drink"],
   tip:"If you live far apart in latitude, you'll see different stars. Show each other the ones the other can't see."},
  "first-date":{
   steps:["Plan it for your next visit, and keep the details a secret if you can.","Go back to the same place, or somewhere close to it.","Order what you ordered then, and wear what you wore if you still have it.","Tell each other what you were really thinking that first night."],
