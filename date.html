@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Everything you need to plan this long-distance date.">
+<title>Date idea · Love Is In The Air</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap">
+<style>
+/* Same vintage airmail palette as index.html. Light only, on purpose. */
+:root{
+  color-scheme:light;
+  --paper:#f4e9d4;--paper2:#ecdcbf;--card:#fbf5e9;--ink:#2f241b;--muted:#6b5848;--line:#d9c6a5;
+  --red:#a8362f;--rose:#c98b84;--blue:#2c4a7a;--onblue:#fbf5e9;--sky:#9fb4c8;--sage:#7f8f6c;--gold:#c3954e;--navy:#22344f;--stamp:#ebe0c9;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --pixel:"Press Start 2P", ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body)}
+[hidden]{display:none!important}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font:600 15px var(--body);cursor:pointer;text-decoration:none;background:var(--blue);color:var(--onblue)}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.red{background:var(--red);color:var(--card)}
+.btn:disabled{opacity:.5;cursor:progress}
+.btn:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px}
+.logo{font:24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none}
+.back{font-weight:600;font-size:15px;color:var(--blue);text-decoration:none}
+.back:hover{text-decoration:underline}
+@media (max-width:480px){.logo{font-size:19px;gap:8px}.back{font-size:14px}}
+
+/* stamps (same as home page) */
+.stamp{--sz:64px;display:block;flex:none;width:var(--sz);height:var(--sz);padding:4px;transform:rotate(-3deg);
+  background:radial-gradient(circle,transparent 0 2.2px,#efe1c4 2.7px) -4px -4px/8px 8px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.28))}
+.stamp .face{display:block;width:100%;height:100%;background:#f6ead2;box-shadow:inset 0 0 0 2px #f6ead2,inset 0 0 0 3px #c4a77a;padding:3px}
+.stamp svg{display:block;width:100%;height:100%}
+.stamp.big{--sz:120px;transform:rotate(-4deg)}
+
+.dhead{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;padding-block:24px 36px}
+.dhead .txt{display:grid;gap:12px}
+.dhead h1{font-size:clamp(36px,5.5vw,58px)}
+.dhead p{font-size:19px;color:var(--muted);max-width:56ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.facts span{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted);background:var(--card)}
+@media (max-width:640px){.dhead{grid-template-columns:1fr;gap:18px}.stamp.big{--sz:96px}}
+
+.soonbar{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--stamp);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:28px}
+.soonbar p{font-weight:600}
+
+.cols{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start;padding-bottom:40px}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;gap:14px;min-width:0}
+.panel h2{font-size:26px}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:14px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--paper);border:1.5px solid var(--red);color:var(--red);font:500 14px var(--mono)}
+.steps li span{padding-top:4px}
+.need{margin:0;padding-left:20px;display:grid;gap:6px}
+.tip{border-top:1px dashed var(--line);padding-top:14px;color:var(--muted)}
+.tip b{color:var(--ink)}
+
+/* food finder */
+.finder{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;gap:18px;margin-bottom:40px;box-shadow:0 18px 40px -26px rgba(47,36,27,.45)}
+.finder h2{font-size:30px}
+.finder .sub{color:var(--muted)}
+.fform{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end}
+@media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
+.field{display:grid;gap:6px;min-width:0}
+.field span{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{font:16px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;width:100%;min-width:0}
+.fstatus{font-size:15px;color:var(--muted)}
+.fstatus.err{color:var(--red)}
+.fstatus:empty{display:none}
+.near{font-size:14px;color:var(--muted)}
+.near b{color:var(--ink)}
+.rlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.rlist{grid-template-columns:minmax(0,1fr)}}
+.rcard{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:8px;align-content:start;min-width:0}
+.rtop{display:flex;gap:12px;align-items:baseline;justify-content:space-between}
+.rcard h3{font-size:21px;overflow-wrap:anywhere}
+.rnum{font:500 12px var(--mono);color:var(--red);flex:none}
+.rmeta{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{font:500 11px var(--mono);border-radius:999px;padding:3px 9px;border:1px solid var(--line);color:var(--muted);background:var(--card)}
+.badge.ok{border-color:var(--sage);color:#4f5e3f}
+.ractions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.ractions .btn{padding:9px 16px;font-size:14px}
+.credit{font-size:12px;color:var(--muted)}
+
+.more{border-top:1px solid var(--line);padding-block:28px 48px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.more a{display:grid;gap:2px;text-decoration:none;max-width:48%}
+.more a:last-child{text-align:right;margin-left:auto}
+.more small{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.more strong{font:400 20px var(--display);color:var(--blue)}
+.missing{padding-block:60px;display:grid;gap:16px;justify-items:start}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:24px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <filter id="wash" x="-25%" y="-25%" width="150%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".22" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3.2"/><feGaussianBlur stdDeviation=".35"/></filter>
+  <filter id="inked" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale=".7"/></filter>
+</defs></svg>
+
+<nav><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Love Is In The Air home">
+    <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><path d="M2 26c6-2 9-6 13-11" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M22 25C13 19 11 14 13.5 10.2 15.6 7.3 19.4 7.7 22 10.6 24.6 7.7 28.4 7.3 30.5 10.2 33 14 31 19 22 25Z" fill="var(--red)"/></svg>
+    Love Is In The Air
+  </a>
+  <a class="back" href="index.html#dates">&#8592; All dates</a>
+</div></nav>
+
+<main class="wrap" id="main">
+  <div id="page" hidden>
+    <header class="dhead">
+      <span id="dIcon"></span>
+      <div class="txt">
+        <span class="eyebrow" id="dWhere"></span>
+        <h1 id="dTitle"></h1>
+        <p id="dText"></p>
+        <div class="facts" id="dFacts"></div>
+      </div>
+    </header>
+
+    <div class="soonbar" id="soon" hidden>
+      <p>This date is coming soon in the Love Is In The Air app.</p>
+      <a class="btn red" href="index.html#join">Join the waitlist</a>
+    </div>
+
+    <section class="finder" id="food" aria-labelledby="foodTitle" hidden>
+      <div>
+        <h2 id="foodTitle">Find dinner near them</h2>
+        <p class="sub">Put in the address you're sending dinner to and pick a type of food. We'll find 10 places nearby with a menu link and a way to order on Uber Eats.</p>
+      </div>
+      <form class="fform" id="foodForm" novalidate>
+        <label class="field" for="addr"><span>Deliver to</span><input id="addr" type="text" autocomplete="street-address" placeholder="Street address, city" required></label>
+        <label class="field" for="cuisine"><span>Type of food</span>
+          <select id="cuisine">
+            <option value="any">Anything</option><option value="pizza">Pizza</option><option value="burger">Burgers</option><option value="sushi">Sushi &amp; Japanese</option>
+            <option value="chinese">Chinese</option><option value="mexican">Mexican</option><option value="italian">Italian</option><option value="thai">Thai</option>
+            <option value="indian">Indian</option><option value="med">Mediterranean</option><option value="korean">Korean</option><option value="vietnamese">Vietnamese</option>
+            <option value="chicken">Chicken &amp; wings</option><option value="sandwich">Sandwiches</option><option value="breakfast">Breakfast</option><option value="dessert">Dessert</option><option value="vegan">Vegan</option>
+          </select></label>
+        <button class="btn red" type="submit" id="foodGo">Find 10 places</button>
+      </form>
+      <p class="fstatus" id="foodStatus" role="status"></p>
+      <p class="near" id="foodNear" hidden></p>
+      <ol class="rlist" id="foodList" aria-label="Restaurant suggestions"></ol>
+      <p class="credit" id="foodCredit" hidden>Restaurant data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. Delivery and menus change often, so check the restaurant in Uber Eats before you order. We don't save the address you type.</p>
+    </section>
+
+    <div class="cols">
+      <section class="panel" aria-labelledby="howTitle">
+        <h2 id="howTitle">How to do it</h2>
+        <ol class="steps" id="dSteps"></ol>
+      </section>
+      <aside class="panel" aria-labelledby="needTitle">
+        <h2 id="needTitle">What you'll need</h2>
+        <ul class="need" id="dNeed"></ul>
+        <p class="tip" id="dTip"></p>
+      </aside>
+    </div>
+
+    <nav class="more" aria-label="More dates"><a id="prevLink"></a><a id="nextLink"></a></nav>
+  </div>
+
+  <div class="missing" id="missing" hidden>
+    <h1>We couldn't find that date.</h1>
+    <p>It may have moved. Pick another one from the wheel.</p>
+    <a class="btn" href="index.html#dates">Back to all dates</a>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
+
+<script src="js/dates.js?v=7ac749c3"></script>
+<script src="js/date-page.js?v=af93370d"></script>
+</body>
+</html>
