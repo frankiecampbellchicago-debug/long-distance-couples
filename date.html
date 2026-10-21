@@ -117,6 +117,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .mcard .poster{width:92px;aspect-ratio:2/3;border-radius:6px;object-fit:cover;background:var(--stamp);display:block}
 .mcard .mbody{display:grid;gap:6px;align-content:start;min-width:0}
 .mcard h3{font-size:20px;overflow-wrap:anywhere}
+.seg.kind{justify-self:start;align-self:start}
+.scores{display:flex;flex-wrap:wrap;gap:6px}
+.score{font:500 12px var(--mono);border-radius:999px;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.score.rt{border-color:#c9776f}
+.score.mc{border-color:#9aa98a}
 .mcard .ov{font-size:14px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .mcard .ractions .btn{padding:8px 14px;font-size:13px}
 
@@ -185,20 +190,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
     <section class="finder" id="movies" aria-labelledby="movieTitle" hidden>
       <div>
-        <h2 id="movieTitle">Find tonight's movie</h2>
-        <p class="sub">Type the streaming service you both have and the kind of movie you're in the mood for. We'll pull up the top 10.</p>
+        <h2 id="movieTitle">Find something to watch</h2>
+        <p class="sub">Type the streaming service you both have and the kind of movie or show you're in the mood for. We'll pull up the top 10, with critic scores from Rotten Tomatoes and Metacritic.</p>
       </div>
+      <div class="seg kind" role="group" aria-label="Movies or TV shows"><button type="button" data-kind="movie" aria-pressed="true">Movies</button><button type="button" data-kind="tv" aria-pressed="false">TV shows</button></div>
       <form class="fform two" id="movieForm" novalidate>
         <div class="field"><label for="mPlat">Streaming service</label>
           <div class="combo"><input id="mPlat" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="mPlatList" autocomplete="off" spellcheck="false" placeholder="Netflix, Hulu, Max…"><ul class="opts" id="mPlatList" role="listbox" hidden></ul></div></div>
-        <div class="field"><label for="mGenre">Type of movie</label>
+        <div class="field"><label for="mGenre" id="mGenreLabel">Type of movie</label>
           <div class="combo"><input id="mGenre" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="mGenreList" autocomplete="off" spellcheck="false" placeholder="Action, comedy, romance…"><ul class="opts" id="mGenreList" role="listbox" hidden></ul></div></div>
-        <div class="seg" role="group" aria-label="Sort movies"><button type="button" data-sort="top" aria-pressed="true">Top rated</button><button type="button" data-sort="popular" aria-pressed="false">Popular now</button></div>
-        <button class="btn red" type="submit" id="movieGo">Find 10 movies</button>
+        <div class="seg" role="group" aria-label="Sort by"><button type="button" data-sort="top" aria-pressed="true">Top rated</button><button type="button" data-sort="popular" aria-pressed="false">Popular now</button></div>
+        <button class="btn red" type="submit" id="movieGo">Find the top 10</button>
       </form>
       <p class="fstatus" id="movieStatus" role="status"></p>
-      <ol class="mlist" id="movieList" aria-label="Movie suggestions"></ol>
-      <p class="credit" id="movieCredit" hidden>Movie data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a>, streaming data from <a href="https://www.justwatch.com/" target="_blank" rel="noopener">JustWatch</a>. This product uses the TMDB API but is not endorsed or certified by TMDB. What's streaming changes often, so check the service before you press play.</p>
+      <ol class="mlist" id="movieList" aria-label="Suggestions"></ol>
+      <p class="credit" id="movieCredit" hidden><span id="movieUpdated"></span> Streaming data from <a href="https://www.justwatch.com/" target="_blank" rel="noopener">JustWatch</a> via <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a>. This product uses the TMDB API but is not endorsed or certified by TMDB. Rotten Tomatoes and Metacritic scores as recorded on <a href="https://www.wikidata.org/" target="_blank" rel="noopener">Wikidata</a>. What's streaming changes, so check the service before you press play.</p>
     </section>
 
     <div class="cols">
@@ -225,8 +231,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/config.js?v=0c04fd9f"></script>
 <script src="js/dates.js?v=c86ee782"></script>
-<script src="js/date-page.js?v=07c7ccb2"></script>
+<script src="js/date-page.js?v=df01db6c"></script>
 </body>
 </html>
