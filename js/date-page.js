@@ -42,6 +42,7 @@
   if (more.tool === "food") setupFood();
   if (more.tool === "movies") setupMovies();
   if (more.tool === "stars") window.setupStars();
+  if (more.tool === "museums") setupMuseums();
 
   // Small type-to-search dropdown. items() returns [{id, name, img?}]; the picked id lands on input.dataset.id.
   function combo(input, listEl, items) {
@@ -186,6 +187,72 @@
       });
       $("movieUpdated").textContent = index.updated ? "Lists updated " + new Date(index.updated + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) + "." : "";
       $("movieCredit").hidden = false;
+    }
+  }
+
+  function setupMuseums() {
+    $("museums").hidden = false;
+    const ALL = window.MUSEUMS, PAGE = 6;
+    const status = (msg, err) => { $("museumStatus").textContent = msg; $("museumStatus").classList.toggle("err", !!err); };
+    const getKind = combo($("mKind"), $("mKindList"), () => window.MUSEUM_KINDS.map(k => ({ id: k, name: k })));
+    let shown = [], count = 0, lastRandom = -1;
+
+    $("museumForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const q = $("mKind").value.trim();
+      if (!q) { status("Type a kind of museum, like art, history or space. Or hit Surprise me.", true); $("mKind").focus(); return; }
+      const kind = $("mKind").dataset.id || window.MUSEUM_KINDS.find(k => k.toLowerCase() === q.toLowerCase());
+      let hits;
+      if (kind) hits = ALL.filter(m => m.k.includes(kind));
+      else {
+        // free text ("van gogh", "dinosaurs"): match words against the name, place, kinds and description, best first
+        const words = q.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 1 && !["and", "the", "museum", "museums", "of"].includes(w));
+        hits = ALL.map(m => {
+          const tags = (m.k.join(" ") + " " + m.n).toLowerCase(), hay = tags + " " + (m.city + " " + m.d).toLowerCase();
+          const score = words.reduce((n, w) => { const st = w.replace(/s$/, ""); return n + (m.n.toLowerCase().includes(st) ? 2 : 0) + (tags.includes(st) ? 3 : 0) + (hay.includes(st) ? 1 : 0); }, 0);
+          return { m, score };
+        }).filter(x => x.score > 0).sort((x, y) => y.score - x.score).map(x => x.m);
+        if (!hits.length) {
+          const near = getKind();
+          if (near) { $("mKind").value = near.name; hits = ALL.filter(m => m.k.includes(near.id)); }
+        }
+      }
+      clear();
+      if (!hits.length) { status("We don't have a \u201c" + q + "\u201d museum yet. Try art, history, science, animals or music, or hit Surprise me.", true); return; }
+      status(hits.length + " free tour" + (hits.length > 1 ? "s" : "") + " to choose from.");
+      shown = hits; more();
+    });
+
+    $("museumRandom").addEventListener("click", () => {
+      let i;
+      do { i = Math.floor(Math.random() * ALL.length); } while (i === lastRandom && ALL.length > 1);
+      lastRandom = i;
+      clear();
+      status("Here's where you're going tonight. Not feeling it? Hit Surprise me again.");
+      render(ALL[i], 0, true);
+    });
+    $("museumMore").addEventListener("click", more);
+
+    function clear() { $("museumList").innerHTML = ""; shown = []; count = 0; $("museumMore").hidden = true; }
+    function more() {
+      shown.slice(count, count + PAGE).forEach((m, i) => render(m, count + i, false));
+      count = Math.min(count + PAGE, shown.length);
+      $("museumMore").hidden = count >= shown.length;
+      $("museumMore").textContent = "Show more (" + (shown.length - count) + ")";
+    }
+    function render(m, i, lucky) {
+      const li = document.createElement("li");
+      li.className = "rcard" + (lucky ? " lucky" : "");
+      li.innerHTML = '<div class="rtop"><h3></h3><span class="rnum"></span></div><p class="rmeta"></p><p class="blurb"></p><div class="ractions"></div>';
+      li.querySelector("h3").textContent = m.n;
+      li.querySelector(".rnum").textContent = lucky ? "SURPRISE" : String(i + 1).padStart(2, "0");
+      li.querySelector(".rmeta").textContent = m.city + " \u00b7 " + m.how;
+      li.querySelector(".blurb").textContent = m.d;
+      const a = document.createElement("a");
+      a.className = "btn"; a.href = m.url; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Take the virtual tour \u2192";
+      li.querySelector(".ractions").appendChild(a);
+      $("museumList").appendChild(li);
+      $("museumCredit").hidden = false;
     }
   }
 

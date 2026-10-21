@@ -137,6 +137,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .mcard .ov{font-size:14px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .mcard .ractions .btn{padding:8px 14px;font-size:13px}
 
+.fform.mus{grid-template-columns:1fr auto auto}
+@media (max-width:720px){.fform.mus{grid-template-columns:1fr 1fr}.fform.mus .field{grid-column:1/-1}.fform.mus .btn{width:100%}}
+.rcard .blurb{font-size:15px}
+.rcard.lucky{border:1.5px dashed var(--red);background:var(--card)}
+#museumMore{justify-self:center}
 /* sky guide */
 .fform.sky{grid-template-columns:2fr 1fr 1fr auto}
 @media (max-width:820px){.fform.sky{grid-template-columns:1fr 1fr}.fform.sky .field:first-child,.fform.sky .btn{grid-column:1/-1}.fform.sky .btn{width:100%}}
@@ -285,6 +290,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="credit" id="movieCredit" hidden><span id="movieUpdated"></span> Lists and scores from <a href="https://www.rottentomatoes.com/" target="_blank" rel="noopener">Rotten Tomatoes</a>, refreshed on the 10th of every month. What's streaming changes, so check the service before you press play.</p>
     </section>
 
+    <section class="finder" id="museums" aria-labelledby="museumTitle" hidden>
+      <div>
+        <h2 id="museumTitle">Pick a museum to visit</h2>
+        <p class="sub">Type the kind of museum you're in the mood for, like art, dinosaurs or space, or let us surprise you. Every tour is free and opens in your browser.</p>
+      </div>
+      <form class="fform mus" id="museumForm" novalidate>
+        <div class="field"><label for="mKind">Kind of museum</label>
+          <div class="combo"><input id="mKind" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="mKindList" autocomplete="off" placeholder="Art, history, dinosaurs, space…"><ul class="opts" id="mKindList" role="listbox" hidden></ul></div></div>
+        <button class="btn red" type="submit" id="museumGo">Find museums</button>
+        <button class="btn ghost" type="button" id="museumRandom">&#127922; Surprise me</button>
+      </form>
+      <p class="fstatus" id="museumStatus" role="status"></p>
+      <ol class="rlist" id="museumList" aria-label="Virtual museum tours"></ol>
+      <button class="btn ghost" type="button" id="museumMore" hidden>Show more</button>
+      <p class="credit" id="museumCredit" hidden>All tours are free and run by the museums or Google Arts &amp; Culture. Open the same link on both devices, or share your screen.</p>
+    </section>
+
     <section class="finder" id="stars" aria-labelledby="skyTitle" hidden>
       <div>
         <h2 id="skyTitle">What's in your sky</h2>
@@ -348,9 +370,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=45291c27"></script>
+<script src="js/dates.js?v=4b4f6698"></script>
+<script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=72505019"></script>
-<script src="js/date-page.js?v=05a55fd3"></script>
+<script src="js/date-page.js?v=df1749b8"></script>
 </body>
 </html>

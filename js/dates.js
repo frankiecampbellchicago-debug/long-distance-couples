@@ -77,8 +77,8 @@ window.DATE_MORE={
   steps:["Make a shared playlist on Spotify or Apple Music.","Take turns adding songs: the one from your first trip, the one that reminds you of them, the one you both hate.","Add a short note about why you picked each song.","Listen start to finish together on a call."],
   need:["A music app with shared playlists","An hour on a call"],
   tip:"Keep adding to it after every visit. It becomes a soundtrack of your relationship."},
- "museum-trip":{
-  steps:["Pick a museum with a free online tour, like the Louvre, the Smithsonian, or the British Museum.","Share a screen, or open the same tour on both devices.","Take turns choosing which room to walk into next.","Each of you picks a favorite piece and explains why."],
+ "museum-trip":{tool:"museums",
+  steps:["Use the search on this page to pick a museum, or hit Surprise me and go wherever it sends you.","Share a screen, or open the same tour on both devices.","Take turns choosing which room to walk into next.","Each of you picks a favorite piece and explains why."],
   need:["A laptop or tablet","A call","1–2 hours"],
   tip:"Google Arts & Culture has free tours of hundreds of museums in one place."},
  "tourist-in-my-city":{
