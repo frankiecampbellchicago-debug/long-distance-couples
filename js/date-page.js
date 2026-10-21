@@ -23,7 +23,7 @@
   if (talk) {
     let qi = Math.floor(Math.random() * talk.q.length);
     const showQ = () => { $("bonusQ").textContent = talk.q[qi % talk.q.length]; };
-    $("bonusSub").textContent = "While you're out there, take turns answering a question from the 201c" + more.talks + "201d topic.";
+    $("bonusSub").textContent = "While you're out there, take turns answering a question from the “" + more.talks + "” topic.";
     $("bonusNext").addEventListener("click", () => { qi++; showQ(); });
     showQ();
     $("dBonus").hidden = false;
