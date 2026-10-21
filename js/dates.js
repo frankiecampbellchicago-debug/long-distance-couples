@@ -89,8 +89,8 @@ window.DATE_MORE={
   steps:["Agree on a night to open them, about a week out.","Write a real letter by hand, as long or short as you like.","Mail it early. Some international mail takes two weeks. Use the search on this page to find the closest post office.","Open your letters together on a call and read a favorite line out loud."],
   need:["Paper and a pen","Stamps","Patience"],
   tip:"Tuck something small inside, like a pressed flower or a photo."},
- "book-club":{
-  steps:["Pick a book together, and alternate who chooses.","Read one chapter a week, whenever it suits you.","Meet every Sunday on a call to talk it through.","Mark a passage for each other as you read."],
+ "book-club":{tool:"books",
+  steps:["Pick a book together with the search on this page, and alternate who chooses.","Read one chapter a week, whenever it suits you.","Meet every Sunday on a call to talk it through.","Mark a passage for each other as you read."],
   need:["Two copies of the book, or an ebook","30 minutes a week"],
   tip:"Short books keep it going. Start with something you can finish in a month."},
  "meet-somewhere-new":{

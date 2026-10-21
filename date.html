@@ -142,6 +142,24 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .rcard .blurb{font-size:15px}
 .rcard.lucky{border:1.5px dashed var(--red);background:var(--card)}
 #museumMore{justify-self:center}
+/* books */
+.bookopts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+.bookopts label{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.bookopts input{width:18px;height:18px;accent-color:var(--red)}
+.bgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:720px){.bgrid{grid-template-columns:minmax(0,1fr)}}
+.book{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
+.book .cover{width:96px;aspect-ratio:2/3;border-radius:4px;object-fit:cover;background:var(--stamp);box-shadow:0 6px 14px -8px rgba(47,36,27,.6);display:grid;place-items:center;text-align:center;font:400 12px/1.2 var(--display);color:var(--muted);padding:6px;overflow:hidden}
+.book .bbody{display:grid;gap:5px;align-content:start;min-width:0}
+.book h4{margin:0;font:400 20px/1.15 var(--display);overflow-wrap:anywhere}
+.book .by{font-size:14px}
+.book .bmeta{font-size:13px;color:var(--muted)}
+.book .pace{font-size:13px;color:var(--blue);font-weight:600}
+.book .free{justify-self:start;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 9px;border:1px solid var(--sage);color:#4f5e3f;background:var(--card)}
+.book .desc{font-size:14px;color:var(--ink);white-space:pre-line}
+.book .slinks{margin-top:2px}
+.book button.more{font:600 13px var(--body);color:var(--red);background:none;border:0;padding:0;cursor:pointer;justify-self:start}
+#bookMore{justify-self:center}
 /* post office */
 .postres{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
 @media (max-width:760px){.postres{grid-template-columns:minmax(0,1fr)}}
@@ -419,6 +437,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="credit" id="museumCredit" hidden>All tours are free and run by the museums or Google Arts &amp; Culture. Open the same link on both devices, or share your screen.</p>
     </section>
 
+    <section class="finder" id="books" aria-labelledby="bookTitle" hidden>
+      <div>
+        <h2 id="bookTitle">Find your next book</h2>
+        <p class="sub">Search a title, an author, or a kind of book like romance, mystery or fantasy.</p>
+      </div>
+      <form class="fform mus" id="bookForm" novalidate>
+        <div class="field"><label for="bookQ">Title, author or genre</label><input id="bookQ" type="text" autocomplete="off" placeholder="Romance, Colleen Hoover, Pride and Prejudice…"></div>
+        <button class="btn red" type="submit" id="bookGo">Find books</button>
+        <div class="bookopts"><label><input type="checkbox" id="bookFree"> Free to read online</label><label><input type="checkbox" id="bookShort"> Short reads (under 300 pages)</label></div>
+      </form>
+      <p class="fstatus" id="bookStatus" role="status"></p>
+      <ul class="bgrid" id="bookList" aria-label="Books"></ul>
+      <button class="btn ghost" type="button" id="bookMore" hidden>Show more</button>
+      <p class="credit" id="bookCredit" hidden>Books, covers and free reading from <a href="https://openlibrary.org/" target="_blank" rel="noopener">Open Library</a>, part of the nonprofit Internet Archive.</p>
+    </section>
+
     <section class="finder" id="post" aria-labelledby="postTitle" hidden>
       <div>
         <h2 id="postTitle">Find the closest post office</h2>
@@ -562,11 +596,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=b487d9d7"></script>
+<script src="js/dates.js?v=fe940e9f"></script>
 <script src="js/citytour.js?v=3f0c4a5a"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=efe1dcd5"></script>
-<script src="js/date-page.js?v=33165409"></script>
+<script src="js/date-page.js?v=7625e2d2"></script>
 </body>
 </html>

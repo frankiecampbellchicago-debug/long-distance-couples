@@ -46,6 +46,7 @@
   if (more.tool === "city") window.setupCityTour();
   if (more.tool === "recipes") setupRecipes();
   if (more.tool === "post") setupPost();
+  if (more.tool === "books") setupBooks();
 
   // Small type-to-search dropdown. items() returns [{id, name, img?}]; the picked id lands on input.dataset.id.
   function combo(input, listEl, items) {
@@ -414,6 +415,103 @@
       });
       showMap(home, list[0]);
       $("postResult").hidden = false; $("postCredit").hidden = false;
+    }
+  }
+
+  function setupBooks() {
+    $("books").hidden = false;
+    const API = "https://openlibrary.org/search.json?fields=key,title,author_name,first_publish_year,cover_i,number_of_pages_median,ratings_average,ratings_count,ebook_access&", PAGE = 8;
+    const status = (msg, err) => { $("bookStatus").textContent = msg; $("bookStatus").classList.toggle("err", !!err); };
+    // genre words become subject searches, ranked by how many readers have them on their shelves
+    const GENRES = { romance: "romance", "love stor": "love", mystery: "mystery", thriller: "thriller", fantasy: "fantasy", "science fiction": "science fiction", "sci-fi": "science fiction", "sci fi": "science fiction",
+      horror: "horror", "historical fiction": "historical fiction", history: "history", "young adult": "young adult fiction", ya: "young adult fiction", classic: "classic literature", poetry: "poetry",
+      "self-help": "self-help", "self help": "self-help", biograph: "biography", memoir: "autobiography", humor: "humor", funny: "humor", comedy: "humor", "short stor": "short stories", crime: "crime",
+      adventure: "adventure", "graphic novel": "graphic novels", comic: "comics", psycholog: "psychology", philosoph: "philosophy", relationship: "relationships", travel: "travel", cook: "cooking", spiritual: "spirituality" };
+    let found = [], count = 0;
+
+    $("bookForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const q = $("bookQ").value.trim(), free = $("bookFree").checked, short = $("bookShort").checked;
+      if (q.length < 2 && !free) { status("Type a title, an author, or a genre like romance or mystery.", true); $("bookQ").focus(); return; }
+      const ql = q.toLowerCase().replace(/\s*books?$/, "").replace(/(ie)?s$/, m => m === "ies" ? "y" : "");
+      const genreKey = Object.keys(GENRES).find(k => ql === k || ql.startsWith(k));
+      let query = genreKey ? 'subject:"' + GENRES[genreKey] + '" language:eng' : q;
+      if (free) query += " ebook_access:public";
+      const url = API + "limit=" + (short ? 60 : 40) + "&q=" + encodeURIComponent(query) + (genreKey ? "&sort=readinglog" : "");
+      $("bookGo").disabled = true; clear(); status("Looking for books…");
+      try {
+        const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 15000);
+        const j = await (await fetch(url, { signal: ctrl.signal })).json();
+        clearTimeout(timer);
+        // one card per book, not one per edition or volume
+        const seen = new Set();
+        found = (j.docs || []).filter(b => {
+          const k = (b.title + "|" + (b.author_name || [""])[0]).toLowerCase();
+          if (seen.has(k) || /\[\d\/\d\]/.test(b.title)) return false;
+          seen.add(k); return true;
+        }).filter(b => !short || (b.number_of_pages_median && b.number_of_pages_median < 300));
+        if (!found.length) { status("No books found" + (q ? " for \u201c" + q + "\u201d" : "") + (free || short ? " with those filters. Try turning one off." : ". Check the spelling, or try an author's name."), true); return; }
+        status(genreKey ? "The most-read " + GENRES[genreKey] + " books" + (free ? " you can read free online" : "") + "." : "");
+        more();
+      } catch (err) {
+        status("We couldn't reach the book library. Wait a few seconds and try again.", true);
+      } finally { $("bookGo").disabled = false; }
+    });
+    $("bookMore").addEventListener("click", more);
+
+    function clear() { $("bookList").innerHTML = ""; found = []; count = 0; $("bookMore").hidden = true; }
+    function more() {
+      found.slice(count, count + PAGE).forEach(b => $("bookList").appendChild(card(b)));
+      count = Math.min(count + PAGE, found.length);
+      $("bookMore").hidden = count >= found.length;
+      $("bookMore").textContent = "Show more (" + (found.length - count) + ")";
+      $("bookCredit").hidden = false;
+    }
+
+    function card(b) {
+      const li = document.createElement("li"), author = (b.author_name || [])[0] || "";
+      li.className = "book";
+      li.innerHTML = '<div class="cover"></div><div class="bbody"><h4></h4><p class="by"></p><p class="bmeta"></p><p class="pace"></p><div class="slinks"></div><button type="button" class="more">What it\'s about</button></div>';
+      const cov = li.querySelector(".cover");
+      if (b.cover_i) {
+        const img = document.createElement("img");
+        img.className = "cover"; img.alt = ""; img.loading = "lazy"; img.src = "https://covers.openlibrary.org/b/id/" + b.cover_i + "-M.jpg";
+        cov.replaceWith(img);
+      } else cov.textContent = b.title;
+      li.querySelector("h4").textContent = b.title;
+      li.querySelector(".by").textContent = author ? "by " + author : "";
+      const meta = [b.first_publish_year, b.number_of_pages_median ? b.number_of_pages_median + " pages" : "", b.ratings_count >= 5 ? "\u2605 " + b.ratings_average.toFixed(1) + " (" + b.ratings_count + ")" : ""].filter(Boolean);
+      li.querySelector(".bmeta").textContent = meta.join(" \u00b7 ");
+      // a pace that fits a long-distance book club: done in a month of weekly calls
+      const pace = li.querySelector(".pace");
+      if (b.number_of_pages_median) { const day = Math.max(1, Math.ceil(b.number_of_pages_median / 28)); pace.textContent = "About " + day + " page" + (day > 1 ? "s" : "") + " a day to finish in 4 weeks"; } else pace.remove();
+      if (b.ebook_access === "public") { const f = document.createElement("span"); f.className = "free"; f.textContent = "Free to read online"; li.querySelector(".by").after(f); }
+      const links = li.querySelector(".slinks"), olUrl = "https://openlibrary.org" + b.key;
+      const add = (txt, href) => { const a = document.createElement("a"); a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; links.appendChild(a); };
+      if (b.ebook_access === "public") add("Read free", olUrl);
+      else if (b.ebook_access === "borrowable") add("Borrow free", olUrl);
+      add("Find at a library", "https://search.worldcat.org/search?q=" + encodeURIComponent(b.title + " " + author));
+      add("Buy", "https://bookshop.org/search?keywords=" + encodeURIComponent(b.title + " " + author));
+      add("Open Library", olUrl);
+      const btn = li.querySelector("button.more");
+      btn.addEventListener("click", async () => {
+        const open = li.querySelector(".desc");
+        if (open) { open.remove(); btn.textContent = "What it's about"; return; }
+        btn.disabled = true;
+        let text = "";
+        try {
+          const w = await (await fetch("https://openlibrary.org" + b.key + ".json")).json();
+          text = typeof w.description === "string" ? w.description : (w.description && w.description.value) || "";
+          text = text.split(/\r?\n\s*-{3,}|\(\[source\]|\[source\]|\r?\n\s*Also contained in/)[0].replace(/\[([^\]]+)\]\[\d+\]/g, "$1").trim();
+        } catch (e) {}
+        btn.disabled = false;
+        const p = document.createElement("p");
+        p.className = "desc";
+        p.textContent = text ? (text.length > 650 ? text.slice(0, 630).replace(/\s+\S*$/, "") + "\u2026" : text) : "There's no description for this one yet. Open it on Open Library for more.";
+        btn.before(p);
+        btn.textContent = "Hide";
+      });
+      return li;
     }
   }
 
