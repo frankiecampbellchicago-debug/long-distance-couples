@@ -43,6 +43,7 @@
   if (more.tool === "movies") setupMovies();
   if (more.tool === "stars") window.setupStars();
   if (more.tool === "museums") setupMuseums();
+  if (more.tool === "city") window.setupCityTour();
 
   // Small type-to-search dropdown. items() returns [{id, name, img?}]; the picked id lands on input.dataset.id.
   function combo(input, listEl, items) {

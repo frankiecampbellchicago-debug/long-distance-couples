@@ -81,8 +81,8 @@ window.DATE_MORE={
   steps:["Use the search on this page to pick a museum, or hit Surprise me and go wherever it sends you.","Share a screen, or open the same tour on both devices.","Take turns choosing which room to walk into next.","Each of you picks a favorite piece and explains why."],
   need:["A laptop or tablet","A call","1–2 hours"],
   tip:"Google Arts & Culture has free tours of hundreds of museums in one place."},
- "tourist-in-my-city":{
-  steps:["Before the visit, each of you plans one full day in your own city.","Include the spots you love and the ones you've always wanted to show them.","Keep the plan secret until the morning of.","Swap days on the next visit."],
+ "tourist-in-my-city":{tool:"city",
+  steps:["Before the visit, each of you plans one full day in your own city. Use the tour builder on this page to pick your stops.","Include the spots you love and the ones you've always wanted to show them.","Send them the tour link so they can walk it in Street View first, or keep it a secret until the morning of.","Swap days on the next visit."],
   need:["A visit","A rough budget","Comfortable shoes"],
   tip:"Add a stop that means something, like where you were standing when they first called."},
  "letters":{
