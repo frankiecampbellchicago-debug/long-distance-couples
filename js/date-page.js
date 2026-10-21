@@ -18,6 +18,17 @@
   if (more.tip) { const b = document.createElement("b"); b.textContent = "Tip: "; $("dTip").append(b, more.tip); } else $("dTip").hidden = true;
   $("soon").hidden = !more.app;
 
+  // Extra bonus: questions from one Deep Talks topic to answer during the date
+  const talk = more.talks && window.DEEP_TALKS && window.DEEP_TALKS[more.talks];
+  if (talk) {
+    let qi = Math.floor(Math.random() * talk.q.length);
+    const showQ = () => { $("bonusQ").textContent = talk.q[qi % talk.q.length]; };
+    $("bonusSub").textContent = "While you're out there, take turns answering a question from the 201c" + more.talks + "201d topic.";
+    $("bonusNext").addEventListener("click", () => { qi++; showQ(); });
+    showQ();
+    $("dBonus").hidden = false;
+  }
+
   const link = (el, label, date) => {
     el.href = "date.html?d=" + date.s;
     el.innerHTML = "<small></small><strong></strong>";

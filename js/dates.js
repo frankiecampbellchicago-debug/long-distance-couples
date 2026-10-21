@@ -64,7 +64,7 @@ window.DATE_MORE={
   steps:["Ask your partner for their delivery address. Keep it a surprise if you can.","Use the search on this page to find places near them, and pick a food you know they love.","Open the restaurant in Uber Eats and send dinner to their door.","They do the same for you. Eat together on video when both meals arrive."],
   need:["Each other's addresses","A delivery app like Uber Eats","A video call"],
   tip:"Time the orders so both meals land within a few minutes of each other."},
- "stargazing":{tool:"stars",
+ "stargazing":{tool:"stars",talks:"Dreams & future",
   steps:["Check the weather in both cities and pick a clear night.","Each of you puts your city in the sky guide on this page to see what's up that night and where to look.","Go outside, away from bright lights if you can, and give your eyes 15 minutes to adjust.","Find the moon or a bright constellation, then talk about what you can each see."],
   need:["A clear night","The sky guide on this page, or a star map app like Stellarium","A blanket and a warm drink"],
   tip:"If you live far apart in latitude, you'll see different stars. Show each other the ones the other can't see."},

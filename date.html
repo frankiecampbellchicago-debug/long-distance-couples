@@ -66,6 +66,14 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
 .steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--paper);border:1.5px solid var(--red);color:var(--red);font:500 14px var(--mono)}
 .steps li span{padding-top:4px}
+.bonus{margin-top:6px;border:1.5px dashed var(--rose);border-radius:10px;background:var(--paper);padding:16px 18px;display:grid;gap:8px}
+.bonus h3{font-size:22px}
+.bsub{font-size:15px;color:var(--muted)}
+.bq{font:400 19px/1.35 var(--display);border-left:3px solid var(--red);padding-left:12px}
+.bacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.bacts .btn{padding:8px 16px;font-size:14px}
+.bacts a{font-weight:600;font-size:14px;color:var(--blue);text-decoration:none}
+.bacts a:hover{text-decoration:underline}
 .need{margin:0;padding-left:20px;display:grid;gap:6px}
 .tip{border-top:1px dashed var(--line);padding-top:14px;color:var(--muted)}
 .tip b{color:var(--ink)}
@@ -308,6 +316,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <section class="panel" aria-labelledby="howTitle">
         <h2 id="howTitle">How to do it</h2>
         <ol class="steps" id="dSteps"></ol>
+        <div class="bonus" id="dBonus" hidden>
+          <span class="eyebrow">Extra bonus</span>
+          <h3>Pair this with Deep Talks</h3>
+          <p class="bsub" id="bonusSub"></p>
+          <p class="bq" id="bonusQ" aria-live="polite"></p>
+          <div class="bacts"><button class="btn ghost" type="button" id="bonusNext">Another question</button><a href="index.html#talks">All Deep Talks &#8594;</a></div>
+        </div>
       </section>
       <aside class="panel" aria-labelledby="needTitle">
         <h2 id="needTitle">What you'll need</h2>
@@ -328,8 +343,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=3cf4a6a5"></script>
+<script src="js/dates.js?v=84653a22"></script>
+<script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=72505019"></script>
-<script src="js/date-page.js?v=0d0b2d47"></script>
+<script src="js/date-page.js?v=364e1fd0"></script>
 </body>
 </html>
