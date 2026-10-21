@@ -143,9 +143,44 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .rcard.lucky{border:1.5px dashed var(--red);background:var(--card)}
 #museumMore{justify-self:center}
 /* sky guide */
-.fform.sky{grid-template-columns:2fr 1fr 1fr auto}
-@media (max-width:820px){.fform.sky{grid-template-columns:1fr 1fr}.fform.sky .field:first-child,.fform.sky .btn{grid-column:1/-1}.fform.sky .btn{width:100%}}
-@media (max-width:420px){.fform.sky{grid-template-columns:1fr}}
+.fform.sky{grid-template-columns:1fr 1fr}
+.skyopts{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+@media (max-width:620px){.fform.sky{grid-template-columns:1fr}.skyopts{grid-template-columns:1fr 1fr}.skyopts .btn{grid-column:1/-1;width:100%}}
+.field label em{font-style:normal;text-transform:none;letter-spacing:0;font-family:var(--body)}
+.field select:disabled{opacity:.5}
+.skyheadrow{display:flex;gap:12px 20px;align-items:start;justify-content:space-between;flex-wrap:wrap}
+.skyheadrow .btn{padding:9px 16px;font-size:14px}
+.live{display:flex;align-items:center;gap:8px;font:500 12px var(--mono);color:var(--red);margin-top:4px}
+.live .dot{width:9px;height:9px;border-radius:50%;background:var(--red);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.live .dot{animation:none}}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:720px){.duo{grid-template-columns:minmax(0,1fr)}}
+.side{display:grid;gap:12px;align-content:start;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.side svg{width:100%;max-width:300px;height:auto;display:block;justify-self:center}
+.sidehead{display:grid;gap:2px}
+.sidehead strong{font:400 26px var(--display)}
+.light{font-size:14px;color:var(--muted)}
+.light.day,.light.dusk{color:var(--red)}
+.duonote{grid-column:1/-1;font-size:12px;color:var(--muted);text-align:center}
+.skyfacts.compact{gap:6px}
+.skyfacts.compact li{background:var(--card);padding:8px 12px}
+.skyfacts.compact strong{font-size:16px}
+.skyfacts.compact span{font-size:13px}
+.both{background:var(--card);border:1.5px dashed var(--rose);border-radius:12px;padding:18px;display:grid;gap:10px}
+.both h3{font-size:24px}
+.bnote{color:var(--muted);font-size:15px}
+.blist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.blist{grid-template-columns:minmax(0,1fr)}}
+.blist li{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.blist li>strong{font:400 19px var(--display)}
+.blist li>span{font-size:13px;color:var(--muted)}
+.pair{display:grid;gap:2px;margin-top:6px;font-size:14px;color:var(--blue)}
+.pair b{color:var(--ink);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips small{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.chip{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--paper)}
+.seg.whose{justify-self:start}
 .skyres{display:grid;gap:20px}
 .skyhead{display:grid;gap:4px}
 .skyhead h3{font-size:24px;overflow-wrap:anywhere}
@@ -310,20 +345,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     <section class="finder" id="stars" aria-labelledby="skyTitle" hidden>
       <div>
         <h2 id="skyTitle">What's in your sky</h2>
-        <p class="sub">Type your city and we'll show the constellations, planets and moon you can see that night, and exactly where to look. Your partner can do the same for theirs.</p>
+        <p class="sub">Type your city and we'll show the constellations, planets and moon you can see that night, and exactly where to look. Add your partner's city to see both skies side by side, and pick Right now to watch them move live during your call.</p>
       </div>
       <form class="fform sky" id="skyForm" novalidate>
         <div class="field"><label for="skyPlace">Your city</label><input id="skyPlace" type="text" autocomplete="address-level2" placeholder="Chicago, IL" required></div>
-        <div class="field"><label for="skyDay">Night</label>
-          <select id="skyDay"><option value="0">Tonight</option><option value="1">Tomorrow</option><option value="2">In 2 days</option><option value="3">In 3 days</option><option value="7">In a week</option></select></div>
-        <div class="field"><label for="skyWhen">Time</label>
-          <select id="skyWhen"><option value="dark">Once it's dark</option><option value="21">9 PM</option><option value="22">10 PM</option><option value="23">11 PM</option><option value="0">Midnight</option></select></div>
-        <button class="btn red" type="submit" id="skyGo">Show my sky</button>
+        <div class="field"><label for="skyThem">Their city <em>(optional)</em></label><input id="skyThem" type="text" autocomplete="off" placeholder="London, UK"></div>
+        <div class="skyopts">
+          <div class="field"><label for="skyDay">Night</label>
+            <select id="skyDay"><option value="0">Tonight</option><option value="1">Tomorrow</option><option value="2">In 2 days</option><option value="3">In 3 days</option><option value="7">In a week</option></select></div>
+          <div class="field"><label for="skyWhen">Time (yours)</label>
+            <select id="skyWhen"><option value="dark">Once it's dark</option><option value="now">Right now (live)</option><option value="21">9 PM</option><option value="22">10 PM</option><option value="23">11 PM</option><option value="0">Midnight</option></select></div>
+          <button class="btn red" type="submit" id="skyGo">Show the sky</button>
+        </div>
       </form>
       <p class="fstatus" id="skyStatus" role="status"></p>
       <div class="skyres" id="skyResult" hidden>
-        <div class="skyhead" id="skyHead"></div>
-        <div class="skytop">
+        <div class="skyheadrow"><div class="skyhead" id="skyHead"></div><button class="btn ghost" type="button" id="skyShare" hidden>Send them this view</button></div>
+        <div class="skytop" id="skySolo">
           <div class="chartbox">
             <svg id="skyChart" viewBox="0 0 320 320" role="img" aria-label="Star chart of the sky that night. Numbers match the list below."></svg>
             <p>Hold it over your head with N pointing north. The edge is the horizon and the middle is straight up.</p>
@@ -333,6 +371,18 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
             <div class="planets" id="skyPlanetsWrap" hidden><h4>Planets out</h4><ul id="skyPlanets"></ul></div>
           </div>
         </div>
+        <div class="duo" id="skyDuo" hidden>
+          <div class="side" id="sideA"></div>
+          <div class="side" id="sideB"></div>
+          <p class="duonote">Hold each chart over your head with N pointing north. The edge is the horizon and the middle is straight up.</p>
+        </div>
+        <section class="both" id="skyBoth" aria-labelledby="bothTitle" hidden>
+          <h3 id="bothTitle">You can both see</h3>
+          <p class="bnote" id="bothNote"></p>
+          <ul class="blist" id="bothList"></ul>
+          <div class="chips" id="bothCons"></div>
+        </section>
+        <div class="seg whose" id="skyWhose" role="group" aria-label="Whose constellations" hidden><button type="button" data-who="me" aria-pressed="true">Your constellations</button><button type="button" data-who="them" aria-pressed="false">Their constellations</button></div>
         <ol class="slist" id="skyList" aria-label="Constellations to look for"></ol>
         <p class="credit">A fist held at arm's length covers about 10 degrees of sky. Clouds aren't included, so check the weather. Place search by <a href="https://photon.komoot.io/" target="_blank" rel="noopener">Photon</a> and © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.</p>
       </div>
@@ -373,7 +423,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <script src="js/dates.js?v=4b4f6698"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
-<script src="js/stars.js?v=72505019"></script>
+<script src="js/stars.js?v=efe1dcd5"></script>
 <script src="js/date-page.js?v=df1749b8"></script>
 </body>
 </html>

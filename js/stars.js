@@ -237,7 +237,7 @@
     const offset = t => { const p = parts(t); return Date.UTC(p.year, p.month - 1, p.day, p.hour % 24, p.minute) - Math.floor(t / 60000) * 60000; };
     return {
       at: (y, m, d, h, min) => { const w = Date.UTC(y, m - 1, d, h, min); return w - offset(w - offset(w)); },
-      today: () => { const p = parts(Date.now()); return [p.year, p.month, p.day]; },
+      ymd: t => { const p = parts(t); return [p.year, p.month, p.day]; },
       time: t => new Date(t).toLocaleTimeString("en-US", { timeZone: tz, hour: "numeric", minute: "2-digit" }),
       date: t => new Date(t).toLocaleDateString("en-US", { timeZone: tz, weekday: "long", month: "long", day: "numeric" })
     };
@@ -262,40 +262,127 @@
     return { e, lit, name };
   }
 
+  /* ---------- the bright stars people can spot together ---------- */
+  const MAG = { Sirius: -1.46, Canopus: -0.74, RigilKent: -0.27, Arcturus: -0.05, Vega: 0.03, Capella: 0.08, Rigel: 0.13, Procyon: 0.34, Achernar: 0.46,
+    Betelgeuse: 0.5, Hadar: 0.61, Altair: 0.76, Acrux: 0.77, Aldebaran: 0.86, Antares: 0.96, Spica: 0.97, Pollux: 1.14, Fomalhaut: 1.16, Deneb: 1.25,
+    Mimosa: 1.25, Regulus: 1.35, Castor: 1.58, Alnilam: 1.69, Dubhe: 1.79, Mirfak: 1.79, Alkaid: 1.86, Polaris: 1.98, Alpheratz: 2.06 };
+  const homeOf = nm => { const c = C.find(c => c.star === nm) || C.find(c => c.lines.some(l => l.includes(nm))); return c ? c.n : ""; };
+
+  const sunAltAt = (place, t) => { const s = sunPos(t); return altAz(s.ra, s.dec, t, place.lat, place.lon).alt; };
+  // the next stretch (within a day) when it's properly dark in both places at once
+  function overlap(a, b, t) {
+    let start = null;
+    for (let tt = t; tt < t + 86400000; tt += 600000) {
+      const d = sunAltAt(a, tt) < -12 && sunAltAt(b, tt) < -12;
+      if (d && start == null) start = tt;
+      if (!d && start != null) return { start, end: tt };
+    }
+    return start != null ? { start, end: t + 86400000 } : null;
+  }
+
+  /* ---------- everything about one place at one moment ---------- */
+  function skyAt(place, t) {
+    const { lat, lon } = place, z = zoned(place.tz);
+    const sunAlt = tt => { const s = sunPos(tt); return altAz(s.ra, s.dec, tt, lat, lon).alt; };
+    // the night this moment belongs to: scan from the local noon before it, in 5-minute steps
+    const [y, m, d] = z.ymd(t - 12 * 3600000), noon = z.at(y, m, d, 12, 0);
+    let sunset = null, dark = null;
+    for (let tt = noon; tt < noon + 86400000; tt += 300000) {
+      const a = sunAlt(tt), b = sunAlt(tt + 300000);
+      if (sunset == null && a > -0.8 && b <= -0.8) sunset = tt + 300000;
+      if (dark == null && a > -15 && b <= -15) dark = tt + 300000;
+    }
+    const sun = sunAlt(t);
+    const light = sun > -0.8 ? "day" : sun > -6 ? "dusk" : sun > -12 ? "twilight" : "dark";
+
+    // constellations: up if their brightest star and most of the figure are clear of the horizon
+    const ups = C.map((c, i) => {
+      const names = [...new Set([].concat(...c.lines, c.dots || []))];
+      const aa = names.map(nm => starAA(nm, t, lat, lon));
+      const main = starAA(c.star, t, lat, lon);
+      const v = aa.reduce((s, p) => [s[0] + cos(p.alt) * sin(p.az), s[1] + cos(p.alt) * cos(p.az), s[2] + sin(p.alt)], [0, 0, 0]);
+      const alt = Math.atan2(v[2], Math.hypot(v[0], v[1])) * DEG, az = norm(Math.atan2(v[0], v[1]) * DEG);
+      const share = aa.filter(p => p.alt > 8).length / aa.length;
+      return { c, i, alt, az, main, share };
+    }).filter(u => u.main.alt > 12 && u.share >= 0.7 && u.alt > 12);
+    ups.sort((a, b) => (b.c.w * 25 + Math.min(b.alt, 50)) - (a.c.w * 25 + Math.min(a.alt, 50)));
+
+    const e = moonEcl(t), mq = eclToEq(e.lon, e.lat);
+    const moon = { ...altAz(mq.ra, mq.dec, t, lat, lon), phase: moonPhase(t) };
+    const planets = PLANETS.map(p => { const q = planetPos(p, t); return { p, ...altAz(q.ra, q.dec, t, lat, lon) }; }).filter(x => x.alt > 5);
+    planets.sort((a, b) => a.p.mag - b.p.mag);
+    const stars = {};
+    Object.keys(MAG).forEach(nm => { stars[nm] = starAA(nm, t, lat, lon); });
+    return { place, z, t, lat, lon, sunset, dark, light, ups, pick: ups.slice(0, 8), moon, planets, stars };
+  }
+
+  const LIGHT = {
+    day: "It's daytime there, so the stars are hidden by sunlight.",
+    dusk: "The sun just set there. Only the moon and the brightest planets show yet.",
+    twilight: "Still a bit of twilight there. The brightest stars are out.",
+    dark: "Dark there. Good for stargazing."
+  };
+
   /* ---------- page ---------- */
   window.setupStars = function () {
     $("stars").hidden = false;
     const status = (msg, err) => { $("skyStatus").textContent = msg; $("skyStatus").classList.toggle("err", !!err); };
-    let place = null;
-    try { const saved = localStorage.getItem("liita-sky"); if (saved) $("skyPlace").value = saved; } catch (e) {}
+    const cache = {};
+    let me = null, them = null, fixedT = null, timer = null, whose = "me";
+    const params = new URLSearchParams(location.search);
+    try {
+      const a = localStorage.getItem("liita-sky"), b = localStorage.getItem("liita-sky-them");
+      if (a) $("skyPlace").value = a;
+      if (b) $("skyThem").value = b;
+    } catch (e) {}
+    // opened from a partner's link: their city is "theirs", ours comes first
+    if (params.get("me")) {
+      $("skyPlace").value = params.get("me");
+      $("skyThem").value = params.get("them") || "";
+      if (params.get("when") === "now") $("skyWhen").value = "now";
+      else if (+params.get("at")) fixedT = +params.get("at");
+    }
     const tzReady = new Promise(res => {
       const s = document.createElement("script");
       s.src = "js/vendor/tz-lookup.js"; s.onload = s.onerror = res; document.head.appendChild(s);
     });
+    const syncDay = () => { $("skyDay").disabled = $("skyWhen").value === "now"; };
+    syncDay();
+
+    async function find(q) {
+      if (!cache[q]) cache[q] = geocode(q).then(async p => { if (p) { await tzReady; p.tz = timeZoneFor(p.lat, p.lon); p.q = q; } return p; });
+      const p = await cache[q];
+      if (!p) delete cache[q];
+      return p;
+    }
 
     $("skyForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const q = $("skyPlace").value.trim();
+      const q = $("skyPlace").value.trim(), q2 = $("skyThem").value.trim();
       if (q.length < 2) { status("Type your city, or a town near you.", true); $("skyPlace").focus(); return; }
       $("skyGo").disabled = true;
       try {
-        if (!place || place.q !== q) {
-          status("Finding " + q + "…");
-          place = await geocode(q);
-          if (!place) { status("We couldn't find \"" + q + "\". Try adding the state or country.", true); return; }
-          place.q = q;
-          try { localStorage.setItem("liita-sky", q); } catch (e2) {}
-        }
-        await tzReady;
-        place.tz = timeZoneFor(place.lat, place.lon);
+        status("Finding " + (q2 ? q + " and " + q2 : q) + "…");
+        const [a, b] = await Promise.all([find(q), q2.length > 1 ? find(q2) : null]);
+        if (!a) { status("We couldn't find “" + q + "”. Try adding the state or country.", true); return; }
+        if (q2.length > 1 && !b) { status("We couldn't find “" + q2 + "”. Try adding the state or country.", true); return; }
+        me = a; them = b;
+        try { localStorage.setItem("liita-sky", q); localStorage.setItem("liita-sky-them", q2); } catch (e2) {}
         status("");
-        show();
+        if (!them) whose = "me";
+        show(true);
       } catch (err) {
         status("We couldn't reach the map service. Wait a few seconds and try again.", true);
       } finally { $("skyGo").disabled = false; }
     });
-    $("skyWhen").addEventListener("change", () => { if (place && place.tz) show(); });
-    $("skyDay").addEventListener("change", () => { if (place && place.tz) show(); });
+    const changed = () => { fixedT = null; syncDay(); if (me) show(true); };
+    $("skyWhen").addEventListener("change", changed);
+    $("skyDay").addEventListener("change", changed);
+    document.querySelectorAll("#skyWhose button").forEach(b => b.addEventListener("click", () => {
+      whose = b.dataset.who; show(false);
+    }));
+    $("skyShare").addEventListener("click", share);
+    if (params.get("me")) $("skyForm").requestSubmit();
 
     async function geocode(q) {
       // towns and cities first, so "Sydney Australia" finds the city and not a building named after it
@@ -304,82 +391,163 @@
         const f = await photon("&osm_tag=place") || await photon("");
         if (f) {
           const p = f.properties;
-          return { lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0], label: [p.name || p.city, p.state, p.country].filter((v, i, a) => v && a.indexOf(v) === i).join(", ") };
+          return { lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0], label: [p.name || p.city, p.state, p.country].filter((v, i, a) => v && a.indexOf(v) === i).join(", "), short: p.name || p.city || q };
         }
       } catch (e) {}
       const r = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=" + encodeURIComponent(q));
       const n = (await r.json())[0];
-      return n ? { lat: +n.lat, lon: +n.lon, label: n.display_name.split(", ").slice(0, 3).join(", ") } : null;
+      return n ? { lat: +n.lat, lon: +n.lon, label: n.display_name.split(", ").slice(0, 3).join(", "), short: n.display_name.split(", ")[0] } : null;
     }
 
-    function show() {
-      const { lat, lon } = place, z = zoned(place.tz);
-      const [y, m, d] = z.today(), day = +$("skyDay").value;
-      const noon = z.at(y, m, d + day, 12, 0);
-      const sunAlt = t => { const s = sunPos(t); return altAz(s.ra, s.dec, t, lat, lon).alt; };
-      // scan from noon to the next noon in 5-minute steps for sunset and full dark
-      let sunset = null, dark = null;
-      for (let t = noon; t < noon + 86400000; t += 300000) {
-        const a = sunAlt(t), b = sunAlt(t + 300000);
-        if (sunset == null && a > -0.8 && b <= -0.8) sunset = t + 300000;
-        if (dark == null && a > -15 && b <= -15) dark = t + 300000;
-      }
+    // the moment to show, picked in your own city's time
+    function moment() {
       const when = $("skyWhen").value;
-      let t = when === "dark" ? dark : z.at(y, m, d + day, +when, 0);
-      if (when !== "dark" && +when < 12) t = z.at(y, m, d + day + 1, +when, 0);
-      const nightless = dark == null;
-      if (t == null) t = z.at(y, m, d + day, 22, 0);
+      if (when === "now") return Date.now();
+      if (fixedT) return fixedT;
+      const z = zoned(me.tz), [y, m, d] = z.ymd(Date.now()), day = +$("skyDay").value;
+      if (when === "dark") {
+        const night = skyAt(me, z.at(y, m, d + day, 23, 0));
+        return night.dark || z.at(y, m, d + day, 22, 0);
+      }
+      return +when < 12 ? z.at(y, m, d + day + 1, +when, 0) : z.at(y, m, d + day, +when, 0);
+    }
 
-      // constellations: up if their brightest star and most of the figure are clear of the horizon
-      const ups = C.map((c, i) => {
-        const names = [...new Set([].concat(...c.lines, c.dots || []))];
-        const aa = names.map(nm => starAA(nm, t, lat, lon));
-        const main = starAA(c.star, t, lat, lon);
-        const v = aa.reduce((s, p) => [s[0] + cos(p.alt) * sin(p.az), s[1] + cos(p.alt) * cos(p.az), s[2] + sin(p.alt)], [0, 0, 0]);
-        const alt = Math.atan2(v[2], Math.hypot(v[0], v[1])) * DEG, az = norm(Math.atan2(v[0], v[1]) * DEG);
-        const share = aa.filter(p => p.alt > 8).length / aa.length;
-        return { c, i, alt, az, main, share };
-      }).filter(u => u.main.alt > 12 && u.share >= 0.7 && u.alt > 12);
-      ups.sort((a, b) => (b.c.w * 25 + Math.min(b.alt, 50)) - (a.c.w * 25 + Math.min(a.alt, 50)));
-      const pick = ups.slice(0, 8);
+    function show(fresh) {
+      const live = $("skyWhen").value === "now";
+      clearInterval(timer);
+      if (live) timer = setInterval(() => show(false), 60000);
+      const t = moment(), A = skyAt(me, t), B = them ? skyAt(them, t) : null;
+      const duo = !!B;
+      $("skySolo").hidden = duo; $("skyDuo").hidden = !duo; $("skyBoth").hidden = !duo; $("skyWhose").hidden = !duo; $("skyShare").hidden = !duo;
 
-      const mPos = (() => { const e = moonEcl(t); const q = eclToEq(e.lon, e.lat); return altAz(q.ra, q.dec, t, lat, lon); })();
-      const phase = moonPhase(t);
-      const planets = PLANETS.map(p => { const q = planetPos(p, t); return { p, ...altAz(q.ra, q.dec, t, lat, lon) }; }).filter(x => x.alt > 5);
-      planets.sort((a, b) => a.p.mag - b.p.mag);
+      // heading
+      const head = $("skyHead"); head.innerHTML = "";
+      const h = document.createElement("h3"), sub = document.createElement("p");
+      if (duo) {
+        h.textContent = "Your sky and theirs, side by side";
+        sub.textContent = A.place.short + ": " + A.z.date(t) + ", " + A.z.time(t) + " · " + B.place.short + ": " + B.z.date(t) + ", " + B.z.time(t);
+      } else {
+        h.textContent = "The sky over " + A.place.label;
+        sub.textContent = A.z.date(t) + " at " + A.z.time(t) + " local time" + (A.light === "dark" ? "" : ". " + LIGHT[A.light]);
+      }
+      head.append(h, sub);
+      if (live) {
+        const b = document.createElement("p");
+        b.className = "live";
+        b.innerHTML = '<span class="dot" aria-hidden="true"></span>';
+        b.append("Live · moves with the real sky, updated " + A.z.time(Date.now()));
+        head.appendChild(b);
+      }
 
-      // summary line
-      $("skyHead").innerHTML = "";
-      const h = document.createElement("h3");
-      h.textContent = "The sky over " + place.label;
-      const sub = document.createElement("p");
-      sub.textContent = z.date(t) + " at " + z.time(t) + " local time";
-      $("skyHead").append(h, sub);
+      if (duo) {
+        side($("sideA"), A, "You", "chartA");
+        side($("sideB"), B, "Them", "chartB");
+        both(A, B);
+      } else {
+        drawChart($("skyChart"), A);
+        facts($("skyFacts"), A);
+        const plist = $("skyPlanets"); plist.innerHTML = "";
+        A.planets.forEach(x => {
+          const li = document.createElement("li"), b = document.createElement("strong"), s = document.createElement("span");
+          b.textContent = x.p.n; s.textContent = where(x.alt, x.az) + ". Looks like a " + x.p.hue + " star that doesn't twinkle.";
+          li.append(b, " ", s); plist.appendChild(li);
+        });
+        $("skyPlanetsWrap").hidden = !A.planets.length;
+      }
 
-      const facts = $("skyFacts"); facts.innerHTML = "";
-      const fact = (label, value, note) => {
-        const li = document.createElement("li"), b = document.createElement("small"), s = document.createElement("strong");
-        b.textContent = label; s.textContent = value; li.append(b, s);
-        if (note) { const n = document.createElement("span"); n.textContent = note; li.appendChild(n); }
-        facts.appendChild(li);
-      };
-      fact("Sunset", sunset ? z.time(sunset) : "None tonight");
-      fact("Dark enough", nightless ? "Not fully tonight" : z.time(dark), nightless ? "The sun doesn't get far below the horizon this time of year, so only the brightest stars show." : "");
-      const moonUp = mPos.alt > 0;
-      fact("Moon", phase.name + ", " + phase.lit + "% lit",
-        moonUp ? where(mPos.alt, mPos.az) + "." + (phase.lit > 60 ? " It'll wash out fainter stars, so stick to the bright ones." : "")
-               : "Below the horizon then, so the sky will be darker.");
-
-      const plist = $("skyPlanets"); plist.innerHTML = "";
-      planets.forEach(x => {
-        const li = document.createElement("li"), b = document.createElement("strong"), s = document.createElement("span");
-        b.textContent = x.p.n; s.textContent = where(x.alt, x.az) + ". Looks like a " + x.p.hue + " star that doesn't twinkle.";
-        li.append(b, " ", s); plist.appendChild(li);
+      document.querySelectorAll("#skyWhose button").forEach(b => {
+        b.setAttribute("aria-pressed", String(b.dataset.who === whose));
+        b.textContent = b.dataset.who === "me" ? "Your constellations" : "Their constellations";
+        if (duo) b.textContent = (b.dataset.who === "me" ? A : B).place.short + " constellations";
       });
-      $("skyPlanetsWrap").hidden = !planets.length;
+      const S1 = whose === "them" && B ? B : A;
+      cards(S1, fresh);
+      if (!S1.pick.length) status(S1.light === "day" ? "It's daytime in " + S1.place.short + " then. Try a later time, or Right now once it's dark." : "It doesn't get dark enough in " + S1.place.short + " then to pick out constellations. Try a later time.", true);
+      else if ($("skyStatus").classList.contains("err")) status("");
+      $("skyResult").hidden = false;
+    }
 
-      const list = $("skyList"); list.innerHTML = "";
-      pick.forEach((u, n) => {
+    function facts(ul, s) {
+      ul.innerHTML = "";
+      const fact = (label, value, note) => {
+        const li = document.createElement("li"), b = document.createElement("small"), v = document.createElement("strong");
+        b.textContent = label; v.textContent = value; li.append(b, v);
+        if (note) { const n = document.createElement("span"); n.textContent = note; li.appendChild(n); }
+        ul.appendChild(li);
+      };
+      fact("Sunset", s.sunset ? s.z.time(s.sunset) : "None that night");
+      fact("Dark enough", s.dark ? s.z.time(s.dark) : "Not fully that night", s.dark ? "" : "The sun doesn't get far below the horizon this time of year, so only the brightest stars show.");
+      const up = s.moon.alt > 0;
+      fact("Moon", s.moon.phase.name + ", " + s.moon.phase.lit + "% lit",
+        up ? where(s.moon.alt, s.moon.az) + "." + (s.moon.phase.lit > 60 ? " It'll wash out fainter stars, so stick to the bright ones." : "")
+           : "Below the horizon then, so the sky will be darker.");
+    }
+
+    function side(box, s, who, id) {
+      box.innerHTML = "";
+      const top = document.createElement("div"); top.className = "sidehead";
+      const tag = document.createElement("span"); tag.className = "eyebrow"; tag.textContent = who + " · " + s.place.short;
+      const tm = document.createElement("strong"); tm.textContent = s.z.time(s.t);
+      const lt = document.createElement("p"); lt.className = "light " + s.light; lt.textContent = LIGHT[s.light];
+      top.append(tag, tm, lt);
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.id = id; svg.setAttribute("viewBox", "0 0 320 320"); svg.setAttribute("role", "img");
+      svg.setAttribute("aria-label", "Star chart for " + s.place.short + " at " + s.z.time(s.t));
+      const ul = document.createElement("ul"); ul.className = "skyfacts compact";
+      box.append(top, svg, ul);
+      drawChart(svg, s);
+      facts(ul, s);
+      if (s.planets.length) {
+        const li = document.createElement("li"), b = document.createElement("small"), v = document.createElement("span");
+        b.textContent = "Planets out"; v.textContent = s.planets.map(x => x.p.n + " (" + dir(x.az) + ")").join(", ");
+        li.append(b, v); ul.appendChild(li);
+      }
+    }
+
+    // what both of you can look at, at the same moment
+    function both(A, B) {
+      const list = $("bothList"); list.innerHTML = "";
+      const items = [];
+      // daylight hides everything; twilight hides all but the brightest
+      const seeing = s => s.light === "dark" ? 9 : s.light === "twilight" ? 1 : s.light === "dusk" ? -2 : -99;
+      const limit = Math.min(seeing(A), seeing(B));
+      const ok = (a, b, min) => a.alt > min && b.alt > min;
+      if (limit > -99 && ok(A.moon, B.moon, 3)) items.push({ n: "The Moon", note: A.moon.phase.name.toLowerCase() + ", " + A.moon.phase.lit + "% lit", a: A.moon, b: B.moon });
+      A.planets.forEach(x => { const y = B.planets.find(p => p.p.n === x.p.n); if (y && limit > -2 && ok(x, y, 8)) items.push({ n: x.p.n, note: "planet, a " + x.p.hue + " light that doesn't twinkle", a: x, b: y }); });
+      Object.keys(MAG).sort((p, q) => MAG[p] - MAG[q]).forEach(nm => {
+        if (MAG[nm] < limit && ok(A.stars[nm], B.stars[nm], 15)) items.push({ n: NAMES[nm] || nm, note: homeOf(nm) && homeOf(nm) !== nm ? "bright star in " + homeOf(nm) : "bright star", a: A.stars[nm], b: B.stars[nm] });
+      });
+      items.slice(0, 6).forEach(it => {
+        const li = document.createElement("li"), h = document.createElement("strong"), n = document.createElement("span"), dl = document.createElement("div");
+        h.textContent = it.n; n.textContent = " " + it.note;
+        dl.className = "pair";
+        [[A.place.short, it.a], [B.place.short, it.b]].forEach(([who, p]) => { const d = document.createElement("p"), b = document.createElement("b"); b.textContent = who + ": "; d.append(b, where(p.alt, p.az)); dl.appendChild(d); });
+        li.append(h, n, dl); list.appendChild(li);
+      });
+      const note = $("bothNote");
+      const sh = $("bothCons"); sh.innerHTML = "";
+      const bothDark = A.light === "dark" && B.light === "dark";
+      const common = bothDark ? A.ups.filter(u => B.ups.some(v => v.i === u.i)) : [];
+      const lit = [A, B].filter(x => x.light !== "dark").map(x => x.place.short);
+      const win = bothDark ? null : overlap(A.place, B.place, A.t);
+      let msg = bothDark ? "Pick one, count down from three, and look at it together." :
+        "It's " + (lit.length > 1 ? "not dark yet in " + lit.join(" or ") : (A.light === "day" || B.light === "day" ? "daytime" : "not fully dark") + " in " + lit[0]) + " right now" + (items.length ? ", so stick to these bright ones." : ".");
+      if (win) msg += " You'll both have dark skies from " + A.z.time(win.start) + " to " + A.z.time(win.end) + " your time (" + B.z.time(win.start) + " to " + B.z.time(win.end) + " theirs).";
+      else if (!bothDark) msg += " Your nights don't overlap right now: when it's dark for one of you, the sun is up for the other. The moon is often the one thing you can share, so look for it whenever it's up.";
+      note.textContent = msg;
+      if (common.length) {
+        const lab = document.createElement("small"); lab.textContent = "Constellations you both have";
+        sh.appendChild(lab);
+        common.forEach(u => { const c = document.createElement("span"); c.className = "chip"; c.textContent = u.c.n; sh.appendChild(c); });
+      }
+    }
+
+    function cards(s, fresh) {
+      const list = $("skyList");
+      // keep flipped cards flipped when the live view refreshes
+      const flipped = fresh ? new Set() : new Set([...list.querySelectorAll(".scard.flipped h3")].map(h => h.textContent));
+      list.innerHTML = "";
+      s.pick.forEach((u, n) => {
         const li = document.createElement("li");
         li.className = "scard";
         li.innerHTML = '<div class="flip"><div class="face front"><div class="stop"><span class="rnum"></span><h3></h3><button type="button" class="flipbtn">See what it looks like &#8635;</button></div>' +
@@ -394,23 +562,40 @@
         li.querySelector(".find").append(u.c.find);
         li.querySelectorAll(".fact").forEach(f => f.append(u.c.fact));
         const fig = li.querySelector(".cfig");
-        drawFigure(fig, u, t, lat, lon);
+        drawFigure(fig, u, s.t, s.lat, s.lon);
         fig.setAttribute("aria-label", "Drawing of " + u.c.n + " as it looks in the sky");
-        li.querySelector(".cap").textContent = (u.alt >= 75 ? "Looking straight up" : "Facing " + dir(u.az)) + " at " + z.time(t) + ". Bigger dots are brighter stars. It slowly turns as the night goes on.";
+        li.querySelector(".cap").textContent = (u.alt >= 75 ? "Looking straight up" : "Facing " + dir(u.az)) + " from " + s.place.short + " at " + s.z.time(s.t) + ". Bigger dots are brighter stars. It slowly turns as the night goes on.";
         const front = li.querySelector(".front"), back = li.querySelector(".back");
-        const flip = () => {
-          const on = li.classList.toggle("flipped");
+        const set = (on, focus) => {
+          li.classList.toggle("flipped", on);
           front.inert = on; back.inert = !on;
-          (on ? back : front).querySelector(".flipbtn").focus({ preventScroll: true });
+          if (focus) (on ? back : front).querySelector(".flipbtn").focus({ preventScroll: true });
         };
-        li.querySelectorAll(".flipbtn").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); flip(); }));
-        li.addEventListener("click", e => { if (!e.target.closest("a") && !getSelection().toString()) flip(); });
+        li.querySelectorAll(".flipbtn").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); set(!li.classList.contains("flipped"), true); }));
+        li.addEventListener("click", e => { if (!e.target.closest("a") && !getSelection().toString()) set(!li.classList.contains("flipped"), true); });
+        if (flipped.has(u.c.n)) set(true, false);
         list.appendChild(li);
       });
-      if (!pick.length) status("It doesn't get dark enough there that night to pick out constellations. Try a later time.", true);
+    }
 
-      drawChart(t, lat, lon, pick, planets, moonUp ? { ...mPos, phase } : null);
-      $("skyResult").hidden = false;
+    // a link your partner can open: their city comes first for them
+    async function share() {
+      const url = new URL(location.href.split("?")[0]);
+      url.searchParams.set("d", "stargazing");
+      url.searchParams.set("me", them.q);
+      url.searchParams.set("them", me.q);
+      if ($("skyWhen").value === "now") url.searchParams.set("when", "now");
+      else url.searchParams.set("at", String(moment()));
+      const link = url.toString();
+      try {
+        if (navigator.share && matchMedia("(pointer:coarse)").matches) { await navigator.share({ title: "Look at the stars with me", url: link }); return; }
+        await navigator.clipboard.writeText(link);
+        $("skyShare").textContent = "Link copied ✓";
+        setTimeout(() => { $("skyShare").textContent = "Send them this view"; }, 2500);
+      } catch (e) {
+        if (e && e.name === "AbortError") return;
+        status("Copy this link and send it to them: " + link);
+      }
     }
 
     /* card back: the constellation drawn the way it looks when you face it, with "up" toward the top of the sky */
@@ -453,17 +638,18 @@
     }
 
     /* star chart: the whole sky as a circle, horizon at the edge, overhead in the middle */
-    function drawChart(t, lat, lon, pick, planets, moon) {
+    function drawChart(svg, sky) {
+      const { t, lat, lon, pick, planets } = sky, moon = sky.moon.alt > 0 ? sky.moon : null, cid = svg.id + "Clip";
       const R = 150, c = 160, NS = "http://www.w3.org/2000/svg";
-      const svg = $("skyChart"); svg.innerHTML = "";
+      svg.innerHTML = "";
       const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; };
       // east on the left, like a map you hold over your head
       const xy = p => { const r = R * (90 - p.alt) / 90; return [c - r * sin(p.az), c - r * cos(p.az)]; };
       el("circle", { cx: c, cy: c, r: R, class: "sky-bg" });
       [30, 60].forEach(a => el("circle", { cx: c, cy: c, r: R * (90 - a) / 90, class: "sky-ring" }));
       for (let a = 0; a < 360; a += 45) { const [x, y] = xy({ alt: 0, az: a }); el("line", { x1: c, y1: c, x2: x, y2: y, class: "sky-ring" }); }
-      const clip = el("clipPath", { id: "skyClip" }); el("circle", { cx: c, cy: c, r: R }, clip);
-      const g = el("g", { "clip-path": "url(#skyClip)" });
+      const clip = el("clipPath", { id: cid }); el("circle", { cx: c, cy: c, r: R }, clip);
+      const g = el("g", { "clip-path": "url(#" + cid + ")" });
       const chosen = new Set(pick.map(u => u.i));
       C.forEach((cn, i) => {
         const on = chosen.has(i);
@@ -486,7 +672,7 @@
       planets.forEach(x => {
         const [px, py] = xy(x);
         el("circle", { cx: px, cy: py, r: 3.6, class: "planet" }, g);
-        const tx = el("text", { x: px + 6, y: py + 3.5, class: "plabel" }, g); tx.textContent = x.p.n;
+        const left = px > 240, tx = el("text", { x: left ? px - 6 : px + 6, y: py + 3.5, class: "plabel", "text-anchor": left ? "end" : "start" }, g); tx.textContent = x.p.n;
       });
       if (moon) {
         const [mx, my] = xy(moon);
