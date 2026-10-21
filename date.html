@@ -162,12 +162,30 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .planets ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15px}
 .slist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media (max-width:720px){.slist{grid-template-columns:minmax(0,1fr)}}
-.scard{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.scard{perspective:1400px;min-width:0;cursor:pointer}
+.flip{display:grid;height:100%;transition:transform .6s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.scard.flipped .flip{transform:rotateY(180deg)}
+.face{grid-area:1/1;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.back{transform:rotateY(180deg);background:var(--card);align-content:space-between}
+.scard:hover .face{border-color:#c4a77a}
 .scard h3{font-size:21px}
 .scard .also{font-size:14px;color:var(--muted);margin-top:-4px}
 .scard .dir{font-weight:600;color:var(--blue)}
 .scard .look,.scard .find{font-size:15px}
 .scard .find b{font-weight:600}
+.flipbtn{justify-self:start;margin-top:4px;font:600 13px var(--body);color:var(--red);background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.flipbtn:hover{background:var(--stamp)}
+.flipbtn:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.cfig{width:100%;height:auto;max-height:210px;display:block}
+.cap{font-size:13px;color:var(--muted)}
+.fig-bg{fill:#efe2c6;stroke:#cdb68e}
+.fig-dust{fill:var(--ink);opacity:.25}
+.fig-line{fill:none;stroke:var(--red);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;opacity:.75}
+.fig-star{fill:var(--ink);stroke:#efe2c6;stroke-width:1.5}
+.fig-fuzz{fill:var(--ink);opacity:.18}
+.fig-label{font:500 11px var(--mono);fill:var(--ink)}
+.fig-up{font:500 10px var(--mono);fill:var(--muted)}
+@media (prefers-reduced-motion:reduce){.flip{transition:none}}
 
 .more{border-top:1px solid var(--line);padding-block:28px 48px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .more a{display:grid;gap:2px;text-decoration:none;max-width:48%}
@@ -307,7 +325,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
 <script src="js/dates.js?v=3cf4a6a5"></script>
-<script src="js/stars.js?v=42cb10ef"></script>
+<script src="js/stars.js?v=5b9fab53"></script>
 <script src="js/date-page.js?v=0d0b2d47"></script>
 </body>
 </html>

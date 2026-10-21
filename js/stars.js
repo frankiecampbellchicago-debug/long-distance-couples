@@ -43,6 +43,8 @@
   const BRIGHT = new Set(["Sirius", "Canopus", "RigilKent", "Arcturus", "Vega", "Capella", "Rigel", "Procyon", "Achernar", "Betelgeuse", "Hadar", "Altair", "Acrux",
     "Aldebaran", "Antares", "Spica", "Pollux", "Fomalhaut", "Deneb", "Mimosa", "Regulus", "Castor", "Polaris", "Dubhe", "Alkaid", "Alnilam", "Mirfak", "Alpheratz"]);
 
+  const NAMES = { RigilKent: "Alpha Centauri", KausAus: "Kaus Australis", LMC: "Large Magellanic Cloud", SMC: "Small Magellanic Cloud" };
+
   // w: how easy it is to spot (3 = anyone can find it, 1 = needs dark skies)
   const C = [
     { n: "Big Dipper", also: "part of Ursa Major, the Great Bear", w: 3, star: "Dubhe", lines: [["Alkaid", "Mizar", "Alioth", "Megrez", "Dubhe", "Merak", "Phecda", "Megrez"]],
@@ -348,19 +350,73 @@
       pick.forEach((u, n) => {
         const li = document.createElement("li");
         li.className = "scard";
-        li.innerHTML = '<div class="rtop"><h3></h3><span class="rnum"></span></div><p class="also"></p><p class="dir"></p><p class="look"></p><p class="find"><b>How to find it: </b></p>';
-        li.querySelector("h3").textContent = u.c.n;
-        li.querySelector(".rnum").textContent = String(n + 1).padStart(2, "0");
+        li.innerHTML = '<div class="flip"><div class="face front"><div class="rtop"><h3></h3><span class="rnum"></span></div><p class="also"></p><p class="dir"></p><p class="look"></p><p class="find"><b>How to find it: </b></p>' +
+          '<button type="button" class="flipbtn">See what it looks like &#8635;</button></div>' +
+          '<div class="face back" inert><div class="rtop"><h3></h3><span class="rnum"></span></div><svg class="cfig" viewBox="0 0 300 190" role="img"></svg><p class="cap"></p>' +
+          '<button type="button" class="flipbtn">Back to directions &#8635;</button></div></div>';
+        li.querySelectorAll("h3").forEach(h => { h.textContent = u.c.n; });
+        li.querySelectorAll(".rnum").forEach(r => { r.textContent = String(n + 1).padStart(2, "0"); });
         li.querySelector(".also").textContent = u.c.also;
         li.querySelector(".dir").textContent = where(u.alt, u.az);
         li.querySelector(".look").textContent = u.c.look;
         li.querySelector(".find").append(u.c.find);
+        const fig = li.querySelector(".cfig");
+        drawFigure(fig, u, t, lat, lon);
+        fig.setAttribute("aria-label", "Drawing of " + u.c.n + " as it looks in the sky");
+        li.querySelector(".cap").textContent = (u.alt >= 75 ? "Looking straight up" : "Facing " + dir(u.az)) + " at " + z.time(t) + ". Bigger dots are brighter stars. It slowly turns as the night goes on.";
+        const front = li.querySelector(".front"), back = li.querySelector(".back");
+        const flip = () => {
+          const on = li.classList.toggle("flipped");
+          front.inert = on; back.inert = !on;
+          (on ? back : front).querySelector(".flipbtn").focus({ preventScroll: true });
+        };
+        li.querySelectorAll(".flipbtn").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); flip(); }));
+        li.addEventListener("click", e => { if (!e.target.closest("a") && !getSelection().toString()) flip(); });
         list.appendChild(li);
       });
       if (!pick.length) status("It doesn't get dark enough there that night to pick out constellations. Try a later time.", true);
 
       drawChart(t, lat, lon, pick, planets, moonUp ? { ...mPos, phase } : null);
       $("skyResult").hidden = false;
+    }
+
+    /* card back: the constellation drawn the way it looks when you face it, with "up" toward the top of the sky */
+    function drawFigure(svg, u, t, lat, lon) {
+      const NS = "http://www.w3.org/2000/svg", W = 300, H = 190, PAD = 26;
+      const el = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); svg.appendChild(e); return e; };
+      const vec = p => [cos(p.alt) * sin(p.az), cos(p.alt) * cos(p.az), sin(p.alt)];
+      const cv = vec(u), r = [cos(u.az), -sin(u.az), 0];
+      const up = [r[1] * cv[2] - r[2] * cv[1], r[2] * cv[0] - r[0] * cv[2], r[0] * cv[1] - r[1] * cv[0]];
+      const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+      const names = [...new Set([].concat(...u.c.lines, u.c.dots || []))];
+      const raw = {};
+      names.forEach(nm => { const v = vec(starAA(nm, t, lat, lon)), d = dot(v, cv); raw[nm] = [dot(v, r) / d, -dot(v, up) / d]; });
+      const xs = names.map(nm => raw[nm][0]), ys = names.map(nm => raw[nm][1]);
+      const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+      const k = Math.min((W - 2 * PAD) / Math.max(maxX - minX, 1e-6), (H - 2 * PAD) / Math.max(maxY - minY, 1e-6), 900);
+      const ox = W / 2 - (minX + maxX) / 2 * k, oy = H / 2 - (minY + maxY) / 2 * k;
+      const P = nm => [ox + raw[nm][0] * k, oy + raw[nm][1] * k];
+      el("rect", { x: 0, y: 0, width: W, height: H, rx: 8, class: "fig-bg" });
+      // a few faint background stars so it reads as sky
+      let seed = u.i * 7 + 3;
+      const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+      for (let i = 0; i < 40; i++) el("circle", { cx: rnd() * W, cy: rnd() * H, r: rnd() < 0.2 ? 1.1 : 0.7, class: "fig-dust" });
+      u.c.lines.forEach(line => {
+        el("polyline", { points: line.map(nm => P(nm).join(",")).join(" "), class: "fig-line" });
+      });
+      names.forEach(nm => {
+        const [x, y] = P(nm);
+        if (nm === "LMC" || nm === "SMC" || nm === "Pleiades") el("circle", { cx: x, cy: y, r: nm === "LMC" ? 13 : 8, class: "fig-fuzz" });
+        else el("circle", { cx: x, cy: y, r: BRIGHT.has(nm) ? 5 : 3, class: "fig-star" });
+      });
+      const label = NAMES[u.c.star] || (/^[a-z]+[A-Z]/.test(u.c.star) ? "" : u.c.star);
+      if (label) {
+        const [x, y] = P(u.c.star), right = x < W - 90;
+        const tx = el("text", { x: right ? x + 9 : x - 9, y: y - 7, class: "fig-label", "text-anchor": right ? "start" : "end" });
+        tx.textContent = label;
+      }
+      if (u.c.dots && u.c.dots.includes("Pleiades")) { const [x, y] = P("Pleiades"); const tx = el("text", { x: x + 11, y: y + 4, class: "fig-label" }); tx.textContent = "Pleiades"; }
+      const tu = el("text", { x: W - 10, y: 16, class: "fig-up", "text-anchor": "end" }); tu.textContent = "↑ up";
     }
 
     /* star chart: the whole sky as a circle, horizon at the edge, overhead in the middle */
