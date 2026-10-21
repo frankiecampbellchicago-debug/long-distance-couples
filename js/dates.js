@@ -56,8 +56,8 @@ window.DATE_MORE={
   steps:["Choose a recipe together from the menu before the date.","Each of you shops for the same ingredients.","Sit down at your virtual table. The AI waiter greets you, takes your orders, and keeps the conversation going.","Cook side by side as the waiter walks you through each step, then eat together."],
   need:["The app","Ingredients for the recipe you picked","A kitchen and a phone stand"],
   tip:"Dress up a little and light a candle. It turns a cooking call into a real night out."},
- "movie-night":{
-  steps:["Pick a movie you can both stream. Take turns choosing each week.","Get a call going on your phones, so your laptops are free for the movie.","Count down from three and press play at the same second.","Pause together for snack breaks and talk about it when the credits roll."],
+ "movie-night":{tool:"movies",
+  steps:["Use the search on this page to pick a movie you can both stream. Take turns choosing each week.","Get a call going on your phones, so your laptops are free for the movie.","Count down from three and press play at the same second.","Pause together for snack breaks and talk about it when the credits roll."],
   need:["The same streaming service, or a watch-party feature","Snacks","Headphones if the call echoes"],
   tip:"Use a watch-party feature like Teleparty or Prime Video Watch Party to keep the movie in sync automatically."},
  "order-dinner":{tool:"food",

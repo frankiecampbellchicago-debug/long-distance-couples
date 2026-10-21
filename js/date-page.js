@@ -28,6 +28,142 @@
   $("page").hidden = false;
 
   if (more.tool === "food") setupFood();
+  if (more.tool === "movies") setupMovies();
+
+  // Small type-to-search dropdown. items() returns [{id, name, img?}]; the picked id lands on input.dataset.id.
+  function combo(input, listEl, items) {
+    let shown = [], active = -1;
+    const close = () => { listEl.hidden = true; input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); active = -1; };
+    const pick = it => { input.value = it.name; input.dataset.id = it.id; close(); };
+    const match = () => {
+      const q = input.value.trim().toLowerCase(), all = items();
+      if (!q) return all.slice(0, 12);
+      const starts = all.filter(it => it.name.toLowerCase().startsWith(q));
+      return starts.concat(all.filter(it => !starts.includes(it) && it.name.toLowerCase().includes(q))).slice(0, 12);
+    };
+    const open = () => {
+      shown = match(); listEl.innerHTML = ""; active = -1;
+      shown.forEach((it, i) => {
+        const li = document.createElement("li");
+        li.id = listEl.id + "-" + i; li.setAttribute("role", "option"); li.setAttribute("aria-selected", "false");
+        if (it.img) { const im = document.createElement("img"); im.src = it.img; im.alt = ""; im.loading = "lazy"; li.appendChild(im); }
+        li.append(it.name);
+        li.addEventListener("mousedown", e => { e.preventDefault(); pick(it); });
+        listEl.appendChild(li);
+      });
+      listEl.hidden = !shown.length; input.setAttribute("aria-expanded", String(!!shown.length));
+    };
+    const move = d => {
+      if (listEl.hidden) open();
+      if (!shown.length) return;
+      active = (active + d + shown.length) % shown.length;
+      [...listEl.children].forEach((li, i) => li.setAttribute("aria-selected", String(i === active)));
+      listEl.children[active].scrollIntoView({ block: "nearest" });
+      input.setAttribute("aria-activedescendant", listEl.children[active].id);
+    };
+    input.addEventListener("input", () => { delete input.dataset.id; open(); });
+    input.addEventListener("focus", open);
+    input.addEventListener("blur", () => setTimeout(close, 100));
+    input.addEventListener("keydown", e => {
+      if (e.key === "ArrowDown") { e.preventDefault(); move(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
+      else if (e.key === "Escape") close();
+      else if (e.key === "Enter" && !listEl.hidden && active >= 0) { e.preventDefault(); pick(shown[active]); }
+    });
+    // what the person meant, even if they typed instead of picking: exact name, then best match
+    return () => {
+      const all = items();
+      if (input.dataset.id) return all.find(it => String(it.id) === input.dataset.id) || null;
+      const q = input.value.trim().toLowerCase();
+      if (!q) return null;
+      return all.find(it => it.name.toLowerCase() === q) || match()[0] || null;
+    };
+  }
+
+  function setupMovies() {
+    $("movies").hidden = false;
+    const KEY = ((window.LIITA_CONFIG || {}).tmdbKey || "").trim();
+    const lang = navigator.language || "en-US";
+    const REGION = /-([A-Z]{2})$/.test(lang) ? lang.slice(-2) : "US";
+    const status = (msg, err) => { $("movieStatus").textContent = msg; $("movieStatus").classList.toggle("err", !!err); };
+    let providers = [], genres = [], sort = "top";
+
+    // The short v3 "API Key" goes in the URL; the long v4 "Read Access Token" goes in a header.
+    const tm = (path, params) => {
+      const bearer = KEY.length > 40, q = new URLSearchParams(Object.assign({ language: "en-US" }, params, bearer ? {} : { api_key: KEY }));
+      return fetch("https://api.themoviedb.org/3/" + path + "?" + q, bearer ? { headers: { Authorization: "Bearer " + KEY } } : {})
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+    };
+
+    const getPlat = combo($("mPlat"), $("mPlatList"), () => providers);
+    const getGenre = combo($("mGenre"), $("mGenreList"), () => genres);
+    document.querySelectorAll("#movieForm .seg button").forEach(b => b.addEventListener("click", () => {
+      sort = b.dataset.sort;
+      document.querySelectorAll("#movieForm .seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    }));
+
+    let ready = null;
+    const load = () => ready || (ready = Promise.all([
+      tm("watch/providers/movie", { watch_region: REGION }).then(j => {
+        providers = j.results.sort((a, b) => (a.display_priority || 99) - (b.display_priority || 99))
+          .map(p => ({ id: p.provider_id, name: p.provider_name, img: p.logo_path ? "https://image.tmdb.org/t/p/w92" + p.logo_path : "" }));
+      }),
+      tm("genre/movie/list", {}).then(j => { genres = j.genres.map(g => ({ id: g.id, name: g.name })); })
+    ]).catch(e => { ready = null; throw e; }));
+
+    if (!KEY) status("Movie search is almost ready. Check back soon.");
+    else load().catch(() => status("We couldn't reach the movie database. Refresh the page to try again.", true));
+
+    $("movieForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      if (!KEY) { status("Movie search is almost ready. Check back soon."); return; }
+      $("movieGo").disabled = true; $("movieList").innerHTML = ""; $("movieCredit").hidden = true;
+      try {
+        await load();
+        const plat = getPlat(), genre = getGenre();
+        if (!plat) { status($("mPlat").value.trim() ? "We don't have \"" + $("mPlat").value.trim() + "\" in our list. Try typing it differently, like Netflix or Max." : "Type the streaming service you want to watch on.", true); $("mPlat").focus(); return; }
+        if (!genre) { status($("mGenre").value.trim() ? "We don't know \"" + $("mGenre").value.trim() + "\" as a kind of movie. Try Action, Comedy, Romance, or Horror." : "Type the kind of movie you're in the mood for.", true); $("mGenre").focus(); return; }
+        $("mPlat").value = plat.name; $("mPlat").dataset.id = plat.id; $("mGenre").value = genre.name; $("mGenre").dataset.id = genre.id;
+        status("Finding the top " + genre.name.toLowerCase() + " movies on " + plat.name + "…");
+        const base = { watch_region: REGION, with_watch_providers: plat.id, with_watch_monetization_types: "flatrate|free|ads", with_genres: genre.id, include_adult: false };
+        let movies = [];
+        if (sort === "top") {
+          // ratings only mean something with enough votes; loosen the bar if the service has few titles
+          for (const min of [500, 100, 10]) {
+            movies = (await tm("discover/movie", Object.assign({ sort_by: "vote_average.desc", "vote_count.gte": min }, base))).results;
+            if (movies.length >= 10) break;
+          }
+        } else movies = (await tm("discover/movie", Object.assign({ sort_by: "popularity.desc" }, base))).results;
+        movies = movies.slice(0, 10);
+        if (!movies.length) { status("No " + genre.name.toLowerCase() + " movies are on " + plat.name + " right now. Try another kind of movie.", true); return; }
+        status(movies.length < 10 ? "Only " + movies.length + " " + genre.name.toLowerCase() + " movies are on " + plat.name + " right now." : "");
+        renderMovies(movies, plat);
+      } catch (err) {
+        status("We couldn't reach the movie database. Wait a few seconds and try again.", true);
+      } finally { $("movieGo").disabled = false; }
+    });
+
+    function renderMovies(movies, plat) {
+      const list = $("movieList");
+      movies.forEach((m, i) => {
+        const li = document.createElement("li"), year = (m.release_date || "").slice(0, 4);
+        li.className = "mcard";
+        li.innerHTML = '<img class="poster" alt="" loading="lazy"><div class="mbody"><div class="rtop"><h3></h3><span class="rnum"></span></div><p class="rmeta"></p><p class="ov"></p><div class="ractions"></div></div>';
+        const img = li.querySelector(".poster");
+        if (m.poster_path) img.src = "https://image.tmdb.org/t/p/w185" + m.poster_path; else img.removeAttribute("src");
+        li.querySelector("h3").textContent = m.title;
+        li.querySelector(".rnum").textContent = String(i + 1).padStart(2, "0");
+        li.querySelector(".rmeta").textContent = [year, m.vote_count ? "★ " + m.vote_average.toFixed(1) + " (" + m.vote_count.toLocaleString() + " votes)" : ""].filter(Boolean).join(" · ");
+        li.querySelector(".ov").textContent = m.overview || "";
+        const acts = li.querySelector(".ractions");
+        const btn = (txt, href, cls) => { const a = document.createElement("a"); a.className = "btn " + cls; a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; acts.appendChild(a); };
+        btn("Watch on " + plat.name, "https://www.themoviedb.org/movie/" + m.id + "/watch?locale=" + REGION, "");
+        btn("Trailer", "https://www.youtube.com/results?search_query=" + encodeURIComponent(m.title + " " + year + " trailer"), "ghost");
+        list.appendChild(li);
+      });
+      $("movieCredit").hidden = false;
+    }
+  }
 
   function setupFood() {
     $("food").hidden = false;
