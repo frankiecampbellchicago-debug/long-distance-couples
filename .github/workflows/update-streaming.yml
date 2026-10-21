@@ -1,0 +1,36 @@
+# Rebuilds the Movie night top-10 lists on the 10th of every month (and on demand from the Actions tab).
+name: Update movie lists
+
+on:
+  schedule:
+    - cron: "0 14 10 * *"   # the 10th, 14:00 UTC (morning in the US)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-streaming
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build lists
+        env:
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+        run: python tools/build-streaming.py
+      - name: Save to the site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add data/streaming
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Update movie lists for $(date -u +'%B %Y')"
+          git push
