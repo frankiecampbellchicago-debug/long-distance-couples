@@ -8,12 +8,46 @@
   const SKIP = /festival|convention|expo\b|annual|parade|marathon|award|area code|tv series|film\b|album|song|company|brand|\bbus\b|vehicle|locomotive|airline|organization/i;
 
   const views = {
-    street: (lat, lon) => "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + lat + "," + lon,
+    street: (lat, lon, heading) => "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + (+lat).toFixed(6) + "," + (+lon).toFixed(6) + (heading != null ? "&heading=" + Math.round(heading) + "&pitch=5" : ""),
     earth: (lat, lon, d) => "https://earth.google.com/web/@" + lat + "," + lon + ",0a," + (d || 1200) + "d,35y,0h,60t,0r",
     named: q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q),
     photos: q => "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q),
     cams: q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q + " live cam")
   };
+
+  // Street View has no photo inside a building or the middle of a park, and Google then shows a black screen.
+  // So step onto the nearest street (where the Street View cars drove) and turn the camera to face the place.
+  const bearing = (a1, o1, a2, o2) => {
+    const r = Math.PI / 180, y = Math.sin((o2 - o1) * r) * Math.cos(a2 * r);
+    const x = Math.cos(a1 * r) * Math.sin(a2 * r) - Math.sin(a1 * r) * Math.cos(a2 * r) * Math.cos((o2 - o1) * r);
+    return (Math.atan2(y, x) / r + 360) % 360;
+  };
+  async function streetUrl(lat, lon) {
+    try {
+      const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 4000);
+      const j = await (await fetch("https://router.project-osrm.org/nearest/v1/driving/" + lon + "," + lat + "?number=5", { signal: ctrl.signal })).json();
+      clearTimeout(timer);
+      // a named street beats an unnamed service road or parking lot, which rarely has Street View
+      const ws = (j.waypoints || []).filter(x => x.distance < 500);
+      const w = ws.find(x => x.name) || ws[0];
+      if (w && w.distance < 500) {
+        const [slon, slat] = w.location;
+        return views.street(slat, slon, w.distance > 10 ? bearing(slat, slon, lat, lon) : null);
+      }
+    } catch (e) {}
+    return views.street(lat, lon);
+  }
+  function streetLink(a, lat, lon) {
+    a.href = views.street(lat, lon);
+    a.addEventListener("click", async e => {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+      e.preventDefault();
+      // open the tab right away so the browser doesn't block it, then send it to the right spot
+      const tab = window.open("", "_blank");
+      const url = await streetUrl(lat, lon);
+      if (tab) { tab.opener = null; tab.location.replace(url); } else location.href = url;
+    });
+  }
 
   window.setupCityTour = function () {
     $("citytour").hidden = false;
@@ -73,6 +107,7 @@
        ["Watch it live", "Live webcams from around " + name, views.cams(name), "&#127909;"]].forEach(([t, s, href, icon]) => {
         const a = document.createElement("a");
         a.className = "view"; a.href = href; a.target = "_blank"; a.rel = "noopener";
+        if (t === "Walk the streets") streetLink(a, lat, lon);
         a.innerHTML = '<span class="vicon" aria-hidden="true">' + icon + '</span><span><strong></strong><small></small></span>';
         a.querySelector("strong").textContent = t; a.querySelector("small").textContent = s;
         box.appendChild(a);
@@ -143,8 +178,8 @@
 
     function links(box, s, wiki) {
       const where = s.n + ", " + city.name;
-      const add = (txt, href) => { const a = document.createElement("a"); a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; box.appendChild(a); };
-      if (s.lat != null) add("Street View", views.street(s.lat, s.lon));
+      const add = (txt, href) => { const a = document.createElement("a"); a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; box.appendChild(a); return a; };
+      if (s.lat != null) streetLink(add("Street View", ""), s.lat, s.lon);
       if (s.lat != null) add("3D", views.earth(s.lat, s.lon, 600));
       add("Map", views.named(where));
       add("Photos", views.photos(where));
