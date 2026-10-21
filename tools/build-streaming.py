@@ -88,10 +88,10 @@ def same(a, b):
     return [x["u"] for x in a[:12]] == [x["u"] for x in b[:12]]
 
 
-def filters_ok(kind, base, flt):
+def filters_ok(kind, base, *flt):
     """True if the filter changes the list. Checks twice, since a page can come back unfiltered by accident."""
     for _ in range(2):
-        test = listing(kind, flt)
+        test = listing(kind, *flt)
         if test and not same(test, base):
             return True
     return False
@@ -110,11 +110,17 @@ def main():
             services.append((slug, name))
         else:
             print("skipping service", slug)
+    if not services:
+        sys.exit("No streaming services could be read; keeping last month's lists")
+    svc_base = {k: listing(k, "affiliates:" + services[0][0]) for k in SECTION}
     genres = {}
     for kind in SECTION:
         genres[kind] = []
         for slug, name in GENRES[kind]:
-            if filters_ok(kind, base[kind], "genres:" + slug):
+            # Rotten Tomatoes sometimes serves a stale unfiltered copy of one genre page, so if that
+            # page looks wrong, also test the genre inside the first service before giving up on it
+            if filters_ok(kind, base[kind], "genres:" + slug) or (
+                    svc_base[kind] and filters_ok(kind, svc_base[kind], "affiliates:" + services[0][0], "genres:" + slug)):
                 genres[kind].append((slug, name))
             else:
                 print("skipping", kind, "genre", slug)
