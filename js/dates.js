@@ -101,10 +101,10 @@ window.DATE_MORE={
   steps:["Pick a recipe with the search on this page, or agree on five ingredients you can both find.","Each of you buys them, plus pantry basics like salt, oil, and spices.","Set a timer and cook on video.","Show off your plates and vote on looks and taste."],
   need:["The same five ingredients","A kitchen","A phone stand"],
   tip:"Let a friend judge from photos to keep it fair."},
- "escape-room":{
-  steps:["Book an online escape room made for two players.","Get on a video call and share the game link.","Split up the clues and talk through every lead.","Beat the clock together."],
-  need:["A laptop each","A booking, usually about $20–40","A call"],
-  tip:"Search for \"online escape room for 2 players\" to find live ones with a real host."},
+ "escape-room":{tool:"escape",
+  steps:["Pick an escape room with the search on this page. Choose a type you'll both enjoy, like mystery or horror.","Each of you gets the game, or book a live room together.","Get on a call so you can talk through every clue.","Split up the clues, describe everything you see, and beat the clock together."],
+  need:["A computer or phone each, depending on the room","The game, or a booking for a live room","A call with good headphones"],
+  tip:"Most of these are built so each of you only sees half of the clues. Describe everything, even the things that seem unimportant."},
  "time-capsule":{
   steps:["Find a small box or tin during your visit.","Fill it with notes, photos, ticket stubs, and a letter to your future selves.","Seal it and decide who keeps it until next time.","Open it together at your next visit."],
   need:["A box","Things from this visit","Paper for notes"],
