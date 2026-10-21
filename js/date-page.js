@@ -222,6 +222,23 @@
       group("Cuisine", index.areas.slice().sort((a, b) => nice(a).localeCompare(nice(b))), "a:", nice);
     });
     const asMeal = r => ({ idMeal: r.i, strMeal: r.n, strCategory: r.c, strArea: r.a, strMealThumb: r.t, skill: r.k, ni: r.ni, ns: r.ns });
+    // Wikibooks recipes ("wb123") are saved in data/recipes/wb-N.json; TheMealDB ones load from TheMealDB
+    const buckets = {};
+    async function fullRecipe(m) {
+      const extra = { skill: m.skill, ni: m.ni, ns: m.ns };
+      if (String(m.idMeal).startsWith("wb")) {
+        const id = String(m.idMeal).slice(2), n = (index && index.buckets) || 32, b = +id % n;
+        if (!buckets[b]) buckets[b] = fetch("data/recipes/wb-" + b + ".json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+        let d;
+        try { d = (await buckets[b])[id]; } catch (e) { buckets[b] = null; }
+        if (!d) return null;
+        return Object.assign({}, m, extra, { ings: d.ing, steps: d.steps, serv: d.serv, time: d.time,
+          wiki: "https://en.wikibooks.org/wiki/" + encodeURIComponent(d.title.replace(/ /g, "_")).replace(/%3A/g, ":") });
+      }
+      if (m.strInstructions) return Object.assign({}, m, extra);
+      const [full] = await get("lookup.php?i=" + m.idMeal);
+      return full ? Object.assign(full, extra) : null;
+    }
 
     // recipes that match what's typed and picked, best matches first
     function matches(q) {
@@ -239,7 +256,7 @@
           score += hit;
         }
         return { r, score };
-      }).filter(Boolean).sort((a, b) => b.score - a.score || a.r.n.localeCompare(b.r.n)).map(x => x.r);
+      }).filter(Boolean).sort((a, b) => b.score - a.score || (b.r.t ? 1 : 0) - (a.r.t ? 1 : 0) || a.r.n.localeCompare(b.r.n)).map(x => x.r);
     }
     const describe = q => {
       const k = $("recipeKind"), sk = $("recipeSkill").value;
@@ -290,8 +307,7 @@
           const pool = matches($("recipeQ").value.trim());
           if (!pool.length) { status("Nothing fits those choices. Change the kind of food or skill level and try again.", true); return; }
           m = asMeal(pool[Math.floor(Math.random() * pool.length)]);
-          const full = (await get("lookup.php?i=" + m.idMeal))[0];
-          if (full) m = Object.assign(full, { skill: m.skill, ni: m.ni, ns: m.ns });
+          m = (await fullRecipe(m)) || m;
         } else [m] = await get("random.php");
         status("Tonight's challenge: you both cook this. Not feeling it? Hit Surprise us again.");
         const li = card(m); $("recipeList").appendChild(li); open(li, m);
@@ -313,6 +329,10 @@
 
     const kind = m => [nice(m.strArea || ""), m.strCategory].filter(x => x && x !== "Unknown").join(" \u00b7 ");
     const SKILL = { easy: "Easy", medium: "Medium", hard: "Hard" };
+    // shown when a recipe has no photo
+    const FOOD = { Dessert: "\u{1F370}", Soup: "\u{1F372}", Drinks: "\u{1F964}", Chicken: "\u{1F357}", Beef: "\u{1F969}", Seafood: "\u{1F41F}", Pasta: "\u{1F35D}",
+      Bread: "\u{1F35E}", Salad: "\u{1F957}", Breakfast: "\u{1F373}", Vegetarian: "\u{1F966}", Vegan: "\u{1F331}", Pork: "\u{1F953}", Lamb: "\u{1F356}", Goat: "\u{1F356}",
+      Side: "\u{1F35A}", Starter: "\u{1F95F}", "Sauces & dips": "\u{1F96B}" };
     function skillTag(li, m) {
       if (!m.skill) return;
       const t = document.createElement("span");
@@ -324,20 +344,20 @@
       const li = document.createElement("li");
       li.className = "recipe";
       li.innerHTML = '<div class="rpic"><img alt="" loading="lazy"></div><div class="rbody"><h4></h4><p class="rkind"></p><div class="ractions"><button type="button" class="btn">See the recipe</button></div></div>';
-      const img = li.querySelector("img");
-      img.src = m.strMealThumb + "/medium";
-      img.onerror = () => { img.onerror = null; img.src = m.strMealThumb; };
+      const img = li.querySelector("img"), thumb = m.strMealThumb || "";
+      const noPic = () => { const pic = li.querySelector(".rpic"); pic.classList.add("none"); pic.textContent = FOOD[m.strCategory] || "\u{1F37D}\uFE0F"; pic.setAttribute("aria-hidden", "true"); };
+      if (!thumb) noPic();
+      else if (/themealdb/.test(thumb)) { img.src = thumb + "/medium"; img.onerror = () => { img.onerror = noPic; img.src = thumb; }; }
+      else { img.src = thumb; img.onerror = noPic; }
       li.querySelector("h4").textContent = m.strMeal;
       li.querySelector(".rkind").textContent = kind(m);
       skillTag(li, m);
       li.querySelector(".ractions .btn").addEventListener("click", async () => {
         if (li.classList.contains("open")) { close(li); return; }
-        let full = m;
-        if (!m.strInstructions) {
-          try { [full] = await get("lookup.php?i=" + m.idMeal); } catch (e) { full = null; }
-          if (!full) { status("We couldn't load that recipe. Try again.", true); return; }
-        }
-        open(li, Object.assign({}, full, { skill: m.skill, ni: m.ni, ns: m.ns }));
+        let full = null;
+        try { full = await fullRecipe(m); } catch (e) {}
+        if (!full) { status("We couldn't load that recipe. Try again.", true); return; }
+        open(li, full);
       });
       return li;
     }
@@ -355,11 +375,12 @@
       li.querySelector(".rkind").textContent = kind(m);
       skillTag(li, m);
       const ings = [];
-      for (let i = 1; i <= 20; i++) {
+      if (m.ings) m.ings.forEach(x => ings.push(["", x]));
+      else for (let i = 1; i <= 20; i++) {
         const n = (m["strIngredient" + i] || "").trim(), q = (m["strMeasure" + i] || "").trim();
         if (n) ings.push([q, n]);
       }
-      const steps = (m.strInstructions || "").split(/\r?\n+/).map(x => x.replace(/^(step\s*)?\d+[.):]?\s*/i, "").trim()).filter(x => x.length > 2 && !/^step\s*\d*$/i.test(x));
+      const steps = m.steps || (m.strInstructions || "").split(/\r?\n+/).map(x => x.replace(/^(step\s*)?\d+[.):]?\s*/i, "").trim()).filter(x => x.length > 2 && !/^step\s*\d*$/i.test(x));
       const full = document.createElement("div");
       full.className = "rfull";
       full.innerHTML = '<div><h5>Ingredients</h5><ul class="ings"></ul></div><div><h5>How to make it</h5><ol class="howto"></ol></div>';
@@ -367,6 +388,8 @@
       steps.forEach(t => { const x = document.createElement("li"); x.textContent = t; full.querySelector(".howto").appendChild(x); });
       const acts = li.querySelector(".ractions");
       li.querySelector(".rbody").insertBefore(full, acts);
+      const facts = [m.serv ? "Serves " + m.serv : "", m.time ? m.time : ""].filter(Boolean).join(" \u00b7 ");
+      if (facts) { const f = document.createElement("p"); f.className = "rfacts"; f.textContent = facts; full.prepend(f); }
       acts.querySelectorAll("a, .copy").forEach(x => x.remove());
       const copy = document.createElement("button");
       copy.type = "button"; copy.className = "btn ghost copy"; copy.textContent = "Copy shopping list";
@@ -379,6 +402,14 @@
       const link = (txt, href) => { if (!/^https?:\/\//i.test(href || "")) return; const a = document.createElement("a"); a.className = "btn ghost"; a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; acts.appendChild(a); };
       link("Watch how", m.strYoutube);
       link("Original recipe", m.strSource);
+      if (m.wiki) {
+        link("On Wikibooks", m.wiki);
+        const c = document.createElement("p");
+        c.className = "rcredit";
+        c.innerHTML = 'Recipe from the <a target="_blank" rel="noopener">Wikibooks Cookbook</a>, shared under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.';
+        c.querySelector("a").href = m.wiki;
+        full.appendChild(c);
+      }
     }
   }
 

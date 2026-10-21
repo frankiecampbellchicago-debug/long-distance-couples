@@ -215,6 +215,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .recipe .rkind{font-size:13px;color:var(--muted)}
 .recipe .ractions{margin-top:0}
 .recipe .ractions .btn{padding:8px 14px;font-size:13px}
+.recipe .rpic.none{display:grid;place-items:center;font-size:56px;line-height:1;
+  background:radial-gradient(circle at 30% 30%,var(--card),var(--stamp))}
+.rfacts{grid-column:1/-1;font:500 12px var(--mono);color:var(--muted)}
+.rcredit{grid-column:1/-1;font-size:12px;color:var(--muted)}
 .rfull{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:18px}
 @media (max-width:900px){.rfull{grid-template-columns:minmax(0,1fr)}}
 .rfull h5{margin:0 0 6px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -754,7 +758,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="fstatus" id="recipeStatus" role="status"></p>
       <ul class="rgrid" id="recipeList" aria-label="Recipes"></ul>
       <button class="btn ghost" type="button" id="recipeMore" hidden>Show more</button>
-      <p class="credit" id="recipeCredit" hidden>Recipes from <a href="https://www.themealdb.com/" target="_blank" rel="noopener">TheMealDB</a>.</p>
+      <p class="credit" id="recipeCredit" hidden>Recipes from <a href="https://www.themealdb.com/" target="_blank" rel="noopener">TheMealDB</a> and the <a href="https://en.wikibooks.org/wiki/Cookbook:Table_of_Contents" target="_blank" rel="noopener">Wikibooks Cookbook</a> (CC BY-SA). Skill levels are our estimate.</p>
     </section>
 
     <section class="finder" id="citytour" aria-labelledby="cityTitle" hidden>
@@ -875,6 +879,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=c7592957"></script>
+<script src="js/date-page.js?v=1b5233e7"></script>
 </body>
 </html>
