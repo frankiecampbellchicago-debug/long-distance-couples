@@ -107,7 +107,7 @@
     let index = null, kind = "movie", sort = "top";
     const files = {};
 
-    const getPlat = combo($("mPlat"), $("mPlatList"), () => index ? index.services.map(s => ({ id: s.id, name: s.name, img: s.logo ? "https://image.tmdb.org/t/p/w92" + s.logo : "" })) : []);
+    const getPlat = combo($("mPlat"), $("mPlatList"), () => index ? index.services : []);
     const getGenre = combo($("mGenre"), $("mGenreList"), () => index ? index.genres[kind] : []);
 
     const seg = (sel, fn) => document.querySelectorAll(sel).forEach(b => b.addEventListener("click", () => {
@@ -150,27 +150,25 @@
     });
 
     function renderMovies(picks, plat) {
-      const list = $("movieList"), region = index.region || "US";
+      const list = $("movieList");
       picks.forEach((m, i) => {
-        const li = document.createElement("li");
+        const li = document.createElement("li"), rtUrl = "https://www.rottentomatoes.com" + m.u;
         li.className = "mcard";
-        li.innerHTML = '<img class="poster" alt="" loading="lazy"><div class="mbody"><div class="rtop"><h3></h3><span class="rnum"></span></div><p class="rmeta"></p><div class="scores"></div><p class="ov"></p><div class="ractions"></div></div>';
+        li.innerHTML = '<img class="poster" alt="" loading="lazy" referrerpolicy="no-referrer"><div class="mbody"><div class="rtop"><h3></h3><span class="rnum"></span></div><div class="scores"></div><p class="rmeta"></p><div class="ractions"></div></div>';
         const img = li.querySelector(".poster");
         img.onerror = () => img.removeAttribute("src");
-        if (m.p) img.src = "https://image.tmdb.org/t/p/w185" + m.p; else img.removeAttribute("src");
+        if (m.p) img.src = m.p; else img.removeAttribute("src");
         li.querySelector("h3").textContent = m.t;
         li.querySelector(".rnum").textContent = String(i + 1).padStart(2, "0");
-        li.querySelector(".rmeta").textContent = m.y || "";
+        li.querySelector(".rmeta").textContent = m.d || "";
         const sc = li.querySelector(".scores");
         const score = (cls, txt, title) => { const b = document.createElement("span"); b.className = "score " + cls; b.textContent = txt; b.title = title; sc.appendChild(b); };
-        if (m.rt != null) score("rt", "🍅 " + m.rt + "%", "Rotten Tomatoes Tomatometer");
-        if (m.mc != null) score("mc", "Metacritic " + m.mc, "Metascore");
-        if (m.n) score("", "★ " + m.v.toFixed(1) + " (" + m.n.toLocaleString() + ")", "Audience rating on TMDB");
-        li.querySelector(".ov").textContent = m.ov || "";
+        score("rt", "🍅 " + (m.rt != null ? m.rt + "%" : "– –") + " critics", "Rotten Tomatoes Tomatometer");
+        if (m.au != null) score("mc", "🍿 " + m.au + "% audience", "Rotten Tomatoes Popcornmeter");
         const acts = li.querySelector(".ractions");
         const btn = (txt, href, cls) => { const a = document.createElement("a"); a.className = "btn " + cls; a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; acts.appendChild(a); };
-        btn("Watch on " + plat.name, "https://www.themoviedb.org/" + kind + "/" + m.id + "/watch?locale=" + region, "");
-        btn("Trailer", "https://www.youtube.com/results?search_query=" + encodeURIComponent(m.t + " " + (m.y || "") + " trailer"), "ghost");
+        btn("Where to watch", rtUrl + "#where-to-watch", "");
+        btn("Trailer", "https://www.youtube.com/results?search_query=" + encodeURIComponent(m.t + " trailer"), "ghost");
         list.appendChild(li);
       });
       $("movieUpdated").textContent = index.updated ? "Lists updated " + new Date(index.updated + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) + "." : "";

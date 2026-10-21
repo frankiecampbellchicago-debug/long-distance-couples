@@ -16,15 +16,13 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Build lists
-        env:
-          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+      - name: Build lists from Rotten Tomatoes
         run: python tools/build-streaming.py
       - name: Save to the site
         run: |
