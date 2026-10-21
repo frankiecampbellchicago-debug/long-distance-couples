@@ -85,8 +85,8 @@ window.DATE_MORE={
   steps:["Before the visit, each of you plans one full day in your own city. Use the tour builder on this page to pick your stops.","Include the spots you love and the ones you've always wanted to show them.","Send them the tour link so they can walk it in Street View first, or keep it a secret until the morning of.","Swap days on the next visit."],
   need:["A visit","A rough budget","Comfortable shoes"],
   tip:"Add a stop that means something, like where you were standing when they first called."},
- "letters":{
-  steps:["Agree on a night to open them, about a week out.","Write a real letter by hand, as long or short as you like.","Mail it early. Some international mail takes two weeks.","Open your letters together on a call and read a favorite line out loud."],
+ "letters":{tool:"post",
+  steps:["Agree on a night to open them, about a week out.","Write a real letter by hand, as long or short as you like.","Mail it early. Some international mail takes two weeks. Use the search on this page to find the closest post office.","Open your letters together on a call and read a favorite line out loud."],
   need:["Paper and a pen","Stamps","Patience"],
   tip:"Tuck something small inside, like a pressed flower or a photo."},
  "book-club":{

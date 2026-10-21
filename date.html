@@ -142,6 +142,20 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .rcard .blurb{font-size:15px}
 .rcard.lucky{border:1.5px dashed var(--red);background:var(--card)}
 #museumMore{justify-self:center}
+/* post office */
+.postres{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:760px){.postres{grid-template-columns:minmax(0,1fr)}}
+.postmap{width:100%;aspect-ratio:4/3;border:1px solid var(--line);border-radius:10px;background:var(--stamp);display:block}
+.postlist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.postlist li{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:4px;min-width:0}
+.postlist li.best{border:1.5px solid var(--red);background:var(--card)}
+.postlist .ptop{display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.postlist h4{margin:0;font:400 19px/1.2 var(--display);overflow-wrap:anywhere}
+.postlist .pdist{font:500 12px var(--mono);color:var(--red);flex:none}
+.postlist .paddr{font-size:14px;color:var(--muted)}
+.postlist .pbadge{justify-self:start;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.postlist .slinks{margin-top:2px}
+.postlist button.showmap{font:600 13px var(--body);color:var(--blue);background:none;border:0;padding:0;cursor:pointer}
 /* recipes */
 .rgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:860px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -405,6 +419,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="credit" id="museumCredit" hidden>All tours are free and run by the museums or Google Arts &amp; Culture. Open the same link on both devices, or share your screen.</p>
     </section>
 
+    <section class="finder" id="post" aria-labelledby="postTitle" hidden>
+      <div>
+        <h2 id="postTitle">Find the closest post office</h2>
+        <p class="sub">Put in your address and we'll show the post offices nearest to you, with directions.</p>
+      </div>
+      <form class="fform mus" id="postForm" novalidate>
+        <div class="field"><label for="postAddr">Your address</label><input id="postAddr" type="text" autocomplete="street-address" placeholder="Street address, city"></div>
+        <button class="btn red" type="submit" id="postGo">Find post offices</button>
+        <button class="btn ghost" type="button" id="postHere">&#128205; Use my location</button>
+      </form>
+      <p class="fstatus" id="postStatus" role="status"></p>
+      <div class="postres" id="postResult" hidden>
+        <iframe class="postmap" id="postMap" title="Map of the closest post office" loading="lazy" referrerpolicy="no-referrer"></iframe>
+        <ol class="postlist" id="postList" aria-label="Closest post offices"></ol>
+      </div>
+      <p class="credit" id="postCredit" hidden>Post office data and map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, via <a href="https://photon.komoot.io/" target="_blank" rel="noopener">Photon</a>. Hours change, so check before you go. We don't save your address.</p>
+    </section>
+
     <section class="finder" id="recipes" aria-labelledby="recipeTitle" hidden>
       <div>
         <h2 id="recipeTitle">Find something to cook</h2>
@@ -530,11 +562,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=bc4cef44"></script>
+<script src="js/dates.js?v=b487d9d7"></script>
 <script src="js/citytour.js?v=3f0c4a5a"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=efe1dcd5"></script>
-<script src="js/date-page.js?v=616f85c7"></script>
+<script src="js/date-page.js?v=33165409"></script>
 </body>
 </html>

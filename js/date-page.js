@@ -45,6 +45,7 @@
   if (more.tool === "museums") setupMuseums();
   if (more.tool === "city") window.setupCityTour();
   if (more.tool === "recipes") setupRecipes();
+  if (more.tool === "post") setupPost();
 
   // Small type-to-search dropdown. items() returns [{id, name, img?}]; the picked id lands on input.dataset.id.
   function combo(input, listEl, items) {
@@ -306,6 +307,113 @@
       const link = (txt, href) => { if (!/^https?:\/\//i.test(href || "")) return; const a = document.createElement("a"); a.className = "btn ghost"; a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; acts.appendChild(a); };
       link("Watch how", m.strYoutube);
       link("Original recipe", m.strSource);
+    }
+  }
+
+  function setupPost() {
+    $("post").hidden = false;
+    const status = (msg, err) => { $("postStatus").textContent = msg; $("postStatus").classList.toggle("err", !!err); };
+    // post offices go by many names: "Post Office", "USPS", "Canada Post", "Royal Mail", "La Poste", "Correos"...
+    // Ask for just the words that fit the country, so each search stays light on the free map service.
+    const LOCAL = { us: "usps", fr: "poste", be: "poste", ch: "poste", lu: "poste", it: "poste", es: "correos", mx: "correos", ar: "correos", co: "correos", cl: "correos", pe: "correos", br: "correio", pt: "correio" };
+    const wordsFor = cc => ["post", "mail"].concat(LOCAL[(cc || "").toLowerCase()] || []);
+    const getJson = async url => {
+      const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 9000);
+      try { const r = await fetch(url, { signal: ctrl.signal }); if (!r.ok) throw new Error(r.status); return await r.json(); }
+      finally { clearTimeout(timer); }
+    };
+
+    $("postForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const q = $("postAddr").value.trim();
+      if (q.length < 4) { status("Type your street address and city, or use your location.", true); $("postAddr").focus(); return; }
+      $("postGo").disabled = true;
+      try {
+        status("Finding that address…");
+        let home = null;
+        try {
+          const f = (await getJson("https://photon.komoot.io/api/?limit=1&lang=en&q=" + encodeURIComponent(q))).features[0];
+          if (f) { const p = f.properties; home = { lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0], country: p.countrycode || "", label: [[p.housenumber, p.street].filter(Boolean).join(" ") || p.name, p.city].filter(Boolean).join(", ") }; }
+        } catch (e2) {}
+        if (!home) {
+          const n = (await getJson("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&addressdetails=1&q=" + encodeURIComponent(q)))[0];
+          if (n) home = { lat: +n.lat, lon: +n.lon, country: (n.address && n.address.country_code) || "", label: n.display_name.split(", ").slice(0, 3).join(", ") };
+        }
+        if (!home) { status("We couldn't find that address. Try adding the city and zip code.", true); return; }
+        await search(home);
+      } catch (err) {
+        status("We couldn't reach the map service. Wait a few seconds and try again.", true);
+      } finally { $("postGo").disabled = false; }
+    });
+
+    $("postHere").addEventListener("click", () => {
+      if (!navigator.geolocation) { status("Your browser can't share your location. Type your address instead.", true); return; }
+      status("Getting your location…");
+      navigator.geolocation.getCurrentPosition(
+        pos => getJson("https://photon.komoot.io/reverse?lat=" + pos.coords.latitude + "&lon=" + pos.coords.longitude).then(j => (j.features[0] || { properties: {} }).properties.countrycode).catch(() => "")
+          .then(cc => search({ lat: pos.coords.latitude, lon: pos.coords.longitude, country: cc || "", label: "your location" }))
+          .catch(() => status("We couldn't reach the map service. Wait a few seconds and try again.", true)),
+        () => status("We couldn't get your location. Type your address instead.", true),
+        { timeout: 10000, maximumAge: 300000 });
+    });
+
+    async function search(home) {
+      status("Looking for post offices near " + home.label + "…");
+      let found = [];
+      for (const d of [0.08, 0.3]) {
+        const dLon = d / Math.cos(home.lat * Math.PI / 180);
+        const box = [home.lon - dLon, home.lat - d, home.lon + dLon, home.lat + d].map(n => n.toFixed(4)).join(",");
+        const sets = await Promise.all(wordsFor(home.country).map(w => getJson("https://photon.komoot.io/api/?limit=25&lang=en&osm_tag=amenity:post_office&lat=" + home.lat + "&lon=" + home.lon + "&bbox=" + box + "&q=" + encodeURIComponent(w))
+          .then(j => j.features).catch(() => [])));
+        const seen = new Set();
+        found = [].concat(...sets).map(f => {
+          const p = f.properties, lat = f.geometry.coordinates[1], lon = f.geometry.coordinates[0];
+          return { name: p.name || "Post office", lat, lon, mi: miles(home.lat, home.lon, lat, lon),
+                   addr: [[p.housenumber, p.street].filter(Boolean).join(" "), p.city || p.district, p.postcode].filter(Boolean).join(", "), id: p.osm_type + p.osm_id };
+        }).filter(x => !seen.has(x.id) && seen.add(x.id)).sort((a, b) => a.mi - b.mi);
+        if (found.length >= 3) break;
+      }
+      if (!found.length) { status("We couldn't find a post office near " + home.label + ". Try a nearby town, or search \u201cpost office\u201d in your maps app.", true); $("postResult").hidden = true; return; }
+      status("");
+      render(home, found.slice(0, 5));
+    }
+
+    function miles(a, b, c, d) {
+      const R = 3958.8, r = x => x * Math.PI / 180, dl = r(c - a), dn = r(d - b);
+      const h = Math.sin(dl / 2) ** 2 + Math.cos(r(a)) * Math.cos(r(c)) * Math.sin(dn / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(h));
+    }
+
+    function showMap(home, po) {
+      const pad = 0.004, s = Math.min(home.lat, po.lat) - pad, n = Math.max(home.lat, po.lat) + pad;
+      const padLon = pad / Math.cos(home.lat * Math.PI / 180), w = Math.min(home.lon, po.lon) - padLon, e = Math.max(home.lon, po.lon) + padLon;
+      $("postMap").src = "https://www.openstreetmap.org/export/embed.html?bbox=" + [w, s, e, n].map(x => x.toFixed(5)).join("%2C") + "&layer=mapnik&marker=" + po.lat.toFixed(6) + "%2C" + po.lon.toFixed(6);
+      $("postMap").title = "Map showing " + po.name;
+    }
+
+    function render(home, list) {
+      // miles in the US and UK, kilometers everywhere else
+      const metric = home.country && !/^(us|gb|lr|mm)$/i.test(home.country);
+      const dist = mi => metric ? (mi * 1.609).toFixed(1) + " km" : mi.toFixed(1) + " mi";
+      const ol = $("postList"); ol.innerHTML = "";
+      list.forEach((po, i) => {
+        const li = document.createElement("li");
+        if (i === 0) li.className = "best";
+        li.innerHTML = (i === 0 ? '<span class="pbadge">Closest to you</span>' : "") + '<div class="ptop"><h4></h4><span class="pdist"></span></div><p class="paddr"></p><div class="slinks"></div>';
+        li.querySelector("h4").textContent = po.name;
+        li.querySelector(".pdist").textContent = dist(po.mi) + " away";
+        li.querySelector(".paddr").textContent = po.addr || "";
+        const links = li.querySelector(".slinks");
+        const add = (txt, href) => { const a = document.createElement("a"); a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; links.appendChild(a); };
+        add("Directions", "https://www.google.com/maps/dir/?api=1&origin=" + home.lat + "," + home.lon + "&destination=" + po.lat + "," + po.lon + "&travelmode=" + (po.mi < 1 ? "walking" : "driving"));
+        add("Hours", "https://www.google.com/search?q=" + encodeURIComponent(po.name + " " + po.addr + " hours"));
+        const b = document.createElement("button"); b.type = "button"; b.className = "showmap"; b.textContent = "Show on map";
+        b.addEventListener("click", () => showMap(home, po));
+        links.appendChild(b);
+        ol.appendChild(li);
+      });
+      showMap(home, list[0]);
+      $("postResult").hidden = false; $("postCredit").hidden = false;
     }
   }
 
