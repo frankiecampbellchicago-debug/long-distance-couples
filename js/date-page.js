@@ -202,37 +202,96 @@
     const get = path => fetch(API + path).then(r => r.json()).then(j => Array.isArray(j.meals) ? j.meals : []);
     let found = [], count = 0, lists = null;
 
+    // Recipe index (data/recipes.json, built by tools/build-recipes.py) lets us filter by kind of food and skill level
+    // instantly. If it can't load, searching still works straight from TheMealDB, just without those filters.
+    const NICE = { France: "French", India: "Indian", Argentina: "Argentine", Netherlands: "Dutch", Norway: "Norwegian", Slovakia: "Slovak",
+      Venezuela: "Venezuelan", "United States": "American", "Saudi Arabian": "Saudi" };
+    const nice = a => NICE[a] || a;
+    let index = null;
+    const ready = fetch("data/recipes.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
+      index = j && Array.isArray(j.recipes) ? j : null;
+      if (!index) { $("recipeKind").disabled = $("recipeSkill").disabled = true; return; }
+      const sel = $("recipeKind");
+      const group = (label, items, prefix, show) => {
+        const g = document.createElement("optgroup"); g.label = label;
+        items.forEach(x => { const o = document.createElement("option"); o.value = prefix + x; o.textContent = show(x); g.appendChild(o); });
+        sel.appendChild(g);
+      };
+      group("Type of dish", index.categories, "c:", x => x === "Miscellaneous" ? "Something different" : x);
+      group("Cuisine", index.areas.slice().sort((a, b) => nice(a).localeCompare(nice(b))), "a:", nice);
+    });
+    const asMeal = r => ({ idMeal: r.i, strMeal: r.n, strCategory: r.c, strArea: r.a, strMealThumb: r.t, skill: r.k, ni: r.ni, ns: r.ns });
+
+    // recipes that match what's typed and picked, best matches first
+    function matches(q) {
+      const kindV = $("recipeKind").value, skill = $("recipeSkill").value;
+      const words = q.toLowerCase().split(/[^a-z0-9À-ɏ]+/).filter(w => w.length > 1).map(w => w.replace(/(es|s)$/, ""));
+      return index.recipes.map(r => {
+        if (kindV && !(kindV === "c:" + r.c || kindV === "a:" + r.a)) return null;
+        if (skill && r.k !== skill) return null;
+        if (!words.length) return { r, score: 0 };
+        const name = r.n.toLowerCase(), meta = (r.c + " " + r.a + " " + nice(r.a)).toLowerCase();
+        let score = 0;
+        for (const w of words) {
+          const hit = name.includes(w) ? 3 : r.g.some(g => g.includes(w)) ? 2 : meta.includes(w) ? 2 : 0;
+          if (!hit) return null;
+          score += hit;
+        }
+        return { r, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score || a.r.n.localeCompare(b.r.n)).map(x => x.r);
+    }
+    const describe = q => {
+      const k = $("recipeKind"), sk = $("recipeSkill").value;
+      // "13 medium dessert recipes for “chocolate”", "21 Italian recipes"
+      const kindText = k.value ? (k.value.startsWith("a:") ? k.options[k.selectedIndex].text : k.options[k.selectedIndex].text.toLowerCase()) : "";
+      return { what: [sk ? SKILL[sk].toLowerCase() : "", kindText].filter(Boolean).join(" "), q: q ? " for “" + q + "”" : "" };
+    };
+
     $("recipeForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const q = $("recipeQ").value.trim();
-      if (q.length < 2) { status("Type a dish or an ingredient, like pasta or chicken. Or hit Surprise us.", true); $("recipeQ").focus(); return; }
+      await ready;
+      const q = $("recipeQ").value.trim(), filtered = index && ($("recipeKind").value || $("recipeSkill").value);
+      if (q.length < 2 && !filtered) { status("Type a dish or an ingredient, pick a kind of food, or hit Surprise us.", true); $("recipeQ").focus(); return; }
+      if (!index) { liveSearch(q); return; }
+      clear();
+      found = matches(q).map(asMeal);
+      const d = describe(q), what = d.what ? d.what + " " : "";
+      if (!found.length) { status("No " + what + "recipes" + d.q + ". Try changing the kind of food or skill level, or hit Surprise us.", true); return; }
+      status(found.length + " " + what + "recipe" + (found.length > 1 ? "s" : "") + d.q + " to choose from.");
+      more();
+    });
+    // picking from a dropdown searches right away
+    ["recipeKind", "recipeSkill"].forEach(id => $(id).addEventListener("change", () => $("recipeForm").requestSubmit()));
+
+    async function liveSearch(q) {
       $("recipeGo").disabled = true; clear(); status("Looking for " + q + " recipes…");
       try {
         // dishes by name, plus dishes that use it as an ingredient ("chicken" finds both)
-        // also kinds ("pasta", "dessert", "vegan") and cuisines ("italian", "mexican"), or a country ("mexico")
-        if (!lists) lists = Promise.all([get("list.php?c=list"), get("list.php?a=list")]).catch(() => [[], []]);
-        const [cats, areas] = await lists, ql = q.toLowerCase().replace(/s$/, "");
-        const cat = cats.find(c => c.strCategory.toLowerCase() === ql);
-        const area = areas.find(a => a.strArea.toLowerCase() === ql || (a.strCountry || "").toLowerCase() === q.toLowerCase());
         const ing = s => s.toLowerCase().trim().replace(/\s+/g, "_");
-        const sets = await Promise.all([
-          cat ? get("filter.php?c=" + encodeURIComponent(cat.strCategory)) : [],
-          area ? get("filter.php?a=" + encodeURIComponent(area.strArea)) : [],
-          get("search.php?s=" + encodeURIComponent(q)), get("filter.php?i=" + encodeURIComponent(ing(q))), get("filter.php?i=" + encodeURIComponent(ing(q).replace(/e?s$/, "")))]);
+        const sets = await Promise.all([get("search.php?s=" + encodeURIComponent(q)), get("filter.php?i=" + encodeURIComponent(ing(q))), get("filter.php?i=" + encodeURIComponent(ing(q).replace(/e?s$/, "")))]);
         const seen = new Set();
         found = [].concat(...sets).filter(m => !seen.has(m.idMeal) && seen.add(m.idMeal));
-        if (!found.length) { status("No recipes for \u201c" + q + "\u201d. Try one ingredient, like beef, rice or cheese, or hit Surprise us.", true); return; }
+        if (!found.length) { status("No recipes for “" + q + "”. Try one ingredient, like beef, rice or cheese, or hit Surprise us.", true); return; }
         status(found.length + " recipe" + (found.length > 1 ? "s" : "") + " to choose from.");
         more();
       } catch (err) {
         status("We couldn't reach the recipe site. Wait a few seconds and try again.", true);
       } finally { $("recipeGo").disabled = false; }
-    });
+    }
 
     $("recipeRandom").addEventListener("click", async () => {
       $("recipeRandom").disabled = true; clear();
       try {
-        const [m] = await get("random.php");
+        await ready;
+        let m;
+        if (index) {
+          // a surprise that still fits the kind of food and skill level you picked
+          const pool = matches($("recipeQ").value.trim());
+          if (!pool.length) { status("Nothing fits those choices. Change the kind of food or skill level and try again.", true); return; }
+          m = asMeal(pool[Math.floor(Math.random() * pool.length)]);
+          const full = (await get("lookup.php?i=" + m.idMeal))[0];
+          if (full) m = Object.assign(full, { skill: m.skill, ni: m.ni, ns: m.ns });
+        } else [m] = await get("random.php");
         status("Tonight's challenge: you both cook this. Not feeling it? Hit Surprise us again.");
         const li = card(m); $("recipeList").appendChild(li); open(li, m);
         $("recipeCredit").hidden = false;
@@ -251,7 +310,15 @@
       $("recipeCredit").hidden = false;
     }
 
-    const kind = m => [m.strArea, m.strCategory].filter(x => x && x !== "Unknown").join(" \u00b7 ");
+    const kind = m => [nice(m.strArea || ""), m.strCategory].filter(x => x && x !== "Unknown").join(" \u00b7 ");
+    const SKILL = { easy: "Easy", medium: "Medium", hard: "Hard" };
+    function skillTag(li, m) {
+      if (!m.skill) return;
+      const t = document.createElement("span");
+      t.className = "skill " + m.skill; t.textContent = SKILL[m.skill];
+      t.title = m.ni + " ingredients, about " + m.ns + " steps";
+      li.querySelector(".rkind").append(" ", t);
+    }
     function card(m) {
       const li = document.createElement("li");
       li.className = "recipe";
@@ -261,6 +328,7 @@
       img.onerror = () => { img.onerror = null; img.src = m.strMealThumb; };
       li.querySelector("h4").textContent = m.strMeal;
       li.querySelector(".rkind").textContent = kind(m);
+      skillTag(li, m);
       li.querySelector(".ractions .btn").addEventListener("click", async () => {
         if (li.classList.contains("open")) { close(li); return; }
         let full = m;
@@ -268,7 +336,7 @@
           try { [full] = await get("lookup.php?i=" + m.idMeal); } catch (e) { full = null; }
           if (!full) { status("We couldn't load that recipe. Try again.", true); return; }
         }
-        open(li, full);
+        open(li, Object.assign({}, full, { skill: m.skill, ni: m.ni, ns: m.ns }));
       });
       return li;
     }
@@ -284,6 +352,7 @@
       li.classList.add("open");
       li.querySelector(".ractions .btn").textContent = "Hide recipe";
       li.querySelector(".rkind").textContent = kind(m);
+      skillTag(li, m);
       const ings = [];
       for (let i = 1; i <= 20; i++) {
         const n = (m["strIngredient" + i] || "").trim(), q = (m["strMeasure" + i] || "").trim();
@@ -468,7 +537,7 @@
           seen.add(k); return true;
         }).filter(b => !short || (b.number_of_pages_median && b.number_of_pages_median < 300))
           // genre lists sometimes show a translation's original title in another alphabet; keep those for title searches only
-          .filter(b => q || !/[^ -ɏḀ-ỿ -⁯]/.test(b.title));
+          .filter(b => q || !/[^\u0000-\u024F\u1E00-\u1EFF\u2000-\u206F]/.test(b.title));
         const what = [q ? "\u201c" + q + "\u201d" : "", g ? g[0].toLowerCase() : ""].filter(Boolean).join(" in ");
         if (!found.length) { status("No books found for " + what + (free || short ? " with those filters. Try turning one off." : ". Try another genre, or check the spelling."), true); return; }
         status(g && !q ? "The most-read " + g[0].toLowerCase() + " books" + (free ? " you can read free online" : "") + "." : "");

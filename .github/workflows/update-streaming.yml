@@ -1,4 +1,4 @@
-# Rebuilds the Movie night top-10 lists on the 10th of every month (and on demand from the Actions tab).
+# Rebuilds the Movie night top-10 lists and the cook-off recipe index on the 10th of every month (and on demand from the Actions tab).
 name: Update movie lists
 
 on:
@@ -24,11 +24,14 @@ jobs:
           python-version: "3.12"
       - name: Build lists from Rotten Tomatoes
         run: python tools/build-streaming.py
+      - name: Refresh the cook-off recipe index
+        # if TheMealDB is down, keep last month's index and still save the movie lists
+        run: python tools/build-recipes.py || echo "Recipe index not updated this month"
       - name: Save to the site
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
-          git add data/streaming
+          git add data/streaming data/recipes.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Update movie lists for $(date -u +'%B %Y')"
           git push

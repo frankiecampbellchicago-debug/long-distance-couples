@@ -182,6 +182,13 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .postlist .slinks{margin-top:2px}
 .postlist button.showmap{font:600 13px var(--body);color:var(--blue);background:none;border:0;padding:0;cursor:pointer}
 /* recipes */
+.fform.recipeform{grid-template-columns:1.6fr 1.2fr 1fr auto auto}
+@media (max-width:900px){.fform.recipeform{grid-template-columns:1fr 1fr}.fform.recipeform .field:first-child{grid-column:1/-1}}
+@media (max-width:480px){.fform.recipeform{grid-template-columns:1fr}.fform.recipeform .btn{width:100%}}
+.skill{display:inline-block;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;border:1px solid;vertical-align:1px}
+.skill.easy{color:#4f5e3f;border-color:var(--sage)}
+.skill.medium{color:#8a6420;border-color:var(--gold)}
+.skill.hard{color:var(--red);border-color:var(--rose)}
 .rgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:860px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.rgrid{grid-template-columns:minmax(0,1fr)}}
@@ -705,10 +712,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     <section class="finder" id="recipes" aria-labelledby="recipeTitle" hidden>
       <div>
         <h2 id="recipeTitle">Find something to cook</h2>
-        <p class="sub">Search a dish or an ingredient you both have, like tacos, chicken or salmon. Or hit Surprise us and cook whatever comes up.</p>
+        <p class="sub">Search a dish or an ingredient you both have, narrow it down by kind of food and cooking skill, or hit Surprise us and cook whatever comes up.</p>
       </div>
-      <form class="fform mus" id="recipeForm" novalidate>
-        <div class="field"><label for="recipeQ">Dish or ingredient</label><input id="recipeQ" type="text" autocomplete="off" placeholder="Pasta, chicken, curry…"></div>
+      <form class="fform recipeform" id="recipeForm" novalidate>
+        <div class="field"><label for="recipeQ">Dish or ingredient</label><input id="recipeQ" type="text" autocomplete="off" placeholder="Tacos, salmon, curry…"></div>
+        <div class="field"><label for="recipeKind">Kind of food</label><select id="recipeKind"><option value="">Any kind</option></select></div>
+        <div class="field"><label for="recipeSkill">Cooking skill</label><select id="recipeSkill"><option value="">Any skill level</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
         <button class="btn red" type="submit" id="recipeGo">Find recipes</button>
         <button class="btn ghost" type="button" id="recipeRandom">&#127922; Surprise us</button>
       </form>
@@ -835,6 +844,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=44618e98"></script>
+<script src="js/date-page.js?v=29f1649a"></script>
 </body>
 </html>
