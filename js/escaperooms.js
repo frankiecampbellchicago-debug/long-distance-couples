@@ -50,6 +50,27 @@
       d: "Explore the abandoned Palmer mansion and solve the unsolved murder of the housemaid, Jenny. About 1 hour." },
     { f: "browser", by: "Elgin Escape", n: "Santa's Last Parcel", url: ELGIN + "xmas", price: "£9.99 per team", on: "Laptop or desktop", t: ["Cute & cozy"],
       d: "Santa missed a delivery. Get the parcel to a child before Christmas morning. Light, festive and about an hour." },
+    { f: "browser", by: "The Escape Game", n: "Chasing Hahn", url: "https://store.theescapegame.com/products/digital-version-teg-unlocked-the-heist-vol-1-chasing-hahn",
+      img: "https://store.theescapegame.com/cdn/shop/products/Shopify_Unlocked_ChasingHahn-2.jpg?v=1601071189", price: "$10", on: "Computer or tablet", t: ["Heist & spy", "Mystery & detective"],
+      d: "You're newly trained special agents tracking the art thief Vincent Hahn: uncover who he really is and tie him to his past thefts before he strikes again. 60 to 90 minutes." },
+    { f: "browser", by: "The Escape Game", n: "The Silk Road", url: "https://store.theescapegame.com/products/teg-unlocked-the-heist-vol-2-silk-road-digital",
+      img: "https://store.theescapegame.com/cdn/shop/products/Shopify_Unlocked_TheSilkRoad-2.jpg?v=1601071222", price: "$10", on: "Computer or tablet", t: ["Heist & spy", "Adventure"],
+      d: "Hahn is on the run again. Follow him around the world through field reports on the ancient artifacts he leaves behind. The sequel to Chasing Hahn, 60 to 90 minutes." },
+    { f: "browser", by: "The Escape Game", n: "Rogue Scientist 1990", url: "https://store.theescapegame.com/products/unlocked-rogue-scientist-1990-activation-code",
+      img: "https://store.theescapegame.com/cdn/shop/products/ShopifyMainImage-01.jpg?v=1600967525", price: "$10", on: "Computer or tablet", t: ["Sci-fi & space", "Heist & spy"],
+      d: "It's 1990 and an intelligence agency recruits you to track down Dr. Humphreys, whose genetic experiments have gone too far. 60 to 90 minutes." },
+    { f: "browser", by: "Crime Runners", n: "Beneath Vienna", url: "https://crimerunners.at/en/online-escape-room-games/", price: "€19.90 per team", on: "Laptop or desktop", t: ["Adventure", "Heist & spy"],
+      d: "You open a secret passage in a corrupt politician's office and drop into an underground labyrinth, hunting for his gold while trying to get out. About 2 hours, from a Vienna escape room company." },
+    { f: "browser", by: "Crime Runners", n: "Back to the Congressman", url: "https://crimerunners.at/en/online-escape-room-games/", price: "€15 per team", on: "Laptop or desktop", t: ["Mystery & detective", "Heist & spy"],
+      d: "Fight your way to an abandoned congressman's office in this online take on Crime Runners' first mission. The prequel to Beneath Vienna, but each works on its own." },
+    { f: "browser", by: "Deadlocked × Siren Craft Brew", n: "The Cyphstress", url: "https://www.sirencraftbrew.com/products/the-cyphstress-online-escape-room", price: "£10", on: "Laptop or desktop", t: ["Mystery & detective", "Adventure"],
+      d: "Track down a mysterious hero through social media and help him brew a legendary beer from an ancient recipe. Two 90-minute chapters, and part of it is played across two devices on a video call." },
+    { f: "browser", by: "Online-Escape-Room.com", n: "Pirate Panic", url: "https://online-escape-room.com/", img: "https://online-escape-room.com/assets/pirate.jpg", price: "Free", on: "Any device with a browser", t: ["Adventure", "Cute & cozy", "Free"],
+      d: "Captured by pirates, you have to find the buried treasure before time runs out. Short and easy (20 to 40 minutes), and you each join from your own device with a link." },
+    { f: "browser", by: "Online-Escape-Room.com", n: "Escape the Tomb", url: "https://online-escape-room.com/", img: "https://online-escape-room.com/assets/tomb_hard.jpg", price: "$9", on: "Any device with a browser", t: ["Adventure"],
+      d: "Trapped in a pharaoh's burial chamber, recover a sacred gem to break the curse. 40 to 60 minutes, medium difficulty, each of you on your own device." },
+    { f: "browser", by: "Online-Escape-Room.com", n: "Bitcoin Break-in", url: "https://online-escape-room.com/", img: "https://online-escape-room.com/assets/bitcoin.jpg", price: "$9", on: "Any device with a browser", t: ["Heist & spy", "Under pressure"],
+      d: "Race a rival to claim the cryptocurrency a relative left you. 50 to 80 minutes and hard, best if you've done an escape room before." },
     // ---- live over Zoom with a real host ----
     { f: "live", by: "Headlock Escape Rooms", n: "The Keeper & the Fungus Among Us", url: "https://www.headlockescaperooms.co.uk/", price: "See their booking page", on: "Zoom, any device", t: ["Cute & cozy", "Fantasy & castles"],
       d: "A puppet musical escape game: guide a puppet hero through miniature sets over Zoom to defeat the Mushroom King. About 90 minutes, and one of the most loved online games around." },
@@ -101,6 +122,10 @@
       d: "Two tiny robots, one leg at a time, cooperating through cheerful puzzle courses. Lots of laughing at each other's fails." },
     { n: "Biped 2", id: 2560240, price: "$14.99", on: "PC", t: ["Cute & cozy", "Adventure"],
       d: "More of the robot pair, with new worlds and puzzles that need both of you moving in sync." },
+    { by: "Avner Hadash", n: "Escape Lab: Episode 1", url: "https://apps.apple.com/us/app/id1565150724", price: "Free", on: "iPhone & iPad", t: ["Horror", "Free"],
+      d: "A lovely evening takes an evil twist: you both wake up locked in the lab of the psychopathic Dr. Holmes. Made for two players, played online, each on your own phone or iPad while you talk." },
+    { by: "Avner Hadash", n: "Escape Lab: Episode 2", url: "https://apps.apple.com/us/app/id1572418749", price: "$2.99", on: "iPhone & iPad", t: ["Horror"],
+      d: "You escaped Dr. Holmes's lab... or did you? The two-player sequel, played online from your own phones." },
     { n: "Labyrinthine", id: 1302240, price: "$9.99", on: "PC", t: ["Horror"],
       d: "A co-op horror maze: solve puzzles, collect items and run from what's hunting you. Properly scary, best with the lights off." },
     { n: "Escape the Backrooms", id: 1943950, price: "$9.99", on: "PC", t: ["Horror"],
@@ -115,7 +140,7 @@
       d: "Steal back a priceless painting, directing a live game guide through the real room over Zoom. 60 minutes, rated 8/10 difficulty." }
   ];
   const THEMES = ["Horror", "Mystery & detective", "Fantasy & castles", "Sci-fi & space", "Heist & spy", "Classic escape rooms", "Under pressure", "Adventure", "Cute & cozy", "Free"];
-  const FORMAT = r => r.f || (r.url ? "live" : "game");
+  const FORMAT = r => r.f || (r.url && !/apps\.apple\.com/.test(r.url) ? "live" : "game");
   const FORMATS = { browser: "browser escape room", live: "live-hosted escape room", game: "escape room video game" };
   // words people might type that mean a theme
   const WORDS = { scary: "Horror", spooky: "Horror", creepy: "Horror", ghost: "Horror", haunted: "Horror", murder: "Mystery & detective", detective: "Mystery & detective", crime: "Mystery & detective",
@@ -197,7 +222,7 @@
       acts.appendChild(a);
       const tr = document.createElement("a");
       tr.className = "btn ghost"; tr.target = "_blank"; tr.rel = "noopener"; tr.textContent = "Watch a trailer";
-      tr.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(fmt === "game" ? r.n + " trailer" : (r.by || "") + " " + r.n.replace(" (live)", "") + " online escape room");
+      tr.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(fmt === "game" ? r.n + " trailer" : (r.by || "").replace(" ×", "") + " " + r.n.replace(" (live)", "") + " online escape room");
       acts.appendChild(tr);
       return li;
     }
