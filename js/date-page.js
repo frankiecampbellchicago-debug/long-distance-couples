@@ -44,6 +44,7 @@
   if (more.tool === "stars") window.setupStars();
   if (more.tool === "museums") setupMuseums();
   if (more.tool === "city") window.setupCityTour();
+  if (more.tool === "recipes") setupRecipes();
 
   // Small type-to-search dropdown. items() returns [{id, name, img?}]; the picked id lands on input.dataset.id.
   function combo(input, listEl, items) {
@@ -188,6 +189,123 @@
       });
       $("movieUpdated").textContent = index.updated ? "Lists updated " + new Date(index.updated + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) + "." : "";
       $("movieCredit").hidden = false;
+    }
+  }
+
+  function setupRecipes() {
+    $("recipes").hidden = false;
+    const API = "https://www.themealdb.com/api/json/v1/1/", PAGE = 9;
+    const status = (msg, err) => { $("recipeStatus").textContent = msg; $("recipeStatus").classList.toggle("err", !!err); };
+    const get = path => fetch(API + path).then(r => r.json()).then(j => Array.isArray(j.meals) ? j.meals : []);
+    let found = [], count = 0, lists = null;
+
+    $("recipeForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const q = $("recipeQ").value.trim();
+      if (q.length < 2) { status("Type a dish or an ingredient, like pasta or chicken. Or hit Surprise us.", true); $("recipeQ").focus(); return; }
+      $("recipeGo").disabled = true; clear(); status("Looking for " + q + " recipes…");
+      try {
+        // dishes by name, plus dishes that use it as an ingredient ("chicken" finds both)
+        // also kinds ("pasta", "dessert", "vegan") and cuisines ("italian", "mexican"), or a country ("mexico")
+        if (!lists) lists = Promise.all([get("list.php?c=list"), get("list.php?a=list")]).catch(() => [[], []]);
+        const [cats, areas] = await lists, ql = q.toLowerCase().replace(/s$/, "");
+        const cat = cats.find(c => c.strCategory.toLowerCase() === ql);
+        const area = areas.find(a => a.strArea.toLowerCase() === ql || (a.strCountry || "").toLowerCase() === q.toLowerCase());
+        const ing = s => s.toLowerCase().trim().replace(/\s+/g, "_");
+        const sets = await Promise.all([
+          cat ? get("filter.php?c=" + encodeURIComponent(cat.strCategory)) : [],
+          area ? get("filter.php?a=" + encodeURIComponent(area.strArea)) : [],
+          get("search.php?s=" + encodeURIComponent(q)), get("filter.php?i=" + encodeURIComponent(ing(q))), get("filter.php?i=" + encodeURIComponent(ing(q).replace(/e?s$/, "")))]);
+        const seen = new Set();
+        found = [].concat(...sets).filter(m => !seen.has(m.idMeal) && seen.add(m.idMeal));
+        if (!found.length) { status("No recipes for \u201c" + q + "\u201d. Try one ingredient, like beef, rice or cheese, or hit Surprise us.", true); return; }
+        status(found.length + " recipe" + (found.length > 1 ? "s" : "") + " to choose from.");
+        more();
+      } catch (err) {
+        status("We couldn't reach the recipe site. Wait a few seconds and try again.", true);
+      } finally { $("recipeGo").disabled = false; }
+    });
+
+    $("recipeRandom").addEventListener("click", async () => {
+      $("recipeRandom").disabled = true; clear();
+      try {
+        const [m] = await get("random.php");
+        status("Tonight's challenge: you both cook this. Not feeling it? Hit Surprise us again.");
+        const li = card(m); $("recipeList").appendChild(li); open(li, m);
+        $("recipeCredit").hidden = false;
+      } catch (err) {
+        status("We couldn't reach the recipe site. Wait a few seconds and try again.", true);
+      } finally { $("recipeRandom").disabled = false; }
+    });
+    $("recipeMore").addEventListener("click", more);
+
+    function clear() { $("recipeList").innerHTML = ""; found = []; count = 0; $("recipeMore").hidden = true; }
+    function more() {
+      found.slice(count, count + PAGE).forEach(m => $("recipeList").appendChild(card(m)));
+      count = Math.min(count + PAGE, found.length);
+      $("recipeMore").hidden = count >= found.length;
+      $("recipeMore").textContent = "Show more (" + (found.length - count) + ")";
+      $("recipeCredit").hidden = false;
+    }
+
+    const kind = m => [m.strArea, m.strCategory].filter(x => x && x !== "Unknown").join(" \u00b7 ");
+    function card(m) {
+      const li = document.createElement("li");
+      li.className = "recipe";
+      li.innerHTML = '<div class="rpic"><img alt="" loading="lazy"></div><div class="rbody"><h4></h4><p class="rkind"></p><div class="ractions"><button type="button" class="btn">See the recipe</button></div></div>';
+      const img = li.querySelector("img");
+      img.src = m.strMealThumb + "/medium";
+      img.onerror = () => { img.onerror = null; img.src = m.strMealThumb; };
+      li.querySelector("h4").textContent = m.strMeal;
+      li.querySelector(".rkind").textContent = kind(m);
+      li.querySelector(".ractions .btn").addEventListener("click", async () => {
+        if (li.classList.contains("open")) { close(li); return; }
+        let full = m;
+        if (!m.strInstructions) {
+          try { [full] = await get("lookup.php?i=" + m.idMeal); } catch (e) { full = null; }
+          if (!full) { status("We couldn't load that recipe. Try again.", true); return; }
+        }
+        open(li, full);
+      });
+      return li;
+    }
+
+    function close(li) {
+      li.classList.remove("open");
+      const f = li.querySelector(".rfull"); if (f) f.remove();
+      li.querySelectorAll(".ractions a, .ractions .copy").forEach(x => x.remove());
+      li.querySelector(".ractions .btn").textContent = "See the recipe";
+    }
+
+    function open(li, m) {
+      li.classList.add("open");
+      li.querySelector(".ractions .btn").textContent = "Hide recipe";
+      li.querySelector(".rkind").textContent = kind(m);
+      const ings = [];
+      for (let i = 1; i <= 20; i++) {
+        const n = (m["strIngredient" + i] || "").trim(), q = (m["strMeasure" + i] || "").trim();
+        if (n) ings.push([q, n]);
+      }
+      const steps = (m.strInstructions || "").split(/\r?\n+/).map(x => x.replace(/^(step\s*)?\d+[.):]?\s*/i, "").trim()).filter(x => x.length > 2 && !/^step\s*\d*$/i.test(x));
+      const full = document.createElement("div");
+      full.className = "rfull";
+      full.innerHTML = '<div><h5>Ingredients</h5><ul class="ings"></ul></div><div><h5>How to make it</h5><ol class="howto"></ol></div>';
+      ings.forEach(([q, n]) => { const x = document.createElement("li"), b = document.createElement("b"); b.textContent = q ? q + " " : ""; x.append(b, n); full.querySelector(".ings").appendChild(x); });
+      steps.forEach(t => { const x = document.createElement("li"); x.textContent = t; full.querySelector(".howto").appendChild(x); });
+      const acts = li.querySelector(".ractions");
+      li.querySelector(".rbody").insertBefore(full, acts);
+      acts.querySelectorAll("a, .copy").forEach(x => x.remove());
+      const copy = document.createElement("button");
+      copy.type = "button"; copy.className = "btn ghost copy"; copy.textContent = "Copy shopping list";
+      copy.addEventListener("click", async () => {
+        const text = m.strMeal + " shopping list:\n" + ings.map(([q, n]) => "- " + (q ? q + " " : "") + n).join("\n");
+        try { await navigator.clipboard.writeText(text); copy.textContent = "Copied \u2713"; setTimeout(() => { copy.textContent = "Copy shopping list"; }, 2500); }
+        catch (e) { status("Couldn't copy. Select the ingredients and copy them by hand.", true); }
+      });
+      acts.appendChild(copy);
+      const link = (txt, href) => { if (!/^https?:\/\//i.test(href || "")) return; const a = document.createElement("a"); a.className = "btn ghost"; a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; acts.appendChild(a); };
+      link("Watch how", m.strYoutube);
+      link("Original recipe", m.strSource);
     }
   }
 

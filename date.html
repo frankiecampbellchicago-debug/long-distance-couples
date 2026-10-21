@@ -142,6 +142,27 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .rcard .blurb{font-size:15px}
 .rcard.lucky{border:1.5px dashed var(--red);background:var(--card)}
 #museumMore{justify-self:center}
+/* recipes */
+.rgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.rgrid{grid-template-columns:minmax(0,1fr)}}
+.recipe{background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.recipe.open{grid-column:1/-1;grid-template-columns:minmax(0,300px) minmax(0,1fr);grid-template-rows:auto}
+@media (max-width:720px){.recipe.open{grid-template-columns:minmax(0,1fr)}}
+.recipe .rpic{aspect-ratio:4/3;background:var(--stamp)}
+.recipe .rpic img{width:100%;height:100%;object-fit:cover;display:block}
+.recipe .rbody{padding:12px 14px;display:grid;gap:8px;align-content:start;min-width:0}
+.recipe h4{margin:0;font:400 20px/1.15 var(--display)}
+.recipe .rkind{font-size:13px;color:var(--muted)}
+.recipe .ractions{margin-top:0}
+.recipe .ractions .btn{padding:8px 14px;font-size:13px}
+.rfull{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:18px}
+@media (max-width:900px){.rfull{grid-template-columns:minmax(0,1fr)}}
+.rfull h5{margin:0 0 6px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ings{margin:0;padding-left:18px;display:grid;gap:3px;font-size:14px}
+.ings b{font-weight:600}
+.howto{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px}
+#recipeMore{justify-self:center}
 /* city tour */
 .cityres{display:grid;gap:22px}
 .cityhead{font-size:24px}
@@ -384,6 +405,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="credit" id="museumCredit" hidden>All tours are free and run by the museums or Google Arts &amp; Culture. Open the same link on both devices, or share your screen.</p>
     </section>
 
+    <section class="finder" id="recipes" aria-labelledby="recipeTitle" hidden>
+      <div>
+        <h2 id="recipeTitle">Find something to cook</h2>
+        <p class="sub">Search a dish or an ingredient you both have, like tacos, chicken or salmon. Or hit Surprise us and cook whatever comes up.</p>
+      </div>
+      <form class="fform mus" id="recipeForm" novalidate>
+        <div class="field"><label for="recipeQ">Dish or ingredient</label><input id="recipeQ" type="text" autocomplete="off" placeholder="Pasta, chicken, curry…"></div>
+        <button class="btn red" type="submit" id="recipeGo">Find recipes</button>
+        <button class="btn ghost" type="button" id="recipeRandom">&#127922; Surprise us</button>
+      </form>
+      <p class="fstatus" id="recipeStatus" role="status"></p>
+      <ul class="rgrid" id="recipeList" aria-label="Recipes"></ul>
+      <button class="btn ghost" type="button" id="recipeMore" hidden>Show more</button>
+      <p class="credit" id="recipeCredit" hidden>Recipes from <a href="https://www.themealdb.com/" target="_blank" rel="noopener">TheMealDB</a>.</p>
+    </section>
+
     <section class="finder" id="citytour" aria-labelledby="cityTitle" hidden>
       <div>
         <h2 id="cityTitle">See the city before you're there</h2>
@@ -493,11 +530,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=e6852ec3"></script>
+<script src="js/dates.js?v=bc4cef44"></script>
 <script src="js/citytour.js?v=8df2c397"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=efe1dcd5"></script>
-<script src="js/date-page.js?v=5bee6c68"></script>
+<script src="js/date-page.js?v=616f85c7"></script>
 </body>
 </html>

@@ -97,8 +97,8 @@ window.DATE_MORE={
   steps:["Use Travel on the home page to find a city that's fair to both of you.","Check flights from both cities on the same dates.","Book a place to stay together and plan a few things to do.","Explore it as first-timers, together."],
   need:["A weekend","Flights or a drive","A trip board to keep plans in one place"],
   tip:"Arrive on the same day so neither of you waits alone."},
- "cook-off":{
-  steps:["Agree on five ingredients you can both find.","Each of you buys them, plus pantry basics like salt, oil, and spices.","Set a timer and cook on video.","Show off your plates and vote on looks and taste."],
+ "cook-off":{tool:"recipes",
+  steps:["Pick a recipe with the search on this page, or agree on five ingredients you can both find.","Each of you buys them, plus pantry basics like salt, oil, and spices.","Set a timer and cook on video.","Show off your plates and vote on looks and taste."],
   need:["The same five ingredients","A kitchen","A phone stand"],
   tip:"Let a friend judge from photos to keep it fair."},
  "escape-room":{
