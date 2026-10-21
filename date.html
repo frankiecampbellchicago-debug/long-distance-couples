@@ -182,11 +182,13 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .postlist .slinks{margin-top:2px}
 .postlist button.showmap{font:600 13px var(--body);color:var(--blue);background:none;border:0;padding:0;cursor:pointer}
 /* escape rooms */
-.fform.esform{grid-template-columns:2fr 1.4fr auto auto}
+.fform.esform{grid-template-columns:1.5fr 1.2fr 1.2fr auto auto}
 @media (max-width:900px){.fform.esform{grid-template-columns:1fr 1fr}.fform.esform .field:first-child{grid-column:1/-1}}
 @media (max-width:480px){.fform.esform{grid-template-columns:1fr}.fform.esform .btn{width:100%}}
 .esc img{aspect-ratio:460/215}
 .escart{aspect-ratio:460/215;background:var(--blue);color:var(--onblue);display:grid;place-content:center;justify-items:center;gap:4px;padding:12px;text-align:center}
+.escart.browser{background:linear-gradient(135deg,var(--navy),var(--blue))}
+.escart small{font:500 11px var(--mono);color:var(--sky);letter-spacing:.06em}
 .escart span{font:500 11px var(--mono);letter-spacing:.2em;color:var(--sky)}
 .escart b{font:400 24px/1.1 var(--display)}
 .etags{display:flex;flex-wrap:wrap;gap:4px}
@@ -729,18 +731,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     <section class="finder" id="escape" aria-labelledby="escTitle" hidden>
       <div>
         <h2 id="escTitle">Find an online escape room</h2>
-        <p class="sub">Pick the type of escape room you're in the mood for, or search for anything, like ghosts, a bomb or a castle. Every room here can be played together from two different places.</p>
+        <p class="sub">Online escape rooms you open in your web browser and play together on a call, like Wolf Escape Games' Miami Bay. Pick a type you're in the mood for, or search for anything, like ghosts or Sherlock.</p>
       </div>
       <form class="fform recipeform esform" id="escForm" novalidate>
         <div class="field"><label for="escQ">Search</label><input id="escQ" type="text" autocomplete="off" placeholder="Ghosts, detective, castle…"></div>
         <div class="field"><label for="escTheme">Type of escape room</label><select id="escTheme"><option value="">Any type</option></select></div>
+        <div class="field"><label for="escFormat">How you play</label><select id="escFormat"><option value="browser">In your browser</option><option value="live">Live host on Zoom</option><option value="game">Video games</option><option value="">Any way</option></select></div>
         <button class="btn red" type="submit" id="escGo">Find rooms</button>
         <button class="btn ghost" type="button" id="escRandom">&#127922; Surprise us</button>
         <div class="bookopts"><label><input type="checkbox" id="escPhone"> Works on phones</label></div>
       </form>
       <p class="fstatus" id="escStatus" role="status"></p>
       <ul class="mlist2" id="escList" aria-label="Online escape rooms"></ul>
-      <p class="credit" id="escNote" hidden>Games need a copy for each of you unless it says otherwise, and you'll want to be on a call while you play. Prices are regular Steam prices and often go on sale. Live rooms are run by The Escape Game over Zoom.</p>
+      <p class="credit" id="escNote" hidden>Browser escape rooms: one purchase usually covers your whole team, and you'll get a link and code by email. Open it on your own screens and talk on a call while you play. Video games need a copy each unless it says otherwise; prices are regular Steam prices. Prices can change, so check the site before you buy.</p>
     </section>
 
     <section class="finder" id="recipes" aria-labelledby="recipeTitle" hidden>
@@ -870,9 +873,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=93b46673"></script>
+<script src="js/dates.js?v=1f8afa66"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
-<script src="js/escaperooms.js?v=8995a06a"></script>
+<script src="js/escaperooms.js?v=a493d64f"></script>
 <script src="js/meetup.js?v=e114f7f2"></script>
 <script src="js/locate.js?v=35a0f460"></script>
 <script src="js/citytour.js?v=d1faf9d6"></script>

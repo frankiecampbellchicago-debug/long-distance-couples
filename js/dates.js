@@ -102,8 +102,8 @@ window.DATE_MORE={
   need:["The same five ingredients","A kitchen","A phone stand"],
   tip:"Let a friend judge from photos to keep it fair."},
  "escape-room":{tool:"escape",
-  steps:["Pick an escape room with the search on this page. Choose a type you'll both enjoy, like mystery or horror.","Each of you gets the game, or book a live room together.","Get on a call so you can talk through every clue.","Split up the clues, describe everything you see, and beat the clock together."],
-  need:["A computer or phone each, depending on the room","The game, or a booking for a live room","A call with good headphones"],
+  steps:["Pick an escape room with the search on this page. Choose a type you'll both enjoy, like mystery or horror.","Buy it once (most cover your whole team) and you'll get a link by email. Each of you opens it on your own screen.","Get on a call so you can talk through every clue.","Split up the clues, describe everything you see, and beat the clock together."],
+  need:["A laptop each (some rooms work on phones)","One copy of the room, usually $10 to $35","A call with good headphones"],
   tip:"Most of these are built so each of you only sees half of the clues. Describe everything, even the things that seem unimportant."},
  "time-capsule":{
   steps:["Find a small box or tin during your visit.","Fill it with notes, photos, ticket stubs, and a letter to your future selves.","Seal it and decide who keeps it until next time.","Open it together at your next visit."],

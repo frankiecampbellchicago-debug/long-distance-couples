@@ -1,12 +1,60 @@
 // "Online escape room": a hand-checked list of escape rooms two people can play together from two places.
-// Steam details (online co-op, price, devices) checked October 2026. Regular prices; sales change often.
+// Three formats: browser escape rooms you buy and play from a link (checked on each company's site, Oct 2026),
+// live rooms hosted over Zoom, and downloadable co-op games (Steam details checked Oct 2026).
 (function () {
   const STEAM = id => "https://store.steampowered.com/app/" + id + "/";
   const IMG = id => "https://cdn.akamai.steamstatic.com/steam/apps/" + id + "/header.jpg";
   const TEG = "https://theescapegame.com/remote-adventures/";
 
-  // t: themes. on: where it runs. price: regular price for one copy.
+  const WOLF = "https://wolfescapegames.com/en-us/pages/", ENCH = "https://www.enchambered.com/", EV = "https://www.escapeventure.com/en/", ELGIN = "https://elginescape.com/";
+  // f: format (browser, live, game). t: themes. on: what you play it on. price: what one booking or copy costs.
   const ROOMS = [
+    // ---- play in your browser: buy it, get a link, both open it on your own screens while you're on a call ----
+    { f: "browser", by: "Wolf Escape Games", n: "Miami Bay", url: WOLF + "miami-bay", price: "$35 per team", on: "Laptop or desktop", t: ["Mystery & detective", "Heist & spy"],
+      d: "Neon-lit Miami, 1985: you're rogue detectives chasing a case across airplanes, nightclubs and super-yachts. Award-winning and a popular date night. About 3 hours, difficulty 4/5." },
+    { f: "browser", by: "Wolf Escape Games", n: "Pharaoh's Tomb", url: WOLF + "pharaohs-tomb", price: "$35 per team", on: "Laptop or desktop", t: ["Mystery & detective", "Adventure"],
+      d: "Sherlock Holmes and Dr. Watson follow a thief's death all the way to Egypt and a 3,000-year-old mystery. About 2½ hours, difficulty 3.5/5." },
+    { f: "browser", by: "Wolf Escape Games", n: "Phantom's Hour", url: WOLF + "phantoms-hour", price: "$35 per team", on: "Laptop or desktop", t: ["Horror", "Mystery & detective"],
+      d: "London, 1896: Sherlock and Watson take on a chilling case where the killer may be a ghost. About 2 hours, difficulty 3/5." },
+    { f: "browser", by: "Wolf Escape Games", n: "Hallows Hill", url: WOLF + "hallows-hill", price: "$35 per team", on: "Laptop or desktop", t: ["Horror"],
+      d: "A spine-tingling escape through an old house to uncover the long-buried secrets of the family who lived there. About 90 minutes, difficulty 3.5/5." },
+    { f: "browser", by: "Enchambered", n: "Alone Together", url: ENCH + "puzzles/alone-together/", img: ENCH + "puzzles/alone-together/images/thumb/alone-together-escape-puzzle-thumbnail.jpg",
+      price: "Free", on: "Computer, tablet or phone", t: ["Classic escape rooms", "Free"],
+      d: "Made for exactly two people on two devices. Each of you sees half of the puzzles, so you have to describe everything to each other. Short, free and a perfect first try." },
+    { f: "browser", by: "Enchambered", n: "Together Apart", url: ENCH + "puzzles/together-apart/", img: ENCH + "puzzles/together-apart/assets/logo/together-apart-escape-puzzle-thumbnail.jpg",
+      price: "Pay what you want, from $5", on: "Computer, tablet or phone", t: ["Classic escape rooms"],
+      d: "The sequel to Alone Together: twice as long, with puzzles that need constant talking between your two screens. One code covers both of you for 24 hours." },
+    { f: "browser", by: "Enchambered", n: "Together at Heart", url: ENCH + "puzzles/together-at-heart/", img: ENCH + "puzzles/together-at-heart/assets/logo/together-at=heart-escape-puzzle-thumbnail.jpg",
+      price: "Pay what you want, from $10", on: "Computer, tablet or phone", t: ["Cute & cozy", "Classic escape rooms"],
+      d: "Work out a strange machine together and repair a little robot's broken heart. A gentler difficulty curve, about 60 to 90 minutes, and very fitting for couples." },
+    { f: "browser", by: "Enchambered", n: "Apart In Time", url: ENCH + "online-games/apart-in-time/", img: ENCH + "online-games/apart-in-time/assets/logo/apart-in-time-escape-puzzle-thumbnail.jpg",
+      price: "Pay what you want, from $10", on: "Computer, tablet or phone", t: ["Fantasy & castles", "Mystery & detective"],
+      d: "A brilliant clockmaker will do anything to save his family from a curse. Two players, two screens, one truth to uncover." },
+    { f: "browser", by: "EscapeVenture", n: "Adele: Haunted Hotel", url: EV + "haunted-hotel-escape-game-adele/", img: "https://www.escapeventure.com/images/video/adele-free-hero-20261003.jpg",
+      price: "€29.90 per team", on: "Computer or tablet", t: ["Horror"],
+      d: "Follow Adele's trail through the abandoned Hotel Waldlust to uncover its secret. Someone is still here. Great for beginners, with hints if you get stuck." },
+    { f: "browser", by: "EscapeVenture", n: "Carrie's Family", url: EV + "escape-game-online-psycho/", img: "https://www.escapeventure.com/templates/rt_supra/custom/images/escapeventure/ev_carrieGk.jpg",
+      price: "€29.90 per team", on: "Computer or tablet", t: ["Horror"],
+      d: "Explore eerie real places alongside Carrie in 360° panoramas and find out what happened to her family. 60 to 90 minutes." },
+    { f: "browser", by: "EscapeVenture", n: "Secret Society", url: EV + "escape-online-game/", img: "https://www.escapeventure.com/images/escape/poster-artefacts-escape.jpg",
+      price: "€29.90 per team", on: "Computer or tablet", t: ["Mystery & detective"],
+      d: "Follow the clues, investigate, and expose a secret society. 60 to 90 minutes, with hints when you need them." },
+    { f: "browser", by: "EscapeVenture", n: "Bermuda Wrecks", url: EV + "escape-game-adventure/", img: "https://www.escapeventure.com/images/escape-online/bermudas-tauchen-escape.webp",
+      price: "€29.90 per team", on: "Computer or tablet", t: ["Adventure"],
+      d: "Search a shipwreck for lost gold ducats, following a trail that's been under the sea for centuries. 60 to 90 minutes." },
+    { f: "browser", by: "Elgin Escape", n: "Piper Asylum", url: ELGIN + "asylum", price: "£9.99 per team", on: "Laptop or desktop", t: ["Horror"],
+      d: "You sneak into Piper Asylum with friends and get trapped inside. Find a way out. About 90 minutes, and reviewers called it great for players in different homes." },
+    { f: "browser", by: "Elgin Escape", n: "Killer Above the Clouds", url: ELGIN + "flight", price: "£9.99 per team", on: "Laptop or desktop", t: ["Mystery & detective"],
+      d: "A murder at 35,000 feet. Work out which passenger did it before the plane lands. About 1 hour." },
+    { f: "browser", by: "Elgin Escape", n: "Murder Mansion", url: ELGIN + "online", price: "£9.99 per team", on: "Laptop or desktop", t: ["Mystery & detective", "Horror"],
+      d: "Explore the abandoned Palmer mansion and solve the unsolved murder of the housemaid, Jenny. About 1 hour." },
+    { f: "browser", by: "Elgin Escape", n: "Santa's Last Parcel", url: ELGIN + "xmas", price: "£9.99 per team", on: "Laptop or desktop", t: ["Cute & cozy"],
+      d: "Santa missed a delivery. Get the parcel to a child before Christmas morning. Light, festive and about an hour." },
+    // ---- live over Zoom with a real host ----
+    { f: "live", by: "Headlock Escape Rooms", n: "The Keeper & the Fungus Among Us", url: "https://www.headlockescaperooms.co.uk/", price: "See their booking page", on: "Zoom, any device", t: ["Cute & cozy", "Fantasy & castles"],
+      d: "A puppet musical escape game: guide a puppet hero through miniature sets over Zoom to defeat the Mushroom King. About 90 minutes, and one of the most loved online games around." },
+    { f: "live", by: "Headlock Escape Rooms", n: "Rise of the Fungi", url: "https://www.headlockescaperooms.co.uk/", price: "See their booking page", on: "Zoom, any device", t: ["Cute & cozy", "Fantasy & castles"],
+      d: "The award-winning prequel: guide the puppet Paxillus through Toadstool Forest, with songs along the way. About 90 minutes, and it works on its own." },
     { n: "We Were Here", id: 582500, price: "Free", on: "PC & Mac", t: ["Fantasy & castles", "Free"],
       d: "Split up inside a frozen castle with only a walkie-talkie between you. One of you sees the clues, the other sees the puzzle, so you have to talk it through. A great free first try." },
     { n: "We Were Here Too", id: 677160, price: "$9.99", on: "PC & Mac", t: ["Fantasy & castles", "Horror"],
@@ -59,19 +107,21 @@
       d: "Explore 30+ eerie, endless 'backrooms' levels together while avoiding the things that live there. Creepy and atmospheric." },
     { n: "The Escape: Together", id: 2242760, price: "$3.99", on: "PC", t: ["Horror"],
       d: "A paranormal creature has taken over the house. Use whatever you find to survive and get out. Short, cheap and jumpy." },
-    { n: "Prison Break (live)", url: TEG, img: "", price: "$30–35 per person", on: "Zoom, any device", t: ["Live with a real host", "Heist & spy"],
+    { by: "The Escape Game", n: "Prison Break (live)", url: TEG, price: "$30–35 per person", on: "Zoom, any device", t: ["Live with a real host", "Heist & spy"],
       d: "A real escape room, played over Zoom: a live game guide walks the actual room with a camera while you two tell them what to do. 60 minutes, rated 9/10 difficulty." },
-    { n: "The Depths (live)", url: TEG, img: "", price: "$30–35 per person", on: "Zoom, any device", t: ["Live with a real host", "Sci-fi & space", "Adventure"],
+    { by: "The Escape Game", n: "The Depths (live)", url: TEG, price: "$30–35 per person", on: "Zoom, any device", t: ["Live with a real host", "Sci-fi & space", "Adventure"],
       d: "Uncover the secrets of an undersea lab, live over Zoom with a real game guide inside the room. 60 minutes, rated 7/10 difficulty." },
-    { n: "The Heist (live)", url: TEG, img: "", price: "$30–35 per person", on: "Zoom, any device", t: ["Live with a real host", "Heist & spy"],
+    { by: "The Escape Game", n: "The Heist (live)", url: TEG, price: "$30–35 per person", on: "Zoom, any device", t: ["Live with a real host", "Heist & spy"],
       d: "Steal back a priceless painting, directing a live game guide through the real room over Zoom. 60 minutes, rated 8/10 difficulty." }
   ];
-  const THEMES = ["Horror", "Mystery & detective", "Fantasy & castles", "Sci-fi & space", "Heist & spy", "Classic escape rooms", "Under pressure", "Adventure", "Cute & cozy", "Live with a real host", "Free"];
+  const THEMES = ["Horror", "Mystery & detective", "Fantasy & castles", "Sci-fi & space", "Heist & spy", "Classic escape rooms", "Under pressure", "Adventure", "Cute & cozy", "Free"];
+  const FORMAT = r => r.f || (r.url ? "live" : "game");
+  const FORMATS = { browser: "browser escape room", live: "live-hosted escape room", game: "escape room video game" };
   // words people might type that mean a theme
   const WORDS = { scary: "Horror", spooky: "Horror", creepy: "Horror", ghost: "Horror", haunted: "Horror", murder: "Mystery & detective", detective: "Mystery & detective", crime: "Mystery & detective",
     mystery: "Mystery & detective", castle: "Fantasy & castles", magic: "Fantasy & castles", fantasy: "Fantasy & castles", space: "Sci-fi & space", "sci-fi": "Sci-fi & space", scifi: "Sci-fi & space",
     robot: "Sci-fi & space", heist: "Heist & spy", spy: "Heist & spy", prison: "Heist & spy", bomb: "Under pressure", timer: "Under pressure", cute: "Cute & cozy", cozy: "Cute & cozy", easy: "Cute & cozy",
-    zoom: "Live with a real host", live: "Live with a real host", real: "Live with a real host", free: "Free", classic: "Classic escape rooms" };
+    free: "Free", classic: "Classic escape rooms", christmas: "Cute & cozy", sherlock: "Mystery & detective", egypt: "Adventure", treasure: "Adventure", ghost: "Horror" };
 
   window.setupEscapeRooms = function () {
     const $ = id => document.getElementById(id);
@@ -80,17 +130,19 @@
     const sel = $("escTheme");
     THEMES.forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; sel.appendChild(o); });
     sel.addEventListener("change", () => $("escForm").requestSubmit());
+    $("escFormat").addEventListener("change", () => $("escForm").requestSubmit());
     $("escPhone").addEventListener("change", () => $("escForm").requestSubmit());
 
     function search() {
-      const q = $("escQ").value.trim().toLowerCase(), theme = sel.value, phone = $("escPhone").checked;
+      const q = $("escQ").value.trim().toLowerCase(), theme = sel.value, phone = $("escPhone").checked, format = $("escFormat").value;
       const words = q.split(/[^a-z0-9-]+/).filter(w => w.length > 1);
       const themeWords = words.map(w => WORDS[w] || WORDS[w.replace(/s$/, "")]).filter(Boolean);
       return ROOMS.map(r => {
+        if (format && FORMAT(r) !== format) return null;
         if (theme && !r.t.includes(theme)) return null;
-        if (phone && !/phone|zoom/i.test(r.on)) return null;
+        if (phone && !/phone|zoom|any device/i.test(r.on)) return null;
         if (!words.length) return { r, s: 0 };
-        const hay = (r.n + " " + r.d + " " + r.t.join(" ")).toLowerCase();
+        const hay = (r.n + " " + (r.by || "") + " " + r.d + " " + r.t.join(" ")).toLowerCase();
         let s = 0;
         for (const w of words) {
           if (r.n.toLowerCase().includes(w)) s += 3;
@@ -106,10 +158,11 @@
       e.preventDefault();
       const list = search();
       $("escList").innerHTML = "";
-      if (!list.length) { status("Nothing matches that yet. Try another type, or clear the search.", true); return; }
-      const theme = sel.value;
-      const SAY = { "Live with a real host": "live-hosted", "Classic escape rooms": "classic", "Under pressure": "race-the-clock", "Free": "free" };
-      status(list.length + (theme ? " " + (SAY[theme] || theme.toLowerCase()) : "") + " escape room" + (list.length > 1 ? "s" : "") + " you can play together from two places.");
+      if (!list.length) { status("Nothing matches that yet. Try another type or format, or clear the search.", true); return; }
+      const theme = sel.value, format = $("escFormat").value;
+      const SAY = { "Classic escape rooms": "classic", "Under pressure": "race-the-clock", "Free": "free" };
+      const kind = format ? FORMATS[format] : "escape room";
+      status(list.length + (theme ? " " + (SAY[theme] || theme.toLowerCase()) : "") + " " + kind + (list.length > 1 ? "s" : "") + " you can play together from two places.");
       list.forEach(r => $("escList").appendChild(card(r)));
       $("escNote").hidden = false;
     });
@@ -126,23 +179,25 @@
     function card(r) {
       const li = document.createElement("li");
       li.className = "mcard2 pic esc";
-      const img = r.img === "" ? null : IMG(r.id);
-      li.innerHTML = (img ? '<img alt="" loading="lazy">' : '<div class="escart" aria-hidden="true"><span>LIVE</span><b></b></div>') +
+      const fmt = FORMAT(r), img = r.img || (r.id ? IMG(r.id) : null);
+      const art = '<div class="escart ' + fmt + '" aria-hidden="true"><span>' + (fmt === "live" ? "LIVE OVER ZOOM" : "PLAY IN YOUR BROWSER") + '</span><b></b><small></small></div>';
+      li.innerHTML = (img ? '<img alt="" loading="lazy" referrerpolicy="no-referrer">' : art) +
         '<div class="mbody"><h4></h4><div class="etags"></div><p class="mmeta"></p><p class="edesc"></p><div class="ractions"></div></div>';
-      if (img) { const im = li.querySelector("img"); im.src = img; im.onerror = () => im.remove(); }
-      else li.querySelector(".escart b").textContent = r.n.replace(" (live)", "");
+      const fillArt = () => { li.querySelector(".escart b").textContent = r.n.replace(" (live)", ""); li.querySelector(".escart small").textContent = r.by || ""; };
+      if (img) { const im = li.querySelector("img"); im.src = img; im.onerror = () => { im.insertAdjacentHTML("afterend", art); im.remove(); fillArt(); }; }
+      else fillArt();
       li.querySelector("h4").textContent = r.n;
       r.t.forEach(t => { const s = document.createElement("span"); s.className = "etag"; s.textContent = t; li.querySelector(".etags").appendChild(s); });
-      li.querySelector(".mmeta").textContent = r.price + " · " + r.on;
+      li.querySelector(".mmeta").textContent = [r.by, r.price, r.on].filter(Boolean).join(" \u00b7 ");
       li.querySelector(".edesc").textContent = r.d;
       const acts = li.querySelector(".ractions");
       const a = document.createElement("a");
       a.className = "btn"; a.href = r.url || STEAM(r.id); a.target = "_blank"; a.rel = "noopener";
-      a.textContent = r.url ? "Book it" : r.price === "Free" ? "Play free" : "Get it";
+      a.textContent = fmt === "live" ? "Book it" : r.price === "Free" ? "Play free" : "Get it";
       acts.appendChild(a);
       const tr = document.createElement("a");
       tr.className = "btn ghost"; tr.target = "_blank"; tr.rel = "noopener"; tr.textContent = "Watch a trailer";
-      tr.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent((r.url ? "The Escape Game remote adventures " + r.n.replace(" (live)", "") : r.n + " trailer"));
+      tr.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(fmt === "game" ? r.n + " trailer" : (r.by || "") + " " + r.n.replace(" (live)", "") + " online escape room");
       acts.appendChild(tr);
       return li;
     }
