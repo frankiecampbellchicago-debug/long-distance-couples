@@ -49,6 +49,43 @@
     });
   }
 
+  /* ---------- popular spots from Wikipedia ---------- */
+  async function findSpots(c) {
+    const names = [];
+    if (c.state && /united states/i.test(c.country)) names.push(c.name + ", " + c.state);
+    if (c.state) names.push(c.name + ", " + c.state);
+    names.push(c.name);
+    const titles = [...new Set(names)].map(n => "Category:Tourist attractions in " + n);
+    const check = await (await fetch(WIKI + "titles=" + encodeURIComponent(titles.join("|")))).json();
+    const exists = new Set((check.query.pages || []).filter(p => !p.missing).map(p => p.title));
+    const cat = titles.find(t => exists.has(t));
+    const base = "prop=pageviews|coordinates|pageimages|description&pvipdays=30&piprop=thumbnail&pithumbsize=480&pilimit=50&colimit=50&";
+    const gen = cat ? "generator=categorymembers&gcmtype=page&gcmlimit=50&gcmtitle=" + encodeURIComponent(cat)
+                    : "generator=geosearch&ggsradius=10000&ggslimit=50&ggscoord=" + c.lat + "|" + c.lon;
+    // page views come back in batches, so follow "continue" a few times to rank everything
+    const pages = {};
+    let cont = "";
+    for (let i = 0; i < 5; i++) {
+      const j = await (await fetch(WIKI + base + gen + cont)).json();
+      ((j.query && j.query.pages) || []).forEach(p => {
+        const old = pages[p.pageid] || {};
+        pages[p.pageid] = Object.assign(old, p, { pageviews: Object.assign(old.pageviews || {}, p.pageviews || {}) });
+      });
+      if (!j.continue) break;
+      cont = "&" + Object.entries(j.continue).map(([k, v]) => k + "=" + encodeURIComponent(v)).join("&");
+    }
+    const city = c.name.toLowerCase();
+    return Object.values(pages).filter(p => p.title.toLowerCase() !== city && !SKIP.test(p.description || "") && !SKIP.test(p.title) &&
+      (cat || (p.thumbnail && !/school|court|post office|station|university|apartment|office/i.test(p.description || ""))))
+      .map(p => ({ n: p.title.replace(/ \((?:[^)]*)\)$/, ""), title: p.title, d: p.description || "", img: p.thumbnail ? p.thumbnail.source : "",
+                   lat: p.coordinates ? p.coordinates[0].lat : null, lon: p.coordinates ? p.coordinates[0].lon : null,
+                   views: Object.values(p.pageviews || {}).reduce((s, v) => s + (v || 0), 0) }))
+      .sort((a, b) => (b.views + (b.img ? 500 : 0)) - (a.views + (a.img ? 500 : 0)));
+  }
+
+  // shared with the hotel and activity finders on "Meet somewhere new"
+  window.CityTools = { findSpots, streetLink, views };
+
   window.setupCityTour = function () {
     $("citytour").hidden = false;
     const status = (msg, err) => { $("cityStatus").textContent = msg; $("cityStatus").classList.toggle("err", !!err); };
@@ -113,40 +150,6 @@
         a.querySelector("strong").textContent = t; a.querySelector("small").textContent = s;
         box.appendChild(a);
       });
-    }
-
-    /* ---------- popular spots from Wikipedia ---------- */
-    async function findSpots(c) {
-      const names = [];
-      if (c.state && /united states/i.test(c.country)) names.push(c.name + ", " + c.state);
-      if (c.state) names.push(c.name + ", " + c.state);
-      names.push(c.name);
-      const titles = [...new Set(names)].map(n => "Category:Tourist attractions in " + n);
-      const check = await (await fetch(WIKI + "titles=" + encodeURIComponent(titles.join("|")))).json();
-      const exists = new Set((check.query.pages || []).filter(p => !p.missing).map(p => p.title));
-      const cat = titles.find(t => exists.has(t));
-      const base = "prop=pageviews|coordinates|pageimages|description&pvipdays=30&piprop=thumbnail&pithumbsize=480&pilimit=50&colimit=50&";
-      const gen = cat ? "generator=categorymembers&gcmtype=page&gcmlimit=50&gcmtitle=" + encodeURIComponent(cat)
-                      : "generator=geosearch&ggsradius=10000&ggslimit=50&ggscoord=" + c.lat + "|" + c.lon;
-      // page views come back in batches, so follow "continue" a few times to rank everything
-      const pages = {};
-      let cont = "";
-      for (let i = 0; i < 5; i++) {
-        const j = await (await fetch(WIKI + base + gen + cont)).json();
-        ((j.query && j.query.pages) || []).forEach(p => {
-          const old = pages[p.pageid] || {};
-          pages[p.pageid] = Object.assign(old, p, { pageviews: Object.assign(old.pageviews || {}, p.pageviews || {}) });
-        });
-        if (!j.continue) break;
-        cont = "&" + Object.entries(j.continue).map(([k, v]) => k + "=" + encodeURIComponent(v)).join("&");
-      }
-      const city = c.name.toLowerCase();
-      return Object.values(pages).filter(p => p.title.toLowerCase() !== city && !SKIP.test(p.description || "") && !SKIP.test(p.title) &&
-        (cat || (p.thumbnail && !/school|court|post office|station|university|apartment|office/i.test(p.description || ""))))
-        .map(p => ({ n: p.title.replace(/ \((?:[^)]*)\)$/, ""), title: p.title, d: p.description || "", img: p.thumbnail ? p.thumbnail.source : "",
-                     lat: p.coordinates ? p.coordinates[0].lat : null, lon: p.coordinates ? p.coordinates[0].lon : null,
-                     views: Object.values(p.pageviews || {}).reduce((s, v) => s + (v || 0), 0) }))
-        .sort((a, b) => (b.views + (b.img ? 500 : 0)) - (a.views + (a.img ? 500 : 0)));
     }
 
     function moreSpots() {

@@ -229,6 +229,15 @@
     $("plName").value = ""; $("plWhere").value = ""; save(); renderAll(); $("plName").focus();
   });
 
+  // used by the hotel and activity finders on date pages
+  window.tripBoardAddPlace = (name, where, kind) => {
+    if (board.places.some(p => p.name === name && p.where === where)) return false;
+    board.places.push({ id: uid(), name, where: where || "", kind: kind || "See", done: false });
+    save(); renderAll(); return true;
+  };
+  window.tripBoardHas = (name, where) => board.places.some(p => p.name === name && p.where === where);
+  window.tripBoardTrip = () => { const t = trip(); return t && !t.example ? { place: t.place || "", start: t.start || "", end: t.end || "" } : null; };
+
   function renderCounts() {
     const t = trip();
     $("cnt-plans").textContent = t ? t.plans.length : 0;

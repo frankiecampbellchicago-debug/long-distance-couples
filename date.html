@@ -202,6 +202,23 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .ings b{font-weight:600}
 .howto{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px}
 #recipeMore{justify-self:center}
+/* hotels and things to do */
+.fform.hotelform{grid-template-columns:2fr 1fr 1fr auto}
+.fform.hotelform .span2{grid-column:span 2}
+@media (max-width:760px){.fform.hotelform{grid-template-columns:1fr 1fr}.fform.hotelform .field:first-child,.fform.hotelform .span2,.fform.hotelform .btn{grid-column:1/-1}.fform.hotelform .btn{width:100%}}
+.citylinks{display:flex;flex-wrap:wrap;gap:8px}
+.citylinks .btn{padding:9px 16px;font-size:14px}
+.mlist2{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:860px){.mlist2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.mlist2{grid-template-columns:minmax(0,1fr)}}
+.mcard2{background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+.mcard2 img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:var(--stamp)}
+.mcard2 .mbody{padding:12px 14px;display:grid;gap:6px;align-content:start}
+.mcard2 h4{margin:0;font:400 19px/1.2 var(--display);overflow-wrap:anywhere}
+.mcard2 .stars{color:var(--gold);font-size:13px;letter-spacing:1px;flex:none}
+.mcard2 .mmeta{font-size:13px;color:var(--muted);text-transform:none}
+.mcard2 .slinks a.strong{color:var(--red)}
+#hotelMore,#actMore{justify-self:center}
 /* city tour */
 .cityres{display:grid;gap:22px}
 .cityhead{font-size:24px}
@@ -521,6 +538,43 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="credit" id="museumCredit" hidden>All tours are free and run by the museums or Google Arts &amp; Culture. Open the same link on both devices, or share your screen.</p>
     </section>
 
+    <div id="meetFinders" hidden>
+      <section class="finder" id="hotels" aria-labelledby="hotelTitle">
+        <div>
+          <h2 id="hotelTitle">Find a hotel</h2>
+          <p class="sub">Type the city you're meeting in and your dates. We'll list hotels there with links to see prices and book. Add your favorites to the trip board to decide together.</p>
+        </div>
+        <form class="fform hotelform" id="hotelForm" novalidate>
+          <div class="field"><label for="hotelCity">City</label><input id="hotelCity" type="text" autocomplete="address-level2" placeholder="Nashville, TN"></div>
+          <div class="field"><label for="hotelIn">Check in</label><input id="hotelIn" type="date"></div>
+          <div class="field"><label for="hotelOut">Check out</label><input id="hotelOut" type="date"></div>
+          <button class="btn red" type="submit" id="hotelGo">Find hotels</button>
+        </form>
+        <p class="fstatus" id="hotelStatus" role="status"></p>
+        <div class="citylinks" id="hotelLinks" hidden></div>
+        <ul class="mlist2" id="hotelList" aria-label="Hotels"></ul>
+        <button class="btn ghost" type="button" id="hotelMore" hidden>Show more</button>
+        <p class="credit" id="hotelCredit" hidden>Hotels from © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. Prices, rooms and booking are on Booking.com, Google and Airbnb.</p>
+      </section>
+
+      <section class="finder" id="activities" aria-labelledby="actTitle">
+        <div>
+          <h2 id="actTitle">Find things to do</h2>
+          <p class="sub">Pick a city and the kind of thing you're in the mood for, from museums to live music. Add the ones you like to your trip board.</p>
+        </div>
+        <form class="fform hotelform" id="actForm" novalidate>
+          <div class="field"><label for="actCity">City</label><input id="actCity" type="text" autocomplete="address-level2" placeholder="Nashville, TN"></div>
+          <div class="field span2"><label for="actKind">Kind of thing to do</label><select id="actKind"></select></div>
+          <button class="btn red" type="submit" id="actGo">Find things to do</button>
+        </form>
+        <p class="fstatus" id="actStatus" role="status"></p>
+        <div class="citylinks" id="actLinks" hidden></div>
+        <ul class="mlist2" id="actList" aria-label="Things to do"></ul>
+        <button class="btn ghost" type="button" id="actMore" hidden>Show more</button>
+        <p class="credit" id="actCredit" hidden>Places from © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors and <a href="https://en.wikipedia.org/" target="_blank" rel="noopener">Wikipedia</a>.</p>
+      </section>
+    </div>
+
     <section class="boardwrap" id="boardWrap" hidden>
   <div class="board" id="tripBoard" aria-labelledby="boardTitle">
       <h3 class="bhead" id="boardTitle"><button class="btoggle" type="button" id="boardToggle" aria-expanded="false" aria-controls="boardBody">
@@ -774,12 +828,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
 <script src="js/dates.js?v=c2dd9461"></script>
-<script src="js/tripboard.js?v=6d5f8997"></script>
+<script src="js/tripboard.js?v=3dbf8c7c"></script>
+<script src="js/meetup.js?v=e114f7f2"></script>
 <script src="js/locate.js?v=35a0f460"></script>
-<script src="js/citytour.js?v=a213a187"></script>
+<script src="js/citytour.js?v=d1faf9d6"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=1ef2e0f5"></script>
+<script src="js/date-page.js?v=44618e98"></script>
 </body>
 </html>

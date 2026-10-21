@@ -47,7 +47,7 @@
   if (more.tool === "recipes") setupRecipes();
   if (more.tool === "post") setupPost();
   if (more.tool === "books") setupBooks();
-  if (more.tool === "board") { $("boardWrap").hidden = false; if (window.openTripBoard) window.openTripBoard(); }
+  if (more.tool === "board") { $("boardWrap").hidden = false; if (window.openTripBoard) window.openTripBoard(); window.setupMeetup(); }
 
   // Small type-to-search dropdown. items() returns [{id, name, img?}]; the picked id lands on input.dataset.id.
   function combo(input, listEl, items) {
