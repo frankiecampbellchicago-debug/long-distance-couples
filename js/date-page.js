@@ -422,22 +422,38 @@
     $("books").hidden = false;
     const API = "https://openlibrary.org/search.json?fields=key,title,author_name,first_publish_year,cover_i,number_of_pages_median,ratings_average,ratings_count,ebook_access&", PAGE = 8;
     const status = (msg, err) => { $("bookStatus").textContent = msg; $("bookStatus").classList.toggle("err", !!err); };
-    // genre words become subject searches, ranked by how many readers have them on their shelves
-    const GENRES = { romance: "romance", "love stor": "love", mystery: "mystery", thriller: "thriller", fantasy: "fantasy", "science fiction": "science fiction", "sci-fi": "science fiction", "sci fi": "science fiction",
-      horror: "horror", "historical fiction": "historical fiction", history: "history", "young adult": "young adult fiction", ya: "young adult fiction", classic: "classic literature", poetry: "poetry",
-      "self-help": "self-help", "self help": "self-help", biograph: "biography", memoir: "autobiography", humor: "humor", funny: "humor", comedy: "humor", "short stor": "short stories", crime: "crime",
-      adventure: "adventure", "graphic novel": "graphic novels", comic: "comics", psycholog: "psychology", philosoph: "philosophy", relationship: "relationships", travel: "travel", cook: "cooking", spiritual: "spirituality" };
+    // Genres for the dropdown: [name, Open Library subject]. Searches are ranked by how many readers have the book on their shelves.
+    const GENRES = [["Romance", "romance"], ["Contemporary romance", "contemporary romance"], ["Mystery", "fiction, mystery & detective, general"],
+      ["Thriller", "fiction, thrillers, general"], ["Crime", "fiction, crime"], ["Horror", "fiction, horror"], ["Fantasy", "fiction, fantasy, general"],
+      ["Science fiction", "fiction, science fiction, general"], ["Dystopian", "fiction, dystopian"], ["Historical fiction", "historical fiction"],
+      ["Literary fiction", "literary fiction"], ["Classics", "classics"], ["Young adult", "young adult fiction"], ["Funny books", "fiction, humorous"],
+      ["Psychological fiction", "fiction, psychological"], ["Short stories", "fiction, short stories (single author)"], ["Poetry", "poetry"],
+      ["Biography & memoir", "biography & autobiography"], ["Self-help", "self-actualization (psychology)"], ["Spirituality", "spiritual life"],
+      ["History", "world history"], ["Philosophy", "philosophy"], ["Cooking", "cookery"]];
+    // words people type that mean one of those genres
+    const WORDS = { romance: 0, love: 0, "romantic": 0, "rom com": 1, "romcom": 1, mystery: 2, detective: 2, whodunit: 2, thriller: 3, suspense: 3, crime: 4, horror: 5, scary: 5,
+      fantasy: 6, "science fiction": 7, "sci-fi": 7, "sci fi": 7, scifi: 7, dystopia: 8, dystopian: 8, "historical fiction": 9, "literary fiction": 10, classic: 11,
+      "young adult": 12, ya: 12, "teen": 12, funny: 13, humor: 13, humour: 13, comedy: 13, psychological: 14, "short stor": 15, poetry: 16, poem: 16,
+      biograph: 17, memoir: 17, autobiograph: 17, "self-help": 18, "self help": 18, "self improvement": 18, spiritual: 19, history: 20, philosoph: 21, cook: 22, recipe: 22 };
+    const sel = $("bookGenre");
+    GENRES.forEach(([name], i) => { const o = document.createElement("option"); o.value = i; o.textContent = name; sel.appendChild(o); });
+    sel.addEventListener("change", () => { if (sel.value !== "") $("bookForm").requestSubmit(); });
     let found = [], count = 0;
 
     $("bookForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const q = $("bookQ").value.trim(), free = $("bookFree").checked, short = $("bookShort").checked;
-      if (q.length < 2 && !free) { status("Type a title, an author, or a genre like romance or mystery.", true); $("bookQ").focus(); return; }
-      const ql = q.toLowerCase().replace(/\s*books?$/, "").replace(/(ie)?s$/, m => m === "ies" ? "y" : "");
-      const genreKey = Object.keys(GENRES).find(k => ql === k || ql.startsWith(k));
-      let query = genreKey ? 'subject:"' + GENRES[genreKey] + '" language:eng' : q;
-      if (free) query += " ebook_access:public";
-      const url = API + "limit=" + (short ? 60 : 40) + "&q=" + encodeURIComponent(query) + (genreKey ? "&sort=readinglog" : "");
+      let q = $("bookQ").value.trim();
+      const free = $("bookFree").checked, short = $("bookShort").checked;
+      // typing just a genre ("mysteries", "sci-fi books") picks it in the dropdown
+      const ql = q.toLowerCase().replace(/\s*(books?|novels?|stories)$/, "").replace(/(ie)?s$/, m => m === "ies" ? "y" : "");
+      // exact genre words only, plus a few word stems ("biographies", "cookbooks"), so titles like "Love Hypothesis" stay title searches
+      const STEMS = ["biograph", "autobiograph", "philosoph", "short stor", "spiritual", "cook"];
+      const typed = Object.keys(WORDS).find(k => ql === k || (STEMS.includes(k) && ql.startsWith(k) && ql.split(" ").length <= 2));
+      if (typed !== undefined && ql) { sel.value = WORDS[typed]; $("bookQ").value = q = ""; }
+      const g = sel.value === "" ? null : GENRES[+sel.value];
+      if (q.length < 2 && !g && !free) { status("Type a title or author, or pick a genre.", true); $("bookQ").focus(); return; }
+      let query = [q, g ? 'subject:"' + g[1] + '"' : "", g && !q ? "language:eng" : "", free ? "ebook_access:public" : ""].filter(Boolean).join(" ");
+      const url = API + "limit=" + (short ? 60 : 40) + "&q=" + encodeURIComponent(query) + (g && !q ? "&sort=readinglog" : "");
       $("bookGo").disabled = true; clear(); status("Looking for books…");
       try {
         const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 15000);
@@ -449,9 +465,12 @@
           const k = (b.title + "|" + (b.author_name || [""])[0]).toLowerCase();
           if (seen.has(k) || /\[\d\/\d\]/.test(b.title)) return false;
           seen.add(k); return true;
-        }).filter(b => !short || (b.number_of_pages_median && b.number_of_pages_median < 300));
-        if (!found.length) { status("No books found" + (q ? " for \u201c" + q + "\u201d" : "") + (free || short ? " with those filters. Try turning one off." : ". Check the spelling, or try an author's name."), true); return; }
-        status(genreKey ? "The most-read " + GENRES[genreKey] + " books" + (free ? " you can read free online" : "") + "." : "");
+        }).filter(b => !short || (b.number_of_pages_median && b.number_of_pages_median < 300))
+          // genre lists sometimes show a translation's original title in another alphabet; keep those for title searches only
+          .filter(b => q || !/[^ -ɏḀ-ỿ -⁯]/.test(b.title));
+        const what = [q ? "\u201c" + q + "\u201d" : "", g ? g[0].toLowerCase() : ""].filter(Boolean).join(" in ");
+        if (!found.length) { status("No books found for " + what + (free || short ? " with those filters. Try turning one off." : ". Try another genre, or check the spelling."), true); return; }
+        status(g && !q ? "The most-read " + g[0].toLowerCase() + " books" + (free ? " you can read free online" : "") + "." : "");
         more();
       } catch (err) {
         status("We couldn't reach the book library. Wait a few seconds and try again.", true);

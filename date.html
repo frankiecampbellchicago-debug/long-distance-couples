@@ -148,6 +148,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .rcard.lucky{border:1.5px dashed var(--red);background:var(--card)}
 #museumMore{justify-self:center}
 /* books */
+.fform.bookform{grid-template-columns:2fr 1fr auto}
+@media (max-width:720px){.fform.bookform{grid-template-columns:1fr}.fform.bookform .btn{width:100%}}
 .bookopts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
 .bookopts label{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
 .bookopts input{width:18px;height:18px;accent-color:var(--red)}
@@ -445,10 +447,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     <section class="finder" id="books" aria-labelledby="bookTitle" hidden>
       <div>
         <h2 id="bookTitle">Find your next book</h2>
-        <p class="sub">Search a title, an author, or a kind of book like romance, mystery or fantasy.</p>
+        <p class="sub">Search a title or an author, pick a genre, or both, like Colleen Hoover in romance.</p>
       </div>
-      <form class="fform mus" id="bookForm" novalidate>
-        <div class="field"><label for="bookQ">Title, author or genre</label><input id="bookQ" type="text" autocomplete="off" placeholder="Romance, Colleen Hoover, Pride and Prejudice…"></div>
+      <form class="fform bookform" id="bookForm" novalidate>
+        <div class="field"><label for="bookQ">Title or author</label><input id="bookQ" type="text" autocomplete="off" placeholder="Colleen Hoover, Pride and Prejudice…"></div>
+        <div class="field"><label for="bookGenre">Genre</label><select id="bookGenre"><option value="">Any genre</option></select></div>
         <button class="btn red" type="submit" id="bookGo">Find books</button>
         <div class="bookopts"><label><input type="checkbox" id="bookFree"> Free to read online</label><label><input type="checkbox" id="bookShort"> Short reads (under 300 pages)</label></div>
       </form>
@@ -607,6 +610,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=34511111"></script>
+<script src="js/date-page.js?v=52015806"></script>
 </body>
 </html>
