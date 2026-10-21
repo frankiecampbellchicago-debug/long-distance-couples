@@ -15,7 +15,7 @@ UA = "LoveIsInTheAir/1.0 (+https://frankiecampbellchicago-debug.github.io/long-d
 DELAY = 3          # seconds between requests
 PER_LIST = 10
 
-SERVICES = [("netflix", "Netflix"), ("amazon-prime", "Prime Video"), ("disney-plus", "Disney+"), ("hulu", "Hulu"),
+SERVICES = [("netflix", "Netflix"), ("prime-video", "Prime Video"), ("disney-plus", "Disney+"), ("hulu", "Hulu"),
             ("max", "Max"), ("apple-tv-plus", "Apple TV+"), ("paramount-plus", "Paramount+"), ("peacock", "Peacock"),
             ("amc-plus", "AMC+"), ("acorn-tv", "Acorn TV")]
 GENRES = {
