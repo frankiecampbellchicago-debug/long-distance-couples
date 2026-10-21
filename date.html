@@ -181,6 +181,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .postlist .pbadge{justify-self:start;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
 .postlist .slinks{margin-top:2px}
 .postlist button.showmap{font:600 13px var(--body);color:var(--blue);background:none;border:0;padding:0;cursor:pointer}
+/* classes */
+.fform.hotelform .field:has(#classKind){grid-column:auto}
+.classlinks{display:grid;gap:12px}
+.classlinks h3,.classmaphead{font-size:22px;margin:0}
+.classlinks .views{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+.classlinks .view strong{font-size:18px}
 /* escape rooms */
 .fform.esform{grid-template-columns:1.5fr 1.2fr 1.2fr auto auto}
 @media (max-width:900px){.fform.esform{grid-template-columns:1fr 1fr}.fform.esform .field:first-child{grid-column:1/-1}}
@@ -728,6 +734,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <p class="credit" id="postCredit" hidden>Post office data and map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, via <a href="https://photon.komoot.io/" target="_blank" rel="noopener">Photon</a>. Hours change, so check before you go. We don't save your address.</p>
     </section>
 
+    <section class="finder" id="classes" aria-labelledby="classTitle" hidden>
+      <div>
+        <h2 id="classTitle">Find a class to take together</h2>
+        <p class="sub">Pick a kind of class, or type anything, and the city you'll be in. We'll open the sites where people book classes with your search already filled in, and show studios we find on the map.</p>
+      </div>
+      <form class="fform hotelform" id="classForm" novalidate>
+        <div class="field"><label for="classKind">Kind of class</label><select id="classKind"></select></div>
+        <div class="field"><label for="classQ">Or type your own</label><input id="classQ" type="text" autocomplete="off" placeholder="Sushi making, hip hop…"></div>
+        <div class="field"><label for="classCity">City</label><input id="classCity" type="text" autocomplete="address-level2" placeholder="Chicago, IL"></div>
+        <button class="btn red" type="submit" id="classGo">Find classes</button>
+      </form>
+      <p class="fstatus" id="classStatus" role="status"></p>
+      <div class="classlinks" id="classLinks" hidden></div>
+      <h3 class="classmaphead" id="classMapHead" hidden></h3>
+      <ul class="mlist2" id="classList" aria-label="Studios and schools"></ul>
+      <p class="credit" id="classCredit" hidden>Studios from © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors via <a href="https://photon.komoot.io/" target="_blank" rel="noopener">Photon</a>. Class times and prices are on each studio's own site or the booking sites above.</p>
+    </section>
+
     <section class="finder" id="escape" aria-labelledby="escTitle" hidden>
       <div>
         <h2 id="escTitle">Find an online escape room</h2>
@@ -873,8 +897,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=1f8afa66"></script>
+<script src="js/dates.js?v=868d5095"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
+<script src="js/classes.js?v=78c6c8b8"></script>
 <script src="js/escaperooms.js?v=4343726d"></script>
 <script src="js/meetup.js?v=e114f7f2"></script>
 <script src="js/locate.js?v=35a0f460"></script>
@@ -882,6 +907,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=1b5233e7"></script>
+<script src="js/date-page.js?v=837be571"></script>
 </body>
 </html>

@@ -113,8 +113,8 @@ window.DATE_MORE={
   steps:["Start a video call with your back camera facing out.","Walk them through your neighborhood like they're there with you.","Show them your coffee shop, your shortcut, your favorite view.","Let them pick where to turn next."],
   need:["A phone with data","Headphones","45 minutes"],
   tip:"Grab a coffee at your spot and have them order the same thing where they are."},
- "take-a-class":{
-  steps:["Pick something neither of you has done: pottery, salsa, or cooking.","Book a class for your next visit.","Show up, get messy, and laugh at each other.","Keep what you make, or try it again at home on a call."],
+ "take-a-class":{tool:"classes",
+  steps:["Pick something neither of you has done: pottery, salsa, or cooking.","Use the search on this page to find and book a class in the city you'll be in.","Show up, get messy, and laugh at each other.","Keep what you make, or try it again at home on a call."],
   need:["A visit","A booking, usually $40–100 each"],
   tip:"Book it for early in the visit, so you can practice together before you leave."},
 };
