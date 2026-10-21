@@ -52,6 +52,7 @@
   window.setupCityTour = function () {
     $("citytour").hidden = false;
     const status = (msg, err) => { $("cityStatus").textContent = msg; $("cityStatus").classList.toggle("err", !!err); };
+    window.addLocateButton($("cityName"), { kind: "city", status });
     let city = null, spots = [], shownSpots = 0, stops = [], fromLink = false;
 
     const params = new URLSearchParams(location.search);

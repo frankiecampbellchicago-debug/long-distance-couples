@@ -597,6 +597,7 @@
     try { const saved = localStorage.getItem("liita-food"); if (saved && sel.querySelector('option[value="' + saved + '"]')) sel.value = saved; } catch (e) {}
 
     const status = (msg, err) => { $("foodStatus").textContent = msg; $("foodStatus").classList.toggle("err", !!err); };
+    window.addLocateButton($("addr"), { kind: "address", status });
 
     $("foodForm").addEventListener("submit", async e => {
       e.preventDefault();

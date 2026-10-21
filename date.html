@@ -90,6 +90,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 @media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
 .field{display:grid;gap:6px;min-width:0}
 .field>span,.field>label{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.field{position:relative}
+.locbtn{position:absolute;top:-4px;right:0;display:inline-flex;gap:4px;align-items:center;font:600 13px var(--body);color:var(--blue);background:none;border:0;padding:2px 0;cursor:pointer;white-space:nowrap}
+.locbtn:hover span:last-child{text-decoration:underline}
+.locbtn:disabled{color:var(--muted);cursor:progress}
+.locbtn:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:4px}
 .field input,.field select{font:16px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;width:100%;min-width:0}
 .fstatus{font-size:15px;color:var(--muted)}
 .fstatus.err{color:var(--red)}
@@ -385,7 +390,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <p class="sub">Put in the address you're sending dinner to and pick a type of food. We'll find 10 places nearby with a menu link and a way to order on Uber Eats.</p>
       </div>
       <form class="fform" id="foodForm" novalidate>
-        <label class="field" for="addr"><span>Deliver to</span><input id="addr" type="text" autocomplete="street-address" placeholder="Street address, city" required></label>
+        <div class="field"><label for="addr">Deliver to</label><input id="addr" type="text" autocomplete="street-address" placeholder="Street address, city" required></div>
         <label class="field" for="cuisine"><span>Type of food</span>
           <select id="cuisine">
             <option value="any">Anything</option><option value="pizza">Pizza</option><option value="burger">Burgers</option><option value="sushi">Sushi &amp; Japanese</option>
@@ -597,10 +602,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
 <script src="js/dates.js?v=fe940e9f"></script>
-<script src="js/citytour.js?v=3f0c4a5a"></script>
+<script src="js/locate.js?v=35a0f460"></script>
+<script src="js/citytour.js?v=a213a187"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
-<script src="js/stars.js?v=efe1dcd5"></script>
-<script src="js/date-page.js?v=7625e2d2"></script>
+<script src="js/stars.js?v=be7b5d14"></script>
+<script src="js/date-page.js?v=34511111"></script>
 </body>
 </html>

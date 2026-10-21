@@ -327,6 +327,7 @@
   window.setupStars = function () {
     $("stars").hidden = false;
     const status = (msg, err) => { $("skyStatus").textContent = msg; $("skyStatus").classList.toggle("err", !!err); };
+    window.addLocateButton($("skyPlace"), { kind: "city", status });
     const cache = {};
     let me = null, them = null, fixedT = null, timer = null, whose = "me";
     const params = new URLSearchParams(location.search);
