@@ -73,6 +73,7 @@ window.DATE_MORE={
   need:["A visit","Your best memory of that night"],
   tip:"Bring a photo from back then and take a new one in the same spot."},
  "story-playlist":{
+  alt:"Make a playlist together and add both of your all-time favorite songs. Then listen through it and tell each other why each one made the list.",
   steps:["Make a shared playlist on Spotify or Apple Music.","Take turns adding songs: the one from your first trip, the one that reminds you of them, the one you both hate.","Add a short note about why you picked each song.","Listen start to finish together on a call."],
   need:["A music app with shared playlists","An hour on a call"],
   tip:"Keep adding to it after every visit. It becomes a soundtrack of your relationship."},

@@ -17,6 +17,7 @@
   (more.need || []).forEach(t => { const li = document.createElement("li"); li.textContent = t; $("dNeed").appendChild(li); });
   if (more.tip) { const b = document.createElement("b"); b.textContent = "Tip: "; $("dTip").append(b, more.tip); } else $("dTip").hidden = true;
   $("soon").hidden = !more.app;
+  if (more.alt) { $("dAltText").textContent = more.alt; $("dAlt").hidden = false; }
 
   // Extra bonus: questions from one Deep Talks topic to answer during the date
   const talk = more.talks && window.DEEP_TALKS && window.DEEP_TALKS[more.talks];

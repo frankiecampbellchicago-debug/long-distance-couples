@@ -66,6 +66,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
 .steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--paper);border:1.5px solid var(--red);color:var(--red);font:500 14px var(--mono)}
 .steps li span{padding-top:4px}
+.orway{display:grid;gap:10px}
+.orline{display:flex;align-items:center;gap:12px;font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.orline::before,.orline::after{content:"";flex:1;border-top:1px solid var(--line)}
+.orway>p:last-child{padding-left:46px}
 .bonus{margin-top:6px;border:1.5px dashed var(--rose);border-radius:10px;background:var(--paper);padding:16px 18px;display:grid;gap:8px}
 .bonus h3{font-size:22px}
 .bsub{font-size:15px;color:var(--muted)}
@@ -316,6 +320,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <section class="panel" aria-labelledby="howTitle">
         <h2 id="howTitle">How to do it</h2>
         <ol class="steps" id="dSteps"></ol>
+        <div class="orway" id="dAlt" hidden><p class="orline"><span>or</span></p><p id="dAltText"></p></div>
         <div class="bonus" id="dBonus" hidden>
           <span class="eyebrow">Extra bonus</span>
           <h3>Pair this with Deep Talks</h3>
@@ -343,9 +348,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=84653a22"></script>
+<script src="js/dates.js?v=45291c27"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=72505019"></script>
-<script src="js/date-page.js?v=3308ea02"></script>
+<script src="js/date-page.js?v=05a55fd3"></script>
 </body>
 </html>
