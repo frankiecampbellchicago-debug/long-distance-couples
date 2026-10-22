@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Everything you need to plan this long-distance date.">
 <title>Date idea · Love Is In The Air</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700;800&display=swap">
@@ -490,14 +492,14 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .missing{padding-block:60px;display:grid;gap:16px;justify-items:start}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:24px}
+.logo img{display:block;height:42px;width:auto}
+@media (max-width:480px){.logo img{height:31px}}
+footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
-  <a class="logo" href="index.html" aria-label="Love Is In The Air home">
-    <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><path d="M2 26c6-2 9-6 13-11" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M22 25C13 19 11 14 13.5 10.2 15.6 7.3 19.4 7.7 22 10.6 24.6 7.7 28.4 7.3 30.5 10.2 33 14 31 19 22 25Z" fill="var(--red)"/></svg>
-    Love Is In The Air
-  </a>
+  <a class="logo" href="index.html" aria-label="Love Is In The Air home"><picture><source srcset="images/logo-light.webp" type="image/webp"><img src="images/logo-light.png" alt="Love Is In The Air" width="668" height="120"></picture></a>
   <a class="back" href="index.html#dates">&#8592; All dates</a>
 </div></nav>
 
@@ -901,7 +903,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
   </div>
 </main>
 
-<footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
+<footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
 <script src="js/dates.js?v=da8ad6ce"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
