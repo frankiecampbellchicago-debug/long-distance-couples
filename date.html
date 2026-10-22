@@ -36,7 +36,12 @@ a{color:inherit}
 
 nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px}
 .logo{font:600 24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none}
-.back{font-weight:600;font-size:15px;color:var(--blue);text-decoration:none}
+.back{font-weight:600;font-size:15px;color:var(--terra);text-decoration:none}
+/* nav picks up the hero art: terracotta house, coral ribbon, dusty-blue house */
+nav{--terra:#b4532f;--blue:#6a84a6;--red:#ea6a4f}
+nav .btn{background:var(--terra);color:#fdf3e4}
+nav .btn:hover{background:#9c4426}
+
 .back:hover{text-decoration:underline}
 @media (max-width:480px){.logo{font-size:19px;gap:8px}.back{font-size:14px}}
 

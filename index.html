@@ -57,9 +57,15 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .logo svg{flex:none}
 @media (max-width:480px){.logo{font-size:19px;gap:8px}nav .btn{padding:10px 14px;font-size:14px}}
 .navlinks{display:flex;gap:20px;align-items:center;font-weight:500;font-size:15px}
-.navlinks a{text-decoration:none;color:var(--muted)}
-.navlinks a:hover{color:var(--ink)}
-.navlinks a.btn{color:var(--onblue)}
+.navlinks a{text-decoration:none;color:#7a5545}
+.navlinks a:hover{color:var(--terra)}
+.navlinks a.btn{color:#fdf3e4}
+/* nav picks up the hero art: terracotta house, coral ribbon, dusty-blue house */
+nav{--terra:#b4532f;--blue:#6a84a6;--red:#ea6a4f}
+nav .btn{background:var(--terra);color:#fdf3e4}
+nav .btn:hover{background:#9c4426}
+.hero .btn:not(.ghost){background:#b4532f;color:#fdf3e4}
+.hero .btn:not(.ghost):hover{background:#9c4426}
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
@@ -75,7 +81,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
   .top::before{content:"";position:absolute;left:0;right:0;bottom:0;height:min(56svh,150vw);z-index:-1;pointer-events:none;
     background:var(--photo) 88% bottom/auto 100% no-repeat;
     -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%);mask-image:linear-gradient(180deg,transparent 0,#000 22%)}}
-.hero .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--blue)}
+.hero .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:#5d7799}
 .top .hero{flex:1;display:flex}
 .top .btn.ghost{background:rgba(251,245,233,.6)}
 .hero .wrap{flex:1;display:grid;align-items:center;padding-block:16px 56px}
