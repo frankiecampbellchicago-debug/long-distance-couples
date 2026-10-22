@@ -76,7 +76,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .read svg{width:14px;height:14px;transition:transform .25s}
 
 /* featured */
-.feature{display:grid;grid-template-columns:1.1fr 1fr;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-bottom:28px;cursor:pointer;text-align:left;font:inherit;color:inherit;padding:0;width:100%;
+.feature{text-decoration:none;display:grid;grid-template-columns:1.1fr 1fr;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-bottom:28px;cursor:pointer;text-align:left;font:inherit;color:inherit;padding:0;width:100%;
   transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s}
 .feature .tile{min-height:300px}
 .feature .clay{--sz:128px;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
@@ -93,7 +93,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.grid{grid-template-columns:1fr}}
-.post{position:relative;display:grid;grid-template-rows:auto 1fr;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;text-align:left;font:inherit;color:var(--ink);padding:0;cursor:pointer;
+.post{text-decoration:none;position:relative;display:grid;grid-template-rows:auto 1fr;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;text-align:left;font:inherit;color:var(--ink);padding:0;cursor:pointer;
   transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s;animation:postIn .45s cubic-bezier(.2,.7,.3,1) backwards}
 .post .tile{aspect-ratio:16/9}
 .post .clay{--sz:76px;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
@@ -104,6 +104,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .post:hover .clay{transform:rotate(-9deg) scale(1.08)}
 .post:hover h3{color:var(--blue)}
 .post:hover .read svg{transform:translateX(4px)}
+.post.soon .read{color:var(--muted)}
 .post.k-plus,.feature.k-plus{background:#8f3f22;border-color:#8f3f22;color:var(--onblue)}
 .k-plus p,.k-plus .meta{color:rgba(253,243,228,.8)}
 .k-plus .meta .tag,.k-plus .read,.post.k-plus:hover h3{color:#fde3cf}
@@ -191,7 +192,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <div class="meta"><span class="tag" id="rTag"></span><span id="rTime"></span></div>
     <h2 id="rTitle"></h2>
     <p class="lede" id="rLede"></p>
-    <h4>What's inside</h4>
+    <h4>What it will cover</h4>
     <ol id="rList"></ol>
     <div class="note" id="rNote"></div>
     <div class="rnav"><button type="button" id="rPrev"></button><button type="button" id="rNext"></button></div>
@@ -199,33 +200,9 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 </dialog>
 
 <script src="js/dates.js?v=da8ad6ce"></script>
+<script src="js/articles.js?v=89903ebf"></script>
 <script>
-const ARTICLES=[
- {id:"calls",topic:"Communication",k:"together",icon:"phone",min:6,title:"7 ways to stop your calls from feeling like a status report",sum:"Small changes that turn \"what did you eat today\" into real conversation.",
-  inside:["Swap the daily recap for one question you actually want answered","Make one call a week a no-agenda call, with no updates allowed","Do something side by side: cook, walk, or watch the same thing","Notice when you're both tired, and let a short call be enough"]},
- {id:"flights",topic:"Travel",k:"apart",icon:"plane",min:8,title:"How to fly cheaper when you're visiting every month",sum:"Fare tracking, points cards, and the best days to book.",
-  inside:["Set fare alerts on both directions, not just yours","Why flexible dates beat booking early","Picking a points card you'll both actually use","Splitting the cost fairly when one of you earns more"]},
- {id:"who-moves",topic:"Closing the gap",k:"table",icon:"map",min:10,title:"Who moves? A fair way to decide where you'll end up",sum:"A step-by-step talk for when the distance has an end date.",
-  inside:["List what each of you would give up, honestly","Jobs, family, visas, and friends: weigh them together","Try a trial stay before anyone signs a lease","How to keep it from turning into a scorecard"]},
- {id:"wedding",topic:"Real stories",k:"arcade",icon:"heart",min:5,title:"Three years, two countries, one wedding",sum:"How Maya and Theo made it from Lagos to Chicago.",
-  inside:["The time-zone routine that got them through year one","What they did on the visits that felt too short","The visa wait, and how they stayed sane","What they'd tell couples just starting out"]},
- {id:"jealousy",topic:"Trust",k:"plus",icon:"key",min:12,plus:true,title:"The jealousy guide: what to do when trust gets shaky",sum:"A therapist-written plan for the hardest conversations.",
-  inside:["Telling a jealous feeling apart from a real red flag","How to bring it up without starting a fight","Reassurance that helps, and reassurance that backfires","Rebuilding after one of you broke trust"]},
- {id:"letters",topic:"Communication",k:"together",icon:"letter",min:5,title:"Love letters still work. Here's how to write one that lands.",sum:"Why paper beats a text, and what to actually put in it.",
-  inside:["Start with one small, specific memory","Say the thing you never say on calls","Little extras: a pressed flower, a ticket stub, a photo","Timing it so it arrives on a hard week"]},
- {id:"date-nights",topic:"Date ideas",k:"arcade",icon:"popcorn",min:7,title:"15 date nights that don't feel like another video call",sum:"Games, cook-offs, and shows for when you're tired of just talking.",
-  inside:["Play something co-op instead of watching each other's faces","Cook the same recipe at the same time","Plan a fake trip together, down to the restaurants","More ideas waiting on the dates wheel"]},
- {id:"goodbye",topic:"Travel",k:"apart",icon:"hourglass",min:4,title:"Surviving the airport goodbye",sum:"How to make the last day of a visit hurt a little less.",
-  inside:["Plan something small for the last morning","Book the next visit before this one ends","Leave something behind on purpose","What to do on the first night home alone"]},
- {id:"checklist",topic:"Closing the gap",k:"plus",icon:"book",min:11,plus:true,title:"Visas, leases, and job hunts: the closing-the-distance checklist",sum:"Everything to sort out in the six months before you move.",
-  inside:["A month-by-month timeline you can share","Questions to ask before you sign anything","Money talk: who pays for what, and when","Keeping your own friends and routines after the move"]},
- {id:"online-game",topic:"Real stories",k:"arcade",icon:"music",min:6,title:"We met in an online game. Now we share a city.",sum:"Jae and Priya on four years of late-night co-op and one long move.",
-  inside:["How they knew it was more than a game friendship","The first visit, and why it almost didn't happen","Keeping the game nights after moving in together","Their best advice for couples who met online"]},
- {id:"time-zones",topic:"Communication",k:"together",icon:"moon",min:5,title:"Different time zones, same bedtime",sum:"Little routines that keep you in sync when your clocks don't match.",
-  inside:["Find your overlap window and protect it","Leave voice notes for each other's morning","Shared playlists, shared shows, shared countdowns","When one of you always gets the bad time slot"]},
- {id:"spark",topic:"Trust",k:"plus",icon:"sparkle",min:9,plus:true,title:"Keeping the spark when it's been months since the last visit",sum:"How to stay close when the next visit feels far away.",
-  inside:["Why long gaps feel heavier around month three","Surprises that work from far away","Talking about intimacy without it getting awkward","Planning the reunion together"]}
-];
+const ARTICLES=window.ARTICLES;
 const ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const HEART='<svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 20C3.5 14.4 1.6 9.8 3.9 6.3 5.9 3.5 9.5 3.9 12 6.7 14.5 3.9 18.1 3.5 20.1 6.3 22.4 9.8 20.5 14.4 12 20Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>';
 const icon=(a,cls)=>window.dateIcon?window.dateIcon(a.icon,cls||"",a.k):"";
@@ -244,19 +221,20 @@ chipsEl.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)ret
 document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase();render()});
 
 function card(a,i){
-  return '<button class="post k-'+a.k+'" type="button" data-id="'+a.id+'" style="animation-delay:'+(i*60)+'ms">'+
+  const tag=a.body?'a href="article.html?a='+a.id+'"':'button type="button"';
+  return '<'+tag+' class="post k-'+a.k+(a.body?'':' soon')+'" data-id="'+a.id+'" style="animation-delay:'+(i*60)+'ms">'+
     '<div class="tile">'+(a.plus?'<span class="pill">Plus</span>':"")+icon(a)+'</div>'+
-    '<div class="pbody"><div class="meta"><span class="tag">'+a.topic+'</span><span>'+a.min+' min read</span></div>'+
-    '<h3>'+esc(a.title)+'</h3><p>'+esc(a.sum)+'</p><span class="read">'+(a.plus?"Plus article":"Read the article")+' '+ARROW+'</span></div></button>';
+    '<div class="pbody"><div class="meta"><span class="tag">'+a.topic+'</span><span>'+(a.body?a.min+' min read':'Coming soon')+'</span></div>'+
+    '<h3>'+esc(a.title)+'</h3><p>'+esc(a.sum)+'</p><span class="read">'+(a.body?"Read the article "+ARROW:"Coming soon")+'</span></div></'+(a.body?"a":"button")+'>';
 }
 function render(){
   chips();
   const list=ARTICLES.filter(a=>(topic==="All"||(topic==="Saved"?saved.includes(a.id):a.topic===topic))&&
     (!query||(a.title+" "+a.sum+" "+a.topic+" "+a.inside.join(" ")).toLowerCase().includes(query)));
   const showFeat=topic==="All"&&!query&&list.length;
-  const f=showFeat?list[0]:null,rest=showFeat?list.slice(1):list;
-  feat.innerHTML=f?'<button class="feature k-'+f.k+'" type="button" data-id="'+f.id+'"><div class="tile">'+icon(f)+'</div><div class="fbody"><span class="flabel">Start here</span>'+
-    '<div class="meta"><span class="tag">'+f.topic+'</span><span>'+f.min+' min read</span></div><h2>'+esc(f.title)+'</h2><p>'+esc(f.sum)+'</p><span class="read">Read the article '+ARROW+'</span></div></button>':"";
+  const f=showFeat?list.find(a=>a.body):null,rest=f?list.filter(a=>a!==f):list;
+  feat.innerHTML=f?'<a class="feature k-'+f.k+'" href="article.html?a='+f.id+'" data-id="'+f.id+'"><div class="tile">'+icon(f)+'</div><div class="fbody"><span class="flabel">New</span>'+
+    '<div class="meta"><span class="tag">'+f.topic+'</span><span>'+f.min+' min read</span></div><h2>'+esc(f.title)+'</h2><p>'+esc(f.sum)+'</p><span class="read">Read the article '+ARROW+'</span></div></a>':"";
   let html=rest.map(card);
   if(html.length>=3)html.splice(3,0,'<div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>');
   grid.innerHTML=html.join("")||'<div class="empty"><b>'+(topic==="Saved"?"Nothing saved yet":"No articles match that")+'</b><span>'+(topic==="Saved"?"Tap the heart in any article to keep it here.":"Try another word or topic.")+'</span></div>';
@@ -269,10 +247,10 @@ function open(id,push){
   const i=ARTICLES.findIndex(a=>a.id===id);if(i<0)return;const a=ARTICLES[i];cur=a;
   dlg.className="reader k-"+a.k;
   $("rTile").innerHTML=(a.plus?'<span class="pill">Plus</span>':"")+icon(a)+'<button class="save" type="button" id="rSave" aria-label="Save this article" aria-pressed="'+saved.includes(a.id)+'">'+HEART+'</button>';
-  $("rTag").textContent=a.topic;$("rTime").textContent=a.min+" min read";$("rTitle").textContent=a.title;$("rLede").textContent=a.sum;
+  $("rTag").textContent=a.topic;$("rTime").textContent=a.body?a.min+" min read":"Coming soon";$("rTitle").textContent=a.title;$("rLede").textContent=a.sum;
   $("rList").innerHTML=a.inside.map(x=>"<li>"+esc(x)+"</li>").join("");
-  $("rNote").innerHTML=a.plus?'<span>This article comes with <strong>Plus</strong>, along with every other Plus guide.</span><a class="btn" href="index.html#pricing">See Plus</a>':
-    '<span>The full article is coming soon. Join the waitlist and we\'ll send it when it\'s out.</span><a class="btn" href="index.html#join">Join the waitlist</a>';
+  $("rNote").innerHTML=a.body?'<span>This one is ready to read.</span><a class="btn" href="article.html?a='+a.id+'">Read it</a>':a.plus?'<span>This article comes with <strong>Plus</strong>, along with every other Plus guide.</span><a class="btn" href="index.html#pricing">See Plus</a>':
+    '<span>We\'re writing this one now. Join the waitlist and we\'ll send it when it\'s out.</span><a class="btn" href="index.html#join">Join the waitlist</a>';
   const p=ARTICLES[(i-1+ARTICLES.length)%ARTICLES.length],n=ARTICLES[(i+1)%ARTICLES.length];
   $("rPrev").textContent="← "+p.title;$("rPrev").dataset.id=p.id;$("rNext").textContent=n.title+" →";$("rNext").dataset.id=n.id;
   if(!dlg.open)dlg.showModal();dlg.scrollTop=0;
@@ -285,12 +263,12 @@ dlg.addEventListener("click",e=>{if(e.target===dlg)close();
 $("rClose").addEventListener("click",close);
 $("rPrev").addEventListener("click",e=>open(e.currentTarget.dataset.id));
 $("rNext").addEventListener("click",e=>open(e.currentTarget.dataset.id));
-document.addEventListener("click",e=>{const c=e.target.closest(".post[data-id],.feature[data-id]");if(c)open(c.dataset.id)});
+document.addEventListener("click",e=>{const c=e.target.closest("button.post[data-id]");if(c)open(c.dataset.id)});
 
 render();
 const startTopic=new URLSearchParams(location.search).get("topic");
 if(startTopic&&TOPICS.includes(startTopic)){topic=startTopic;render()}
-if(location.hash.length>1)open(location.hash.slice(1),false);
+if(location.hash.length>1){const h=location.hash.slice(1),a=ARTICLES.find(x=>x.id===h);if(a&&a.body)location.replace("article.html?a="+h);else open(h,false)}
 </script>
 </body>
 </html>
