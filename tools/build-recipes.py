@@ -7,7 +7,8 @@
 Writes data/recipes.json (the searchable index: name, kind of food, cuisine, skill level, ingredients)
 plus data/recipes/wb-0.json ... wb-31.json (Wikibooks recipe details, loaded only when one is opened).
 
-    python tools/build-recipes.py
+    python tools/build-recipes.py                (full rebuild)
+    python tools/build-recipes.py --photos-only  (just refresh the Wikipedia dish photos)
 
 About 120 requests, a second apart. Runs with the monthly update.
 """
@@ -211,6 +212,90 @@ def wikibooks():
     return out
 
 
+# Wikibooks photos are home snapshots, and most recipes have none. Wikipedia's article on the dish nearly always
+# leads with a good photo picked by its editors, so use that when the dish has an article that is about food.
+WP = "https://en.wikipedia.org/w/api.php?format=json&formatversion=2&"
+FOODY = re.compile(r"\b(dish|dishes|food|foods|cuisine|cake|cakes|bread|breads|soup|sauce|dessert|pastry|pastries|salad|drink|beverage|cocktail|stew|"
+                   r"sandwich|cookie|biscuit|pie|condiment|snack|noodle|pasta|rice|meat|chicken|fish|cheese|vegetable|fruit|confection|candy|porridge|"
+                   r"pancake|dumpling|curry|spice|herb|wine|beer|tea|coffee|liqueur|egg|dip|spread|sausage|bean|legume|cooking|baked|fried|meal|"
+                   r"breakfast|seafood|pudding|custard|tart|bun|flatbread|dough|frosting|icing|jam|pickle|relish|marinade|dressing|seasoning|"
+                   r"casserole|omelette|roast|kebab|taco|burrito|pizza|chutney|syrup|smoothie|juice|punch|lemonade|milk|yogurt|butter|cracker|"
+                   r"muffin|scone|waffle|crepe|fritter|patty|salsa|gravy|broth|chowder|risotto|stir|steak|pork|beef|lamb|mutton|duck|shrimp|prawn|"
+                   r"crab|lobster|oyster|clam|mussel|squid|octopus|tofu|lentil|grain|cereal|flour|nut|almond|chocolate|caramel|ice cream|sorbet|"
+                   r"preserve|appetizer|hors|street food|staple|delicacy|specialty|speciality)\b", re.I)
+
+# lead photos that show the plant, the place or the market rather than the food
+NOT_FOOD_PIC = re.compile(r"(plant|tree|leaf|leaves|flower|blossom|field|map|logo|market|harvest|farm|portrait|statue|seed|crop|orchard|vendor|stall)", re.I)
+
+
+def wiki_candidates(name):
+    n = re.sub(r"\s+(I|II|III|IV|V|VI|VII|VIII|IX|X|\d+)$", "", name.strip())
+    out = []
+    m = re.match(r"^(.*?)\s*\((.*?)\)\s*$", n)
+    parts = [m.group(1), m.group(2)] if m else [n]
+    for part in parts:
+        part = part.strip(" -")
+        if not part or len(part) > 60:
+            continue
+        for t in (part, part[0].upper() + part[1:].lower()):
+            if t not in out:
+                out.append(t)
+    return out
+
+
+def wiki_photos(items):
+    """Point each Wikibooks recipe at its Wikipedia dish photo when there is one. Returns how many changed."""
+    want = {}
+    for x in items:
+        if str(x["i"]).startswith("wb"):
+            for t in wiki_candidates(x["n"]):
+                want.setdefault(t, [])
+    titles, found = list(want), {}
+    for i in range(0, len(titles), 50):
+        batch = titles[i:i + 50]
+        url = WP + "action=query&prop=pageimages|description|pageprops&piprop=thumbnail|name&pithumbsize=640&pilicense=any&ppprop=disambiguation&redirects=1&titles=" + \
+            urllib.parse.quote("|".join(batch))
+        data = get_json(url)
+        time.sleep(0.5)
+        if not data or "query" not in data:
+            continue
+        q = data["query"]
+        alias = {}
+        for k in ("normalized", "redirects"):
+            for r in q.get(k, []):
+                # a redirect into one section of a bigger article would bring that article's photo, not this dish
+                alias[r["from"]] = None if r.get("tofragment") else r["to"]
+        pages = {pg["title"]: pg for pg in q.get("pages", [])}
+        for t in batch:
+            tt = t
+            for _ in range(3):
+                tt = alias.get(tt, tt) if tt else None
+            pg = pages.get(tt) if tt else None
+            if not pg or pg.get("missing") or "disambiguation" in pg.get("pageprops", {}):
+                continue
+            th, img = pg.get("thumbnail", {}).get("source", ""), pg.get("pageimage", "")
+            if not th or not re.search(r"\.jpe?g$", img, re.I):
+                continue
+            if not FOODY.search(pg.get("description", "")) or NOT_FOOD_PIC.search(img):
+                continue
+            found[t] = (th, img)
+        print("  wikipedia photos: %d/%d titles checked, %d found" % (min(i + 50, len(titles)), len(titles), len(found)), file=sys.stderr)
+    changed = 0
+    for x in items:
+        if not str(x["i"]).startswith("wb"):
+            continue
+        for t in wiki_candidates(x["n"]):
+            if t in found:
+                th, img = found[t]
+                if x.get("t") != th:
+                    changed += 1
+                x["t"], x["f"] = th, img
+                break
+        else:
+            x.pop("f", None)
+    return changed
+
+
 def main():
     md = mealdb()
     wb = wikibooks()
@@ -247,6 +332,7 @@ def main():
     for i, b in enumerate(buckets):
         (DETAIL / ("wb-%d.json" % i)).write_text(json.dumps(b, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
     items.sort(key=lambda x: x["n"].lower())
+    print("Wikipedia photos:", wiki_photos(items), "recipes updated")
 
     cats = sorted({x["c"] for x in items if x["c"]})
     areas = sorted({x["a"] for x in items if x["a"]})
@@ -256,5 +342,13 @@ def main():
     print("done:", len(items), "recipes (TheMealDB %d, Wikibooks %d)" % (len(md), len(wb)), counts, "|", len(cats), "kinds,", len(areas), "cuisines")
 
 
+def photos_only():
+    d = json.loads(OUT.read_text(encoding="utf-8"))
+    n = wiki_photos(d["recipes"])
+    OUT.write_text(json.dumps(d, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
+    have = sum(1 for x in d["recipes"] if x.get("t"))
+    print("updated", n, "photos;", have, "of", len(d["recipes"]), "recipes now have one")
+
+
 if __name__ == "__main__":
-    main()
+    photos_only() if "--photos-only" in sys.argv else main()

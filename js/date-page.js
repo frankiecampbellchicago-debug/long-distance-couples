@@ -222,7 +222,7 @@
       group("Type of dish", index.categories, "c:", x => x === "Miscellaneous" ? "Something different" : x);
       group("Cuisine", index.areas.slice().sort((a, b) => nice(a).localeCompare(nice(b))), "a:", nice);
     });
-    const asMeal = r => ({ idMeal: r.i, strMeal: r.n, strCategory: r.c, strArea: r.a, strMealThumb: r.t, skill: r.k, ni: r.ni, ns: r.ns });
+    const asMeal = r => ({ idMeal: r.i, strMeal: r.n, strCategory: r.c, strArea: r.a, strMealThumb: r.t, photoFile: r.f, skill: r.k, ni: r.ni, ns: r.ns });
     // Wikibooks recipes ("wb123") are saved in data/recipes/wb-N.json; TheMealDB ones load from TheMealDB
     const buckets = {};
     async function fullRecipe(m) {
@@ -241,6 +241,8 @@
       return full ? Object.assign(full, extra) : null;
     }
 
+    // best photos first: TheMealDB's styled shots, then Wikipedia's dish photos, then home snapshots from Wikibooks
+    const pic = r => !r.t ? 0 : /themealdb/.test(r.t) ? 3 : r.f ? 2 : 1;
     // recipes that match what's typed and picked, best matches first
     function matches(q) {
       const kindV = $("recipeKind").value, skill = $("recipeSkill").value;
@@ -257,7 +259,7 @@
           score += hit;
         }
         return { r, score };
-      }).filter(Boolean).sort((a, b) => b.score - a.score || (b.r.t ? 1 : 0) - (a.r.t ? 1 : 0) || a.r.n.localeCompare(b.r.n)).map(x => x.r);
+      }).filter(Boolean).sort((a, b) => b.score - a.score || pic(b.r) - pic(a.r) || a.r.n.localeCompare(b.r.n)).map(x => x.r);
     }
     const describe = q => {
       const k = $("recipeKind"), sk = $("recipeSkill").value;
@@ -305,7 +307,8 @@
         let m;
         if (index) {
           // a surprise that still fits the kind of food and skill level you picked
-          const pool = matches($("recipeQ").value.trim());
+          const all = matches($("recipeQ").value.trim()), good = all.filter(r => pic(r) >= 2);
+          const pool = good.length >= 5 ? good : all;  // prefer ones with a good photo when there are enough
           if (!pool.length) { status("Nothing fits those choices. Change the kind of food or skill level and try again.", true); return; }
           m = asMeal(pool[Math.floor(Math.random() * pool.length)]);
           m = (await fullRecipe(m)) || m;
@@ -330,10 +333,6 @@
 
     const kind = m => [nice(m.strArea || ""), m.strCategory].filter(x => x && x !== "Unknown").join(" \u00b7 ");
     const SKILL = { easy: "Easy", medium: "Medium", hard: "Hard" };
-    // shown when a recipe has no photo
-    const FOOD = { Dessert: "\u{1F370}", Soup: "\u{1F372}", Drinks: "\u{1F964}", Chicken: "\u{1F357}", Beef: "\u{1F969}", Seafood: "\u{1F41F}", Pasta: "\u{1F35D}",
-      Bread: "\u{1F35E}", Salad: "\u{1F957}", Breakfast: "\u{1F373}", Vegetarian: "\u{1F966}", Vegan: "\u{1F331}", Pork: "\u{1F953}", Lamb: "\u{1F356}", Goat: "\u{1F356}",
-      Side: "\u{1F35A}", Starter: "\u{1F95F}", "Sauces & dips": "\u{1F96B}" };
     function skillTag(li, m) {
       if (!m.skill) return;
       const t = document.createElement("span");
@@ -346,7 +345,7 @@
       li.className = "recipe";
       li.innerHTML = '<div class="rpic"><img alt="" loading="lazy"></div><div class="rbody"><h4></h4><p class="rkind"></p><div class="ractions"><button type="button" class="btn">See the recipe</button></div></div>';
       const img = li.querySelector("img"), thumb = m.strMealThumb || "";
-      const noPic = () => { const pic = li.querySelector(".rpic"); pic.classList.add("none"); pic.textContent = FOOD[m.strCategory] || "\u{1F37D}\uFE0F"; pic.setAttribute("aria-hidden", "true"); };
+      const noPic = () => { const pic = li.querySelector(".rpic"); pic.classList.add("none"); pic.innerHTML = window.dateIcon ? window.dateIcon("pan", "", "together") : ""; pic.setAttribute("aria-hidden", "true"); };
       if (!thumb) noPic();
       else if (/themealdb/.test(thumb)) { img.src = thumb + "/medium"; img.onerror = () => { img.onerror = noPic; img.src = thumb; }; }
       else { img.src = thumb; img.onerror = noPic; }
@@ -409,6 +408,12 @@
         c.className = "rcredit";
         c.innerHTML = 'Recipe from the <a target="_blank" rel="noopener">Wikibooks Cookbook</a>, shared under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.';
         c.querySelector("a").href = m.wiki;
+        if (m.photoFile) {
+          const a = document.createElement("a");
+          a.href = "https://commons.wikimedia.org/wiki/File:" + encodeURIComponent(m.photoFile.replace(/ /g, "_"));
+          a.target = "_blank"; a.rel = "noopener"; a.textContent = "Wikimedia Commons";
+          c.append(" Photo from Wikipedia, via ", a, ".");
+        }
         full.appendChild(c);
       }
     }
