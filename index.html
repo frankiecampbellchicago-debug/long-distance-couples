@@ -63,13 +63,22 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
-.top{--line:rgba(47,36,27,.3);color:var(--ink);min-height:100svh;display:flex;flex-direction:column;
-  background:linear-gradient(rgba(244,233,214,.6),rgba(244,233,214,.6)),url("images/hero-blur.jpg") center/cover no-repeat #efe2c8}
+/* the postcard photo fills the whole hero; a paper wash on the left keeps the headline readable */
+/* the postcard photo sits under the right of the hero and fades out to the left over a blurred copy of itself */
+.top{--line:rgba(47,36,27,.3);--photo:url("images/hero.jpg");--w:clamp(640px,62vw,1300px);
+  position:relative;isolation:isolate;color:var(--ink);min-height:min(100svh,920px);display:flex;flex-direction:column;
+  background:linear-gradient(rgba(244,233,214,.55),rgba(244,233,214,.55)),url("images/hero-blur.jpg") center/cover no-repeat #efe2c8}
+@supports (background-image:image-set(url("a.webp") type("image/webp"))){.top{--photo:image-set(url("images/hero.webp") type("image/webp"),url("images/hero.jpg") type("image/jpeg"))}}
+.top::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(244,233,214,.82) 0,rgba(244,233,214,0) 120px),var(--photo) right 0 top 38%/var(--w) auto no-repeat;
+  -webkit-mask-image:linear-gradient(90deg,transparent calc(100% - var(--w)),#000 calc(100% - var(--w) * .62));
+          mask-image:linear-gradient(90deg,transparent calc(100% - var(--w)),#000 calc(100% - var(--w) * .62))}
+@media (max-width:860px){.top::before{background:linear-gradient(180deg,rgba(244,233,214,.96) 0%,rgba(244,233,214,.9) 45%,rgba(244,233,214,.15) 75%,rgba(244,233,214,0) 100%),var(--photo) 50% 42%/cover no-repeat;-webkit-mask-image:none;mask-image:none}}
 .top .hero{flex:1;display:flex}
 .top .btn.ghost{background:rgba(251,245,233,.6)}
-.hero .wrap{flex:1;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;padding-block:16px 40px}
-.heroimg{display:block;height:calc(100svh - 150px);min-height:360px;max-height:760px;width:auto;max-width:100%;border-radius:2px;box-shadow:0 1px 2px rgba(47,36,27,.2)}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:28px}.heroimg{height:auto;min-height:0;width:100%;max-width:520px}}
+.hero .wrap{flex:1;display:grid;align-items:center;padding-block:16px 56px}
+.herotext{max-width:560px}
+@media (max-width:860px){.hero .wrap{align-items:start;padding-block:28px 52svh}}
 .herotext{position:relative;z-index:1}
 .hero h1{font-size:clamp(40px,min(7vw,11svh),92px);margin-block:0 22px}
 .hero h1 em{font-style:normal;color:var(--red)}
@@ -393,7 +402,6 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <p class="lede">Dates, deep talks, and a countdown to your next visit.</p>
     <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See what's inside</a></div>
   </div>
-  <picture><source srcset="images/hero.webp" type="image/webp"><img class="heroimg" src="images/hero.jpg" width="1122" height="1402" alt="A vintage postcard reading Love is in the air, on airmail envelopes under a map with a plane tracing a heart"></picture>
 </div></header>
 </div>
 
