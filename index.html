@@ -488,21 +488,41 @@ section.band{padding-block:80px}
 @keyframes postIn{from{opacity:0;transform:translateY(14px)}}
 
 /* pricing */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
-@media (max-width:860px){.plans{grid-template-columns:1fr}}
-.plan{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:28px;display:flex;flex-direction:column;gap:16px}
-.plan.feat{border:2px solid var(--blue);box-shadow:0 1px 2px rgba(47,36,27,.2)}
-.plan h3{font-size:26px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.price{font:700 36px var(--mono);font-variant-numeric:tabular-nums}
-.price small{font:14px var(--body);color:var(--muted)}
-.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;flex:1}
-.plan li{padding-left:22px;position:relative;font-size:15px}
-.plan li::before{content:"✓";position:absolute;left:0;color:var(--blue);font-weight:700}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:center}
+@media (max-width:860px){.plans{grid-template-columns:1fr;max-width:520px;margin-inline:auto}}
+.plan{position:relative;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s}
+.plan:hover{transform:translateY(-5px);box-shadow:0 18px 28px -18px rgba(90,45,20,.55)}
+.ptile{position:relative;height:118px;background:var(--tile);display:grid;place-items:center;overflow:hidden}
+.ptile::after{content:"";position:absolute;inset:auto -12% -55% auto;width:55%;aspect-ratio:1;border-radius:50%;background:rgba(253,246,235,.28)}
+.ptile .clay{--sz:70px;position:relative;z-index:1;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.plan:hover .ptile .clay{transform:rotate(-9deg) scale(1.08)}
+.pbody2{display:flex;flex-direction:column;gap:16px;padding:24px 26px 28px;flex:1}
+.plan .ptag{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tag)}
+.plan h3{font-size:30px;margin-top:-8px}
+.price{font:600 46px/1 var(--display);font-variant-numeric:lining-nums;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price small{font:600 14px var(--body);color:var(--muted)}
+.plan ul{margin:0;padding:16px 0 0;border-top:1px solid var(--line);list-style:none;display:grid;gap:10px;flex:1}
+.plan li{padding-left:28px;position:relative;font-size:15px}
+.plan li::before{content:"";position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;
+  background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fdf3e4' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
 .plan li.no{color:var(--muted)}
-.plan li.no::before{content:"–";color:var(--muted)}
-.plan .btn{justify-content:center}
-.book{display:flex;gap:16px;align-items:center}
-.cover{flex:none;width:70px;height:96px;border-radius:2px;background:var(--red);color:var(--card);font:600 11px/1.2 var(--display);padding:8px;display:flex;align-items:end;box-shadow:inset 6px 0 0 rgba(0,0,0,.18)}
+.plan li.no::before{background:var(--line) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a6a5c' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M7 12h10'/%3E%3C/svg%3E") center/12px no-repeat}
+.plan .btn{justify-content:center;margin-top:4px}
+.plan.feat{background:#8f3f22;border-color:#8f3f22;color:var(--onblue);box-shadow:0 22px 34px -20px rgba(90,45,20,.7);transform:scale(1.03)}
+.plan.feat:hover{transform:scale(1.03) translateY(-5px)}
+.plan.feat .ptag{color:#fde3cf}
+.plan.feat .price small,.plan.feat li{color:rgba(253,243,228,.88)}
+.plan.feat ul{border-color:rgba(253,243,228,.22)}
+.plan.feat li::before{background-color:#fde3cf;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238f3f22' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E")}
+.plan.feat .btn{background:#fdf3e4;color:#8f3f22}
+.plan.feat .btn:hover{background:#fff;filter:none}
+.plan .ribbon{position:absolute;top:14px;right:14px;z-index:2;background:#fde3cf;color:#7a3219;padding:5px 11px;border-radius:2px;font:800 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.plan .cover{position:relative;z-index:1;width:66px;height:90px;border-radius:2px 4px 4px 2px;background:linear-gradient(160deg,#c9714f,#8f3f22);color:#fdf3e4;
+  font:600 12px/1.15 var(--display);padding:9px 8px;display:flex;align-items:end;box-shadow:inset 6px 0 0 rgba(0,0,0,.16),0 10px 18px -8px rgba(90,45,20,.6);transform:rotate(-4deg);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.plan:hover .cover{transform:rotate(3deg) scale(1.06)}
+@media (max-width:860px){.plan.feat,.plan.feat:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.plan,.ptile .clay,.plan .cover{transition:none}}
 
 footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted)}
 </style>
@@ -820,42 +840,55 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 <section class="band" id="pricing" style="padding-top:0"><div class="wrap">
   <div class="sechead"><span class="eyebrow">Pricing</span><h2>Start free. Upgrade when you're ready.</h2><p>One Plus subscription covers both of you.</p></div>
   <div class="plans">
-    <div class="plan">
-      <h3>Free</h3>
-      <div class="price">$0</div>
-      <ul>
-        <li>Visit countdown</li>
-        <li>2 interactive dates a month</li>
-        <li>150 Deep Talks questions in 3 topics</li>
-        <li>Date ideas starter list</li>
-        <li>Free articles</li>
-        <li class="no">Includes ads</li>
-      </ul>
-      <a class="btn ghost" href="#join">Get started</a>
+    <div class="plan k-together">
+      <div class="ptile" data-icon="heart" data-wash="together"></div>
+      <div class="pbody2">
+        <span class="ptag">For trying it out</span>
+        <h3>Free</h3>
+        <div class="price">$0 <small>forever</small></div>
+        <ul>
+          <li>Visit countdown</li>
+          <li>2 interactive dates a month</li>
+          <li>150 Deep Talks questions in 3 topics</li>
+          <li>Date ideas starter list</li>
+          <li>Free articles</li>
+          <li class="no">Includes ads</li>
+        </ul>
+        <a class="btn ghost" href="#join">Get started</a>
+      </div>
     </div>
-    <div class="plan feat">
-      <h3>Plus <span class="pill">Most popular</span></h3>
-      <div class="price">$7.99 <small>/ month per couple</small></div>
-      <ul>
-        <li>Unlimited arcade and restaurant dates</li>
-        <li>All 6 Deep Talks topics (300 questions)</li>
-        <li>200+ date ideas, with new ones every month</li>
-        <li>Fare alerts and the shared trip board</li>
-        <li>All Plus articles</li>
-        <li>No ads</li>
-      </ul>
-      <a class="btn" href="#join">Try Plus free for 7 days</a>
+    <div class="plan feat k-plus">
+      <span class="ribbon">Most popular</span>
+      <div class="ptile" data-icon="sparkle" data-wash="plus"></div>
+      <div class="pbody2">
+        <span class="ptag">For both of you</span>
+        <h3>Plus</h3>
+        <div class="price">$7.99 <small>/ month per couple</small></div>
+        <ul>
+          <li>Unlimited arcade and restaurant dates</li>
+          <li>All 6 Deep Talks topics (300 questions)</li>
+          <li>200+ date ideas, with new ones every month</li>
+          <li>Fare alerts and the shared trip board</li>
+          <li>All Plus articles</li>
+          <li>No ads</li>
+        </ul>
+        <a class="btn" href="#join">Try Plus free for 7 days</a>
+      </div>
     </div>
-    <div class="plan">
-      <h3>The Book</h3>
-      <div class="book"><div class="cover">Closer Than It Looks</div><div class="price">$14.99 <small>one time</small></div></div>
-      <ul>
-        <li><em>Closer Than It Looks</em>: the complete guide to long-distance love</li>
-        <li>12 chapters, from the first goodbye to closing the distance</li>
-        <li>Ebook and PDF, yours to keep</li>
-        <li>Free with a yearly Plus plan</li>
-      </ul>
-      <a class="btn ghost" href="#join">Buy the book</a>
+    <div class="plan k-table">
+      <div class="ptile"><div class="cover">Closer Than It Looks</div></div>
+      <div class="pbody2">
+        <span class="ptag">Yours to keep</span>
+        <h3>The Book</h3>
+        <div class="price">$14.99 <small>one time</small></div>
+        <ul>
+          <li><em>Closer Than It Looks</em>: the complete guide to long-distance love</li>
+          <li>12 chapters, from the first goodbye to closing the distance</li>
+          <li>Ebook and PDF, yours to keep</li>
+          <li>Free with a yearly Plus plan</li>
+        </ul>
+        <a class="btn ghost" href="#join">Buy the book</a>
+      </div>
     </div>
   </div>
 </div></section>
@@ -1038,7 +1071,7 @@ qEl("swapT").addEventListener("click",()=>{first=1-first;showQ();const t=qEl("tu
 showQ();renderSaved();
 
 // articles: clay icons on the tiles, show a couple, the rest on "View more"
-document.querySelectorAll(".post .thumb[data-icon]").forEach(t=>{if(window.dateIcon)t.insertAdjacentHTML("beforeend",window.dateIcon(t.dataset.icon,"",t.dataset.wash))});
+document.querySelectorAll(".post .thumb[data-icon],.ptile[data-icon]").forEach(t=>{if(window.dateIcon)t.insertAdjacentHTML("beforeend",window.dateIcon(t.dataset.icon,"",t.dataset.wash))});
 document.getElementById("moreArticles").addEventListener("click",e=>{const b=e.currentTarget,open=b.getAttribute("aria-expanded")!=="true";
   document.querySelectorAll(".post.extra").forEach(a=>a.hidden=!open);b.setAttribute("aria-expanded",open);b.textContent=open?"Show fewer":"View more articles";
   if(!open)document.getElementById("articles").scrollIntoView({block:"start"})});
