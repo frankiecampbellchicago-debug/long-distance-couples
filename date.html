@@ -13,7 +13,7 @@
 :root{
   color-scheme:light;
   --paper:#f4e9d4;--paper2:#ecdcbf;--card:#fbf5e9;--ink:#2f241b;--muted:#6b5848;--line:#d9c6a5;
-  --red:#a8362f;--rose:#c98b84;--blue:#2c4a7a;--onblue:#fbf5e9;--sky:#9fb4c8;--sage:#7f8f6c;--gold:#c3954e;--navy:#22344f;--stamp:#ebe0c9;
+  --red:#a8362f;--rose:#c98b84;--blue:#b4532f;--onblue:#fdf3e4;--sky:#9fb4c8;--sage:#7f8f6c;--gold:#c3954e;--navy:#5d7799;--stamp:#ebe0c9;
   --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --body:"Nunito Sans", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"Nunito Sans", "Avenir Next", ui-monospace, Consolas, monospace;
@@ -30,7 +30,7 @@ a{color:inherit}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:3px;padding:12px 22px;font:600 15px var(--body);cursor:pointer;text-decoration:none;background:var(--blue);color:var(--onblue)}
 .btn:hover{filter:brightness(1.1)}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.btn.red{background:var(--red);color:var(--card)}
+.btn.red{background:var(--blue);color:var(--onblue)}
 .btn:disabled{opacity:.5;cursor:progress}
 .btn:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 
@@ -38,8 +38,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .logo{font:600 24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none}
 .back{font-weight:600;font-size:15px;color:var(--terra);text-decoration:none}
 /* nav picks up the hero art: terracotta house, coral ribbon, dusty-blue house */
-nav{--terra:#b4532f;--blue:#6a84a6;--red:#ea6a4f}
-nav .btn{background:var(--terra);color:#fdf3e4}
+nav:not(.more){--terra:#b4532f;--blue:#6a84a6;--red:#ea6a4f}
+nav:not(.more) .btn{background:var(--terra);color:#fdf3e4}
 nav .btn:hover{background:#9c4426}
 
 .back:hover{text-decoration:underline}
@@ -198,7 +198,7 @@ nav .btn:hover{background:#9c4426}
 @media (max-width:480px){.fform.esform{grid-template-columns:1fr}.fform.esform .btn{width:100%}}
 .esc img{aspect-ratio:460/215}
 .escart{aspect-ratio:460/215;background:var(--blue);color:var(--onblue);display:grid;place-content:center;justify-items:center;gap:4px;padding:12px;text-align:center}
-.escart.browser{background:linear-gradient(135deg,var(--navy),var(--blue))}
+.escart.browser{background:linear-gradient(135deg,#8a3b20,var(--blue))}
 .escart small{font:700 11px var(--mono);color:var(--sky);letter-spacing:.06em}
 .escart span{font:700 11px var(--mono);letter-spacing:.2em;color:var(--sky)}
 .escart b{font:600 24px/1.1 var(--display)}

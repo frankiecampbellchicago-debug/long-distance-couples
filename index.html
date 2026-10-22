@@ -22,12 +22,12 @@
   --line:#d9c6a5;    /* pencil rule */
   --red:#a8362f;     /* postmark red: hearts, highlights */
   --rose:#c98b84;    /* rose stamp */
-  --blue:#2c4a7a;    /* airmail navy: buttons, links */
-  --onblue:#fbf5e9;
+  --blue:#b4532f;    /* terracotta, from the hero art: buttons, links */
+  --onblue:#fdf3e4;
   --sky:#9fb4c8;     /* watercolor sky */
   --sage:#7f8f6c;    /* map green */
   --gold:#c3954e;    /* brass / old gold */
-  --navy:#22344f;    /* night airmail: dark bands */
+  --navy:#5d7799;    /* dusty blue, the second house in the hero art */
   --stamp:#ebe0c9;   /* tinted panel */
   --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --body:"Nunito Sans", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -61,11 +61,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .navlinks a:hover{color:var(--terra)}
 .navlinks a.btn{color:#fdf3e4}
 /* nav picks up the hero art: terracotta house, coral ribbon, dusty-blue house */
-nav{--terra:#b4532f;--blue:#6a84a6;--red:#ea6a4f}
-nav .btn{background:var(--terra);color:#fdf3e4}
+nav:not(.more){--terra:#b4532f;--blue:#6a84a6;--red:#ea6a4f}
+nav:not(.more) .btn{background:var(--terra);color:#fdf3e4}
 nav .btn:hover{background:#9c4426}
-.hero .btn:not(.ghost){background:#b4532f;color:#fdf3e4}
-.hero .btn:not(.ghost):hover{background:#9c4426}
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
 
 /* hero */
@@ -140,7 +138,7 @@ nav .btn:hover{background:#9c4426}
 .fbtns{display:flex;flex-wrap:wrap;gap:8px}
 .fbtns .btn{padding:11px 18px;font-size:14px}
 .fbtns a[aria-disabled="true"]{opacity:.45;pointer-events:none}
-.wbtn{background:var(--red);color:var(--card);justify-self:start}
+.wbtn{background:var(--blue);color:var(--onblue);justify-self:start}
 .wbtn:disabled{opacity:.45;cursor:not-allowed}
 .watch{border-top:1px dashed var(--line);padding-top:14px;display:grid;gap:10px}
 .watch h4{margin:0;font:600 18px var(--display);font-weight:400}
@@ -279,7 +277,7 @@ section.band{padding-block:80px}
 .join p{color:var(--muted);margin-top:12px;font-size:17px}
 .join form{display:grid;gap:12px}
 .join input{font:16px var(--body);padding:14px 16px;border-radius:2px;border:1px solid var(--line);width:100%;background:var(--card);color:var(--ink)}
-.join .btn{background:var(--red);color:var(--card);justify-content:center}
+.join .btn{background:var(--blue);color:var(--onblue);justify-content:center}
 .join .note{font-size:13px;color:var(--muted)}
 .join .done{background:var(--card);border:1px solid var(--line);padding:16px;border-radius:2px}
 
