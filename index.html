@@ -369,21 +369,72 @@ section.band{padding-block:80px}
 .bigcd span{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .cdcaption{grid-column:1/-1;font:13px var(--mono);color:var(--red);text-align:center;margin-top:6px}
 
-/* deep talks */
-.talks{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start}
-@media (max-width:760px){.talks{grid-template-columns:1fr}}
-.cats{display:grid;gap:8px}
-.cat{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;font:600 15px var(--body);color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:2px;padding:12px 14px;cursor:pointer}
-.cat[aria-pressed="true"]{border-color:var(--blue);background:var(--stamp)}
-.pill{font:700 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--red);color:var(--card);white-space:nowrap}
-.pill.free{background:transparent;color:var(--muted);border:1px solid var(--line)}
-.qcard{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:clamp(24px,4vw,44px);min-height:280px;display:grid;gap:22px;align-content:space-between;position:relative;overflow:hidden;min-width:0}
-.qcard .qnum{font:700 12px var(--mono);color:var(--muted);letter-spacing:.1em}
-.qcard .q{font:clamp(24px,3.4vw,36px)/1.25 var(--display);text-wrap:balance}
-.qcard .actions{display:flex;gap:10px;flex-wrap:wrap}
-.qcard.locked .q{filter:blur(7px);user-select:none}
-.lockmsg{position:absolute;inset:auto 24px 24px 24px;background:var(--stamp);border-radius:2px;padding:16px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.lockmsg p{font-size:15px}
+/* deep talks: topic tiles, a deck of question cards in the topic's colors, turns, and a saved list */
+.tpics{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:26px}
+@media (max-width:1000px){.tpics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.tpics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.tpc{position:relative;display:grid;justify-items:start;gap:10px;padding:14px 14px 12px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;
+  background:var(--tile);border:0;border-radius:4px;box-shadow:0 2px 4px rgba(90,45,20,.1);transition:transform .2s ease-out,box-shadow .2s}
+.tpc .clay{--sz:48px;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.tpc:hover{transform:translateY(-4px);box-shadow:0 16px 24px -16px rgba(90,45,20,.5)}
+.tpc:hover .clay{transform:rotate(-10deg) scale(1.06)}
+.tpc[aria-pressed="true"]{outline:3px solid var(--blue);outline-offset:3px;transform:translateY(-4px)}
+.tpc:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.tpc b{font:600 19px/1.15 var(--display)}
+.tpc small{font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--tag)}
+.tpc .lock{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:rgba(253,246,235,.92);color:var(--blue);display:grid;place-items:center}
+.tpc .lock svg{width:13px;height:13px}
+.talks2{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start}
+@media (max-width:860px){.talks2{grid-template-columns:1fr}}
+.qdeck{position:relative;padding:14px 16px 18px;outline:none}
+.qdeck::before,.qdeck::after{content:"";position:absolute;inset:14px 16px 18px;border-radius:4px;background:var(--tile);transition:transform .35s ease}
+.qdeck::before{transform:rotate(-3.2deg) translate(-6px,6px);opacity:.75}
+.qdeck::after{transform:rotate(2.4deg) translate(8px,4px)}
+.qc{position:relative;z-index:1;display:grid;gap:20px;align-content:space-between;min-height:300px;padding:clamp(22px,3.5vw,36px);background:var(--card);border:1px solid var(--line);border-radius:4px;
+  box-shadow:0 18px 30px -20px rgba(90,45,20,.45);transition:transform .22s ease,opacity .22s ease}
+.qc.out-r{transform:translateX(70px) rotate(7deg);opacity:0}
+.qc.out-l{transform:translateX(-70px) rotate(-7deg);opacity:0}
+.qc.in{animation:qin .34s cubic-bezier(.2,.8,.3,1)}
+@keyframes qin{from{transform:translateY(16px) scale(.97);opacity:0}}
+.qc-top{display:flex;align-items:center;gap:12px}
+.qc-top .clay{--sz:46px}
+.qc-cat{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tag)}
+.qc-num{margin-left:auto;font:700 12px var(--mono);color:var(--muted)}
+.qc .q{margin:0;font:600 clamp(25px,3.3vw,36px)/1.22 var(--display);text-wrap:balance}
+.qc-foot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.turn.pop{animation:pop .45s cubic-bezier(.3,1.8,.5,1)}
+.turn{display:inline-block;font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;background:var(--tile);color:var(--ink);padding:6px 11px;border-radius:3px}
+.qc-save{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--blue);display:grid;place-items:center;cursor:pointer}
+.qc-save svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.qc-save[aria-pressed="true"] svg{fill:currentColor}
+.qc-save.pop svg{animation:pop .45s cubic-bezier(.3,1.8,.5,1)}
+.qc.locked .q{filter:blur(8px);user-select:none}
+.qc.locked .qc-foot{visibility:hidden}
+.lockmsg{position:absolute;inset:auto 0 0 0;z-index:2;display:grid;justify-items:start;gap:12px;padding:20px clamp(22px,3.5vw,36px) 24px;background:linear-gradient(transparent,var(--card) 26%)}
+.lockmsg p{margin:0;font-size:15px}
+.qctrl button:disabled{opacity:.4;cursor:not-allowed}
+.qctrl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;padding-inline:16px}
+.qbar{flex:1 1 120px;height:4px;background:var(--line);border-radius:3px;overflow:hidden}
+.qbar span{display:block;height:100%;width:0;background:var(--blue);transition:width .3s ease}
+.round{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center}
+.round:hover{border-color:var(--blue);color:var(--blue)}
+.round:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.qside{display:grid;gap:18px}
+.qpanel{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px 20px;display:grid;gap:10px}
+.qpanel h3{font-size:22px;display:flex;align-items:baseline;gap:8px}
+.qpanel h3 span{font:700 12px var(--mono);color:var(--muted)}
+.qpanel p{margin:0;font-size:14px;color:var(--muted)}
+.tnames{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tnames label{display:grid;gap:4px;font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tnames input{font:15px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:8px 10px;width:100%;min-width:0}
+.qsaved{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-height:300px;overflow:auto}
+.qsaved li{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-size:14px;line-height:1.4}
+.qsaved li small{grid-column:1;font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.qsaved li span{grid-column:1}
+.qsaved li button{grid-column:2;grid-row:1/span 2;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:2px 4px}
+.qsaved li button:hover{color:var(--blue)}
+.qsaved .none{display:block;background:none;border:1px dashed var(--line);color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.qc,.tpc,.tpc .clay,.qdeck::before,.qdeck::after{transition:none;animation:none}}
 
 /* articles */
 .ad{border:1px dashed var(--muted);border-radius:2px;display:grid;place-items:center;text-align:center;color:var(--muted);gap:4px;padding:18px;background:repeating-linear-gradient(135deg,transparent 0 10px,color-mix(in srgb,var(--line) 35%,transparent) 10px 11px)}
@@ -490,20 +541,42 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <h2>Questions for the nights you want more than "how was your day."</h2>
     <p>Pick a topic and take turns answering. Save the ones that started something good.</p>
   </div>
-  <div class="talks">
-    <div class="cats" id="cats" role="group" aria-label="Question topics"></div>
-    <div class="qcard" id="qcard">
-      <span class="qnum" id="qnum"></span>
-      <p class="q" id="q"></p>
-      <div class="actions">
-        <button class="btn" type="button" id="nextQ">Next question</button>
-        <button class="btn ghost" type="button" id="saveQ">Save for later</button>
+  <div class="tpics" id="cats" role="group" aria-label="Question topics"></div>
+  <div class="talks2">
+    <div class="tplay">
+      <div class="qdeck" id="qdeck" tabindex="0" aria-label="Question card. Left and right arrow keys move between questions.">
+        <article class="qc" id="qcard">
+          <header class="qc-top"><span id="qIcon"></span><span class="qc-cat" id="qCat"></span><span class="qc-num" id="qnum"></span></header>
+          <p class="q" id="q" aria-live="polite"></p>
+          <footer class="qc-foot"><span class="turn" id="turn"></span><button class="qc-save" type="button" id="saveQ" aria-pressed="false"></button></footer>
+          <div class="lockmsg" id="lockmsg" hidden>
+            <p><strong>This topic is part of Love Is In The Air Plus.</strong><br>Unlock 150 more questions across three more topics.</p>
+            <a class="btn" href="#pricing">See Plus</a>
+          </div>
+        </article>
       </div>
-      <div class="lockmsg" id="lockmsg" hidden>
-        <p><strong>This topic is part of Love Is In The Air Plus.</strong><br>Unlock 150 more questions across three more topics.</p>
-        <a class="btn" href="#pricing">See Plus</a>
+      <div class="qctrl">
+        <button class="round" type="button" id="prevQ" aria-label="Previous question">&#8592;</button>
+        <button class="btn" type="button" id="nextQ">Next question</button>
+        <button class="btn ghost" type="button" id="shufQ">Shuffle</button>
+        <div class="qbar" aria-hidden="true"><span id="qbar"></span></div>
       </div>
     </div>
+    <aside class="qside">
+      <div class="qpanel">
+        <h3>Take turns</h3>
+        <p>The card says whose turn it is to answer, and it switches every question.</p>
+        <div class="tnames">
+          <label>You<input id="nameMe" type="text" maxlength="20" placeholder="You"></label>
+          <label>Them<input id="nameThem" type="text" maxlength="20" placeholder="Jordan"></label>
+        </div>
+        <button class="linkbtn" type="button" id="swapT" style="justify-self:start">Switch who goes first</button>
+      </div>
+      <div class="qpanel">
+        <h3>Saved <span id="savedN"></span></h3>
+        <ul class="qsaved" id="savedList" aria-label="Saved questions"></ul>
+      </div>
+    </aside>
   </div>
 </div></section>
 
@@ -842,21 +915,54 @@ spinBtn.addEventListener("click",()=>{
 });
 build();
 
-// deep talks
-const TALKS=window.DEEP_TALKS;
-let cat="Getting closer",idx=0;
-const catsEl=document.getElementById("cats");
-Object.keys(TALKS).forEach(k=>{const b=document.createElement("button");b.type="button";b.className="cat";b.setAttribute("aria-pressed",k===cat);
- b.innerHTML="<span>"+k+"</span>"+(TALKS[k].free?'<span class="pill free">Free</span>':'<span class="pill">Plus</span>');
- b.addEventListener("click",()=>{cat=k;idx=0;catsEl.querySelectorAll(".cat").forEach(x=>x.setAttribute("aria-pressed",x===b));showQ()});catsEl.appendChild(b)});
-function showQ(){const t=TALKS[cat],card=document.getElementById("qcard");card.classList.toggle("locked",!t.free);
- document.getElementById("lockmsg").hidden=t.free;document.getElementById("nextQ").hidden=!t.free;document.getElementById("saveQ").hidden=!t.free;
- document.getElementById("q").textContent=t.q[idx%t.q.length];
- document.getElementById("qnum").textContent=cat.toUpperCase()+" · "+(t.free?"QUESTION "+((idx%t.q.length)+1)+" OF "+t.q.length:"PLUS");
- document.getElementById("saveQ").textContent="Save for later"}
-document.getElementById("nextQ").addEventListener("click",()=>{idx++;showQ()});
-document.getElementById("saveQ").addEventListener("click",e=>{e.target.textContent="Saved ✓"});
-showQ();
+// deep talks: pick a topic, flip through the deck, take turns, save the good ones
+const TALKS=window.DEEP_TALKS,TOPIC={"Getting closer":["heart","together"],"Dreams & future":["sparkle","apart"],"Just for fun":["popcorn","arcade"],
+  "Trust & hard stuff":["key","table"],"Intimacy":["moon","together"],"Money & moving":["plane","apart"]};
+const LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+const qEl=id=>document.getElementById(id),deck=qEl("qdeck"),qcard=qEl("qcard"),catsEl=qEl("cats");
+let cat="Getting closer",idx=0,first=0,savedQs=[],names={me:"",them:""};
+try{savedQs=JSON.parse(localStorage.getItem("ldr-saved-qs")||"[]")}catch(e){}
+try{names=Object.assign(names,JSON.parse(localStorage.getItem("ldr-talk-names")||"{}"))}catch(e){}
+if(!names.them){try{names.them=(JSON.parse(localStorage.getItem("halfway-visit")||"null")||{}).name||""}catch(e){}}
+qEl("nameMe").value=names.me;qEl("nameThem").value=names.them;
+const keepQ=()=>{try{localStorage.setItem("ldr-saved-qs",JSON.stringify(savedQs))}catch(e){}};
+Object.keys(TALKS).forEach(k=>{const [ic,kind]=TOPIC[k]||["heart","together"],t=TALKS[k],b=document.createElement("button");
+  b.type="button";b.className="tpc k-"+kind;b.setAttribute("aria-pressed",k===cat);
+  b.innerHTML=svgIcon(ic,"",kind)+"<b></b><small></small>"+(t.free?"":'<span class="lock" title="Plus">'+LOCK+"</span>");
+  b.querySelector("b").textContent=k;b.querySelector("small").textContent=t.free?t.q.length+" questions · Free":"Plus";
+  b.addEventListener("click",()=>{if(cat===k)return;cat=k;idx=0;catsEl.querySelectorAll(".tpc").forEach(x=>x.setAttribute("aria-pressed",x===b));swap(1)});
+  catsEl.appendChild(b)});
+const who=n=>n===0?(names.me.trim()?names.me.trim()+"'s turn":"Your turn"):((names.them.trim()||"Their")+"'s turn");
+function showQ(){const t=TALKS[cat],[ic,kind]=TOPIC[cat]||["heart","together"],n=((idx%t.q.length)+t.q.length)%t.q.length,q=t.q[n];
+  deck.className="qdeck k-"+kind;qcard.classList.toggle("locked",!t.free);
+  qEl("qIcon").innerHTML=svgIcon(ic,"",kind);qEl("qCat").textContent=cat;qEl("q").textContent=q;
+  qEl("qnum").textContent=t.free?(n+1)+" / "+t.q.length:"Plus";qEl("lockmsg").hidden=t.free;
+  ["nextQ","prevQ","shufQ"].forEach(id=>qEl(id).disabled=!t.free);
+  qEl("qbar").style.width=t.free?((n+1)/t.q.length*100)+"%":"0%";
+  qEl("turn").textContent=who((n+first)%2);
+  const on=savedQs.some(x=>x.q===q),sv=qEl("saveQ");sv.innerHTML=HEART;sv.setAttribute("aria-pressed",on);sv.setAttribute("aria-label",on?"Unsave this question":"Save this question");
+}
+function swap(dir,change){if(reduce){if(change)change();showQ();return}
+  qcard.classList.remove("in");qcard.classList.add(dir>0?"out-r":"out-l");
+  setTimeout(()=>{if(change)change();showQ();qcard.classList.remove("out-r","out-l");void qcard.offsetWidth;qcard.classList.add("in")},200)}
+qEl("nextQ").addEventListener("click",()=>swap(1,()=>idx++));
+qEl("prevQ").addEventListener("click",()=>swap(-1,()=>idx--));
+qEl("shufQ").addEventListener("click",()=>{const len=TALKS[cat].q.length;swap(1,()=>{let r;do{r=Math.floor(Math.random()*len)}while(len>1&&r===((idx%len)+len)%len);idx=r})});
+deck.addEventListener("keydown",e=>{if(!TALKS[cat].free)return;if(e.key==="ArrowRight"){e.preventDefault();qEl("nextQ").click()}if(e.key==="ArrowLeft"){e.preventDefault();qEl("prevQ").click()}});
+// swipe the card on phones
+let sx=null;deck.addEventListener("pointerdown",e=>{sx=e.clientX});deck.addEventListener("pointerup",e=>{if(sx===null||!TALKS[cat].free)return;const dx=e.clientX-sx;sx=null;
+  if(Math.abs(dx)>50&&!e.target.closest("button,a"))qEl(dx<0?"nextQ":"prevQ").click()});
+function renderSaved(){const ul=qEl("savedList");ul.innerHTML="";qEl("savedN").textContent=savedQs.length?savedQs.length:"";
+  if(!savedQs.length){const li=document.createElement("li");li.className="none";li.textContent="Tap the heart on a question to keep it here for your next call.";ul.appendChild(li);return}
+  savedQs.forEach((x,k)=>{const li=document.createElement("li"),sm=document.createElement("small"),sp=document.createElement("span"),rm=document.createElement("button");
+    sm.textContent=x.c;sp.textContent=x.q;rm.type="button";rm.innerHTML="&times;";rm.setAttribute("aria-label","Remove saved question");
+    rm.addEventListener("click",()=>{savedQs.splice(k,1);keepQ();renderSaved();showQ()});li.append(sm,sp,rm);ul.appendChild(li)})}
+qEl("saveQ").addEventListener("click",()=>{const q=qEl("q").textContent,k=savedQs.findIndex(x=>x.q===q);
+  if(k>=0)savedQs.splice(k,1);else savedQs.unshift({c:cat,q});keepQ();renderSaved();showQ();
+  const sv=qEl("saveQ");sv.classList.remove("pop");void sv.offsetWidth;sv.classList.add("pop")});
+[["nameMe","me"],["nameThem","them"]].forEach(([id,k])=>qEl(id).addEventListener("input",e=>{names[k]=e.target.value;try{localStorage.setItem("ldr-talk-names",JSON.stringify(names))}catch(_){}showQ()}));
+qEl("swapT").addEventListener("click",()=>{first=1-first;showQ();const t=qEl("turn");t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop")});
+showQ();renderSaved();
 
 // waitlist (preview)
 document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefault();const em=document.getElementById("email");
