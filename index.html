@@ -64,33 +64,35 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 
 /* hero */
 /* the postcard photo fills the whole hero; a paper wash on the left keeps the headline readable */
-/* One continuous photo: the whole postcard stands sharp at full height on the right, a zoomed copy fills the rest,
-   and a frosted, paper-tinted layer blurs everything behind the headline so the picture goes soft toward the left. */
-.top{--line:rgba(47,36,27,.3);--photo:url("images/hero.jpg");--w:calc(100svh * 1122 / 1402);
-  position:relative;isolation:isolate;color:var(--ink);min-height:100svh;display:flex;flex-direction:column;background:#efe2c8}
-@supports (background-image:image-set(url("a.webp") type("image/webp"))){.top{--photo:image-set(url("images/hero.webp") type("image/webp"),url("images/hero.jpg") type("image/jpeg"))}}
-.top::before,.top::after{content:"";position:absolute;inset:0;pointer-events:none}
-.top::before{z-index:-2;background:var(--photo) right center/auto 100% no-repeat,var(--photo) 0% 12%/cover no-repeat}
-.top::after{z-index:-1;-webkit-backdrop-filter:blur(16px) saturate(1.05);backdrop-filter:blur(16px) saturate(1.05);
-  background:linear-gradient(90deg,rgba(244,233,214,.62) 0%,rgba(244,233,214,.45) 45%,rgba(244,233,214,0) 75%),linear-gradient(180deg,rgba(244,233,214,.55) 0,rgba(244,233,214,0) 110px);
-  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - var(--w) + 40px),transparent calc(100% - var(--w) * .5));
-          mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - var(--w) + 40px),transparent calc(100% - var(--w) * .5))}
-/* phones: the whole photo sharp across the bottom, soft and blurred behind the headline above it */
+/* Hero art: two little houses tied together by a ribbon heart, with open wall on the left for the headline. */
+.top{--line:rgba(47,36,27,.3);--photo:url("images/hero-home.jpg");
+  position:relative;isolation:isolate;color:var(--ink);min-height:100svh;display:flex;flex-direction:column;
+  background:var(--photo) right center/cover no-repeat #f6e2c8}
+@supports (background-image:image-set(url("a.webp") type("image/webp"))){.top{--photo:image-set(url("images/hero-home.webp") type("image/webp"),url("images/hero-home.jpg") type("image/jpeg"))}}
+/* phones: headline on the plain wall up top, the houses across the bottom */
 @media (max-width:860px){
-  .top::before{background:var(--photo) center bottom/100% auto no-repeat,var(--photo) center top/cover no-repeat}
-  .top::after{background:linear-gradient(180deg,rgba(244,233,214,.6) 0%,rgba(244,233,214,.4) 60%,rgba(244,233,214,0) 100%);
-    -webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 125vw + 30px),transparent calc(100% - 100vw));
-            mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 125vw + 30px),transparent calc(100% - 100vw))}}
+  .top{background:linear-gradient(180deg,#fcf1dd 0%,#f5e0c6 100%)}
+  .top::before{content:"";position:absolute;left:0;right:0;bottom:0;height:min(56svh,150vw);z-index:-1;pointer-events:none;
+    background:var(--photo) 88% bottom/auto 100% no-repeat;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%);mask-image:linear-gradient(180deg,transparent 0,#000 22%)}}
 .hero .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--blue)}
 .top .hero{flex:1;display:flex}
 .top .btn.ghost{background:rgba(251,245,233,.6)}
 .hero .wrap{flex:1;display:grid;align-items:center;padding-block:16px 56px}
 .herotext{max-width:560px}
-@media (max-width:860px){.hero .wrap{align-items:start;padding-block:28px calc(125vw - 60px)}}
+@media (max-width:860px){.hero .wrap{align-items:start;padding-block:28px min(46svh,130vw)}}
 .herotext{position:relative;z-index:1}
-.hero h1{font-size:clamp(40px,min(7vw,11svh),92px);margin-block:0 22px}
+.hero h1{font-size:clamp(40px,min(6vw,11svh),92px);margin-block:0 22px}
 .hero h1 em{font-style:normal;color:var(--red)}
 .hero p.lede{font-size:20px;color:var(--muted);max-width:40ch}
+@media (min-width:861px){.hero p.lede{max-width:27ch}.hero h1{max-width:6.2em}}
+/* smaller laptops: show the houses a little smaller, low and to the right, so they clear the headline */
+@media (min-width:861px) and (max-width:1279px){
+  .top{background:linear-gradient(180deg,#fcf1dd 0%,#f5e0c6 100%)}
+  .top::before{content:"";position:absolute;right:0;bottom:0;width:min(78vw,calc(82svh * 1672 / 940));aspect-ratio:1672/940;z-index:-1;pointer-events:none;
+    background:var(--photo) center/100% 100% no-repeat;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,#000 25%);-webkit-mask-composite:source-in;
+            mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,#000 25%);mask-composite:intersect}}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 /* travel */
 .tgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;align-items:start}
