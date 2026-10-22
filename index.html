@@ -27,7 +27,7 @@
   --sky:#9fb4c8;     /* watercolor sky */
   --sage:#7f8f6c;    /* map green */
   --gold:#c3954e;    /* brass / old gold */
-  --navy:#5d7799;    /* dusty blue, the second house in the hero art */
+  --navy:#7a3219;    /* deep terracotta: feature cards */
   --stamp:#ebe0c9;   /* tinted panel */
   --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --body:"Nunito Sans", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -61,7 +61,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .navlinks a:hover{color:var(--terra)}
 .navlinks a.btn{color:#fdf3e4}
 /* nav picks up the hero art: terracotta house, coral ribbon, dusty-blue house */
-nav:not(.more){--terra:#b4532f;--blue:#6a84a6;--red:#ea6a4f}
+nav:not(.more){--terra:#b4532f;--blue:#c9714f;--red:#b4532f}
 nav:not(.more) .btn{background:var(--terra);color:#fdf3e4}
 nav .btn:hover{background:#9c4426}
 @media (max-width:1240px){.navlinks a:not(.btn){display:none}}
@@ -79,7 +79,7 @@ nav .btn:hover{background:#9c4426}
   .top::before{content:"";position:absolute;left:0;right:0;bottom:0;height:min(56svh,150vw);z-index:-1;pointer-events:none;
     background:var(--photo) 88% bottom/auto 100% no-repeat;
     -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%);mask-image:linear-gradient(180deg,transparent 0,#000 22%)}}
-.hero .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:#5d7799}
+.hero .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--red)}
 .top .hero{flex:1;display:flex}
 .top .btn.ghost{background:rgba(251,245,233,.6)}
 .hero .wrap{flex:1;display:grid;align-items:center;padding-block:16px 56px}
