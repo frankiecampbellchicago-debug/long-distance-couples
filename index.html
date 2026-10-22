@@ -484,8 +484,6 @@ section.band{padding-block:80px}
 .articles .ad{border-radius:3px;background:var(--card) repeating-linear-gradient(135deg,transparent 0 10px,rgba(180,83,47,.06) 10px 11px)}
 @media (prefers-reduced-motion:reduce){.post,.post .thumb .clay,.post .read svg{transition:none}}
 .amore{display:flex;justify-content:center;margin-top:30px}
-.post.extra:not([hidden]){animation:postIn .45s cubic-bezier(.2,.7,.3,1) backwards}
-@keyframes postIn{from{opacity:0;transform:translateY(14px)}}
 
 /* pricing */
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:center}
@@ -817,14 +815,11 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <p>Guides, real stories, and expert advice on staying close, handling hard weeks, and closing the distance for good.</p>
   </div>
   <div class="articles">
-    <a class="post k-together" href="#articles"><div class="thumb" data-icon="phone" data-wash="together"></div><div class="pbody"><div class="meta"><span class="tag">Communication</span><span>6 min read</span></div><h3>7 ways to stop your calls from feeling like a status report</h3><p>Small changes that turn "what did you eat today" into real conversation.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-    <a class="post k-apart" href="#articles"><div class="thumb" data-icon="plane" data-wash="apart"></div><div class="pbody"><div class="meta"><span class="tag">Travel</span><span>8 min read</span></div><h3>How to fly cheaper when you're visiting every month</h3><p>Fare tracking, points cards, and the best days to book.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="post k-together" href="articles.html#calls"><div class="thumb" data-icon="phone" data-wash="together"></div><div class="pbody"><div class="meta"><span class="tag">Communication</span><span>6 min read</span></div><h3>7 ways to stop your calls from feeling like a status report</h3><p>Small changes that turn "what did you eat today" into real conversation.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="post k-apart" href="articles.html#flights"><div class="thumb" data-icon="plane" data-wash="apart"></div><div class="pbody"><div class="meta"><span class="tag">Travel</span><span>8 min read</span></div><h3>How to fly cheaper when you're visiting every month</h3><p>Fare tracking, points cards, and the best days to book.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
     <div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>
-    <a class="post k-table extra" hidden href="#articles"><div class="thumb" data-icon="map" data-wash="table"></div><div class="pbody"><div class="meta"><span class="tag">Closing the gap</span><span>10 min read</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-    <a class="post k-arcade extra" hidden href="#articles"><div class="thumb" data-icon="heart" data-wash="arcade"></div><div class="pbody"><div class="meta"><span class="tag">Real stories</span><span>5 min read</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-    <a class="post k-plus extra" hidden href="#pricing"><div class="thumb" data-icon="key" data-wash="plus"><span class="pill">Plus</span></div><div class="pbody"><div class="meta"><span class="tag">Trust</span><span>12 min read</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p><span class="read">Unlock with Plus <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
   </div>
-  <div class="amore"><button class="btn ghost" type="button" id="moreArticles" aria-expanded="false">View more articles</button></div>
+  <div class="amore"><a class="btn ghost" href="articles.html">View all articles <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
 </div></section>
 
 
@@ -1070,11 +1065,8 @@ qEl("saveQ").addEventListener("click",()=>{const q=qEl("q").textContent,k=savedQ
 qEl("swapT").addEventListener("click",()=>{first=1-first;showQ();const t=qEl("turn");t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop")});
 showQ();renderSaved();
 
-// articles: clay icons on the tiles, show a couple, the rest on "View more"
+// clay icons on the article and pricing tiles
 document.querySelectorAll(".post .thumb[data-icon],.ptile[data-icon]").forEach(t=>{if(window.dateIcon)t.insertAdjacentHTML("beforeend",window.dateIcon(t.dataset.icon,"",t.dataset.wash))});
-document.getElementById("moreArticles").addEventListener("click",e=>{const b=e.currentTarget,open=b.getAttribute("aria-expanded")!=="true";
-  document.querySelectorAll(".post.extra").forEach(a=>a.hidden=!open);b.setAttribute("aria-expanded",open);b.textContent=open?"Show fewer":"View more articles";
-  if(!open)document.getElementById("articles").scrollIntoView({block:"start"})});
 
 // waitlist (preview)
 document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefault();const em=document.getElementById("email");

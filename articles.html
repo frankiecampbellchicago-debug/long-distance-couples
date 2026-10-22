@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Guides, real stories, and expert advice for long-distance couples.">
+<title>Articles · Love Is In The Air</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#f4e9d4;--paper2:#ecdcbf;--card:#fbf5e9;--ink:#2f241b;--muted:#6b5848;--line:#d9c6a5;
+  --red:#b4532f;--blue:#b4532f;--onblue:#fdf3e4;--navy:#7a3219;
+  --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body:"Nunito Sans", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"Nunito Sans", "Avenir Next", ui-monospace, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body)}
+[hidden]{display:none!important}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:3px;padding:12px 22px;font:600 15px var(--body);cursor:pointer;text-decoration:none;background:var(--blue);color:var(--onblue)}
+.btn:hover{filter:brightness(1.1)}
+.btn:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+
+/* nav: same terracotta bar as the rest of the site */
+nav{position:sticky;top:0;z-index:50;background:#b4532f;color:#fdf3e4;box-shadow:0 1px 0 rgba(47,36,27,.12)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:14px;gap:16px}
+.logo{font:600 24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none;color:#fdf3e4}
+.logo svg{flex:none}
+.back{font-weight:600;font-size:15px;color:#fdf3e4;text-decoration:none}
+.back:hover{text-decoration:underline}
+@media (max-width:480px){.logo{font-size:19px;gap:8px}.back{font-size:14px}}
+
+/* page header */
+.ahead{padding:64px 0 34px;background:radial-gradient(ellipse at 85% 0%,#f6c9b0 0,transparent 55%),radial-gradient(ellipse at 100% 100%,#cad6e5 0,transparent 45%)}
+.ahead .wrap{display:grid;gap:14px}
+.ahead h1{font-size:clamp(40px,6vw,68px);max-width:12em}
+.ahead p{color:var(--muted);font-size:18px;max-width:40em}
+
+/* filters */
+.tools{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:space-between;padding-block:8px 30px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 15px;font:700 13px var(--body);cursor:pointer;display:inline-flex;gap:7px;align-items:center;transition:background .2s,color .2s,border-color .2s}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:var(--onblue)}
+.chip .n{font-weight:600;opacity:.7}
+.search{position:relative;flex:1 1 240px;max-width:320px}
+.search input{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:3px;padding:10px 14px 10px 38px;font:15px var(--body);color:var(--ink)}
+.search svg{position:absolute;left:12px;top:50%;width:17px;height:17px;transform:translateY(-50%);color:var(--muted)}
+@media (max-width:640px){.search{max-width:none}}
+
+/* shared card pieces */
+.k-apart{--tile:linear-gradient(160deg,#cad6e5,#97adc9);--tag:#55709a}
+.k-together{--tile:linear-gradient(160deg,#f6c9b0,#df8e6b);--tag:#b4532f}
+.k-arcade{--tile:linear-gradient(160deg,#f9cdbb,#ee927a);--tag:#b8473a}
+.k-table{--tile:linear-gradient(160deg,#f6dcb8,#e2ad7b);--tag:#94552a}
+.k-plus{--tile:linear-gradient(160deg,#b45a35,#7a3219);--tag:#fde3cf}
+.clay{--sz:84px;position:relative;z-index:1;display:grid;place-items:center;flex:none;width:var(--sz);height:var(--sz);border-radius:50%;
+  background:radial-gradient(circle at 36% 30%,#fffaf1 0,#f7e8d2 60%,#ecd5b6 100%);box-shadow:0 10px 18px -10px rgba(80,35,12,.6),inset 0 -4px 7px rgba(160,100,60,.16)}
+.clay svg{display:block;width:58%;height:58%}
+.tile{position:relative;background:var(--tile);display:grid;place-items:center;overflow:hidden}
+.tile::after{content:"";position:absolute;inset:auto -10% -40% auto;width:60%;aspect-ratio:1;border-radius:50%;background:rgba(253,246,235,.28)}
+.pill{position:absolute;top:12px;left:12px;z-index:2;background:#fde3cf;color:#7a3219;padding:4px 10px;border-radius:2px;font:800 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.meta{display:flex;gap:10px;align-items:center;justify-content:space-between;font:700 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.meta .tag{color:var(--tag)}
+.read{display:inline-flex;align-items:center;gap:6px;font:700 13px var(--body);color:var(--blue)}
+.read svg{width:14px;height:14px;transition:transform .25s}
+
+/* featured */
+.feature{display:grid;grid-template-columns:1.1fr 1fr;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-bottom:28px;cursor:pointer;text-align:left;font:inherit;color:inherit;padding:0;width:100%;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s}
+.feature .tile{min-height:300px}
+.feature .clay{--sz:128px;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.feature .fbody{display:grid;gap:14px;align-content:center;padding:36px 40px}
+.feature .flabel{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.feature h2{font-size:clamp(30px,3.4vw,42px)}
+.feature p{color:var(--muted);font-size:17px}
+.feature:hover{transform:translateY(-4px);box-shadow:0 22px 34px -22px rgba(90,45,20,.55)}
+.feature:hover .clay{transform:rotate(-8deg) scale(1.06)}
+.feature:hover .read svg{transform:translateX(4px)}
+@media (max-width:760px){.feature{grid-template-columns:1fr}.feature .tile{min-height:180px}.feature .clay{--sz:96px}.feature .fbody{padding:22px 22px 26px}}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+.post{position:relative;display:grid;grid-template-rows:auto 1fr;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;text-align:left;font:inherit;color:var(--ink);padding:0;cursor:pointer;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s;animation:postIn .45s cubic-bezier(.2,.7,.3,1) backwards}
+.post .tile{aspect-ratio:16/9}
+.post .clay{--sz:76px;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.post .pbody{display:grid;gap:10px;align-content:start;padding:18px 20px 20px}
+.post h3{font-size:23px;line-height:1.15;transition:color .2s}
+.post p{color:var(--muted);font-size:15px}
+.post:hover{transform:translateY(-5px);box-shadow:0 18px 28px -18px rgba(90,45,20,.55)}
+.post:hover .clay{transform:rotate(-9deg) scale(1.08)}
+.post:hover h3{color:var(--blue)}
+.post:hover .read svg{transform:translateX(4px)}
+.post.k-plus,.feature.k-plus{background:#8f3f22;border-color:#8f3f22;color:var(--onblue)}
+.k-plus p,.k-plus .meta{color:rgba(253,243,228,.8)}
+.k-plus .meta .tag,.k-plus .read,.post.k-plus:hover h3{color:#fde3cf}
+.save{position:absolute;top:10px;right:10px;z-index:3;width:36px;height:36px;border-radius:50%;border:0;background:rgba(253,246,235,.92);color:var(--blue);display:grid;place-items:center;cursor:pointer;transition:transform .2s}
+.save:hover{transform:scale(1.1)}
+.save svg{width:17px;height:17px}
+.save[aria-pressed="true"] svg path{fill:currentColor}
+@keyframes postIn{from{opacity:0;transform:translateY(14px)}}
+.ad{border:1px dashed var(--muted);border-radius:3px;display:grid;place-items:center;align-content:center;text-align:center;color:var(--muted);gap:4px;padding:18px;min-height:220px;
+  background:var(--card) repeating-linear-gradient(135deg,transparent 0 10px,rgba(180,83,47,.06) 10px 11px)}
+.ad small{font:700 10px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.ad strong{font:600 16px var(--body);color:var(--ink)}
+.empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);display:grid;gap:10px;justify-items:center}
+.empty b{font:600 26px var(--display);color:var(--ink)}
+
+/* reader: slides up like the date detail panel */
+.reader{border:0;padding:0;width:min(720px,100vw - 24px);max-height:min(88vh,900px);border-radius:4px;background:var(--card);color:var(--ink);box-shadow:0 30px 60px -20px rgba(60,25,10,.55);overflow:auto}
+.reader::backdrop{background:rgba(47,36,27,.45);backdrop-filter:blur(3px)}
+.reader[open]{animation:rIn .4s cubic-bezier(.2,.7,.3,1)}
+@keyframes rIn{from{opacity:0;transform:translateY(40px)}}
+.reader .tile{height:190px}
+.reader.k-plus .meta{color:var(--muted)}
+.reader.k-plus .meta .tag{color:#94552a}
+.reader .save{right:60px;top:12px;width:38px;height:38px}
+.reader .clay{--sz:104px}
+.reader .close{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-radius:50%;border:0;background:rgba(253,246,235,.92);color:var(--ink);font:600 22px/1 var(--body);cursor:pointer}
+.reader .rbody{display:grid;gap:16px;padding:28px 34px 34px}
+.reader h2{font-size:clamp(30px,4vw,40px)}
+.reader .lede{font-size:18px;color:var(--muted)}
+.reader h4{margin:6px 0 0;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.reader ol{margin:0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:n}
+.reader li{position:relative;padding-left:42px;counter-increment:n}
+.reader li::before{content:counter(n);position:absolute;left:0;top:-2px;width:28px;height:28px;border-radius:50%;background:#f6dcc8;color:#7a3219;display:grid;place-items:center;font:800 13px var(--body)}
+.reader .note{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;background:#f6e2c8;border-radius:3px;padding:16px 18px;font-size:15px}
+.reader .rnav{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:16px}
+.reader .rnav button{background:none;border:0;padding:0;font:700 14px var(--body);color:var(--blue);cursor:pointer;text-align:left;max-width:48%}
+.reader .rnav button:last-child{text-align:right}
+@media (max-width:560px){.reader{width:100vw;max-height:92vh;margin:auto auto 0;max-width:100vw;border-radius:6px 6px 0 0}.reader .rbody{padding:22px 20px 26px}.reader .tile{height:140px}.reader .clay{--sz:84px}}
+@media (prefers-reduced-motion:reduce){.post,.feature,.reader[open],.clay{animation:none;transition:none}}
+
+section.list{padding-bottom:80px}
+.join{background:#f6e2c8;padding-block:56px}
+.join .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.join h2{font-size:clamp(28px,3.4vw,38px)}
+.join p{color:var(--muted)}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Love Is In The Air home">
+    <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><path d="M2 26c6-2 9-6 13-11" fill="none" stroke="#f2b79f" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M22 25C13 19 11 14 13.5 10.2 15.6 7.3 19.4 7.7 22 10.6 24.6 7.7 28.4 7.3 30.5 10.2 33 14 31 19 22 25Z" fill="#fdf3e4"/></svg>
+    Love Is In The Air
+  </a>
+  <a class="back" href="index.html#articles">&#8592; Back home</a>
+</div></nav>
+
+<header class="ahead"><div class="wrap">
+  <span class="eyebrow">Articles</span>
+  <h1>Advice for the long way round.</h1>
+  <p>Guides, real stories, and expert advice on staying close, handling hard weeks, and closing the distance for good.</p>
+</div></header>
+
+<section class="list"><div class="wrap">
+  <div class="tools">
+    <div class="chips" id="chips" role="group" aria-label="Filter by topic"></div>
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="q" type="search" placeholder="Search articles" aria-label="Search articles"></label>
+  </div>
+  <div id="featured"></div>
+  <div class="grid" id="grid" aria-live="polite"></div>
+</div></section>
+
+<section class="join"><div class="wrap">
+  <div><h2>New articles every week.</h2><p>Join the waitlist and we'll send the best ones your way.</p></div>
+  <a class="btn" href="index.html#join">Join the waitlist</a>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
+
+<dialog class="reader" id="reader" aria-labelledby="rTitle">
+  <button class="close" type="button" id="rClose" aria-label="Close">&times;</button>
+  <div class="tile" id="rTile"></div>
+  <div class="rbody">
+    <div class="meta"><span class="tag" id="rTag"></span><span id="rTime"></span></div>
+    <h2 id="rTitle"></h2>
+    <p class="lede" id="rLede"></p>
+    <h4>What's inside</h4>
+    <ol id="rList"></ol>
+    <div class="note" id="rNote"></div>
+    <div class="rnav"><button type="button" id="rPrev"></button><button type="button" id="rNext"></button></div>
+  </div>
+</dialog>
+
+<script src="js/dates.js?v=da8ad6ce"></script>
+<script>
+const ARTICLES=[
+ {id:"calls",topic:"Communication",k:"together",icon:"phone",min:6,title:"7 ways to stop your calls from feeling like a status report",sum:"Small changes that turn \"what did you eat today\" into real conversation.",
+  inside:["Swap the daily recap for one question you actually want answered","Make one call a week a no-agenda call, with no updates allowed","Do something side by side: cook, walk, or watch the same thing","Notice when you're both tired, and let a short call be enough"]},
+ {id:"flights",topic:"Travel",k:"apart",icon:"plane",min:8,title:"How to fly cheaper when you're visiting every month",sum:"Fare tracking, points cards, and the best days to book.",
+  inside:["Set fare alerts on both directions, not just yours","Why flexible dates beat booking early","Picking a points card you'll both actually use","Splitting the cost fairly when one of you earns more"]},
+ {id:"who-moves",topic:"Closing the gap",k:"table",icon:"map",min:10,title:"Who moves? A fair way to decide where you'll end up",sum:"A step-by-step talk for when the distance has an end date.",
+  inside:["List what each of you would give up, honestly","Jobs, family, visas, and friends: weigh them together","Try a trial stay before anyone signs a lease","How to keep it from turning into a scorecard"]},
+ {id:"wedding",topic:"Real stories",k:"arcade",icon:"heart",min:5,title:"Three years, two countries, one wedding",sum:"How Maya and Theo made it from Lagos to Chicago.",
+  inside:["The time-zone routine that got them through year one","What they did on the visits that felt too short","The visa wait, and how they stayed sane","What they'd tell couples just starting out"]},
+ {id:"jealousy",topic:"Trust",k:"plus",icon:"key",min:12,plus:true,title:"The jealousy guide: what to do when trust gets shaky",sum:"A therapist-written plan for the hardest conversations.",
+  inside:["Telling a jealous feeling apart from a real red flag","How to bring it up without starting a fight","Reassurance that helps, and reassurance that backfires","Rebuilding after one of you broke trust"]},
+ {id:"letters",topic:"Communication",k:"together",icon:"letter",min:5,title:"Love letters still work. Here's how to write one that lands.",sum:"Why paper beats a text, and what to actually put in it.",
+  inside:["Start with one small, specific memory","Say the thing you never say on calls","Little extras: a pressed flower, a ticket stub, a photo","Timing it so it arrives on a hard week"]},
+ {id:"date-nights",topic:"Date ideas",k:"arcade",icon:"popcorn",min:7,title:"15 date nights that don't feel like another video call",sum:"Games, cook-offs, and shows for when you're tired of just talking.",
+  inside:["Play something co-op instead of watching each other's faces","Cook the same recipe at the same time","Plan a fake trip together, down to the restaurants","More ideas waiting on the dates wheel"]},
+ {id:"goodbye",topic:"Travel",k:"apart",icon:"hourglass",min:4,title:"Surviving the airport goodbye",sum:"How to make the last day of a visit hurt a little less.",
+  inside:["Plan something small for the last morning","Book the next visit before this one ends","Leave something behind on purpose","What to do on the first night home alone"]},
+ {id:"checklist",topic:"Closing the gap",k:"plus",icon:"book",min:11,plus:true,title:"Visas, leases, and job hunts: the closing-the-distance checklist",sum:"Everything to sort out in the six months before you move.",
+  inside:["A month-by-month timeline you can share","Questions to ask before you sign anything","Money talk: who pays for what, and when","Keeping your own friends and routines after the move"]},
+ {id:"online-game",topic:"Real stories",k:"arcade",icon:"music",min:6,title:"We met in an online game. Now we share a city.",sum:"Jae and Priya on four years of late-night co-op and one long move.",
+  inside:["How they knew it was more than a game friendship","The first visit, and why it almost didn't happen","Keeping the game nights after moving in together","Their best advice for couples who met online"]},
+ {id:"time-zones",topic:"Communication",k:"together",icon:"moon",min:5,title:"Different time zones, same bedtime",sum:"Little routines that keep you in sync when your clocks don't match.",
+  inside:["Find your overlap window and protect it","Leave voice notes for each other's morning","Shared playlists, shared shows, shared countdowns","When one of you always gets the bad time slot"]},
+ {id:"spark",topic:"Trust",k:"plus",icon:"sparkle",min:9,plus:true,title:"Keeping the spark when it's been months since the last visit",sum:"How to stay close when the next visit feels far away.",
+  inside:["Why long gaps feel heavier around month three","Surprises that work from far away","Talking about intimacy without it getting awkward","Planning the reunion together"]}
+];
+const ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const HEART='<svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 20C3.5 14.4 1.6 9.8 3.9 6.3 5.9 3.5 9.5 3.9 12 6.7 14.5 3.9 18.1 3.5 20.1 6.3 22.4 9.8 20.5 14.4 12 20Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>';
+const icon=(a,cls)=>window.dateIcon?window.dateIcon(a.icon,cls||"",a.k):"";
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let saved=[];try{saved=JSON.parse(localStorage.getItem("ldr-saved-articles"))||[]}catch(e){}
+const store=()=>{try{localStorage.setItem("ldr-saved-articles",JSON.stringify(saved))}catch(e){}};
+
+const TOPICS=["All",...new Set(ARTICLES.map(a=>a.topic)),"Saved"];
+let topic="All",query="";
+const chipsEl=document.getElementById("chips"),grid=document.getElementById("grid"),feat=document.getElementById("featured");
+function chips(){
+  chipsEl.innerHTML=TOPICS.map(t=>{const n=t==="All"?ARTICLES.length:t==="Saved"?saved.length:ARTICLES.filter(a=>a.topic===t).length;
+    return '<button class="chip" type="button" data-t="'+t+'" aria-pressed="'+(t===topic)+'">'+(t==="Saved"?'<svg width="13" height="12" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 20C3.5 14.4 1.6 9.8 3.9 6.3 5.9 3.5 9.5 3.9 12 6.7 14.5 3.9 18.1 3.5 20.1 6.3 22.4 9.8 20.5 14.4 12 20Z" fill="currentColor"/></svg>':"")+t+' <span class="n">'+n+'</span></button>'}).join("");
+}
+chipsEl.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;topic=b.dataset.t;render()});
+document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase();render()});
+
+function card(a,i){
+  return '<button class="post k-'+a.k+'" type="button" data-id="'+a.id+'" style="animation-delay:'+(i*60)+'ms">'+
+    '<div class="tile">'+(a.plus?'<span class="pill">Plus</span>':"")+icon(a)+'</div>'+
+    '<div class="pbody"><div class="meta"><span class="tag">'+a.topic+'</span><span>'+a.min+' min read</span></div>'+
+    '<h3>'+esc(a.title)+'</h3><p>'+esc(a.sum)+'</p><span class="read">'+(a.plus?"Plus article":"Read the article")+' '+ARROW+'</span></div></button>';
+}
+function render(){
+  chips();
+  const list=ARTICLES.filter(a=>(topic==="All"||(topic==="Saved"?saved.includes(a.id):a.topic===topic))&&
+    (!query||(a.title+" "+a.sum+" "+a.topic+" "+a.inside.join(" ")).toLowerCase().includes(query)));
+  const showFeat=topic==="All"&&!query&&list.length;
+  const f=showFeat?list[0]:null,rest=showFeat?list.slice(1):list;
+  feat.innerHTML=f?'<button class="feature k-'+f.k+'" type="button" data-id="'+f.id+'"><div class="tile">'+icon(f)+'</div><div class="fbody"><span class="flabel">Start here</span>'+
+    '<div class="meta"><span class="tag">'+f.topic+'</span><span>'+f.min+' min read</span></div><h2>'+esc(f.title)+'</h2><p>'+esc(f.sum)+'</p><span class="read">Read the article '+ARROW+'</span></div></button>':"";
+  let html=rest.map(card);
+  if(html.length>=3)html.splice(3,0,'<div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>');
+  grid.innerHTML=html.join("")||'<div class="empty"><b>'+(topic==="Saved"?"Nothing saved yet":"No articles match that")+'</b><span>'+(topic==="Saved"?"Tap the heart in any article to keep it here.":"Try another word or topic.")+'</span></div>';
+}
+
+// reader
+const dlg=document.getElementById("reader");let cur=null;
+const $=id=>document.getElementById(id);
+function open(id,push){
+  const i=ARTICLES.findIndex(a=>a.id===id);if(i<0)return;const a=ARTICLES[i];cur=a;
+  dlg.className="reader k-"+a.k;
+  $("rTile").innerHTML=(a.plus?'<span class="pill">Plus</span>':"")+icon(a)+'<button class="save" type="button" id="rSave" aria-label="Save this article" aria-pressed="'+saved.includes(a.id)+'">'+HEART+'</button>';
+  $("rTag").textContent=a.topic;$("rTime").textContent=a.min+" min read";$("rTitle").textContent=a.title;$("rLede").textContent=a.sum;
+  $("rList").innerHTML=a.inside.map(x=>"<li>"+esc(x)+"</li>").join("");
+  $("rNote").innerHTML=a.plus?'<span>This article comes with <strong>Plus</strong>, along with every other Plus guide.</span><a class="btn" href="index.html#pricing">See Plus</a>':
+    '<span>The full article is coming soon. Join the waitlist and we\'ll send it when it\'s out.</span><a class="btn" href="index.html#join">Join the waitlist</a>';
+  const p=ARTICLES[(i-1+ARTICLES.length)%ARTICLES.length],n=ARTICLES[(i+1)%ARTICLES.length];
+  $("rPrev").textContent="← "+p.title;$("rPrev").dataset.id=p.id;$("rNext").textContent=n.title+" →";$("rNext").dataset.id=n.id;
+  if(!dlg.open)dlg.showModal();dlg.scrollTop=0;
+  if(push!==false)history.replaceState(null,"","#"+a.id);
+}
+function close(){if(dlg.open)dlg.close()}
+dlg.addEventListener("close",()=>history.replaceState(null,"",location.pathname+location.search));
+dlg.addEventListener("click",e=>{if(e.target===dlg)close();
+  const s=e.target.closest("#rSave");if(s){const on=!saved.includes(cur.id);saved=on?[...saved,cur.id]:saved.filter(x=>x!==cur.id);store();s.setAttribute("aria-pressed",on);render()}});
+$("rClose").addEventListener("click",close);
+$("rPrev").addEventListener("click",e=>open(e.currentTarget.dataset.id));
+$("rNext").addEventListener("click",e=>open(e.currentTarget.dataset.id));
+document.addEventListener("click",e=>{const c=e.target.closest(".post[data-id],.feature[data-id]");if(c)open(c.dataset.id)});
+
+render();
+const startTopic=new URLSearchParams(location.search).get("topic");
+if(startTopic&&TOPICS.includes(startTopic)){topic=startTopic;render()}
+if(location.hash.length>1)open(location.hash.slice(1),false);
+</script>
+</body>
+</html>
