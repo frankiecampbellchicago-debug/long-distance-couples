@@ -64,19 +64,24 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 
 /* hero */
 /* the postcard photo fills the whole hero; a paper wash on the left keeps the headline readable */
-/* the whole postcard photo stands at full height on the right and fades into the paper behind the headline */
+/* One continuous photo: the whole postcard stands sharp at full height on the right, a zoomed copy fills the rest,
+   and a frosted, paper-tinted layer blurs everything behind the headline so the picture goes soft toward the left. */
 .top{--line:rgba(47,36,27,.3);--photo:url("images/hero.jpg");--w:calc(100svh * 1122 / 1402);
-  position:relative;isolation:isolate;color:var(--ink);min-height:100svh;display:flex;flex-direction:column;
-  background:linear-gradient(rgba(244,233,214,.6),rgba(244,233,214,.6)),url("images/hero-blur.jpg") center/cover no-repeat #efe2c8}
+  position:relative;isolation:isolate;color:var(--ink);min-height:100svh;display:flex;flex-direction:column;background:#efe2c8}
 @supports (background-image:image-set(url("a.webp") type("image/webp"))){.top{--photo:image-set(url("images/hero.webp") type("image/webp"),url("images/hero.jpg") type("image/jpeg"))}}
-.top::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(244,233,214,.75) 0,rgba(244,233,214,0) 110px),var(--photo) right center/auto 100% no-repeat;
-  -webkit-mask-image:linear-gradient(90deg,transparent calc(100% - var(--w)),#000 calc(100% - var(--w) * .72));
-          mask-image:linear-gradient(90deg,transparent calc(100% - var(--w)),#000 calc(100% - var(--w) * .72))}
-/* phones: the whole photo across the bottom, headline on paper above it */
-@media (max-width:860px){.top::before{background:var(--photo) center bottom/100% auto no-repeat;
-  -webkit-mask-image:linear-gradient(180deg,transparent calc(100% - 125vw),#000 calc(100% - 100vw));
-          mask-image:linear-gradient(180deg,transparent calc(100% - 125vw),#000 calc(100% - 100vw))}}
+.top::before,.top::after{content:"";position:absolute;inset:0;pointer-events:none}
+.top::before{z-index:-2;background:var(--photo) right center/auto 100% no-repeat,var(--photo) 0% 12%/cover no-repeat}
+.top::after{z-index:-1;-webkit-backdrop-filter:blur(16px) saturate(1.05);backdrop-filter:blur(16px) saturate(1.05);
+  background:linear-gradient(90deg,rgba(244,233,214,.62) 0%,rgba(244,233,214,.45) 45%,rgba(244,233,214,0) 75%),linear-gradient(180deg,rgba(244,233,214,.55) 0,rgba(244,233,214,0) 110px);
+  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - var(--w) + 40px),transparent calc(100% - var(--w) * .5));
+          mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - var(--w) + 40px),transparent calc(100% - var(--w) * .5))}
+/* phones: the whole photo sharp across the bottom, soft and blurred behind the headline above it */
+@media (max-width:860px){
+  .top::before{background:var(--photo) center bottom/100% auto no-repeat,var(--photo) center top/cover no-repeat}
+  .top::after{background:linear-gradient(180deg,rgba(244,233,214,.6) 0%,rgba(244,233,214,.4) 60%,rgba(244,233,214,0) 100%);
+    -webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 125vw + 30px),transparent calc(100% - 100vw));
+            mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 125vw + 30px),transparent calc(100% - 100vw))}}
+.hero .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--blue)}
 .top .hero{flex:1;display:flex}
 .top .btn.ghost{background:rgba(251,245,233,.6)}
 .hero .wrap{flex:1;display:grid;align-items:center;padding-block:16px 56px}
@@ -401,6 +406,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
 
 <header class="hero" id="top"><div class="wrap">
   <div class="herotext">
+    <span class="eyebrow"><svg width="14" height="13" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C3 15 1 10 3.5 6.2 5.6 3.3 9.4 3.7 12 6.6 14.6 3.7 18.4 3.3 20.5 6.2 23 10 21 15 12 21Z" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>For long-distance couples · Anywhere in the world</span>
     <h1>Date night,<br> even <em>miles apart.</em></h1>
     <p class="lede">Dates, deep talks, and a countdown to your next visit.</p>
     <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See what's inside</a></div>
