@@ -462,6 +462,9 @@ section.band{padding-block:80px}
 .post .thumb{aspect-ratio:16/10;max-width:100%;border-radius:2px;display:grid;place-items:center;font:600 44px var(--display);color:var(--card)}
 .post .meta{display:flex;gap:10px;align-items:center;font:700 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .post h3{font-size:22px;line-height:1.2}
+.amore{display:flex;justify-content:center;margin-top:30px}
+.post.extra:not([hidden]){animation:postIn .45s cubic-bezier(.2,.7,.3,1) backwards}
+@keyframes postIn{from{opacity:0;transform:translateY(14px)}}
 .post p{color:var(--muted);font-size:15px}
 .post:hover h3{color:var(--blue)}
 
@@ -778,10 +781,11 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <a class="post" href="#articles"><div class="thumb" style="background:var(--blue)">7</div><div class="meta"><span>Communication</span><span>6 min</span></div><h3>7 ways to stop your calls from feeling like a status report</h3><p>Small changes that turn "what did you eat today" into real conversation.</p></a>
     <a class="post" href="#articles"><div class="thumb" style="background:#8f3f22">✈</div><div class="meta"><span>Travel</span><span>8 min</span></div><h3>How to fly cheaper when you're visiting every month</h3><p>Fare tracking, points cards, and the best days to book.</p></a>
     <div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>
-    <a class="post" href="#articles"><div class="thumb" style="background:#c9714f">↔</div><div class="meta"><span>Closing the gap</span><span>10 min</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p></a>
-    <a class="post" href="#articles"><div class="thumb" style="background:#a0482a">♥</div><div class="meta"><span>Real stories</span><span>5 min</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p></a>
-    <a class="post" href="#pricing"><div class="thumb" style="background:var(--navy)">🔒</div><div class="meta"><span class="pill">Plus</span><span>12 min</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p></a>
+    <a class="post extra" hidden href="#articles"><div class="thumb" style="background:#c9714f">↔</div><div class="meta"><span>Closing the gap</span><span>10 min</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p></a>
+    <a class="post extra" hidden href="#articles"><div class="thumb" style="background:#a0482a">♥</div><div class="meta"><span>Real stories</span><span>5 min</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p></a>
+    <a class="post extra" hidden href="#pricing"><div class="thumb" style="background:var(--navy)">🔒</div><div class="meta"><span class="pill">Plus</span><span>12 min</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p></a>
   </div>
+  <div class="amore"><button class="btn ghost" type="button" id="moreArticles" aria-expanded="false">View more articles</button></div>
 </div></section>
 
 
@@ -1013,6 +1017,11 @@ qEl("saveQ").addEventListener("click",()=>{const q=qEl("q").textContent,k=savedQ
 [["nameMe","me"],["nameThem","them"]].forEach(([id,k])=>qEl(id).addEventListener("input",e=>{names[k]=e.target.value;try{localStorage.setItem("ldr-talk-names",JSON.stringify(names))}catch(_){}showQ()}));
 qEl("swapT").addEventListener("click",()=>{first=1-first;showQ();const t=qEl("turn");t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop")});
 showQ();renderSaved();
+
+// articles: show a couple, the rest on "View more"
+document.getElementById("moreArticles").addEventListener("click",e=>{const b=e.currentTarget,open=b.getAttribute("aria-expanded")!=="true";
+  document.querySelectorAll(".post.extra").forEach(a=>a.hidden=!open);b.setAttribute("aria-expanded",open);b.textContent=open?"Show fewer":"View more articles";
+  if(!open)document.getElementById("articles").scrollIntoView({block:"start"})});
 
 // waitlist (preview)
 document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefault();const em=document.getElementById("email");
