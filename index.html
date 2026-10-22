@@ -458,15 +458,34 @@ section.band{padding-block:80px}
 .articles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media (max-width:900px){.articles{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.articles{grid-template-columns:1fr}}
-.post{display:grid;gap:10px;align-content:start;text-decoration:none;min-width:0}
-.post .thumb{aspect-ratio:16/10;max-width:100%;border-radius:2px;display:grid;place-items:center;font:600 44px var(--display);color:var(--card)}
-.post .meta{display:flex;gap:10px;align-items:center;font:700 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.post h3{font-size:22px;line-height:1.2}
+.post{position:relative;display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:var(--ink);min-width:0;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s}
+.post .thumb{position:relative;aspect-ratio:16/9;background:var(--tile);display:grid;place-items:center;overflow:hidden}
+.post .thumb::after{content:"";position:absolute;inset:auto -10% -40% auto;width:60%;aspect-ratio:1;border-radius:50%;background:rgba(253,246,235,.28)}
+.post .thumb .clay{--sz:76px;position:relative;z-index:1;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.post .pbody{display:grid;gap:10px;align-content:start;padding:18px 20px 20px}
+.post .meta{display:flex;gap:10px;align-items:center;justify-content:space-between;font:700 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.post .tag{color:var(--tag)}
+.post h3{font-size:23px;line-height:1.15;transition:color .2s}
+.post p{color:var(--muted);font-size:15px}
+.post .read{display:inline-flex;align-items:center;gap:6px;margin-top:4px;font:700 13px var(--body);color:var(--blue)}
+.post .read svg{width:14px;height:14px;transition:transform .25s}
+.post:hover{transform:translateY(-5px);box-shadow:0 18px 28px -18px rgba(90,45,20,.55)}
+.post:hover .thumb .clay{transform:rotate(-9deg) scale(1.08)}
+.post:hover h3{color:var(--blue)}
+.post:hover .read svg{transform:translateX(4px)}
+.post:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.post.k-plus{background:#8f3f22;border-color:#8f3f22;color:var(--onblue)}
+.post.k-plus p,.post.k-plus .meta{color:rgba(253,243,228,.8)}
+.post.k-plus .tag{color:#fde3cf}
+.post.k-plus .read,.post.k-plus:hover h3{color:#fde3cf}
+.post .pill{position:absolute;top:12px;left:12px;z-index:2;background:#fde3cf;color:#7a3219;padding:4px 10px;border-radius:2px;font:800 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+@media (max-width:560px){.post .thumb{aspect-ratio:16/7}.post .thumb .clay{--sz:64px}}
+.articles .ad{border-radius:3px;background:var(--card) repeating-linear-gradient(135deg,transparent 0 10px,rgba(180,83,47,.06) 10px 11px)}
+@media (prefers-reduced-motion:reduce){.post,.post .thumb .clay,.post .read svg{transition:none}}
 .amore{display:flex;justify-content:center;margin-top:30px}
 .post.extra:not([hidden]){animation:postIn .45s cubic-bezier(.2,.7,.3,1) backwards}
 @keyframes postIn{from{opacity:0;transform:translateY(14px)}}
-.post p{color:var(--muted);font-size:15px}
-.post:hover h3{color:var(--blue)}
 
 /* pricing */
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
@@ -778,12 +797,12 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-
     <p>Guides, real stories, and expert advice on staying close, handling hard weeks, and closing the distance for good.</p>
   </div>
   <div class="articles">
-    <a class="post" href="#articles"><div class="thumb" style="background:var(--blue)">7</div><div class="meta"><span>Communication</span><span>6 min</span></div><h3>7 ways to stop your calls from feeling like a status report</h3><p>Small changes that turn "what did you eat today" into real conversation.</p></a>
-    <a class="post" href="#articles"><div class="thumb" style="background:#8f3f22">✈</div><div class="meta"><span>Travel</span><span>8 min</span></div><h3>How to fly cheaper when you're visiting every month</h3><p>Fare tracking, points cards, and the best days to book.</p></a>
+    <a class="post k-together" href="#articles"><div class="thumb" data-icon="phone" data-wash="together"></div><div class="pbody"><div class="meta"><span class="tag">Communication</span><span>6 min read</span></div><h3>7 ways to stop your calls from feeling like a status report</h3><p>Small changes that turn "what did you eat today" into real conversation.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="post k-apart" href="#articles"><div class="thumb" data-icon="plane" data-wash="apart"></div><div class="pbody"><div class="meta"><span class="tag">Travel</span><span>8 min read</span></div><h3>How to fly cheaper when you're visiting every month</h3><p>Fare tracking, points cards, and the best days to book.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
     <div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>
-    <a class="post extra" hidden href="#articles"><div class="thumb" style="background:#c9714f">↔</div><div class="meta"><span>Closing the gap</span><span>10 min</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p></a>
-    <a class="post extra" hidden href="#articles"><div class="thumb" style="background:#a0482a">♥</div><div class="meta"><span>Real stories</span><span>5 min</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p></a>
-    <a class="post extra" hidden href="#pricing"><div class="thumb" style="background:var(--navy)">🔒</div><div class="meta"><span class="pill">Plus</span><span>12 min</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p></a>
+    <a class="post k-table extra" hidden href="#articles"><div class="thumb" data-icon="map" data-wash="table"></div><div class="pbody"><div class="meta"><span class="tag">Closing the gap</span><span>10 min read</span></div><h3>Who moves? A fair way to decide where you'll end up</h3><p>A step-by-step talk for when the distance has an end date.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="post k-arcade extra" hidden href="#articles"><div class="thumb" data-icon="heart" data-wash="arcade"></div><div class="pbody"><div class="meta"><span class="tag">Real stories</span><span>5 min read</span></div><h3>Three years, two countries, one wedding</h3><p>How Maya and Theo made it from Lagos to Chicago.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="post k-plus extra" hidden href="#pricing"><div class="thumb" data-icon="key" data-wash="plus"><span class="pill">Plus</span></div><div class="pbody"><div class="meta"><span class="tag">Trust</span><span>12 min read</span></div><h3>The jealousy guide: what to do when trust gets shaky</h3><p>A therapist-written plan for the hardest conversations.</p><span class="read">Unlock with Plus <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
   </div>
   <div class="amore"><button class="btn ghost" type="button" id="moreArticles" aria-expanded="false">View more articles</button></div>
 </div></section>
@@ -1018,7 +1037,8 @@ qEl("saveQ").addEventListener("click",()=>{const q=qEl("q").textContent,k=savedQ
 qEl("swapT").addEventListener("click",()=>{first=1-first;showQ();const t=qEl("turn");t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop")});
 showQ();renderSaved();
 
-// articles: show a couple, the rest on "View more"
+// articles: clay icons on the tiles, show a couple, the rest on "View more"
+document.querySelectorAll(".post .thumb[data-icon]").forEach(t=>{if(window.dateIcon)t.insertAdjacentHTML("beforeend",window.dateIcon(t.dataset.icon,"",t.dataset.wash))});
 document.getElementById("moreArticles").addEventListener("click",e=>{const b=e.currentTarget,open=b.getAttribute("aria-expanded")!=="true";
   document.querySelectorAll(".post.extra").forEach(a=>a.hidden=!open);b.setAttribute("aria-expanded",open);b.textContent=open?"Show fewer":"View more articles";
   if(!open)document.getElementById("articles").scrollIntoView({block:"start"})});
