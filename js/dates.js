@@ -40,10 +40,11 @@ window.DATE_ICONS={
  vase:'<path d="M9 3h6"/><path d="M10 3c0 2.5-4 4-4 9 0 5 3 8.5 6 8.5s6-3.5 6-8.5c0-5-4-6.5-4-9"/><path d="M7 12.5h10"/>',
  sparkle:'<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z"/><path d="M19 15.5v4M17 17.5h4"/>'
 };
-window.DATE_WASH={apart:"#9fb4c8",together:"#d6a093",arcade:"#c98b84",table:"#d9b479",plus:"#a9b896"};
-window.dateIcon=(k,cls,kind)=>'<span class="stamp '+cls+'" aria-hidden="true"><span class="face"><svg viewBox="0 0 24 24">'+
-  '<circle cx="12.6" cy="12.9" r="8.6" fill="'+(DATE_WASH[kind]||DATE_WASH.apart)+'" opacity=".75" filter="url(#wash)"/>'+
-  '<g fill="none" stroke="#4a3527" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" filter="url(#inked)">'+(DATE_ICONS[k]||"")+'</g></svg></span></span>';
+window.DATE_WASH={apart:"#9fb4cf",together:"#eba486",arcade:"#f2a68c",table:"#ecc08e",plus:"#e7a07f"};
+// a little clay disc, like the houses in the hero art, with the date's icon drawn on it
+window.dateIcon=(k,cls,kind)=>'<span class="clay '+(cls||"")+'" aria-hidden="true"><svg viewBox="0 0 24 24">'+
+  '<circle cx="13" cy="13.2" r="8" fill="'+(DATE_WASH[kind]||DATE_WASH.apart)+'" opacity=".55"/>'+
+  '<g fill="none" stroke="#4a3527" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round">'+(DATE_ICONS[k]||"")+'</g></svg></span>';
 
 // Extra detail for each date's own page: how to do it, what you need, one tip.
 // app:true dates live inside the app (coming soon). tool names a widget on the page.

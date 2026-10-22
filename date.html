@@ -7,7 +7,7 @@
 <title>Date idea · Love Is In The Air</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700;800&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700;800&display=swap">
 <style>
 /* Same vintage airmail palette as index.html. Light only, on purpose. */
 :root{
@@ -17,7 +17,6 @@
   --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --body:"Nunito Sans", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"Nunito Sans", "Avenir Next", ui-monospace, Consolas, monospace;
-  --pixel:"Press Start 2P", ui-monospace, monospace;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body)}
@@ -53,12 +52,11 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .back:hover{text-decoration:underline}
 @media (max-width:480px){.logo{font-size:19px;gap:8px}.back{font-size:14px}}
 
-/* stamps (same as home page) */
-.stamp{--sz:64px;display:block;flex:none;width:var(--sz);height:var(--sz);padding:4px;transform:rotate(-3deg);
-  background:radial-gradient(circle,transparent 0 2.2px,#efe1c4 2.7px) -4px -4px/8px 8px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.28))}
-.stamp .face{display:block;width:100%;height:100%;background:#f6ead2;box-shadow:inset 0 0 0 2px #f6ead2,inset 0 0 0 3px #c4a77a;padding:3px}
-.stamp svg{display:block;width:100%;height:100%}
-.stamp.big{--sz:120px;transform:rotate(-4deg)}
+/* date badge (same as home page) */
+.clay{--sz:84px;position:relative;z-index:1;display:grid;place-items:center;flex:none;width:var(--sz);height:var(--sz);border-radius:50%;
+  background:radial-gradient(circle at 36% 30%,#fffaf1 0,#f7e8d2 60%,#ecd5b6 100%);box-shadow:0 10px 18px -10px rgba(80,35,12,.6),inset 0 -4px 7px rgba(160,100,60,.16)}
+.clay svg{display:block;width:58%;height:58%}
+.clay.big{--sz:112px}
 
 .dhead{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;padding-block:24px 36px}
 .dhead .txt{display:grid;gap:12px}
@@ -66,7 +64,7 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .dhead p{font-size:19px;color:var(--muted);max-width:56ch}
 .facts{display:flex;flex-wrap:wrap;gap:8px}
 .facts span{font:700 12px var(--mono);border:1px solid var(--line);border-radius:3px;padding:4px 10px;color:var(--muted);background:var(--card)}
-@media (max-width:640px){.dhead{grid-template-columns:1fr;gap:18px}.stamp.big{--sz:96px}}
+@media (max-width:640px){.dhead{grid-template-columns:1fr;gap:18px}.clay.big{--sz:92px}}
 
 .soonbar{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--stamp);border:1px solid var(--line);border-radius:2px;padding:16px 20px;margin-bottom:28px}
 .soonbar p{font-weight:600}
@@ -495,11 +493,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-  <filter id="wash" x="-25%" y="-25%" width="150%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".22" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3.2"/><feGaussianBlur stdDeviation=".35"/></filter>
-  <filter id="inked" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".6" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale=".7"/></filter>
-</defs></svg>
-
 <nav><div class="wrap">
   <a class="logo" href="index.html" aria-label="Love Is In The Air home">
     <svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><path d="M2 26c6-2 9-6 13-11" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M22 25C13 19 11 14 13.5 10.2 15.6 7.3 19.4 7.7 22 10.6 24.6 7.7 28.4 7.3 30.5 10.2 33 14 31 19 22 25Z" fill="var(--red)"/></svg>
@@ -910,7 +903,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <footer><div class="wrap"><span>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
 
-<script src="js/dates.js?v=868d5095"></script>
+<script src="js/dates.js?v=da8ad6ce"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
 <script src="js/classes.js?v=78c6c8b8"></script>
 <script src="js/escaperooms.js?v=4343726d"></script>
