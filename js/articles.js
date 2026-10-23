@@ -5,61 +5,68 @@ window.ARTICLES = [
   {
     id: "travel", topic: "Travel", k: "apart", icon: "plane",
     title: "Making the miles work: how to travel for love without burning out",
-    sum: "How often to visit, how to book and split the cost, and how to make the trips feel like life, not a vacation.",
-    inside: ["Pick a visit rhythm you can actually keep", "Book smarter, and split the cost fairly", "Pack for two lives", "Don't plan every minute of the visit"],
+    sum: "How often to visit, how to share the travel and the cost, and how to keep it going without wearing yourselves out.",
+    inside: ["Figure out how often you can realistically visit", "Share the traveling", "Talk about money before it becomes an argument", "Leave some of the visit unplanned"],
     body: `
-<p>When you love someone who lives somewhere else, travel stops being a treat and starts being part of the relationship. The flights, the bus rides, the long drives at night: that's how you get to be together. And because it happens again and again, the way you handle it matters as much as any single trip.</p>
-<p>Here's what helps couples keep visiting without running out of money, vacation days, or energy.</p>
+<p>When your partner lives far away, seeing each other takes planning. You’re comparing flights, checking how much time you can take off, and figuring out whether you can afford another trip this month. Sometimes you spend almost as much time getting there as you do together.</p>
+<p>You want to visit as often as possible. But you also need a way to keep doing it without spending all your savings or coming home exhausted every time.</p>
+<p>Here are a few things worth working out together.</p>
 
-<h2>Pick a rhythm you can keep</h2>
-<p>The first few months, it's tempting to visit every chance you get. That's lovely, and it's also how a lot of couples end up broke and exhausted by month six. Before you book the next trip, sit down together and pick a rhythm you can keep for a year, not just a season.</p>
-<p>Ask each other three questions:</p>
+<h2>Figure out how often you can realistically visit</h2>
+<p>Early on, you might be happy to spend every spare weekend traveling. After a while, though, the late arrivals, Sunday goodbyes, and Monday mornings at work can catch up with you.</p>
+<p>Talk about what actually works for both of you:</p>
 <ul>
-  <li><strong>How long can we go between visits before it starts to hurt?</strong> For some couples that's three weeks. For others it's three months.</li>
-  <li><strong>What can we each afford?</strong> Be honest here. A rhythm one of you can't pay for will turn into resentment.</li>
-  <li><strong>How much time off do we have?</strong> Count your vacation days, holidays, and long weekends for the next few months.</li>
+  <li>How long are you comfortable going between visits?</li>
+  <li>How much can you each spend without putting yourselves under pressure?</li>
+  <li>How much time off do you have, and how much do you want to save for other things?</li>
 </ul>
-<p>Then choose: shorter trips more often, or longer trips less often. Neither one is better. Long weekends keep the gaps short. Longer stays let you settle in and see each other's real life. Many couples mix the two.</p>
-<p>Once you have a rhythm, put the next few visits on a shared calendar. Having the next one already booked makes every goodbye easier, because you're never saying goodbye without knowing when.</p>
+<p>You might prefer a weekend together every few weeks, or a longer stay every couple of months. Your schedules might mean doing a bit of both.</p>
+<p>Try not to commit to a schedule just because you think you should be seeing each other more. Start with what you can manage and adjust as you go.</p>
+<p>If possible, put a few visits on the calendar ahead of time. You don’t have to book everything immediately, but it helps to have a date to look forward to when you’re saying goodbye.</p>
 
-<h2>Take turns, or meet in the middle</h2>
-<p>If one person always does the traveling, it adds up: the cost, the tiredness, the time away from friends at home. Taking turns keeps it fair. It also means you each get to show the other your world, from your favorite coffee place to the friends you keep talking about.</p>
-<p>Sometimes the best answer is neither city. Meeting halfway can cut travel time for both of you and turns the visit into a small adventure. Our <a href="index.html#travel">travel planner</a> finds a fair halfway point between your two cities and shows the flights from each side.</p>
+<h2>Share the traveling</h2>
+<p>It’s easy to fall into a routine where one person always makes the trip, especially if their job is more flexible or the tickets are cheaper in one direction.</p>
+<p>That can work, as long as you’re both happy with it. Just don’t assume the person doing the traveling is fine with it because they haven’t complained. They’re also spending time packing, getting to stations or airports, and being away from their own home.</p>
+<p>Taking turns gives you both a chance to spend time in each other’s everyday lives, too. You get to know their friends, their neighborhood, and the place they’re always talking about getting breakfast.</p>
+<p>Meeting somewhere else is another option. Our <a href="index.html#travel">travel planner</a> can help you look for a halfway point and compare flights from both cities.</p>
 
-<h2>Book smarter</h2>
+<h2>Make booking less of a last-minute scramble</h2>
+<p>If you regularly travel the same route, set up fare alerts so you don’t have to start searching from scratch for every visit.</p>
+<p>When your schedules allow it, compare a few different dates rather than sticking to Friday evening through Sunday night. Check nearby airports too, but include the extra transport costs and travel time before deciding a cheaper flight is worth it.</p>
+<p>It’s also worth comparing the whole journey. A flight might look quicker until you add the trip to the airport, security, and the wait before boarding. Depending on where you live, a train, bus, or drive may be a better fit.</p>
+<p>And if you use the same airline regularly, look into its loyalty program. Just don’t pay more for a ticket solely to collect points.</p>
+
+<h2>Talk about money before it becomes an argument</h2>
+<p>Travel costs can be awkward to bring up, particularly when one of you earns more or has more bills to cover. But avoiding the conversation can leave someone spending money they don’t really have because they don’t want to disappoint the other person.</p>
+<p>There isn’t one right way to split things. You could:</p>
 <ul>
-  <li><strong>Watch prices before you need them.</strong> Set fare alerts on your usual route in both directions, so you notice a good price when it shows up instead of booking in a rush.</li>
-  <li><strong>Be flexible with dates.</strong> Flying midweek, or leaving a day earlier, is often cheaper than the Friday-to-Sunday trip everyone else wants.</li>
-  <li><strong>Check nearby airports.</strong> A slightly longer drive at either end can sometimes save more than you'd expect.</li>
-  <li><strong>Pick one loyalty program and stick to it.</strong> If you fly the same route a lot, the points add up faster than you think.</li>
-  <li><strong>Don't forget the ground.</strong> Trains, buses, and road trips can be cheaper and less stressful than flying, and the drive can become its own date with a shared playlist.</li>
+  <li>Each pay for your own travel, with the person hosting covering more of the food and activities.</li>
+  <li>Share the total cost of each visit.</li>
+  <li>Contribute different amounts based on what you can afford.</li>
+  <li>Put money into a shared travel fund each month.</li>
 </ul>
+<p>Be specific about what works for you. “We’ll figure it out” is fine until a ticket needs booking and neither person knows who’s paying.</p>
+<p>If someone’s circumstances change, talk about it again. An arrangement that worked six months ago might not work now.</p>
 
-<h2>Split the cost in a way that feels fair</h2>
-<p>Money is one of the quietest strains in a long-distance relationship, because the costs are constant and they aren't always even. Talk about it early, before anyone feels taken for granted.</p>
-<p>A few ways couples handle it:</p>
-<ul>
-  <li><strong>The traveler pays for the trip, the host pays for the visit.</strong> Simple, and it evens out when you take turns.</li>
-  <li><strong>Split by income.</strong> If one of you earns a lot more, splitting in proportion can feel fairer than going half and half.</li>
-  <li><strong>A shared travel fund.</strong> You both put a set amount in every month, and trips come out of it. It turns "who's paying" into "what can we do."</li>
-</ul>
-<p>Whatever you choose, the point is that you chose it together. Revisit it if someone's situation changes.</p>
+<h2>Leave a few things at each other’s places</h2>
+<p>If you visit regularly and have the space, keeping a few basics there saves you packing the same things every time.</p>
+<p>A toothbrush, charger, toiletries, and some spare clothes can be enough. Ask first rather than gradually taking over a drawer, but it doesn’t need to be a big relationship milestone.</p>
+<p>Keeping your travel essentials together at home helps too, especially when you’re leaving straight after work.</p>
 
-<h2>Pack for two lives</h2>
-<p>Packing gets easier when part of you already lives at their place. Leave a toothbrush, a charger, a few clothes, maybe a pair of shoes. It saves space, and it's a small, real sign that you belong there too.</p>
-<p>Keep a travel kit ready to go, with the basics always packed, so getting ready for a trip takes ten minutes, not an evening. Carry-on only, when you can manage it, means no waiting at baggage claim and more time together.</p>
+<h2>Leave some of the visit unplanned</h2>
+<p>When you’ve waited weeks to see each other, it’s tempting to fill the whole visit. You want to go out, do something memorable, and make the most of the time.</p>
+<p>But you might also arrive tired. One of you may still have work to finish. Sometimes you’ll both just want dinner and an early night.</p>
+<p>Pick something you’re excited to do, then leave room to decide the rest when you’re together. Staying in doesn’t mean you’ve wasted the trip. You’re allowed to spend an afternoon doing very little.</p>
+<p>And if the first few hours feel slightly awkward, try not to turn that into a verdict on the relationship. Give yourselves a little time to settle in rather than expecting the reunion to feel perfect immediately.</p>
 
-<h2>Don't plan every minute</h2>
-<p>When you only see each other a few times a year, every visit can start to feel like it has to be perfect. So you plan the big dinner, the day trip, the show, the brunch, and come home more tired than when you left.</p>
-<p>Try this instead: one special thing per visit, and the rest ordinary. Grocery shopping. Cooking together. Falling asleep on the couch during a movie. Those ordinary moments are what you miss most when you're apart, and they're a preview of the life you're building.</p>
-<p>It's also normal if the first day feels a little strange. You've been talking through a screen for weeks, and it can take a few hours to fall back into the rhythm of being in the same room. Don't read too much into it. It passes.</p>
+<h2>Think about the journey home, too</h2>
+<p>A late return might give you a few extra hours together, but consider what the following day will look like. Sometimes it’s worth getting home earlier so you can eat, unpack, and sleep before work.</p>
+<p>Keep an eye on your time off as well. Before booking another visit, check what you’ll have left for holidays, family plans, or a break that doesn’t involve traveling.</p>
+<p>You can want to see your partner and still need a weekend at home. If the current schedule is wearing you out, say so. That’s something you can work on together—not something you need to prove you can put up with.</p>
 
-<h2>Look after yourself on the way</h2>
-<p>Regular travel is tiring in ways that sneak up on you. If you can, give yourself a quiet evening when you get home instead of going straight back to a full schedule. If you're crossing time zones, try to get some daylight soon after you land. And plan your vacation days a few months ahead, so you aren't spending them all in the first half of the year.</p>
-
-<h2>The trip is the relationship</h2>
-<p>It's easy to think of visits as a break from the long-distance part. But the way you plan together, share the cost, and take care of each other on the road is the relationship, practiced in real life. Couples who get good at it are building the same skills they'll need when the distance finally closes.</p>
-<p>Keep the trips sustainable, keep the next one on the calendar, and leave room for the boring parts. Those are usually the best ones.</p>
+<h2>Find an arrangement you both want to keep doing</h2>
+<p>Some visits will be wonderful. Others will involve delays, bad sleep, or an argument about where to eat. You don’t have to make every trip worth it by having an amazing time from start to finish.</p>
+<p>What matters is whether you can afford the visits, share the effort, and enjoy being together without putting too much pressure on the time you have. If something isn’t working, change the plan rather than waiting until one of you dreads the next journey.</p>
 `
   },
   {
