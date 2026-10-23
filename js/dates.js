@@ -16,7 +16,7 @@ window.DATES=[
  {s:"escape-room",k:"apart",i:"key",t:"Online escape room",d:"Book a two-player virtual escape room and solve it as a team on video.",f:["$$","1 hr"],tags:["adventurous"]},
  {s:"time-capsule",k:"together",i:"hourglass",t:"Build a time capsule",d:"Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.",f:["Free","1 hr"],tags:["free","cozy"]},
  {s:"walk-along",k:"apart",i:"phone",t:"Neighborhood walk-along",d:"Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.",f:["Free","45 min"],tags:["free"]},
- {s:"take-a-class",k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, or a cooking class. You leave with a new skill and a story.",f:["$$","2–3 hrs"],tags:["adventurous"]},
+ {s:"take-a-class",k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, cooking, anything you'd both be a little bad at. That's half the fun.",f:["$$","2–3 hrs"],tags:["adventurous"]},
  {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"200+ more date ideas",d:"Holiday dates, anniversary plans, and new ideas every month, plus unlimited virtual dates.",f:["Plus"],tags:["all-only"]}
 ];
 window.DATE_WHERE={apart:"While apart",together:"When you visit"};

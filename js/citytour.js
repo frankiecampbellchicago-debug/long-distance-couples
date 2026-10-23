@@ -140,9 +140,9 @@
       const { lat, lon, name } = city;
       $("cityHead").textContent = "See " + city.label;
       const box = $("cityViews"); box.innerHTML = "";
-      [["Fly over it in 3D", "Google Earth, from above the city", views.earth(lat, lon, 6000), "&#9992;"],
-       ["Walk the streets", "Street View, starting downtown", views.street(lat, lon), "&#128694;"],
-       ["Watch it live", "Live webcams from around " + name, views.cams(name), "&#127909;"]].forEach(([t, s, href, icon]) => {
+      [["Fly over it in 3D", "Google Earth, from above the city", views.earth(lat, lon, 6000), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l20-8-8 13-2-6-10 1Z"/></svg>'],
+       ["Walk the streets", "Street View, starting downtown", views.street(lat, lon), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M10 21l2-6-3-3 1-4 4 3 3 1M9 8l-3 3"/></svg>'],
+       ["Watch it live", "Live webcams from around " + name, views.cams(name), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>']].forEach(([t, s, href, icon]) => {
         const a = document.createElement("a");
         a.className = "view"; a.href = href; a.target = "_blank"; a.rel = "noopener";
         if (t === "Walk the streets") streetLink(a, lat, lon);

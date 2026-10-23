@@ -184,8 +184,8 @@
         li.querySelector(".rmeta").textContent = m.d || "";
         const sc = li.querySelector(".scores");
         const score = (cls, txt, title) => { const b = document.createElement("span"); b.className = "score " + cls; b.textContent = txt; b.title = title; sc.appendChild(b); };
-        score("rt", "🍅 " + (m.rt != null ? m.rt + "%" : "– –") + " critics", "Rotten Tomatoes Tomatometer");
-        if (m.au != null) score("mc", "🍿 " + m.au + "% audience", "Rotten Tomatoes Popcornmeter");
+        score("rt", "Critics " + (m.rt != null ? m.rt + "%" : "– –"), "Rotten Tomatoes Tomatometer");
+        if (m.au != null) score("mc", "Audience " + m.au + "%", "Rotten Tomatoes Popcornmeter");
         const acts = li.querySelector(".ractions");
         const btn = (txt, href, cls) => { const a = document.createElement("a"); a.className = "btn " + cls; a.textContent = txt; a.href = href; a.target = "_blank"; a.rel = "noopener"; acts.appendChild(a); };
         btn("Where to watch", rtUrl + "#where-to-watch", "");

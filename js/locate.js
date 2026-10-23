@@ -3,7 +3,7 @@
 window.addLocateButton = function (input, opts) {
   const b = document.createElement("button");
   b.type = "button"; b.className = "locbtn";
-  b.innerHTML = '<span aria-hidden="true">&#128205;</span> <span>Use my location</span>';
+  b.innerHTML = '<svg class="bi" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg> <span>Use my location</span>';
   input.closest(".field").appendChild(b);
   const label = b.lastChild, say = (msg, err) => opts.status && opts.status(msg, err);
   const done = () => { b.disabled = false; label.textContent = "Use my location"; };

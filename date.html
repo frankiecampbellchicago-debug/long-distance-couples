@@ -58,7 +58,7 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .clay{--sz:84px;position:relative;z-index:1;display:grid;place-items:center;flex:none;width:var(--sz);height:var(--sz);border-radius:50%;
   background:radial-gradient(circle at 36% 30%,#fffaf1 0,#f7e8d2 60%,#ecd5b6 100%);box-shadow:0 10px 18px -10px rgba(80,35,12,.6),inset 0 -4px 7px rgba(160,100,60,.16)}
 .clay svg{display:block;width:58%;height:58%}
-.clay.big{--sz:112px}
+.clay.big{--sz:112px;box-shadow:0 1px 2px rgba(80,35,12,.18),inset 0 -4px 7px rgba(160,100,60,.16)}
 
 .dhead{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;padding-block:24px 36px}
 .dhead .txt{display:grid;gap:12px}
@@ -76,9 +76,9 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:24px;display:grid;gap:14px;min-width:0}
 .panel h2{font-size:26px}
 .steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:14px}
-.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
-.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--paper);border:1.5px solid var(--red);color:var(--red);font:700 14px var(--mono)}
-.steps li span{padding-top:4px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:baseline}
+.steps li::before{content:counter(s) ".";color:var(--red);font:600 26px/1 var(--display);text-align:right;padding-right:2px}
+.steps li span{padding-top:0}
 .orway{display:grid;gap:10px}
 .orline{display:flex;align-items:center;gap:12px;font:700 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
 .orline::before,.orline::after{content:"";flex:1;border-top:1px solid var(--line)}
@@ -271,7 +271,9 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 @media (max-width:720px){.views{grid-template-columns:minmax(0,1fr)}}
 .view{display:flex;gap:12px;align-items:center;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:14px 16px;min-width:0}
 .view:hover{border-color:var(--blue);background:var(--stamp)}
-.vicon{font-size:26px;flex:none}
+.vicon{flex:none;width:30px;height:30px;color:var(--blue)}
+.vicon svg{width:100%;height:100%}
+.bi{flex:none;vertical-align:-3px}
 .view strong{display:block;font:600 19px var(--display);color:var(--blue)}
 .view small{display:block;font-size:13px;color:var(--muted)}
 .tour{background:var(--paper);border:1.5px dashed var(--rose);border-radius:2px;padding:18px;display:grid;gap:12px}
@@ -570,7 +572,7 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
         <div class="field"><label for="mKind">Kind of museum</label>
           <div class="combo"><input id="mKind" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="mKindList" autocomplete="off" placeholder="Art, history, dinosaurs, space…"><ul class="opts" id="mKindList" role="listbox" hidden></ul></div></div>
         <button class="btn red" type="submit" id="museumGo">Find museums</button>
-        <button class="btn ghost" type="button" id="museumRandom">&#127922; Surprise me</button>
+        <button class="btn ghost" type="button" id="museumRandom"><svg class="bi" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg> Surprise me</button>
       </form>
       <p class="fstatus" id="museumStatus" role="status"></p>
       <ol class="rlist" id="museumList" aria-label="Virtual museum tours"></ol>
@@ -732,7 +734,7 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
       <form class="fform mus" id="postForm" novalidate>
         <div class="field"><label for="postAddr">Your address</label><input id="postAddr" type="text" autocomplete="street-address" placeholder="Street address, city"></div>
         <button class="btn red" type="submit" id="postGo">Find post offices</button>
-        <button class="btn ghost" type="button" id="postHere">&#128205; Use my location</button>
+        <button class="btn ghost" type="button" id="postHere"><svg class="bi" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg> Use my location</button>
       </form>
       <p class="fstatus" id="postStatus" role="status"></p>
       <div class="postres" id="postResult" hidden>
@@ -770,7 +772,7 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
         <div class="field"><label for="escTheme">Type of escape room</label><select id="escTheme"><option value="">Any type</option></select></div>
         <div class="field"><label for="escFormat">How you play</label><select id="escFormat"><option value="browser">In your browser</option><option value="live">Live host on Zoom</option><option value="game">Video games</option><option value="">Any way</option></select></div>
         <button class="btn red" type="submit" id="escGo">Find rooms</button>
-        <button class="btn ghost" type="button" id="escRandom">&#127922; Surprise us</button>
+        <button class="btn ghost" type="button" id="escRandom"><svg class="bi" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg> Surprise us</button>
         <div class="bookopts"><label><input type="checkbox" id="escPhone"> Works on phones</label></div>
       </form>
       <p class="fstatus" id="escStatus" role="status"></p>
@@ -788,7 +790,7 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
         <div class="field"><label for="recipeKind">Kind of food</label><select id="recipeKind"><option value="">Any kind</option></select></div>
         <div class="field"><label for="recipeSkill">Cooking skill</label><select id="recipeSkill"><option value="">Any skill level</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
         <button class="btn red" type="submit" id="recipeGo">Find recipes</button>
-        <button class="btn ghost" type="button" id="recipeRandom">&#127922; Surprise us</button>
+        <button class="btn ghost" type="button" id="recipeRandom"><svg class="bi" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg> Surprise us</button>
       </form>
       <p class="fstatus" id="recipeStatus" role="status"></p>
       <ul class="rgrid" id="recipeList" aria-label="Recipes"></ul>
@@ -879,7 +881,6 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
         <ol class="steps" id="dSteps"></ol>
         <div class="orway" id="dAlt" hidden><p class="orline"><span>or</span></p><p id="dAltText"></p></div>
         <div class="bonus" id="dBonus" hidden>
-          <span class="eyebrow">Extra bonus</span>
           <h3>Pair this with Deep Talks</h3>
           <p class="bsub" id="bonusSub"></p>
           <p class="bq" id="bonusQ" aria-live="polite"></p>
@@ -903,18 +904,18 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
   </div>
 </main>
 
-<footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
+<footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=1d4d225f"></script>
+<script src="js/dates.js?v=0a63679a"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
 <script src="js/classes.js?v=78c6c8b8"></script>
 <script src="js/escaperooms.js?v=4343726d"></script>
 <script src="js/meetup.js?v=e114f7f2"></script>
-<script src="js/locate.js?v=35a0f460"></script>
-<script src="js/citytour.js?v=d1faf9d6"></script>
+<script src="js/locate.js?v=a3649b11"></script>
+<script src="js/citytour.js?v=e1944ee7"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=d572b7eb"></script>
+<script src="js/date-page.js?v=3879649f"></script>
 </body>
 </html>
