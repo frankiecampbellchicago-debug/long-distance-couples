@@ -238,6 +238,13 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 
 .postcard{background:var(--card);border:1px solid var(--line);border-radius:2px;box-shadow:0 1px 2px rgba(47,36,27,.2);overflow:hidden;min-width:0}
 .postcard .inner{padding:22px;display:grid;gap:18px}
+/* minimize: each travel panel folds down to its title bar, like the trip board */
+.postcard .phead{padding:22px 22px 0}
+.tpanel.min > :not(.phead){display:none!important}
+.postcard.min .phead{padding-bottom:22px}
+.tpanel.min .bname{font-size:24px}
+.tpanel.min{animation:tpFold .25s ease}
+@keyframes tpFold{from{opacity:.6}}
 .clocks{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch}
 .clock{display:grid;gap:6px;min-width:0}
 .clock label{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -659,7 +666,8 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
     <p>Search your two cities, see each other's time, find a fair place to meet, and check real flight prices between you.</p>
   </div>
   <div class="tgrid">
-  <div class="postcard" aria-label="Your distance">
+  <div class="postcard tpanel" id="distPanel" aria-label="Your distance">
+    <h3 class="bhead phead"><button class="btoggle" type="button" data-panel="distPanel" aria-expanded="true" aria-controls="distPanel"><span class="btl"><span class="bname">Your distance</span><span class="bsub" data-sub="Your two cities, your times, and a fair place to meet.">Your two cities, your times, and a fair place to meet.</span></span><span class="tctl"><span class="tlabel">Minimize</span><svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></h3>
     <div class="inner">
       <div class="clocks">
         <div class="clock">
@@ -690,9 +698,8 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
     </div>
   </div>
 
-  <div class="fare" aria-labelledby="fareTitle">
-    <h3 id="fareTitle">Fare watch</h3>
-    <p class="fsub">We fill in your nearest airports. Check live prices, then save the route to keep an eye on it.</p>
+  <div class="fare tpanel" id="farePanel" aria-labelledby="fareTitle">
+    <h3 class="bhead phead"><button class="btoggle" type="button" data-panel="farePanel" aria-expanded="true" aria-controls="farePanel"><span class="btl"><span class="bname"><span id="fareTitle">Fare watch</span></span><span class="bsub" data-sub="We fill in your nearest airports. Check live prices, then save the route to keep an eye on it.">We fill in your nearest airports. Check live prices, then save the route to keep an eye on it.</span></span><span class="tctl"><span class="tlabel">Minimize</span><svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></h3>
     <div class="route">
       <label class="code" for="fareFrom"><span>From</span><input id="fareFrom" type="text" inputmode="text" maxlength="3" autocomplete="off" spellcheck="false"><small id="fareFromName"></small></label>
       <button class="round swap" type="button" id="fareSwap" aria-label="Swap airports">&#8646;</button>
@@ -900,9 +907,9 @@ footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
       <label for="email" class="note">Your email</label>
       <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
       <button class="btn" type="submit">Join the waitlist</button>
-      <p class="note" id="formMsg">Preview only. Sign-ups aren't collected yet.</p>
+      <p class="note" id="formMsg">We'll only email you about the launch. No spam, ever.</p>
     </form>
-    <div class="done" id="done" hidden>You're on the list (preview). Sign-ups will be saved once the site goes live.</div>
+    <div class="done" id="done" hidden></div>
   </div>
 </div></section>
 
@@ -1070,10 +1077,52 @@ showQ();renderSaved();
 // clay icons on the article and pricing tiles
 document.querySelectorAll(".post .thumb[data-icon],.ptile[data-icon]").forEach(t=>{if(window.dateIcon)t.insertAdjacentHTML("beforeend",window.dateIcon(t.dataset.icon,"",t.dataset.wash))});
 
-// waitlist (preview)
-document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefault();const em=document.getElementById("email");
- if(!/^\S+@\S+\.\S+$/.test(em.value)){document.getElementById("formMsg").textContent="Enter an email like name@example.com.";em.focus();return}
- e.target.hidden=true;document.getElementById("done").hidden=false});
+// travel panels: minimize / open, remembered on this device; a folded panel shows a one-line summary
+(function(){
+  const val=id=>{const e=document.getElementById(id);return e?(e.value||e.textContent||"").trim():""};
+  const city=v=>v.split(",")[0];
+  const SUM={
+    distPanel:()=>{const a=city(val("cityA")),b=city(val("cityB")),m=val("miles");return a&&b?a+" ↔ "+b+(m&&m!=="–"?" · "+m+" miles apart":""):""},
+    farePanel:()=>{const f=val("fareFrom").toUpperCase(),t=val("fareTo").toUpperCase(),d=val("fareDep");
+      return f&&t?f+" → "+t+(d?" · leaving "+new Date(d+"T12:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}):""):""}
+  };
+  let st={};try{st=JSON.parse(localStorage.getItem("ldr-travel-min"))||{}}catch(e){}
+  document.querySelectorAll(".tpanel .btoggle[data-panel]").forEach(b=>{
+    const id=b.dataset.panel,panel=document.getElementById(id),sub=b.querySelector(".bsub");
+    const set=(min,save)=>{panel.classList.toggle("min",min);b.setAttribute("aria-expanded",String(!min));
+      b.querySelector(".tlabel").textContent=min?"Open":"Minimize";
+      sub.textContent=min&&SUM[id]()||sub.dataset.sub;
+      if(save){st[id]=min;try{localStorage.setItem("ldr-travel-min",JSON.stringify(st))}catch(e){}}};
+    b.addEventListener("click",()=>set(!panel.classList.contains("min"),true));
+    if(st[id])set(true);
+    // the cities fill in after load, so refresh the folded summary once they do
+    addEventListener("load",()=>setTimeout(()=>{if(panel.classList.contains("min"))set(true)},800));
+  });
+})();
+
+// waitlist: each sign-up is emailed to us through FormSubmit (free). INBOX is the address (or the
+// private alias FormSubmit gives you after activating), so new sign-ups arrive as emails.
+const INBOX="";
+if(!INBOX)document.getElementById("formMsg").textContent="Preview only. Sign-ups aren't collected yet.";
+let wantPlan="";
+document.querySelectorAll('.plan a[href="#join"]').forEach(a=>a.addEventListener("click",()=>{
+  wantPlan=a.closest(".plan").querySelector("h3").textContent.trim();
+  document.getElementById("formMsg").textContent=wantPlan==="Free"?"We'll only email you about the launch. No spam, ever.":wantPlan+" opens with the launch. Join the waitlist and you'll be first to get it.";
+}));
+const joinDone=(em,preview)=>{document.getElementById("joinForm").hidden=true;const d=document.getElementById("done");d.hidden=false;
+  d.textContent=preview?"You're on the list (preview). Sign-ups will be saved once the site goes live.":"You're on the list! We'll email "+em+" when the doors open.";};
+try{const w=localStorage.getItem("ldr-waitlist");if(w&&INBOX)joinDone(w)}catch(e){}
+document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefault();const em=document.getElementById("email"),msg=document.getElementById("formMsg"),btn=e.target.querySelector("button");
+ const v=em.value.trim();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){msg.textContent="Enter an email like name@example.com.";em.focus();return}
+ if(!INBOX){joinDone(v,true);return}
+ btn.disabled=true;btn.textContent="Joining...";
+ const fail=t=>{btn.disabled=false;btn.textContent="Join the waitlist";msg.textContent=t||"That didn't go through. Check your connection and try again."};
+ fetch("https://formsubmit.co/ajax/"+INBOX,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+   body:JSON.stringify({email:v,interested_in:wantPlan||"Just the waitlist",page:location.href,_subject:"New waitlist sign-up: "+v,_template:"table",_captcha:"false"})})
+  .then(r=>r.json()).then(r=>{if(String(r.success)!=="true")throw 0;try{localStorage.setItem("ldr-waitlist",v)}catch(err){}joinDone(v)})
+  .catch(()=>fail());
+});
 </script>
 <script src="js/airports.js?v=1e84d948"></script>
 <script src="js/travel.js?v=444ed285"></script>
