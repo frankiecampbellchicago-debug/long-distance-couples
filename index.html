@@ -314,8 +314,6 @@ section.band{padding-block:80px}
 .dcard::after{content:"";position:absolute;inset:-1px;border-radius:inherit;background:var(--paper);opacity:var(--fade,0);pointer-events:none;z-index:3}
 .dcard[aria-current="true"]{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue),0 20px 30px -18px rgba(90,45,20,.55)}
 .dc-tile{position:relative;display:grid;place-items:center;aspect-ratio:16/11;overflow:hidden;border-radius:4px 4px 0 0;background:var(--tile)}
-.dc-tile::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,250,240,.35) 0 18%,transparent 18% 30%,rgba(255,250,240,.2) 30% 38%,transparent 38%);pointer-events:none}
-.dc-tile::after{content:"";position:absolute;left:30%;right:30%;bottom:15%;height:10%;border-radius:50%;background:rgba(70,30,10,.22);filter:blur(5px)}
 .dcard .clay{--sz:74px;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
 .dcard[aria-current="true"] .clay{transform:translateY(-6px) rotate(-6deg)}
 .dc-body{display:grid;gap:4px;padding:12px 14px 14px}
@@ -339,7 +337,6 @@ section.band{padding-block:80px}
 .detail{position:relative;margin:22px auto 0;max-width:760px;background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;
   display:grid;grid-template-columns:200px 1fr;box-shadow:0 2px 4px rgba(90,45,20,.08)}
 .detail .dtile{position:relative;display:grid;place-items:center;background:var(--tile);min-height:200px}
-.detail .dtile::after{content:"";position:absolute;left:28%;right:28%;bottom:16%;height:8%;border-radius:50%;background:rgba(70,30,10,.22);filter:blur(5px)}
 .detail .clay{--sz:104px}
 .detail .dbody{display:grid;gap:10px;align-content:start;padding:22px 26px 24px}
 .detail h3{font-size:30px;padding-right:48px}
@@ -499,7 +496,7 @@ section.band{padding-block:80px}
 .plan:hover .ptile .clay{transform:rotate(-9deg) scale(1.08)}
 .pbody2{display:flex;flex-direction:column;gap:16px;padding:24px 26px 28px;flex:1}
 .plan .ptag{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tag)}
-.plan h3{font-size:30px;margin-top:-8px}
+.plan h3{font-size:30px}
 .price{font:600 46px/1 var(--display);font-variant-numeric:lining-nums;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .price small{font:600 14px var(--body);color:var(--muted)}
 .plan ul{margin:0;padding:16px 0 0;border-top:1px solid var(--line);list-style:none;display:grid;gap:10px;flex:1}
@@ -556,7 +553,6 @@ section.band{position:relative;isolation:isolate}
 
 <header class="hero" id="top"><div class="wrap">
   <div class="herotext">
-    <span class="eyebrow"><svg width="14" height="13" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C3 15 1 10 3.5 6.2 5.6 3.3 9.4 3.7 12 6.6 14.6 3.7 18.4 3.3 20.5 6.2 23 10 21 15 12 21Z" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>For long-distance couples · Anywhere in the world</span>
     <h1>Date night,<br> even <em>miles apart.</em></h1>
     <p class="lede">Dates, deep talks, and a countdown to your next visit.</p>
     <div class="ctas"><a class="btn" href="#join">Join the waitlist</a><a class="btn ghost" href="#dates">See what's inside</a></div>
@@ -568,7 +564,6 @@ section.band{position:relative;isolation:isolate}
 
 <section class="band" id="dates"><div class="wrap">
   <div class="sechead">
-    <span class="eyebrow">Dates</span>
     <h2>Somewhere to go together.</h2>
     <p>A video call works, but you end up just staring at each other. Play and cook together in the app, or pick an idea for tonight or your next visit.</p>
   </div>
@@ -604,8 +599,7 @@ section.band{position:relative;isolation:isolate}
 
 <section class="cdband" id="countdown"><div class="wrap">
   <div>
-    <span class="eyebrow">Countdown</span>
-    <h2>Every day apart is one day closer.</h2>
+    <h2>How many sleeps until you see them?</h2>
     <p>Set the day you'll see each other next. You both get the same countdown on your phones, plus a little nudge when it's one week, one day, and one hour away.</p>
     <div class="cdcontrols">
       <label for="visitDate">Next visit<input id="visitDate" type="datetime-local"></label>
@@ -623,7 +617,6 @@ section.band{position:relative;isolation:isolate}
 
 <section class="band" id="talks"><div class="wrap">
   <div class="sechead">
-    <span class="eyebrow">Deep Talks</span>
     <h2>Questions for the nights you want more than "how was your day."</h2>
     <p>Pick a topic and take turns answering. Save the ones that started something good.</p>
   </div>
@@ -668,7 +661,6 @@ section.band{position:relative;isolation:isolate}
 
 <section class="band" id="travel" style="padding-top:0"><div class="wrap">
   <div class="sechead">
-    <span class="eyebrow">Travel together</span>
     <h2>Plan the next time you're in the same room.</h2>
     <p>Search your two cities, see each other's time, find a fair place to meet, and check real flight prices between you.</p>
   </div>
@@ -734,7 +726,7 @@ section.band{position:relative;isolation:isolate}
 
   <div class="board" id="tripBoard" aria-labelledby="boardTitle">
     <h3 class="bhead" id="boardTitle"><button class="btoggle" type="button" id="boardToggle" aria-expanded="false" aria-controls="boardBody">
-      <span class="btl"><span class="bname">Trip board</span><span class="bsub" id="boardSum">Plans, tickets, costs, and your bucket list, all in one place.</span></span>
+      <span class="btl"><span class="bname">Trip board</span><span class="bsub" id="boardSum">Plans, tickets, who paid for what, and places you want to go.</span></span>
       <span class="tctl"><span class="tlabel" id="boardToggleLabel">Open</span><svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </button></h3>
     <div class="bbody" id="boardBody" hidden>
@@ -826,9 +818,8 @@ section.band{position:relative;isolation:isolate}
 <section class="band" id="articles" style="padding-top:0"><div class="wrap">
   <div class="ad adbanner" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Your brand here</strong><span>Banner ad space · 970 × 90</span></div>
   <div class="sechead">
-    <span class="eyebrow">Articles</span>
-    <h2>Advice from couples who made the distance work.</h2>
-    <p>Guides, real stories, and expert advice on staying close, handling hard weeks, and closing the distance for good.</p>
+    <h2>Things to read on the nights you miss them.</h2>
+    <p>Practical stuff about visits, trust, and the hard weeks. We add new ones as we write them.</p>
   </div>
   <div class="articles">
     <a class="post k-apart" href="article.html?a=travel"><div class="thumb" data-icon="plane" data-wash="apart"></div><div class="pbody"><div class="meta"><span class="tag">Travel</span><span>New</span></div><h3>Making the miles work: how to travel for love without burning out</h3><p>How often to visit, how to book and split the cost, and how to make the trips feel like life, not a vacation.</p><span class="read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
@@ -839,22 +830,12 @@ section.band{position:relative;isolation:isolate}
 </div></section>
 
 
-<section class="band" id="how"><div class="wrap">
-  <div class="sechead"><span class="eyebrow">How it works</span><h2>Ready in a minute.</h2></div>
-  <div class="steps">
-    <div class="step"><h3>Pair up</h3><p>Create an account and send your partner an invite code. Your cities and time zones set themselves.</p></div>
-    <div class="step"><h3>Pick a date</h3><p>Choose the arcade, the restaurant, or a new date we add each month. We find a time that works for both of you.</p></div>
-    <div class="step"><h3>Show up</h3><p>You both get a reminder, join from your phone or laptop, and spend the evening together.</p></div>
-  </div>
-</div></section>
-
 <section class="band" id="pricing" style="padding-top:0"><div class="wrap">
-  <div class="sechead"><span class="eyebrow">Pricing</span><h2>Start free. Upgrade when you're ready.</h2><p>One Plus subscription covers both of you.</p></div>
+  <div class="sechead"><h2>What it costs.</h2><p>Most of it is free. Plus is one price for the two of you, not each.</p></div>
   <div class="plans">
     <div class="plan k-together">
       <div class="ptile" data-icon="heart" data-wash="together"></div>
       <div class="pbody2">
-        <span class="ptag">For trying it out</span>
         <h3>Free</h3>
         <div class="price">$0 <small>forever</small></div>
         <ul>
@@ -869,10 +850,8 @@ section.band{position:relative;isolation:isolate}
       </div>
     </div>
     <div class="plan feat k-plus">
-      <span class="ribbon">Most popular</span>
-      <div class="ptile" data-icon="sparkle" data-wash="plus"></div>
+      <div class="ptile" data-icon="key" data-wash="plus"></div>
       <div class="pbody2">
-        <span class="ptag">For both of you</span>
         <h3>Plus</h3>
         <div class="price">$7.99 <small>/ month per couple</small></div>
         <ul>
@@ -889,7 +868,6 @@ section.band{position:relative;isolation:isolate}
     <div class="plan k-table">
       <div class="ptile"><div class="cover">Closer Than It Looks</div></div>
       <div class="pbody2">
-        <span class="ptag">Yours to keep</span>
         <h3>The Book</h3>
         <div class="price">$14.99 <small>one time</small></div>
         <ul>
@@ -906,7 +884,7 @@ section.band{position:relative;isolation:isolate}
 
 <section class="join" id="join"><div class="wrap">
   <div>
-    <h2>Be the first couple through the door.</h2>
+    <h2>Want in when it opens?</h2>
     <p>Join the waitlist for early access and a free first month of Plus for you and your partner.</p>
   </div>
   <div>
@@ -920,9 +898,9 @@ section.band{position:relative;isolation:isolate}
   </div>
 </div></section>
 
-<footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for people who are worth the distance.</span></div></footer>
+<footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=da8ad6ce"></script>
+<script src="js/dates.js?v=1d4d225f"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script>
 // visit countdown (defaults to an example date 23 days out)
@@ -1033,7 +1011,7 @@ addEventListener("resize",()=>{size();render()});
 build();
 
 // deep talks: pick a topic, flip through the deck, take turns, save the good ones
-const TALKS=window.DEEP_TALKS,TOPIC={"Getting closer":["heart","together"],"Dreams & future":["sparkle","apart"],"Just for fun":["popcorn","arcade"],
+const TALKS=window.DEEP_TALKS,TOPIC={"Getting closer":["heart","together"],"Dreams & future":["map","apart"],"Just for fun":["popcorn","arcade"],
   "Trust & hard stuff":["key","table"],"Intimacy":["moon","together"],"Money & moving":["plane","apart"]};
 const LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 const qEl=id=>document.getElementById(id),deck=qEl("qdeck"),qcard=qEl("qcard"),catsEl=qEl("cats");
