@@ -190,8 +190,129 @@ window.ARTICLES = [
   {
     id: "love-languages", topic: "Love languages", k: "together", icon: "heart",
     title: "Love languages from far away: how to show up in the way they feel it",
-    sum: "Words, gifts, time, help, and touch, and how to speak each one when you're not in the same place.",
-    inside: ["A quick refresher on the five love languages", "Finding out which ones you each speak", "Ideas for every language, from a distance", "What to do when your languages don't match"]
+    sum: "For couples who don't get to see each other often.",
+    inside: ["Use love languages as a conversation starter, not a label", "Words, time, help, gifts, and touch from far away", "Ask about recent moments, not just favorite categories", "When your effort doesn't land, get curious"],
+    body: `
+<p>You send good-morning messages, call whenever you can, and tell your partner you miss them. You’re trying. But one evening, they admit they haven’t been feeling especially close to you.</p>
+<p>It hurts to hear, especially when you thought you were doing everything right.</p>
+<p>When you live far apart, showing love can take some figuring out. You can’t always make dinner after a hard day, reach for their hand, or sit beside them without either of you needing to say anything. Most of what you do has to travel through a phone, a screen, or occasionally the mail.</p>
+<p>That makes it worth asking a question beyond “How can I be more romantic?”</p>
+<blockquote><p>“What helps you feel loved by me when I’m not there?”</p></blockquote>
+<p>The answer might be simpler than you expect. A voice note before an important appointment. A call where you aren’t doing something else. Remembering to ask about the problem they mentioned three days ago.</p>
+
+<h2>Use love languages as a conversation starter, not a label</h2>
+<p>The familiar love-language framework describes five ways people express affection: words of affirmation, quality time, acts of service, gifts, and physical touch.</p>
+<p>These can be useful categories for discussing what you enjoy. But they aren’t fixed personality types. Research hasn’t consistently supported the idea that everyone has one primary language or that matching it is the key to a successful relationship. Most people appreciate several forms of care.</p>
+<p>So instead of deciding, “They’re a gifts person,” get more specific.</p>
+<p>Do they like surprises? Do they keep handwritten notes? Does a small souvenir mean more to them than an expensive delivery? And when they’re overwhelmed, would they rather receive a present or have someone help with a task?</p>
+<p>The useful part is attention: finding out what matters to your partner, trying it, and listening to how it feels.</p>
+
+<h2>Words of affirmation: say something only you would know to say</h2>
+<p>“I love you” matters. You don’t need to replace it with something original every morning.</p>
+<p>But if most of your affection arrives in words, occasionally give those words a little more detail.</p>
+<p>Rather than “You’re amazing,” you could say:</p>
+<blockquote><p>“I know you were nervous about that conversation with your boss. I’m proud of you for having it.”</p></blockquote>
+<p>Instead of “I miss you,” try:</p>
+<blockquote><p>“I made coffee this morning and missed how you always steal the first sip of mine.”</p></blockquote>
+<p>You’re giving your partner something recognizable: evidence that you remember them, notice their effort, and carry shared experiences into your day.</p>
+<p>You could also:</p>
+<ul>
+  <li>Send a short voice note before something they’re worried about.</li>
+  <li>Tell them what you appreciated about your last conversation.</li>
+  <li>Write a letter they can keep and reread.</li>
+  <li>Mention a quality you admire, with an example.</li>
+  <li>Follow up on something important without waiting to be reminded.</li>
+</ul>
+<p>Ask what format they like, too. Some people would treasure a long letter. Others would rather hear your voice for thirty seconds.</p>
+<p>You don’t need to sound poetic. “I’ve been thinking about what you said yesterday” can mean plenty when you genuinely have.</p>
+
+<h2>Quality time: give them some time they don’t have to compete for</h2>
+<p>You can spend two hours on a video call and barely talk. One of you scrolls while the other answers emails, and eventually you both say goodnight.</p>
+<p>That might be comfortable companionship on some evenings. On others, your partner may have been hoping for your full attention.</p>
+<p>Be clear about which kind of time you’re offering.</p>
+<p>“Want to keep me company while I cook?” sets a different expectation from “Let’s have a proper catch-up tonight.”</p>
+<p>Try making room for both. You don’t need every call to be a date, but it helps to have some time when you aren’t distracted. The Gottman Institute recommends small, intentional rituals of connection, including undistracted conversation and expressions of appreciation.</p>
+<p>For a long-distance relationship, that could mean:</p>
+<ul>
+  <li>Having breakfast together over video on a weekend.</li>
+  <li>Watching an episode, then staying on the call to talk about it.</li>
+  <li>Taking separate walks while speaking on the phone.</li>
+  <li>Playing a game you both enjoy.</li>
+  <li>Putting your other devices aside for a short conversation.</li>
+</ul>
+<p>If you live in different time zones, avoid making one person sacrifice sleep every time. Trade the inconvenient slot when possible.</p>
+<p>And don’t judge the quality of your connection solely by the length of a call. Choose an amount of time you can actually give rather than promising an evening when you know you’ll be exhausted.</p>
+
+<h2>Acts of service: help with something that would genuinely help</h2>
+<p>From far away, practical support can seem difficult. You can’t pop over to wash the dishes or give them a lift.</p>
+<p>But you may still be able to take something off their plate—with their permission.</p>
+<p>If they’re preparing for an interview, offer to practice questions with them. If they’re planning a visit, handle some of the research. If they’re having a rough week, ask whether arranging dinner would be welcome.</p>
+<p>Other possibilities include:</p>
+<ul>
+  <li>Proofreading a document they’ve asked you to look at.</li>
+  <li>Helping compare options for a purchase.</li>
+  <li>Researching a repair or service they need.</li>
+  <li>Organizing the details of your next shared activity.</li>
+  <li>Staying on a call while they tackle an intimidating task.</li>
+</ul>
+<p>The important part is checking what they want.</p>
+<p>“Would it help if I looked into that?” is better than taking over and presenting them with a solution they never asked for.</p>
+<p>Sometimes they don’t want a task completed. They want to complain about it for a few minutes and feel understood. You can ask:</p>
+<blockquote><p>“Do you want help figuring this out, or do you mostly need me to listen?”</p></blockquote>
+<p>Then respect the answer.</p>
+
+<h2>Gifts: make it personal enough to feel like you remembered</h2>
+<p>A gift doesn’t have to be expensive to feel thoughtful. For a partner you rarely see, something they can hold or keep nearby may be especially welcome.</p>
+<p>Think about the details they’ve shared. The snack they can’t find where they live. The book they mentioned wanting to read. The postcard you spotted because it reminded you of a private joke.</p>
+<p>A small gift with a reason behind it gives you something to say:</p>
+<blockquote><p>“You mentioned this weeks ago, and I remembered.”</p></blockquote>
+<p>You could send a printed photo, a handwritten recipe, or a small care package for a busy stretch at work. If money is tight, a letter or a playlist with a few personal notes may suit you both better.</p>
+<p>Ask about deliveries before arranging anything complicated. Your partner might work away from home, share an address, or dislike surprise packages.</p>
+<p>Keep gifts within a budget you’re comfortable with, too. You shouldn’t have to spend money you need for bills to demonstrate affection. And if there’s an unresolved problem between you, address it directly rather than expecting a present to settle it.</p>
+
+<h2>Physical touch: acknowledge what you can’t replace</h2>
+<p>This is the part you can’t fully recreate from a distance.</p>
+<p>If your partner misses holding hands, a long conversation may be lovely and still leave them missing holding hands. You don’t need to persuade them that another gesture should be enough.</p>
+<p>You can say:</p>
+<blockquote><p>“I know you wish I could be there. I wish I could hold you, too.”</p></blockquote>
+<p>Then ask whether anything makes the separation feel a little easier. They might like having a sweatshirt you’ve left behind, a pillowcase from your last visit, or a familiar bedtime call. They might not. Let them tell you.</p>
+<p>You can talk about what you’re looking forward to when you meet again, without making every conversation about the next visit.</p>
+<p>If you both enjoy romantic or sexual communication, discuss your comfort levels clearly. Being in a relationship doesn’t create an obligation to send intimate photos or take part in anything on camera. Consent and privacy still matter, and either person can change their mind.</p>
+<p>When you do visit, talk about affection rather than assuming you’ll want the same amount immediately. One of you may want a long hug at arrivals; the other may first need water, food, and a shower after the journey.</p>
+
+<h2>Ask about recent moments, not just favorite categories</h2>
+<p>“What’s your love language?” can produce a quick answer without telling you much about what to do tomorrow.</p>
+<p>Try asking:</p>
+<ul>
+  <li>“When did you last feel especially close to me?”</li>
+  <li>“Is there something I used to do that you miss?”</li>
+  <li>“What would have helped during your difficult day yesterday?”</li>
+  <li>“Do you want more planned time, more spontaneous messages, or a bit of both?”</li>
+  <li>“What do I do that means more to you than I probably realize?”</li>
+</ul>
+<p>Answer the questions yourself, too. This shouldn’t become one person studying the other while keeping their own needs quiet.</p>
+<p>Preferences can also change with circumstances. Someone who usually loves long calls might need practical help during a stressful month. Research-informed discussions of love languages emphasize responsiveness to changing needs rather than treating preferences as permanent traits.</p>
+<p>You don’t need to reassess the relationship every week. Just stay willing to notice when the usual approach isn’t quite working.</p>
+
+<h2>When your effort doesn’t land, get curious</h2>
+<p>Suppose you send flowers after your partner has had a terrible day. They thank you but still seem upset. Later, they say they wished you’d called.</p>
+<p>It’s tempting to defend the flowers. You spent money, chose them carefully, and wanted to help.</p>
+<p>Your effort can be genuine while still missing what they needed.</p>
+<p>Try:</p>
+<blockquote><p>“I wanted you to feel cared for. I can see you were hoping to talk. Would you like me to call now?”</p></blockquote>
+<p>Your partner can acknowledge the intention while explaining the need:</p>
+<blockquote><p>“The flowers were thoughtful. I was lonely tonight, and I wanted some time with you.”</p></blockquote>
+<p>Neither person has to pretend the gesture was meaningless or perfect. You’ve learned something useful for next time.</p>
+<p>Also leave room for a kind “not tonight.” Wanting a long call is reasonable; so is being too tired to manage one. Work out an alternative rather than treating every limit as rejection.</p>
+
+<h2>Choose a few things you can keep doing</h2>
+<p>You don’t need a daily romantic assignment for all five categories.</p>
+<p>Pick a few gestures that fit your lives: perhaps a voice note on busy mornings, one unhurried call each week, and remembering to check in after important events.</p>
+<p>Be specific enough to follow through, but flexible enough that affection doesn’t become a checklist. If you miss a call, acknowledge it and rearrange. If a routine starts feeling forced, talk about changing it.</p>
+<p>There will still be days when you feel the distance. A thoughtful message won’t make every goodbye easier, and a good video date won’t replace being together.</p>
+<p>What you can do is keep learning the person you’re with. Remember what they tell you. Ask when you aren’t sure. Let them know what helps you, too.</p>
+<p>Then, when they mention a difficult meeting on Thursday, put a reminder in your calendar—and ask how it went.</p>
+`
   },
   {
     id: "feeling-alone", topic: "Feeling alone", k: "apart", icon: "moon",
