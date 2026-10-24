@@ -97,7 +97,7 @@ window.ARTICLES = [
 <h2>Build a routine you can actually keep</h2>
 <p>When you rarely see each other, you may feel you should make up for it by being constantly available. But promising to call every night won’t help if work, time zones, or exhaustion make that impossible.</p>
 <p>Start with something manageable. Perhaps that’s a few messages during the day and a longer call twice a week. Maybe voice notes work better because your free time rarely overlaps.</p>
-<p>The Gottman Institute recommends regular communication that lets long-distance partners share both everyday details and significant experiences. The purpose is to stay involved in each other’s lives, not simply to log more hours on the phone.</p>
+<p><a href="https://www.gottman.com/blog/long-distance-relationships/" target="_blank" rel="noopener">The Gottman Institute</a> recommends regular communication that lets long-distance partners share both everyday details and significant experiences. The purpose is to stay involved in each other’s lives, not simply to log more hours on the phone.</p>
 <p>Make your plans specific enough that neither person has to guess. “Let’s talk sometime tomorrow” is different from “Are you free at eight?”</p>
 <p>And if you can’t make it, say so.</p>
 <blockquote><p>“Work has run late, and I don’t think I’ll be good company tonight. Could we talk tomorrow instead?”</p></blockquote>
@@ -111,7 +111,7 @@ window.ARTICLES = [
 </blockquote>
 <p>There’s nothing wrong with that exchange. But if it becomes most of your conversations, you may want to share a little more.</p>
 <p>Tell them why the day was busy. Explain who the coworker in your story is. Send a picture of the meal you finally tried making. Ask how things went with the friend they were worried about.</p>
-<p>You don’t need to make every update interesting. The point is to help your partner understand the life you’re living when they aren’t there. The Gottman Institute specifically encourages long-distance couples to share the mundane and complicated parts of their worlds, rather than only the highlights.</p>
+<p>You don’t need to make every update interesting. The point is to help your partner understand the life you’re living when they aren’t there. <a href="https://www.gottman.com/blog/long-distance-relationships/" target="_blank" rel="noopener">The Gottman Institute</a> specifically encourages long-distance couples to share the mundane and complicated parts of their worlds, rather than only the highlights.</p>
 <p>Try letting some calls fit around ordinary activities. You could cook while talking, have breakfast together over video, or keep each other company while folding laundry.</p>
 <p>You won’t always have a deep conversation. Sometimes it’s enough to spend a little time together without needing an occasion.</p>
 
@@ -142,7 +142,7 @@ window.ARTICLES = [
 <blockquote><p>“I’m disappointed because I was looking forward to it. But I’m glad you told me. Can we choose another day?”</p></blockquote>
 <p>Or:</p>
 <blockquote><p>“That’s hard to hear. What’s been feeling different for you?”</p></blockquote>
-<p>The Gottman Institute’s guidance on emotional safety emphasizes staying curious about a partner’s experiences, hopes, and difficulties. That includes making room for vulnerable conversations, not just affectionate ones.</p>
+<p><a href="https://www.gottman.com/blog/emotional-safety-in-long-distance-relationships/" target="_blank" rel="noopener">The Gottman Institute’s guidance on emotional safety</a> emphasizes staying curious about a partner’s experiences, hopes, and difficulties. That includes making room for vulnerable conversations, not just affectionate ones.</p>
 <p>Be honest in return. If you’re struggling with the distance, saying so gives you both a chance to discuss it. Pretending everything is fine leaves your partner responding to a version of the relationship that isn’t quite accurate.</p>
 
 <h2>Don’t save every problem for the next visit</h2>
@@ -159,7 +159,7 @@ window.ARTICLES = [
 <p>If you broke an agreement, name it without shifting responsibility:</p>
 <blockquote><p>“I told you I was home when I wasn’t. That was a lie, and I understand why you’re questioning what I say now.”</p></blockquote>
 <p>An explanation can follow. It shouldn’t replace accountability.</p>
-<p>In its guidance on rebuilding after infidelity, the Gottman Institute emphasizes honest answers, remorse, and responsibility. Minimizing what happened or revealing important information bit by bit can further damage an already fragile situation.</p>
+<p>In <a href="https://www.gottman.com/blog/can-a-relationship-survive-an-affair/" target="_blank" rel="noopener">its guidance on rebuilding after infidelity</a>, the Gottman Institute emphasizes honest answers, remorse, and responsibility. Minimizing what happened or revealing important information bit by bit can further damage an already fragile situation.</p>
 <p>If you’re the person who was hurt, you don’t have to decide immediately whether to stay. You can ask questions, take time, and consider what you would need in order to continue.</p>
 <p>Wanting to repair the relationship doesn’t mean you must already feel ready to trust again.</p>
 
@@ -174,7 +174,7 @@ window.ARTICLES = [
   <li>Seeking professional support if you keep getting stuck.</li>
 </ul>
 <p>Keep the changes connected to the actual breach. And pay attention to whether they continue after the immediate fear of losing the relationship has passed.</p>
-<p>The Gottman Institute identifies taking responsibility, communicating openly, and showing empathy for the hurt caused as important considerations when assessing whether rebuilding after infidelity is possible.</p>
+<p><a href="https://www.gottman.com/blog/can-a-relationship-survive-an-affair/" target="_blank" rel="noopener">The Gottman Institute</a> identifies taking responsibility, communicating openly, and showing empathy for the hurt caused as important considerations when assessing whether rebuilding after infidelity is possible.</p>
 <p>Distance may mean you have fewer chances to experience change in person. That makes it especially important not to substitute a dramatic apology or an expensive visit for dependable behavior afterward.</p>
 <p>If there is ongoing deception, intimidation, or pressure to stop asking reasonable questions, you’re allowed to reconsider the relationship. Repair isn’t something one person can accomplish alone.</p>
 
@@ -202,7 +202,7 @@ window.ARTICLES = [
 
 <h2>Use love languages as a conversation starter, not a label</h2>
 <p>The familiar love-language framework describes five ways people express affection: words of affirmation, quality time, acts of service, gifts, and physical touch.</p>
-<p>These can be useful categories for discussing what you enjoy. But they aren’t fixed personality types. Research hasn’t consistently supported the idea that everyone has one primary language or that matching it is the key to a successful relationship. Most people appreciate several forms of care.</p>
+<p>These can be useful categories for discussing what you enjoy. But they aren’t fixed personality types. <a href="https://www.utoronto.ca/news/little-evidence-linking-five-love-languages-healthy-relationships-researchers-say" target="_blank" rel="noopener">Research hasn’t consistently supported</a> the idea that everyone has one primary language or that matching it is the key to a successful relationship. Most people appreciate several forms of care.</p>
 <p>So instead of deciding, “They’re a gifts person,” get more specific.</p>
 <p>Do they like surprises? Do they keep handwritten notes? Does a small souvenir mean more to them than an expensive delivery? And when they’re overwhelmed, would they rather receive a present or have someone help with a task?</p>
 <p>The useful part is attention: finding out what matters to your partner, trying it, and listening to how it feels.</p>
@@ -231,7 +231,7 @@ window.ARTICLES = [
 <p>That might be comfortable companionship on some evenings. On others, your partner may have been hoping for your full attention.</p>
 <p>Be clear about which kind of time you’re offering.</p>
 <p>“Want to keep me company while I cook?” sets a different expectation from “Let’s have a proper catch-up tonight.”</p>
-<p>Try making room for both. You don’t need every call to be a date, but it helps to have some time when you aren’t distracted. The Gottman Institute recommends small, intentional rituals of connection, including undistracted conversation and expressions of appreciation.</p>
+<p>Try making room for both. You don’t need every call to be a date, but it helps to have some time when you aren’t distracted. The Gottman Institute recommends <a href="https://www.gottman.com/blog/3-daily-rituals-that-stop-spouses-from-taking-each-other-for-granted/" target="_blank" rel="noopener">small, intentional rituals of connection</a>, including undistracted conversation and expressions of appreciation.</p>
 <p>For a long-distance relationship, that could mean:</p>
 <ul>
   <li>Having breakfast together over video on a weekend.</li>
@@ -291,7 +291,7 @@ window.ARTICLES = [
   <li>“What do I do that means more to you than I probably realize?”</li>
 </ul>
 <p>Answer the questions yourself, too. This shouldn’t become one person studying the other while keeping their own needs quiet.</p>
-<p>Preferences can also change with circumstances. Someone who usually loves long calls might need practical help during a stressful month. Research-informed discussions of love languages emphasize responsiveness to changing needs rather than treating preferences as permanent traits.</p>
+<p>Preferences can also change with circumstances. Someone who usually loves long calls might need practical help during a stressful month. <a href="https://www.utoronto.ca/news/little-evidence-linking-five-love-languages-healthy-relationships-researchers-say" target="_blank" rel="noopener">Research-informed discussions of love languages</a> emphasize responsiveness to changing needs rather than treating preferences as permanent traits.</p>
 <p>You don’t need to reassess the relationship every week. Just stay willing to notice when the usual approach isn’t quite working.</p>
 
 <h2>When your effort doesn’t land, get curious</h2>
@@ -332,7 +332,7 @@ window.ARTICLES = [
 <blockquote><p>“I’m not questioning us. I’ve just been feeling lonely lately, especially in the evenings.”</p></blockquote>
 <p>Or:</p>
 <blockquote><p>“I’m happy we got to talk, but hanging up has been hard this week. Could we talk about that?”</p></blockquote>
-<p>You don’t need a perfect explanation or a solution ready. Talking openly about loneliness with someone you trust is one of the steps recommended by the NHS and mental health charity Mind. That person could be your partner, a friend, a family member, or a professional.</p>
+<p>You don’t need a perfect explanation or a solution ready. Talking openly about loneliness with someone you trust is one of the steps recommended by <a href="https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/feeling-lonely/" target="_blank" rel="noopener">the NHS</a> and mental health charity <a href="https://www.mind.org.uk/information-support/tips-for-everyday-living/loneliness/tips-to-manage-loneliness/" target="_blank" rel="noopener">Mind</a>. That person could be your partner, a friend, a family member, or a professional.</p>
 <p>If your partner opens up first, try not to rush to defend the relationship.</p>
 <p>“I thought we were doing well” might be an honest reaction, but it can make the conversation about reassuring you. Start by asking what has felt hardest.</p>
 
@@ -382,9 +382,9 @@ window.ARTICLES = [
 <p>It’s easy to keep an evening free in case your partner becomes available. Occasionally, that may suit you. But look at whether you’re regularly declining invitations, postponing hobbies, or waiting around without definite plans.</p>
 <p>You’re allowed to build a life where you live.</p>
 <p>Having dinner with a friend doesn’t mean you miss your partner less. Enjoying a weekend on your own doesn’t make the relationship less serious.</p>
-<p>The NHS recommends maintaining contact with friends and family, joining groups around your interests, and making time for enjoyable activities as ways to address loneliness. You can start small rather than trying to overhaul your social life.</p>
+<p><a href="https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/feeling-lonely/" target="_blank" rel="noopener">The NHS</a> recommends maintaining contact with friends and family, joining groups around your interests, and making time for enjoyable activities as ways to address loneliness. You can start small rather than trying to overhaul your social life.</p>
 <p>Text one person. Arrange a walk. Return to a class you used to enjoy. Put something in the calendar that doesn’t depend on your partner’s availability.</p>
-<p>If meeting people feels daunting, Mind suggests taking gradual steps, including familiar local routines and low-pressure conversations. You don’t have to walk into a room full of strangers and suddenly become outgoing.</p>
+<p>If meeting people feels daunting, <a href="https://www.mind.org.uk/information-support/tips-for-everyday-living/loneliness/tips-to-manage-loneliness/" target="_blank" rel="noopener">Mind</a> suggests taking gradual steps, including familiar local routines and low-pressure conversations. You don’t have to walk into a room full of strangers and suddenly become outgoing.</p>
 <p>Your partner can be important without being your only source of company.</p>
 
 <h2>Make a plan for the hardest moments</h2>
@@ -399,7 +399,7 @@ window.ARTICLES = [
   <li>A realistic time to connect with your partner.</li>
 </ul>
 <p>This isn’t about filling every minute so you never feel sad. Give yourself permission to miss them. The aim is to have somewhere to turn when sitting with that feeling stops being helpful.</p>
-<p>And be cautious about judging your relationship against other people’s photos. Mind notes that comparisons, especially with the edited version of life people share online, can make loneliness harder.</p>
+<p>And be cautious about judging your relationship against other people’s photos. <a href="https://www.mind.org.uk/information-support/tips-for-everyday-living/loneliness/tips-to-manage-loneliness/" target="_blank" rel="noopener">Mind</a> notes that comparisons, especially with the edited version of life people share online, can make loneliness harder.</p>
 <p>You’re seeing their anniversary dinner, not necessarily their difficult Tuesday.</p>
 
 <h2>Separate a lonely evening from a recurring relationship problem</h2>
@@ -429,7 +429,7 @@ window.ARTICLES = [
 
 <h2>Get more support if the heaviness isn’t lifting</h2>
 <p>Your partner doesn’t have to be the only person who knows you’re struggling.</p>
-<p>If loneliness is persistent, you’re finding daily life difficult, or your attempts to feel better aren’t helping, consider speaking with a healthcare professional or qualified therapist. The NHS recommends seeking professional support when you’re struggling to cope or when self-help measures aren’t working.</p>
+<p>If loneliness is persistent, you’re finding daily life difficult, or your attempts to feel better aren’t helping, consider speaking with a healthcare professional or qualified therapist. <a href="https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/low-mood-sadness-depression/" target="_blank" rel="noopener">The NHS</a> recommends seeking professional support when you’re struggling to cope or when self-help measures aren’t working.</p>
 <p>You don’t have to wait until things are unbearable. You can ask for help understanding the feeling, rebuilding connections nearby, or working out what you need from the relationship.</p>
 <p>And you’re allowed to reassess whether the arrangement is working. Loving someone doesn’t settle every question about timing, circumstances, or what each of you can manage.</p>
 
@@ -500,7 +500,7 @@ window.ARTICLES = [
   <li>“How did your sister respond?”</li>
   <li>“What are you hoping happens now?”</li>
 </ul>
-<p>The Gottman Institute’s stress-reducing conversation exercise makes room for partners to talk about daily pressures and understand how the other person is feeling, rather than only exchanging updates.</p>
+<p>The Gottman Institute’s <a href="https://www.gottman.com/blog/emotional-attraction-the-stress-reducing-conversation/" target="_blank" rel="noopener">stress-reducing conversation exercise</a> makes room for partners to talk about daily pressures and understand how the other person is feeling, rather than only exchanging updates.</p>
 <p>You can borrow that idea without turning your evenings into a formal exercise. Give each other a little time to speak, show interest, and avoid rushing to your own story.</p>
 <p>And follow up later. If they were worried about an appointment on Tuesday, ask how it went. You don’t need to remember everything, but remembering what matters to them gives your next conversation somewhere to begin.</p>
 
@@ -541,7 +541,7 @@ window.ARTICLES = [
 <h2>Take breaks without leaving each other guessing</h2>
 <p>Sometimes you’re too upset to keep talking productively. You repeat yourself, stop listening, or start looking for the sentence that will hurt most.</p>
 <p>That’s a good moment to pause.</p>
-<p>The Gottman Institute recommends taking a calming break when you’re overwhelmed during conflict and agreeing on when you’ll return. Its guidance suggests allowing at least twenty minutes rather than expecting an immediate reset.</p>
+<p><a href="https://www.gottman.com/blog/does-flooding-play-a-role-in-your-perpetual-conflict/" target="_blank" rel="noopener">The Gottman Institute</a> recommends taking a calming break when you’re overwhelmed during conflict and agreeing on when you’ll return. Its guidance suggests allowing at least twenty minutes rather than expecting an immediate reset.</p>
 <p>Across distance, be especially clear that you’re pausing, not disappearing.</p>
 <blockquote><p>“I want to finish this conversation, but I’m getting too upset to listen properly. Can we take half an hour and talk again at eight?”</p></blockquote>
 <p>Use the break to settle yourself, rather than sending more arguments through another app.</p>
@@ -599,13 +599,13 @@ window.ARTICLES = [
 <p>There’s a difference between answering a call while finishing an email and saying, “Let’s have dinner together on Saturday. I’ll be ready at seven.”</p>
 <p>The second gives you something to anticipate. You both know what you’re showing up for, and you can make a little room for it.</p>
 <p>That doesn’t require fancy clothes, candles, or an elaborate plan. It means deciding how you want to spend the time rather than hoping a normal call will somehow turn into a date.</p>
-<p>You might cook, play a game, listen to music, or simply eat together without distractions. The Gottman Institute includes shared cooking, online games, movies, and learning something together among its suggestions for couples dating from a distance.</p>
+<p>You might cook, play a game, listen to music, or simply eat together without distractions. <a href="https://www.gottman.com/blog/25-dates-you-can-try-at-home/" target="_blank" rel="noopener">The Gottman Institute</a> includes shared cooking, online games, movies, and learning something together among its suggestions for couples dating from a distance.</p>
 <p>Choose something you would genuinely enjoy, not something that only looks romantic in a photograph.</p>
 
 <h2>Why being online can still feel meaningful</h2>
 <p>A screen doesn’t prevent you from paying attention to someone. You can hear the excitement in their voice, notice when they’re distracted, ask a thoughtful question, or laugh at the same ridiculous moment.</p>
 <p>But the technology alone doesn’t guarantee closeness.</p>
-<p>In a survey of 647 young adults, video-call frequency wasn’t significantly associated with relationship satisfaction. The findings varied by communication method and relationship type, so they don’t establish one perfect way to stay connected. They do offer a useful caution: more video time isn’t automatically better time.</p>
+<p>In <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8669216/" target="_blank" rel="noopener">a survey of 647 young adults</a>, video-call frequency wasn’t significantly associated with relationship satisfaction. The findings varied by communication method and relationship type, so they don’t establish one perfect way to stay connected. They do offer a useful caution: more video time isn’t automatically better time.</p>
 <p>Think of an online date as an opportunity, not a relationship treatment you have to complete.</p>
 <p>You’re making space to enjoy each other and have an experience you can refer back to later. Tomorrow, you might still be laughing about the terrible portrait your partner drew or arguing over who really won the game.</p>
 <p>You have something new to share besides how much you wish you were in the same place.</p>
@@ -666,7 +666,7 @@ window.ARTICLES = [
 <p>Keep it manageable. You’re sharing an interest, not delivering a lesson they’ll be tested on.</p>
 <h3>Share music</h3>
 <p>Choose a few songs each and explain why you picked them. You could use themes such as childhood favorites, songs that remind you of each other, or music you’d play on a road trip.</p>
-<p>Cooking, games, sharing hobbies, and music-based activities all appear among the Gottman Institute’s date suggestions. Adapt them to what you both enjoy rather than treating any list as a set of requirements.</p>
+<p>Cooking, games, sharing hobbies, and music-based activities all appear among <a href="https://www.gottman.com/blog/25-dates-you-can-try-at-home/" target="_blank" rel="noopener">the Gottman Institute’s date suggestions</a>. Adapt them to what you both enjoy rather than treating any list as a set of requirements.</p>
 
 <h2>Leave room for the conversation to wander</h2>
 <p>You don’t need to fill every minute with an activity.</p>
@@ -767,7 +767,7 @@ window.ARTICLES = [
   <li>Leave a small item at each other’s places, with permission.</li>
   <li>Use the same phrase before you part.</li>
 </ul>
-<p>The Gottman Institute includes intentional greetings and goodbyes among its suggested rituals of connection. For a long-distance couple, you can adapt that idea into something that suits both of you.</p>
+<p><a href="https://www.gottman.com/blog/6-hours-a-week-to-a-better-relationship/" target="_blank" rel="noopener">The Gottman Institute</a> includes intentional greetings and goodbyes among its suggested rituals of connection. For a long-distance couple, you can adapt that idea into something that suits both of you.</p>
 <p>Keep it simple. A ritual shouldn’t become another task you worry about getting right.</p>
 <p>And be willing to change it. If taking airport photos makes one of you feel worse, take the picture earlier or skip it.</p>
 
@@ -803,7 +803,7 @@ window.ARTICLES = [
 <p>Before you leave for a visit, consider doing a few favors for your future self: put clean sheets on the bed, leave something easy to eat, and avoid creating a mountain of chores to return to.</p>
 <p>Once you’re home, start with the basics.</p>
 <p>Have a meal. Shower if you want to. Put the things you need for tomorrow somewhere you can find them. Leave the rest of the unpacking if it can wait.</p>
-<p>General NHS guidance for low mood recommends small, manageable activities, regular meals, sleep, and staying in touch with other people. You don’t need to apply that as a strict routine; it’s a reminder that ordinary care still matters when you’re feeling low.</p>
+<p><a href="https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/low-mood-sadness-depression/" target="_blank" rel="noopener">General NHS guidance for low mood</a> recommends small, manageable activities, regular meals, sleep, and staying in touch with other people. You don’t need to apply that as a strict routine; it’s a reminder that ordinary care still matters when you’re feeling low.</p>
 <p>You can be sad and still eat dinner. You can miss your partner and still enjoy a familiar show.</p>
 <p>Feeling a little better doesn’t make the goodbye less meaningful.</p>
 
@@ -818,7 +818,7 @@ window.ARTICLES = [
 <h2>Pay attention to how you feel over the following days</h2>
 <p>After the journey, give yourself room to settle back into everyday life. Reconnect with friends, return to familiar activities, and tell your partner what you’ve found difficult.</p>
 <p>If each goodbye reveals the same practical problem, like travel you can’t afford, exhaustion, or uncertainty neither of you will discuss, that deserves a conversation of its own.</p>
-<p>And if low mood persists, is affecting your daily life, or feels too difficult to cope with, seek support from a healthcare professional. NHS guidance recommends getting help when low mood lasts more than two weeks, when coping is difficult, or when the things you’re trying aren’t helping. You don’t have to wait two weeks if you need support sooner.</p>
+<p>And if low mood persists, is affecting your daily life, or feels too difficult to cope with, seek support from a healthcare professional. <a href="https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/low-mood-sadness-depression/" target="_blank" rel="noopener">NHS guidance</a> recommends getting help when low mood lasts more than two weeks, when coping is difficult, or when the things you’re trying aren’t helping. You don’t have to wait two weeks if you need support sooner.</p>
 <p>For now, give yourself some kindness. The last day doesn’t have to be perfect, and the first night apart doesn’t have to be brave.</p>
 <p>Say what you need. Get home safely. Eat something. Let someone know how you’re doing.</p>
 <p>The goodbye may still hurt, but you don’t have to leave yourself or each other unsupported once it’s over.</p>
