@@ -117,6 +117,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 @keyframes postIn{from{opacity:0;transform:translateY(14px)}}
 .ad{border:1px dashed var(--muted);border-radius:3px;display:grid;place-items:center;align-content:center;text-align:center;color:var(--muted);gap:4px;padding:18px;min-height:220px;
   background:var(--card) repeating-linear-gradient(135deg,transparent 0 10px,rgba(180,83,47,.06) 10px 11px)}
+.ad.banner{min-height:110px;margin-top:28px}
 .ad small{font:700 10px var(--mono);letter-spacing:.14em;text-transform:uppercase}
 .ad strong{font:600 16px var(--body);color:var(--ink)}
 .empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);display:grid;gap:10px;justify-items:center}
@@ -184,6 +185,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
   </div>
   <div id="featured"></div>
   <div class="grid" id="grid" aria-live="polite"></div>
+  <div class="ad banner" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored</strong><span>Banner ad space · 728 × 90</span></div>
 </div></section>
 
 <section class="join"><div class="wrap">
@@ -208,7 +210,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 </dialog>
 
 <script src="js/dates.js?v=0a63679a"></script>
-<script src="js/articles.js?v=9c3c11ac"></script>
+<script src="js/articles.js?v=d1f9ad45"></script>
 <script>
 const ARTICLES=window.ARTICLES;
 const ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -222,8 +224,8 @@ const TOPICS=["All",...new Set(ARTICLES.map(a=>a.topic)),"Saved"];
 let topic="All",query="";
 const chipsEl=document.getElementById("chips"),grid=document.getElementById("grid"),feat=document.getElementById("featured");
 function chips(){
-  chipsEl.innerHTML=TOPICS.map(t=>{const n=t==="All"?ARTICLES.length:t==="Saved"?saved.length:ARTICLES.filter(a=>a.topic===t).length;
-    return '<button class="chip" type="button" data-t="'+t+'" aria-pressed="'+(t===topic)+'">'+(t==="Saved"?'<svg width="13" height="12" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 20C3.5 14.4 1.6 9.8 3.9 6.3 5.9 3.5 9.5 3.9 12 6.7 14.5 3.9 18.1 3.5 20.1 6.3 22.4 9.8 20.5 14.4 12 20Z" fill="currentColor"/></svg>':"")+t+' <span class="n">'+n+'</span></button>'}).join("");
+  chipsEl.innerHTML=TOPICS.map(t=>{
+    return '<button class="chip" type="button" data-t="'+t+'" aria-pressed="'+(t===topic)+'">'+(t==="Saved"?'<svg width="13" height="12" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 20C3.5 14.4 1.6 9.8 3.9 6.3 5.9 3.5 9.5 3.9 12 6.7 14.5 3.9 18.1 3.5 20.1 6.3 22.4 9.8 20.5 14.4 12 20Z" fill="currentColor"/></svg>':"")+t+'</button>'}).join("");
 }
 chipsEl.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;topic=b.dataset.t;render()});
 document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase();render()});
@@ -241,10 +243,9 @@ function render(){
     (!query||(a.title+" "+a.sum+" "+a.topic+" "+a.inside.join(" ")).toLowerCase().includes(query)));
   const showFeat=topic==="All"&&!query&&list.length;
   const f=showFeat?list.find(a=>a.body):null,rest=f?list.filter(a=>a!==f):list;
-  feat.innerHTML=f?'<a class="feature k-'+f.k+'" href="article.html?a='+f.id+'" data-id="'+f.id+'"><div class="tile">'+icon(f)+'</div><div class="fbody"><span class="flabel">New</span>'+
+  feat.innerHTML=f?'<a class="feature k-'+f.k+'" href="article.html?a='+f.id+'" data-id="'+f.id+'"><div class="tile">'+icon(f)+'</div><div class="fbody">'+
     '<div class="meta"><span class="tag">'+f.topic+'</span><span>'+f.min+' min read</span></div><h2>'+esc(f.title)+'</h2><p>'+esc(f.sum)+'</p><span class="read">Read the article '+ARROW+'</span></div></a>':"";
   let html=rest.map(card);
-  if(html.length>=3)html.splice(3,0,'<div class="ad" role="complementary" aria-label="Advertisement"><small>Advertisement</small><strong>Sponsored post</strong><span>In-feed ad space · 300 × 250</span></div>');
   grid.innerHTML=html.join("")||'<div class="empty"><b>'+(topic==="Saved"?"Nothing saved yet":"No articles match that")+'</b><span>'+(topic==="Saved"?"Tap the heart in any article to keep it here.":"Try another word or topic.")+'</span></div>';
 }
 

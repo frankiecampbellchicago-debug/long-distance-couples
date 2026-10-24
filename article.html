@@ -75,13 +75,12 @@ body>nav .wrap{display:flex;align-items:center;justify-content:space-between;pad
 /* contents + body */
 .layout{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,680px);gap:50px;justify-content:center;padding:44px 0 30px}
 .toc{position:sticky;top:96px;align-self:start;display:grid;gap:4px;font-size:14px}
-.toc b{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.toc b{font:700 15px var(--body);color:var(--ink);margin-bottom:6px}
 .toc a{text-decoration:none;color:var(--muted);padding:5px 0 5px 12px;border-left:2px solid var(--line);line-height:1.35;transition:color .2s,border-color .2s}
 .toc a:hover{color:var(--ink)}
 .toc a.on{color:var(--ink);border-color:var(--blue);font-weight:700}
 @media (max-width:900px){.layout{grid-template-columns:minmax(0,680px)}.toc{display:none}}
 .body{font-size:18px;line-height:1.75}
-.body > p:first-child::first-letter{float:left;font:600 72px/.8 var(--display);color:var(--red);margin:8px 10px 0 0}
 .body p{margin:0 0 20px}
 .body h2{font-size:clamp(28px,3.4vw,34px);margin:42px 0 14px}
 .body h3{font-size:clamp(22px,2.6vw,25px);margin:28px 0 10px}
@@ -97,7 +96,7 @@ body>nav .wrap{display:flex;align-items:center;justify-content:space-between;pad
 .end svg{width:28px;height:26px}
 
 /* talk about it */
-.talk{max-width:680px;margin:20px auto 0;background:#f6e2c8;border-radius:3px;padding:24px 26px;display:grid;gap:10px}
+.talk{max-width:680px;margin:44px auto 0;background:#f6e2c8;border-radius:3px;padding:24px 26px;display:grid;gap:10px}
 .talk b{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
 .talk h3{font-size:26px}
 .talk ol{margin:4px 0 0;padding-left:20px;display:grid;gap:6px}
@@ -144,7 +143,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
 <script src="js/dates.js?v=0a63679a"></script>
-<script src="js/articles.js?v=9c3c11ac"></script>
+<script src="js/articles.js?v=d1f9ad45"></script>
 <script>
 (function(){
 const ARROW='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -183,8 +182,8 @@ main.innerHTML=
  '<div class="acts"><button class="chipbtn" type="button" id="save" aria-pressed="'+isSaved()+'">'+HEART+'<span>'+(isSaved()?"Saved":"Save")+'</span></button>'+
  '<button class="chipbtn" type="button" id="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg><span>Send to your partner</span></button></div></header>'+
  '<div class="wrap"><div class="layout"><nav class="toc" aria-label="In this article"><b>In this article</b></nav><article class="body" id="body">'+a.body+'</article></div>'+
- '<div class="end" aria-hidden="true"><svg viewBox="0 0 24 22"><path d="M12 20C3.5 14.4 1.6 9.8 3.9 6.3 5.9 3.5 9.5 3.9 12 6.7 14.5 3.9 18.1 3.5 20.1 6.3 22.4 9.8 20.5 14.4 12 20Z" fill="currentColor"/></svg></div>'+
- (TALK[a.id]?'<aside class="talk"><b>Talk about it</b><h3>Questions for your next call</h3><ol>'+TALK[a.id].map(q=>"<li>"+esc(q)+"</li>").join("")+'</ol></aside>':"")+
+ ''+
+ (TALK[a.id]?'<aside class="talk"><h3>Questions for your next call</h3><ol>'+TALK[a.id].map(q=>"<li>"+esc(q)+"</li>").join("")+'</ol></aside>':"")+
  '</div>'+
  '<section class="more"><div class="wrap"><h2>Keep reading</h2><div class="grid" id="more"></div><div class="allbtn"><a class="btn ghost" href="articles.html">See all articles '+ARROW+'</a></div></div></section>';
 

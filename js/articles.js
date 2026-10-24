@@ -4,8 +4,8 @@
 window.ARTICLES = [
   {
     id: "travel", topic: "Travel", k: "apart", icon: "plane",
-    title: "Making the miles work: how to travel for love without burning out",
-    sum: "How often to visit, how to share the travel and the cost, and how to keep it going without wearing yourselves out.",
+    title: "Making the miles work",
+    sum: "How often to visit, who does the traveling, and how to split the cost before it turns into an argument.",
     inside: ["Figure out how often you can realistically visit", "Share the traveling", "Talk about money before it becomes an argument", "Leave some of the visit unplanned"],
     body: `
 <p>When your partner lives far away, seeing each other takes planning. You’re comparing flights, checking how much time you can take off, and figuring out whether you can afford another trip this month. Sometimes you spend almost as much time getting there as you do together.</p>
@@ -62,7 +62,7 @@ window.ARTICLES = [
 <h2>Think about the journey home, too</h2>
 <p>A late return might give you a few extra hours together, but consider what the following day will look like. Sometimes it’s worth getting home earlier so you can eat, unpack, and sleep before work.</p>
 <p>Keep an eye on your time off as well. Before booking another visit, check what you’ll have left for holidays, family plans, or a break that doesn’t involve traveling.</p>
-<p>You can want to see your partner and still need a weekend at home. If the current schedule is wearing you out, say so. That’s something you can work on together—not something you need to prove you can put up with.</p>
+<p>You can want to see your partner and still need a weekend at home. If the current schedule is wearing you out, say so. That’s something you can work on together, not something you need to prove you can put up with.</p>
 
 <h2>Find an arrangement you both want to keep doing</h2>
 <p>Some visits will be wonderful. Others will involve delays, bad sleep, or an argument about where to eat. You don’t have to make every trip worth it by having an amazing time from start to finish.</p>
@@ -71,8 +71,8 @@ window.ARTICLES = [
   },
   {
     id: "trust", topic: "Trust", k: "table", icon: "key",
-    title: "Trust across the miles: how to build it, keep it, and repair it",
-    sum: "For couples who spend more time apart than together.",
+    title: "Trust across the miles",
+    sum: "What to do with the parts of their life you can't see, and how to repair things when trust does break.",
     inside: ["Be clear about the relationship you're in", "Ask about the gap instead of filling it in yourself", "Keep reassurance separate from monitoring", "If trust breaks, start with what actually happened"],
     body: `
 <p>You know their voice when they’re tired. You know what makes them laugh and which days at work are usually the hardest. But you might not know the friends they see every weekend, and you’ve only been to their apartment twice.</p>
@@ -184,13 +184,13 @@ window.ARTICLES = [
 <p>You don’t need to manufacture certainty. “I want us to live closer, but I can’t move this year” is more useful than repeatedly saying “soon.”</p>
 <p>Be honest if your hopes differ. One person may see the distance as temporary while the other is comfortable keeping separate homes indefinitely. Neither should have to build plans around an assumption the other doesn’t share.</p>
 <p>And leave room for enjoyment now. Have conversations that aren’t about scheduling, jealousy, or where the relationship is headed. Ask about something that made them laugh. Remember what they were excited about. Plan an evening together that you’ll both enjoy.</p>
-<p>You may not know exactly when you’ll next be in the same room. What you can work toward is knowing that you can ask a difficult question, receive an honest answer, and expect each other to follow through. That’s something you build during the weeks apart—not only during the visits.</p>
+<p>You may not know exactly when you’ll next be in the same room. What you can work toward is knowing that you can ask a difficult question, receive an honest answer, and expect each other to follow through. That’s something you build during the weeks apart, not only during the visits.</p>
 `
   },
   {
     id: "love-languages", topic: "Love languages", k: "together", icon: "heart",
-    title: "Love languages from far away: how to show up in the way they feel it",
-    sum: "For couples who don't get to see each other often.",
+    title: "Love languages from far away",
+    sum: "Most of what you do for each other has to travel through a phone. Here's how to make it land.",
     inside: ["Use love languages as a conversation starter, not a label", "Words, time, help, gifts, and touch from far away", "Ask about recent moments, not just favorite categories", "When your effort doesn't land, get curious"],
     body: `
 <p>You send good-morning messages, call whenever you can, and tell your partner you miss them. You’re trying. But one evening, they admit they haven’t been feeling especially close to you.</p>
@@ -245,7 +245,7 @@ window.ARTICLES = [
 
 <h2>Acts of service: help with something that would genuinely help</h2>
 <p>From far away, practical support can seem difficult. You can’t pop over to wash the dishes or give them a lift.</p>
-<p>But you may still be able to take something off their plate—with their permission.</p>
+<p>But you may still be able to take something off their plate, as long as they want you to.</p>
 <p>If they’re preparing for an interview, offer to practice questions with them. If they’re planning a visit, handle some of the research. If they’re having a rough week, ask whether arranging dinner would be welcome.</p>
 <p>Other possibilities include:</p>
 <ul>
@@ -311,13 +311,13 @@ window.ARTICLES = [
 <p>Be specific enough to follow through, but flexible enough that affection doesn’t become a checklist. If you miss a call, acknowledge it and rearrange. If a routine starts feeling forced, talk about changing it.</p>
 <p>There will still be days when you feel the distance. A thoughtful message won’t make every goodbye easier, and a good video date won’t replace being together.</p>
 <p>What you can do is keep learning the person you’re with. Remember what they tell you. Ask when you aren’t sure. Let them know what helps you, too.</p>
-<p>Then, when they mention a difficult meeting on Thursday, put a reminder in your calendar—and ask how it went.</p>
+<p>Then, when they mention a difficult meeting on Thursday, put a reminder in your calendar. Then ask how it went.</p>
 `
   },
   {
     id: "feeling-alone", topic: "Feeling alone", k: "apart", icon: "moon",
-    title: "When the distance gets heavy: pressure, loneliness, and what helps",
-    sum: "For couples who spend more time apart than together.",
+    title: "When the distance gets heavy",
+    sum: "For the nights when hanging up is the hardest part of the call.",
     inside: ["Say it before you reach breaking point", "Ask for support your partner can actually give", "Don't leave your whole life on hold", "Get more support if the heaviness isn't lifting"],
     body: `
 <p>Some days, long distance feels manageable. You exchange messages, get on with work, and have a good conversation before bed. You miss each other, but you’re okay.</p>
@@ -353,7 +353,7 @@ window.ARTICLES = [
 
 <h2>Take some pressure off your time together</h2>
 <p>When calls are your main way of being close, you can start expecting a lot from them.</p>
-<p>You want to catch up, flirt, discuss the next visit, resolve yesterday’s misunderstanding, and feel reassured about the future—all before one of you has to go to sleep.</p>
+<p>You want to catch up, flirt, discuss the next visit, resolve yesterday’s misunderstanding, and feel reassured about the future, all before one of you has to go to sleep.</p>
 <p>Some evenings, neither of you has the energy.</p>
 <p>Let a few conversations be ordinary. You can talk while cooking, sit together over video while doing separate things, or send a voice note instead of arranging another late call.</p>
 <p>You can also be clear about what you need that day:</p>
@@ -364,7 +364,7 @@ window.ARTICLES = [
 
 <h2>Ask for support your partner can actually give</h2>
 <p>When you’re lonely, “I wish you were here” may be the truest thing you can say. Unfortunately, it may also be the one thing your partner can’t do anything about tonight.</p>
-<p>You can say it—and then ask whether there’s something smaller that would help.</p>
+<p>You can say it. Then ask whether there’s something smaller that would help.</p>
 <p>For example:</p>
 <ul>
   <li>“Could you send me a voice note when you have a moment?”</li>
@@ -399,7 +399,7 @@ window.ARTICLES = [
   <li>A realistic time to connect with your partner.</li>
 </ul>
 <p>This isn’t about filling every minute so you never feel sad. Give yourself permission to miss them. The aim is to have somewhere to turn when sitting with that feeling stops being helpful.</p>
-<p>And be cautious about judging your relationship against other people’s photos. Mind notes that comparisons—particularly with the selective version of life people share online—can make loneliness harder.</p>
+<p>And be cautious about judging your relationship against other people’s photos. Mind notes that comparisons, especially with the edited version of life people share online, can make loneliness harder.</p>
 <p>You’re seeing their anniversary dinner, not necessarily their difficult Tuesday.</p>
 
 <h2>Separate a lonely evening from a recurring relationship problem</h2>
@@ -443,15 +443,15 @@ window.ARTICLES = [
   },
   {
     id: "communication", topic: "Communication", k: "together", icon: "phone",
-    title: "Talking across the distance: communication that brings you closer",
-    sum: "For couples who don't get to see each other often.",
+    title: "Talking across the distance",
+    sum: "Getting past one-word answers, reading tone over text, and stepping away from an argument without vanishing.",
     inside: ["Work out what staying in touch means to both of you", "Tell them enough of the story to let them into your day", "Check your interpretation before you react", "Take breaks without leaving each other guessing"],
     body: `
 <p>You’ve been messaging all day, but when you finally put your phone down, you don’t feel like you’ve spent any time together.</p>
 <p>You know what your partner had for lunch. They know your meeting ran late. You exchanged a few photos and complained about work. Still, there’s something you wanted to tell them that never quite found its way into the conversation.</p>
 <p>Other nights, a short call leaves you feeling close for hours. You laugh about something ridiculous, admit what’s been bothering you, or hear them ask about a detail you didn’t realize they remembered.</p>
 <p>When you’re in a long-distance relationship, communication does a lot of the work that simply being together might otherwise do. That can put pressure on every message and call.</p>
-<p>You don’t have to make every conversation meaningful. But you can build habits that help you understand each other, ask for what you need, and enjoy the time you have—even when most of it happens through a screen.</p>
+<p>You don’t have to make every conversation meaningful. But you can build habits that help you understand each other, ask for what you need, and enjoy the time you have, even when most of it happens through a screen.</p>
 
 <h2>Work out what staying in touch means to both of you</h2>
 <p>One person might enjoy messaging throughout the day. The other may prefer to put their phone away, finish what they’re doing, and have a proper conversation later.</p>
@@ -471,7 +471,7 @@ window.ARTICLES = [
 
 <h2>Give different conversations different kinds of space</h2>
 <p>A quick message, a voice note, and a video call don’t have to serve the same purpose.</p>
-<p>Use whichever format fits what you want to share—and what works for both of you.</p>
+<p>Use whichever format fits what you want to share and what works for both of you.</p>
 <p>A photo might be enough to say, “This reminded me of you.” A voice note can tell a story without requiring you to be free at the same moment. A planned call gives you room to ask questions and hear each other out.</p>
 <p>If a text exchange starts going in circles, consider changing the format:</p>
 <blockquote><p>“I don’t think I’m explaining this well over messages. Could we talk when you’re free?”</p></blockquote>
@@ -542,7 +542,7 @@ window.ARTICLES = [
 <p>Sometimes you’re too upset to keep talking productively. You repeat yourself, stop listening, or start looking for the sentence that will hurt most.</p>
 <p>That’s a good moment to pause.</p>
 <p>The Gottman Institute recommends taking a calming break when you’re overwhelmed during conflict and agreeing on when you’ll return. Its guidance suggests allowing at least twenty minutes rather than expecting an immediate reset.</p>
-<p>Across distance, be especially clear that you’re pausing—not disappearing.</p>
+<p>Across distance, be especially clear that you’re pausing, not disappearing.</p>
 <blockquote><p>“I want to finish this conversation, but I’m getting too upset to listen properly. Can we take half an hour and talk again at eight?”</p></blockquote>
 <p>Use the break to settle yourself, rather than sending more arguments through another app.</p>
 <p>If time zones or responsibilities make a same-day return difficult, agree on the next realistic opportunity. Don’t promise a call you know you can’t make just to end the argument.</p>
@@ -565,7 +565,7 @@ window.ARTICLES = [
 <blockquote><p>“I was looking forward to talking, but I understand. Can we make a plan for tomorrow?”</p></blockquote>
 <p>If something more serious comes up, you don’t have to have a polished response immediately.</p>
 <blockquote><p>“That’s hard to hear. I want to understand, but I need a moment.”</p></blockquote>
-<p>Being open doesn’t mean sharing every thought before you’ve understood it yourself. It means making room for the things that matter—including changes in your needs, limits, or hopes for the relationship.</p>
+<p>Being open doesn’t mean sharing every thought before you’ve understood it yourself. It means making room for the things that matter, including changes in your needs, limits, or hopes for the relationship.</p>
 
 <h2>Adjust the routine when your lives change</h2>
 <p>A communication habit that suited you three months ago may not fit a new job, a family responsibility, or a different sleep schedule.</p>
@@ -584,8 +584,8 @@ window.ARTICLES = [
   },
   {
     id: "online-dates", topic: "Date nights", k: "arcade", icon: "popcorn",
-    title: "Why online dates work, and how to make them feel real",
-    sum: "For couples spending more time apart than together.",
+    title: "Why online dates work",
+    sum: "A planned date feels different from another catch-up call. Here's why, and some ideas to try.",
     inside: ["What makes an online date different from another call", "Choose something that fits the evening you're actually having", "Online date ideas that leave room for connection", "When the date feels awkward, or ends with you missing them more"],
     body: `
 <p>You’ve talked most evenings this week. You know how work has been, what your partner bought at the supermarket, and why they’re annoyed with their landlord.</p>
@@ -689,7 +689,7 @@ window.ARTICLES = [
 <p>Don’t record, screenshot, or share intimate content without explicit permission. And if someone feels uncomfortable or uncertain about privacy, choose something else.</p>
 <p>You can still flirt, compliment each other, share memories, and talk about what you’re looking forward to when you meet again.</p>
 
-<h2>When the date feels awkward—or ends with you missing them more</h2>
+<h2>When the date feels awkward, or ends with you missing them more</h2>
 <p>You might feel strange at first. Perhaps you’ve never called something an online date before, or you’re both trying too hard to make it special.</p>
 <p>You can acknowledge it:</p>
 <blockquote><p>“I feel a bit awkward, but I’m happy we’re doing this.”</p></blockquote>
@@ -705,7 +705,7 @@ window.ARTICLES = [
 <p>Afterward, ask what you both liked. Was the cooking fun? Would you rather talk than watch a film next time? Did the timing leave one of you exhausted?</p>
 <p>Keep what works and change what doesn’t.</p>
 <p>The part worth protecting is your attention: being interested, making room for each other, and following through on plans you both want.</p>
-<p>An online date won’t remove the distance. But it can give you an evening you’re glad you spent together—and something to smile about when you think back on it the next day.</p>
+<p>An online date won’t remove the distance. But it can give you an evening you’re glad you spent together, and something to smile about when you think back on it the next day.</p>
 `
   },
   {
@@ -757,7 +757,7 @@ window.ARTICLES = [
 <p>Tell them you enjoyed the visit. Mention a moment you’re glad you shared. Ask for another hug if you want one.</p>
 <p>If you cry, you cry. If you don’t, that’s okay too. You aren’t required to look a certain way for the goodbye to mean something.</p>
 
-<h2>Have a small goodbye ritual—if you both like the idea</h2>
+<h2>Have a small goodbye ritual, if you both like the idea</h2>
 <p>A familiar gesture can give you something to do when conversation feels difficult.</p>
 <p>You might:</p>
 <ul>
@@ -817,11 +817,11 @@ window.ARTICLES = [
 
 <h2>Pay attention to how you feel over the following days</h2>
 <p>After the journey, give yourself room to settle back into everyday life. Reconnect with friends, return to familiar activities, and tell your partner what you’ve found difficult.</p>
-<p>If each goodbye reveals the same practical problem—travel you can’t afford, exhaustion, or uncertainty neither of you will discuss—that deserves a conversation of its own.</p>
+<p>If each goodbye reveals the same practical problem, like travel you can’t afford, exhaustion, or uncertainty neither of you will discuss, that deserves a conversation of its own.</p>
 <p>And if low mood persists, is affecting your daily life, or feels too difficult to cope with, seek support from a healthcare professional. NHS guidance recommends getting help when low mood lasts more than two weeks, when coping is difficult, or when the things you’re trying aren’t helping. You don’t have to wait two weeks if you need support sooner.</p>
 <p>For now, give yourself some kindness. The last day doesn’t have to be perfect, and the first night apart doesn’t have to be brave.</p>
 <p>Say what you need. Get home safely. Eat something. Let someone know how you’re doing.</p>
-<p>The goodbye may still hurt, but you don’t have to leave yourself—or each other—unsupported once it’s over.</p>
+<p>The goodbye may still hurt, but you don’t have to leave yourself or each other unsupported once it’s over.</p>
 `
   }
 ];
