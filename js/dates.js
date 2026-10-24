@@ -17,7 +17,7 @@ window.DATES=[
  {s:"time-capsule",k:"together",i:"hourglass",t:"Build a time capsule",d:"Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.",f:["Free","1 hr"],tags:["free","cozy"]},
  {s:"walk-along",k:"apart",i:"phone",t:"Neighborhood walk-along",d:"Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.",f:["Free","45 min"],tags:["free"]},
  {s:"take-a-class",k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, cooking, anything you'd both be a little bad at. That's half the fun.",f:["$$","2–3 hrs"],tags:["adventurous"]},
- {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"200+ more date ideas",d:"Holiday dates, anniversary plans, and new ideas every month, plus unlimited virtual dates.",f:["Plus"],tags:["all-only"]}
+ {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"More dates with Plus",d:"Holiday dates, anniversary plans, and new ideas as we add them, plus unlimited virtual dates.",f:["Plus"],tags:["all-only"]}
 ];
 window.DATE_WHERE={apart:"While apart",together:"When you visit"};
 window.DATE_ICONS={
@@ -45,6 +45,12 @@ window.DATE_WASH={apart:"#9fb4cf",together:"#eba486",arcade:"#f2a68c",table:"#ec
 window.dateIcon=(k,cls,kind)=>'<span class="clay '+(cls||"")+'" aria-hidden="true"><svg viewBox="0 0 24 24">'+
   '<circle cx="13" cy="13.2" r="8" fill="'+(DATE_WASH[kind]||DATE_WASH.apart)+'" opacity=".55"/>'+
   '<g fill="none" stroke="#4a3527" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round">'+(DATE_ICONS[k]||"")+'</g></svg></span>';
+
+// a real photo for each date (CC0, sources in images/dates/sources.json); falls back to the clay icon
+window.DATE_PHOTOS=["arcade-night","table-for-two","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
+window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
+  ?'<picture class="dphoto '+(cls||"")+'"><source srcset="images/dates/'+d.s+'.webp" type="image/webp"><img src="images/dates/'+d.s+'.jpg" alt="" decoding="async" draggable="false"></picture>'
+  :dateIcon(d.i,cls,d.k);
 
 // Extra detail for each date's own page: how to do it, what you need, one tip.
 // app:true dates live inside the app (coming soon). tool names a widget on the page.

@@ -8,7 +8,8 @@
 
   const d = all[idx], more = window.DATE_MORE[d.s] || {};
   document.title = d.t + " · Love Is In The Air";
-  $("dIcon").innerHTML = window.dateIcon(d.i, "big", d.k);
+  $("dIcon").innerHTML = window.datePhoto(d, "big");
+  $("dIcon").classList.toggle("hasphoto", window.DATE_PHOTOS.includes(d.s));
   $("dWhere").textContent = d.where || window.DATE_WHERE[d.k];
   $("dTitle").textContent = d.t;
   $("dText").textContent = d.d;

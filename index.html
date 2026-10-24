@@ -314,6 +314,10 @@ section.band{padding-block:80px}
 .dcard::after{content:"";position:absolute;inset:-1px;border-radius:inherit;background:var(--paper);opacity:var(--fade,0);pointer-events:none;z-index:3}
 .dcard[aria-current="true"]{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue),0 20px 30px -18px rgba(90,45,20,.55)}
 .dc-tile{position:relative;display:grid;place-items:center;aspect-ratio:16/11;overflow:hidden;border-radius:4px 4px 0 0;background:var(--tile)}
+.dphoto{position:absolute;inset:0;display:block}
+.dphoto img{display:block;width:100%;height:100%;object-fit:cover;filter:sepia(.14) saturate(.92) contrast(.97);transition:transform .6s cubic-bezier(.2,.8,.3,1)}
+.dphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(120,55,25,.16));pointer-events:none}
+.dcard[aria-current="true"] .dphoto img{transform:scale(1.05)}
 .dcard .clay{--sz:74px;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
 .dcard[aria-current="true"] .clay{transform:translateY(-6px) rotate(-6deg)}
 .dc-body{display:grid;gap:4px;padding:12px 14px 14px}
@@ -360,7 +364,7 @@ section.band{padding-block:80px}
 .dempty{text-align:center;color:var(--muted);padding:110px 0 0;font-size:17px}
 @media (max-width:560px){.stage{height:300px}.dcard{width:184px;margin-left:-92px;top:18px}.dcard h3{font-size:19px}.dcard .clay{--sz:60px}
   .detail{grid-template-columns:1fr}.detail .dtile{min-height:150px}.detail .clay{--sz:84px}.detail .dbody{padding:18px 18px 20px}.dlabel{min-width:0;width:100%}}
-@media (prefers-reduced-motion:reduce){.dcard .clay,.detail{transition:none;animation:none}.burst{display:none}}
+@media (prefers-reduced-motion:reduce){.dcard .clay,.dphoto img,.detail{transition:none;animation:none}.burst{display:none}}
 .clay{--sz:84px;position:relative;z-index:1;display:grid;place-items:center;flex:none;width:var(--sz);height:var(--sz);border-radius:50%;
   background:radial-gradient(circle at 36% 30%,#fffaf1 0,#f7e8d2 60%,#ecd5b6 100%);box-shadow:0 10px 18px -10px rgba(80,35,12,.6),inset 0 -4px 7px rgba(160,100,60,.16)}
 .clay svg{display:block;width:58%;height:58%}
@@ -853,7 +857,7 @@ section.band{position:relative;isolation:isolate}
         <ul>
           <li>Unlimited arcade and restaurant dates</li>
           <li>All 6 Deep Talks topics (300 questions)</li>
-          <li>200+ date ideas, with new ones every month</li>
+          <li>More date ideas, with new ones added over time</li>
           <li>Fare alerts and the shared trip board</li>
           <li>All Plus articles</li>
           <li>No ads</li>
@@ -896,7 +900,7 @@ section.band{position:relative;isolation:isolate}
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=0a63679a"></script>
+<script src="js/dates.js?v=a028d973"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script>
 // visit countdown (defaults to an example date 23 days out)
@@ -942,7 +946,7 @@ function favCount(){const b=document.querySelector('#chipsWhere [data-k="saved"]
 function build(){
   list=DATES.filter(match);ring.innerHTML="";
   cards=list.map((d,i)=>{const c=document.createElement("div");c.className="dcard k-"+d.k;c.setAttribute("role","button");c.tabIndex=-1;
-    c.innerHTML='<span class="dc-tile">'+svgIcon(d.i,"",d.k)+'</span><span class="dc-body"><span class="where"></span><h3></h3><span class="facts"></span></span>'+(favs.includes(d.s)?'<span class="savedmark" title="Saved">'+HEART+'</span>':"");
+    c.innerHTML='<span class="dc-tile">'+window.datePhoto(d)+'</span><span class="dc-body"><span class="where"></span><h3></h3><span class="facts"></span></span>'+(favs.includes(d.s)?'<span class="savedmark" title="Saved">'+HEART+'</span>':"");
     c.querySelector(".where").textContent=d.where?d.where.replace(" · In the app",""):WHERE[d.k];
     c.querySelector("h3").textContent=d.t;c.querySelector(".facts").textContent=d.f.slice(0,2).join("  ·  ");
     c.addEventListener("click",()=>{if(!moved){stopAuto();goTo(i)}});ring.appendChild(c);return c});
@@ -965,7 +969,7 @@ function render(){
 function showDetail(){const d=list[front];if(!d)return;
   detailEl.className="detail k-"+d.k;void detailEl.offsetWidth;detailEl.classList.add("in");
   const tag=detailEl.querySelector(".pickTag");if(tag)tag.remove();
-  document.getElementById("dTile").innerHTML=svgIcon(d.i,"",d.k);
+  document.getElementById("dTile").innerHTML=window.datePhoto(d);
   document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;
   const fx=document.getElementById("dFacts");fx.innerHTML="";d.f.forEach(t=>{const s=document.createElement("span");s.textContent=t;fx.appendChild(s)});
   const dl=document.getElementById("dLink");dl.href=d.k==="plus"?"#pricing":"date.html?d="+d.s;dl.textContent=d.k==="plus"?"See Plus":"View more";

@@ -67,6 +67,12 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .facts{display:flex;flex-wrap:wrap;gap:8px}
 .facts span{font:700 12px var(--mono);border:1px solid var(--line);border-radius:3px;padding:4px 10px;color:var(--muted);background:var(--card)}
 @media (max-width:640px){.dhead{grid-template-columns:1fr;gap:18px}.clay.big{--sz:92px}}
+#dIcon.hasphoto{position:relative;display:block;width:300px;aspect-ratio:16/11;border-radius:6px;overflow:hidden;transform:rotate(-1.5deg);
+  border:7px solid #fffaf1;box-shadow:0 1px 2px rgba(80,35,12,.18),0 18px 30px -18px rgba(80,35,12,.55)}
+.dphoto{position:absolute;inset:0;display:block}
+.dphoto img{display:block;width:100%;height:100%;object-fit:cover;filter:sepia(.14) saturate(.92) contrast(.97)}
+.dphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(120,55,25,.16));pointer-events:none}
+@media (max-width:640px){#dIcon.hasphoto{width:100%;max-width:420px;transform:none}}
 
 .soonbar{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--stamp);border:1px solid var(--line);border-radius:2px;padding:16px 20px;margin-bottom:28px}
 .soonbar p{font-weight:600}
@@ -913,7 +919,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=0a63679a"></script>
+<script src="js/dates.js?v=a028d973"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
 <script src="js/classes.js?v=78c6c8b8"></script>
 <script src="js/escaperooms.js?v=4343726d"></script>
@@ -923,6 +929,6 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=3879649f"></script>
+<script src="js/date-page.js?v=bcb62495"></script>
 </body>
 </html>
