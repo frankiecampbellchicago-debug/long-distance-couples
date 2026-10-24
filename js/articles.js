@@ -585,8 +585,128 @@ window.ARTICLES = [
   {
     id: "online-dates", topic: "Date nights", k: "arcade", icon: "popcorn",
     title: "Why online dates work, and how to make them feel real",
-    sum: "Doing something together, not just talking, is what makes a long-distance date feel like a date.",
-    inside: ["Why doing beats talking", "Setting the scene on both ends", "Dates to try this week", "Making it a habit, not a chore"]
+    sum: "For couples spending more time apart than together.",
+    inside: ["What makes an online date different from another call", "Choose something that fits the evening you're actually having", "Online date ideas that leave room for connection", "When the date feels awkward, or ends with you missing them more"],
+    body: `
+<p>You’ve talked most evenings this week. You know how work has been, what your partner bought at the supermarket, and why they’re annoyed with their landlord.</p>
+<p>But when was the last time you actually had a date?</p>
+<p>In a long-distance relationship, it’s easy for your time together to become a series of updates. You catch up, discuss the next visit, say you miss each other, and go to bed. Those conversations matter, but you might also miss having something enjoyable to do together.</p>
+<p>An online date gives you a chance to make plans that aren’t just about exchanging news or managing the distance.</p>
+<p>It won’t feel exactly like sitting across a restaurant table or sharing a sofa. You don’t have to pretend it does. You can still laugh, flirt, try something new, and finish the evening glad you made time for each other.</p>
+
+<h2>What makes an online date different from another call?</h2>
+<p>Usually, it starts with the agreement that this is time you’re setting aside for each other.</p>
+<p>There’s a difference between answering a call while finishing an email and saying, “Let’s have dinner together on Saturday. I’ll be ready at seven.”</p>
+<p>The second gives you something to anticipate. You both know what you’re showing up for, and you can make a little room for it.</p>
+<p>That doesn’t require fancy clothes, candles, or an elaborate plan. It means deciding how you want to spend the time rather than hoping a normal call will somehow turn into a date.</p>
+<p>You might cook, play a game, listen to music, or simply eat together without distractions. The Gottman Institute includes shared cooking, online games, movies, and learning something together among its suggestions for couples dating from a distance.</p>
+<p>Choose something you would genuinely enjoy, not something that only looks romantic in a photograph.</p>
+
+<h2>Why being online can still feel meaningful</h2>
+<p>A screen doesn’t prevent you from paying attention to someone. You can hear the excitement in their voice, notice when they’re distracted, ask a thoughtful question, or laugh at the same ridiculous moment.</p>
+<p>But the technology alone doesn’t guarantee closeness.</p>
+<p>In a survey of 647 young adults, video-call frequency wasn’t significantly associated with relationship satisfaction. The findings varied by communication method and relationship type, so they don’t establish one perfect way to stay connected. They do offer a useful caution: more video time isn’t automatically better time.</p>
+<p>Think of an online date as an opportunity, not a relationship treatment you have to complete.</p>
+<p>You’re making space to enjoy each other and have an experience you can refer back to later. Tomorrow, you might still be laughing about the terrible portrait your partner drew or arguing over who really won the game.</p>
+<p>You have something new to share besides how much you wish you were in the same place.</p>
+
+<h2>Choose something that fits the evening you’re actually having</h2>
+<p>Before planning, ask a simple question:</p>
+<blockquote><p>“What kind of evening do we have the energy for?”</p></blockquote>
+<p>If you’ve both had a long week, a complicated recipe or a difficult escape room might be the last thing you want. Takeaway and an episode of a favorite show could suit you better.</p>
+<p>If your conversations have felt repetitive, trying a new activity might appeal more.</p>
+<p>You can choose between a few moods:</p>
+<ul>
+  <li>A quiet evening: dinner, music, or reading something aloud.</li>
+  <li>Something playful: trivia, drawing, or a game.</li>
+  <li>Something new: a recipe, a short class, or a virtual tour.</li>
+  <li>Time to talk: coffee and an unhurried conversation.</li>
+</ul>
+<p>Take turns suggesting ideas so one person doesn’t become responsible for planning every enjoyable moment.</p>
+<p>And be honest if an activity isn’t your thing. You don’t have to love online games because your partner does, but you can look for one you’d both be willing to try.</p>
+
+<h2>Sort out the boring details first</h2>
+<p>A little preparation saves you from spending the first half-hour troubleshooting.</p>
+<p>Agree on the time, including the time zone. Check whether you both need ingredients, an account, or access to the same film. If an activity costs money, discuss the budget before booking it.</p>
+<p>Then make your setup comfortable:</p>
+<ul>
+  <li>Charge your device or keep a charger nearby.</li>
+  <li>Position the camera so you aren’t holding it all evening.</li>
+  <li>Check that you can hear each other clearly.</li>
+  <li>Put unrelated notifications on silent.</li>
+  <li>Let anyone you live with know if you’d like some privacy.</li>
+</ul>
+<p>You don’t need studio lighting or a spotless room. Aim for a setup that lets you stop thinking about the device.</p>
+<p>Have an easy backup, too. If the game won’t load, you could eat and talk instead. A technical problem doesn’t need to become the story of the whole evening.</p>
+
+<h2>Make it feel like a date in a way that suits you</h2>
+<p>Small changes can help distinguish the evening from another routine call.</p>
+<p>You might put on something you feel good in, use your favorite glasses, or clear the clutter from the table. You could both choose music or bring a snack.</p>
+<p>If dressing up sounds enjoyable, do it. If one of you feels most comfortable in a sweatshirt, that’s fine as well.</p>
+<p>Ask what helps your partner get into the mood for a date. They may care more about your undivided attention than the setting. You may enjoy a little flirtation or hearing that they were looking forward to seeing you.</p>
+<p>Say those things when you mean them:</p>
+<blockquote><p>“I’ve been looking forward to this all day.”</p></blockquote>
+<p>Or:</p>
+<blockquote><p>“You look lovely. I’m glad we made time for tonight.”</p></blockquote>
+<p>You don’t have to perform romance. Give yourselves permission to be a little more intentional than usual.</p>
+
+<h2>Online date ideas that leave room for connection</h2>
+<p>You don’t need a different activity every week. Start with something simple enough that you can enjoy your partner rather than manage the instructions.</p>
+<h3>Cook something together</h3>
+<p>Choose a recipe you can both get ingredients for, then cook while talking. You can compare results, ask for an opinion, and sit down to eat at roughly the same time.</p>
+<p>If your kitchen spaces or schedules are very different, skip the matching recipe. One person can make breakfast while the other has dinner.</p>
+<h3>Watch something and leave time afterward</h3>
+<p>Pick the film or episode in advance so choosing doesn’t take up the evening. Agree whether you want to chat during it or talk afterward.</p>
+<p>Give yourselves a few minutes when it ends. What did you like? Which character annoyed you? Did it remind you of anything?</p>
+<h3>Play something neither of you takes too seriously</h3>
+<p>Try drawing, trivia, word games, or a cooperative puzzle. If competition tends to frustrate one of you, choose a game where you’re on the same team.</p>
+<p>The activity doesn’t have to be impressive. A badly drawn animal can provide plenty to talk about.</p>
+<h3>Teach each other something</h3>
+<p>Show your partner a simple recipe, a few words in another language, or something from a hobby they’ve asked about.</p>
+<p>Keep it manageable. You’re sharing an interest, not delivering a lesson they’ll be tested on.</p>
+<h3>Share music</h3>
+<p>Choose a few songs each and explain why you picked them. You could use themes such as childhood favorites, songs that remind you of each other, or music you’d play on a road trip.</p>
+<p>Cooking, games, sharing hobbies, and music-based activities all appear among the Gottman Institute’s date suggestions. Adapt them to what you both enjoy rather than treating any list as a set of requirements.</p>
+
+<h2>Leave room for the conversation to wander</h2>
+<p>You don’t need to fill every minute with an activity.</p>
+<p>If cooking turns into a good conversation, let it. If a game stops being fun, stop playing. The plan is there to give you somewhere to begin.</p>
+<p>You can ask questions that connect to what you’re doing:</p>
+<ul>
+  <li>“Who used to make this when you were growing up?”</li>
+  <li>“When did you first hear that song?”</li>
+  <li>“What would you order if we were out together?”</li>
+  <li>“Is there something you’d love us to try on our next visit?”</li>
+</ul>
+<p>Follow the answer rather than working through a list.</p>
+<p>And don’t panic about a little silence. You can eat for a moment or concentrate on the game without needing to check whether the evening is going well.</p>
+<p>If you’re unsure, ask casually: “Are you enjoying this, or do you fancy doing something else?”</p>
+
+<h2>Respect comfort levels, especially around intimacy</h2>
+<p>An online date can be romantic without becoming sexual.</p>
+<p>If you both want something more intimate, discuss what you’re comfortable with rather than assuming the date creates an expectation.</p>
+<p>Neither person owes the other photos, undressing, or sexual conversation. Either of you can change your mind, including after previously enjoying something.</p>
+<p>Don’t record, screenshot, or share intimate content without explicit permission. And if someone feels uncomfortable or uncertain about privacy, choose something else.</p>
+<p>You can still flirt, compliment each other, share memories, and talk about what you’re looking forward to when you meet again.</p>
+
+<h2>When the date feels awkward—or ends with you missing them more</h2>
+<p>You might feel strange at first. Perhaps you’ve never called something an online date before, or you’re both trying too hard to make it special.</p>
+<p>You can acknowledge it:</p>
+<blockquote><p>“I feel a bit awkward, but I’m happy we’re doing this.”</p></blockquote>
+<p>Then carry on. You don’t have to create instant chemistry on demand.</p>
+<p>You might also enjoy the evening and feel sad when it ends. That doesn’t erase the good time you had. You were close for a while, and now you’re noticing the distance again.</p>
+<p>Be honest without making either person responsible for fixing the separation tonight:</p>
+<blockquote><p>“That was lovely. I’m going to miss you when we hang up.”</p></blockquote>
+<p>You could agree on when you’ll next talk and give the evening a proper goodbye rather than ending abruptly while tidying up.</p>
+
+<h2>Build a habit you both look forward to</h2>
+<p>You don’t need a weekly production. Decide what fits your schedules, finances, and energy.</p>
+<p>Perhaps you plan a longer date every other weekend, with smaller shared moments in between. Or you keep a regular slot but choose the activity depending on how you feel.</p>
+<p>Afterward, ask what you both liked. Was the cooking fun? Would you rather talk than watch a film next time? Did the timing leave one of you exhausted?</p>
+<p>Keep what works and change what doesn’t.</p>
+<p>The part worth protecting is your attention: being interested, making room for each other, and following through on plans you both want.</p>
+<p>An online date won’t remove the distance. But it can give you an evening you’re glad you spent together—and something to smile about when you think back on it the next day.</p>
+`
   },
   {
     id: "airport-goodbye", topic: "Travel", k: "apart", icon: "hourglass",
