@@ -444,8 +444,143 @@ window.ARTICLES = [
   {
     id: "communication", topic: "Communication", k: "together", icon: "phone",
     title: "Talking across the distance: communication that brings you closer",
-    sum: "How to move past daily updates, handle disagreements over text, and stay in sync across time zones.",
-    inside: ["Getting past the daily status report", "Why hard talks belong on calls, not texts", "Making time zones work for you", "Checking in on the relationship itself"]
+    sum: "For couples who don't get to see each other often.",
+    inside: ["Work out what staying in touch means to both of you", "Tell them enough of the story to let them into your day", "Check your interpretation before you react", "Take breaks without leaving each other guessing"],
+    body: `
+<p>You’ve been messaging all day, but when you finally put your phone down, you don’t feel like you’ve spent any time together.</p>
+<p>You know what your partner had for lunch. They know your meeting ran late. You exchanged a few photos and complained about work. Still, there’s something you wanted to tell them that never quite found its way into the conversation.</p>
+<p>Other nights, a short call leaves you feeling close for hours. You laugh about something ridiculous, admit what’s been bothering you, or hear them ask about a detail you didn’t realize they remembered.</p>
+<p>When you’re in a long-distance relationship, communication does a lot of the work that simply being together might otherwise do. That can put pressure on every message and call.</p>
+<p>You don’t have to make every conversation meaningful. But you can build habits that help you understand each other, ask for what you need, and enjoy the time you have—even when most of it happens through a screen.</p>
+
+<h2>Work out what staying in touch means to both of you</h2>
+<p>One person might enjoy messaging throughout the day. The other may prefer to put their phone away, finish what they’re doing, and have a proper conversation later.</p>
+<p>Neither preference automatically tells you how much someone cares.</p>
+<p>The trouble starts when you assume your partner’s expectations match yours. You may think you’re giving them space while they think you’ve lost interest. They may believe they’re being attentive while you feel pressured to stay available.</p>
+<p>Talk about the practical details:</p>
+<ul>
+  <li>When are you usually free to talk?</li>
+  <li>Do you enjoy frequent messages, or do they become distracting?</li>
+  <li>What response times are realistic during work or school?</li>
+  <li>How will you let each other know when plans change?</li>
+  <li>What kind of contact helps you feel connected?</li>
+</ul>
+<p>You don’t need a strict schedule for every interaction. A little clarity can save you from spending an evening interpreting a silence that your partner didn’t realize would worry you.</p>
+<p>Try something specific:</p>
+<blockquote><p>“I can’t usually reply much at work, but I’d love to catch up after dinner. If I’m running late, I’ll let you know.”</p></blockquote>
+
+<h2>Give different conversations different kinds of space</h2>
+<p>A quick message, a voice note, and a video call don’t have to serve the same purpose.</p>
+<p>Use whichever format fits what you want to share—and what works for both of you.</p>
+<p>A photo might be enough to say, “This reminded me of you.” A voice note can tell a story without requiring you to be free at the same moment. A planned call gives you room to ask questions and hear each other out.</p>
+<p>If a text exchange starts going in circles, consider changing the format:</p>
+<blockquote><p>“I don’t think I’m explaining this well over messages. Could we talk when you’re free?”</p></blockquote>
+<p>That doesn’t mean difficult subjects are forbidden over text. Some people express themselves more clearly in writing or find calls difficult for accessibility, privacy, or other reasons. You can write down the issue first, take time to read it, and agree on how to continue.</p>
+<p>The useful question is whether your current way of talking is helping you understand each other.</p>
+
+<h2>Tell them enough of the story to let them into your day</h2>
+<blockquote class="talkback">
+  <p>“How was work?”</p>
+  <p>“Busy.”</p>
+</blockquote>
+<p>Sometimes that’s all either of you has the energy for. But if most conversations stop there, try sharing one detail that gives your partner something to respond to.</p>
+<p>What made the day busy? Which part went well? Was there something you were still thinking about on the way home?</p>
+<p>Instead of “Work was annoying,” you might say:</p>
+<blockquote><p>“I spent an hour fixing something that turned out to be a tiny mistake. I’m relieved it’s done, but I felt pretty foolish.”</p></blockquote>
+<p>Now your partner knows more than what happened. They know how it felt.</p>
+<p>You can also give them context about the people and places you mention. It’s easier to follow a story when they know which coworker you mean or why a particular family conversation mattered.</p>
+<p>You don’t need to deliver a daily report. Share the things you would probably mention if they were sitting beside you.</p>
+
+<h2>Ask questions that follow the conversation</h2>
+<p>You don’t need an endless supply of deep questions to have a good call.</p>
+<p>Often, the best next question comes from something your partner has already said:</p>
+<ul>
+  <li>“What happened after that?”</li>
+  <li>“Were you relieved, or did it still bother you?”</li>
+  <li>“How did your sister respond?”</li>
+  <li>“What are you hoping happens now?”</li>
+</ul>
+<p>The Gottman Institute’s stress-reducing conversation exercise makes room for partners to talk about daily pressures and understand how the other person is feeling, rather than only exchanging updates.</p>
+<p>You can borrow that idea without turning your evenings into a formal exercise. Give each other a little time to speak, show interest, and avoid rushing to your own story.</p>
+<p>And follow up later. If they were worried about an appointment on Tuesday, ask how it went. You don’t need to remember everything, but remembering what matters to them gives your next conversation somewhere to begin.</p>
+
+<h2>Find out whether they want advice</h2>
+<p>Your partner tells you about an argument with a friend. You immediately suggest what they should say next.</p>
+<p>Your idea might be sensible. They might also feel that you skipped over the part where they were hurt.</p>
+<p>Before offering a solution, ask:</p>
+<blockquote><p>“Do you want help thinking it through, or would you rather I just listen?”</p></blockquote>
+<p>If they want to talk, stay with their experience for a moment.</p>
+<p>“That sounds frustrating” or “I can see why you’re upset” lets them know you’ve heard them. You can acknowledge their feelings without deciding that every assumption they’ve made is correct.</p>
+<p>Then, if they want advice, work through it together.</p>
+<p>You can make the same request when you need support:</p>
+<blockquote><p>“I’ve had a rough day. I don’t need you to fix it, but could I talk for a few minutes?”</p></blockquote>
+<p>That saves your partner from guessing what would help.</p>
+
+<h2>Check your interpretation before you react</h2>
+<p>A short “okay” can look cold when you’re already worried. It might mean your partner is upset. It might also mean they’re carrying groceries and replying with one hand.</p>
+<p>If something lands badly, ask about it:</p>
+<blockquote><p>“I’m reading that as a bit frustrated. Is that how you meant it?”</p></blockquote>
+<p>Or:</p>
+<blockquote><p>“Are we okay? I’m not sure I understood your last message.”</p></blockquote>
+<p>Give them a chance to explain. At the same time, don’t use uncertainty as a reason to ignore a repeated problem. If certain messages consistently feel dismissive, talk about the pattern when you both have time.</p>
+<p>Be willing to clarify your own tone, too:</p>
+<blockquote><p>“That sounded abrupt. I’m distracted, not annoyed with you.”</p></blockquote>
+<p>You don’t have to account for every punctuation mark. Just explain when you notice a gap between what you meant and what your partner heard.</p>
+
+<h2>Bring up problems without making your partner defend their whole character</h2>
+<p>When something hurts, try to describe what happened and what you need next.</p>
+<p>Compare:</p>
+<blockquote><p>“You never make time for me.”</p></blockquote>
+<p>With:</p>
+<blockquote><p>“We’ve missed our last two planned calls, and I’ve been feeling disconnected. Can we choose a time that’s easier to keep?”</p></blockquote>
+<p>The second version gives you a specific problem to address. It doesn’t require your partner to first prove that they care.</p>
+<p>Keep the conversation focused. If you’re discussing a canceled call, try not to bring in every disappointing message from the last month.</p>
+<p>And listen to their side. Perhaps they’re overwhelmed, perhaps the routine isn’t working, or perhaps they didn’t understand that you considered the call a definite plan. You can hear that explanation and still ask for more consideration.</p>
+<p>The goal is to leave with a clearer agreement, not just an apology that neither of you knows how to act on.</p>
+
+<h2>Take breaks without leaving each other guessing</h2>
+<p>Sometimes you’re too upset to keep talking productively. You repeat yourself, stop listening, or start looking for the sentence that will hurt most.</p>
+<p>That’s a good moment to pause.</p>
+<p>The Gottman Institute recommends taking a calming break when you’re overwhelmed during conflict and agreeing on when you’ll return. Its guidance suggests allowing at least twenty minutes rather than expecting an immediate reset.</p>
+<p>Across distance, be especially clear that you’re pausing—not disappearing.</p>
+<blockquote><p>“I want to finish this conversation, but I’m getting too upset to listen properly. Can we take half an hour and talk again at eight?”</p></blockquote>
+<p>Use the break to settle yourself, rather than sending more arguments through another app.</p>
+<p>If time zones or responsibilities make a same-day return difficult, agree on the next realistic opportunity. Don’t promise a call you know you can’t make just to end the argument.</p>
+<p>When you return, you might begin with:</p>
+<blockquote><p>“I understand that you felt left waiting. Here’s what I was trying to explain.”</p></blockquote>
+
+<h2>Leave room for fun and comfortable silence</h2>
+<p>Not every conversation needs to improve the relationship.</p>
+<p>Send the ridiculous photo. Tell the story badly and laugh halfway through. Play a game, compare your terrible dinners, or keep each other company while doing something ordinary.</p>
+<p>You can also have a quiet evening without treating it as evidence that you’re running out of things to say.</p>
+<p>Ask what kind of time you both want:</p>
+<blockquote><p>“Do you feel like talking properly, or shall we just hang out while I cook?”</p></blockquote>
+<p>That avoids a mismatch where one person expects an attentive conversation and the other thinks you’re comfortably sharing space.</p>
+<p>Sometimes you’ll have plenty to say. Sometimes you’ll be tired. Leave room for both.</p>
+
+<h2>Make honesty easier to hear</h2>
+<p>Your partner needs to be able to say, “I need an evening to myself,” or “I’ve been feeling disconnected,” without every difficult admission turning into a crisis.</p>
+<p>So do you.</p>
+<p>You can feel disappointed and still respond with care:</p>
+<blockquote><p>“I was looking forward to talking, but I understand. Can we make a plan for tomorrow?”</p></blockquote>
+<p>If something more serious comes up, you don’t have to have a polished response immediately.</p>
+<blockquote><p>“That’s hard to hear. I want to understand, but I need a moment.”</p></blockquote>
+<p>Being open doesn’t mean sharing every thought before you’ve understood it yourself. It means making room for the things that matter—including changes in your needs, limits, or hopes for the relationship.</p>
+
+<h2>Adjust the routine when your lives change</h2>
+<p>A communication habit that suited you three months ago may not fit a new job, a family responsibility, or a different sleep schedule.</p>
+<p>Check in occasionally:</p>
+<ul>
+  <li>Are we getting enough time together?</li>
+  <li>Does either of us feel pressure to stay available?</li>
+  <li>Is there a conversation we keep postponing?</li>
+  <li>What have we enjoyed lately?</li>
+  <li>What small change would help?</li>
+</ul>
+<p>Choose one adjustment rather than rebuilding everything at once. You might protect a weekly call, stop expecting replies during work, or send a voice note when your schedules don’t overlap.</p>
+<p>Above all, aim for understanding. You won’t always say the right thing, and your partner won’t always hear it as you intended. What matters is being able to clarify, listen, and try again.</p>
+<p>On your next call, ask about something they mentioned earlier in the week. Put your other screen aside. Give them time to answer. You don’t have to make the conversation extraordinary to make it feel like time together.</p>
+`
   },
   {
     id: "online-dates", topic: "Date nights", k: "arcade", icon: "popcorn",
