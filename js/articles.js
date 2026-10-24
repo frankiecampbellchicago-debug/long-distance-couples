@@ -712,7 +712,117 @@ window.ARTICLES = [
     id: "airport-goodbye", topic: "Travel", k: "apart", icon: "hourglass",
     title: "Surviving the airport goodbye",
     sum: "How to make the last day of a visit hurt a little less, and what to do once you're home.",
-    inside: ["Planning a gentle last day", "Booking the next visit before this one ends", "The goodbye itself", "The first night home alone"]
+    inside: ["Talk about leaving before you're standing at security", "Don't make the last day carry the whole visit", "Agree on the first contact after you separate", "Make the first evening home easier on yourself"],
+    body: `
+<p>The suitcase is open on the floor. Your partner is making coffee, and you’re trying to work out whether you’ve left anything in the bathroom.</p>
+<p>Yesterday, leaving still felt far enough away. Now you’re checking traffic to the airport and wondering how the visit went so quickly.</p>
+<p>Maybe you go quiet. Maybe you keep finding reasons to touch them as you pass. You want to enjoy the hours you have left, but part of you is already thinking about the moment you’ll have to walk away.</p>
+<p>There may not be a version of this goodbye that feels easy. You’re leaving someone you want to stay with, and the next visit might be weeks or months away.</p>
+<p>But you can make the day less rushed, tell each other what you need, and have something waiting for you beyond the journey home.</p>
+
+<h2>Talk about leaving before you’re standing at security</h2>
+<p>The airport is a difficult place to figure out what kind of goodbye you both want.</p>
+<p>One person may want to stay together until the last possible moment. The other might find a shorter farewell easier. Neither preference tells you who cares more.</p>
+<p>Bring it up earlier in the visit:</p>
+<blockquote><p>“The airport goodbye was really hard for me last time. Could we talk about how to handle it this time?”</p></blockquote>
+<p>Discuss the practical details as well as the emotional ones. Who’s driving? How much time will you allow? Would you like to get coffee together before security, or would waiting around make things harder?</p>
+<p>You can also explain what you might look like when you’re upset.</p>
+<blockquote><p>“If I go quiet on the way there, I’m probably trying not to cry. I’m not annoyed with you.”</p></blockquote>
+<p>Your partner won’t have to guess why your mood has changed, and you won’t have to explain yourself while struggling to get the words out.</p>
+
+<h2>Don’t make the last day carry the whole visit</h2>
+<p>You may feel pressure to squeeze everything into those final hours: one more outing, a special breakfast, a serious conversation, a few perfect photographs.</p>
+<p>Then the morning disappears into packing, checking the time, and worrying that you aren’t enjoying it enough.</p>
+<p>Choose one or two things you’d genuinely like to do. Leave room for the things that have to happen.</p>
+<p>If you can, handle most of the packing the night before. Check your travel documents and transport arrangements so you aren’t spending your last hour together searching for a charger.</p>
+<p>A simple morning is enough. Have breakfast. Take a short walk. Sit together.</p>
+<p>And if you’re sad while you do those things, you haven’t wasted the day. You don’t have to keep the atmosphere cheerful to prove you appreciated the visit.</p>
+
+<h2>Say you’re sad instead of making them work it out</h2>
+<p>Sometimes the hardest feeling comes out as irritation.</p>
+<p>You’re upset about leaving, but you end up arguing about when to set off or why they’re looking at their phone. There may be a real issue to discuss. There may also be something more immediate underneath it.</p>
+<p>Try naming that first:</p>
+<blockquote><p>“I’m finding today really hard, and I think I’m getting irritable because I don’t want to go.”</p></blockquote>
+<p>Or:</p>
+<blockquote><p>“I know we need to get moving. Could I have a hug before we start packing the car?”</p></blockquote>
+<p>Your partner doesn’t have to fix the sadness. They just need a chance to understand it.</p>
+<p>If they tell you they’re struggling, you don’t need a speech. “I know. I don’t want you to leave either” may be all you can honestly offer.</p>
+<p>Avoid making promises you can’t keep just to soften the moment. You can be reassuring without saying you’ll book another flight tomorrow or move sooner than circumstances allow.</p>
+
+<h2>Give yourselves enough time at the airport</h2>
+<p>Trying to gain another twenty minutes together can leave you rushing through a goodbye while watching the security queue.</p>
+<p>Plan your arrival around your airline and airport’s guidance, and leave room for the parts of the journey you can’t control.</p>
+<p>Once you’re there, take care of the necessary tasks. Then, where airport access allows, find somewhere you can pause without blocking a queue or feeling hurried by other people.</p>
+<p>You don’t need to wait until the final possible second to say what matters.</p>
+<p>Tell them you enjoyed the visit. Mention a moment you’re glad you shared. Ask for another hug if you want one.</p>
+<p>If you cry, you cry. If you don’t, that’s okay too. You aren’t required to look a certain way for the goodbye to mean something.</p>
+
+<h2>Have a small goodbye ritual—if you both like the idea</h2>
+<p>A familiar gesture can give you something to do when conversation feels difficult.</p>
+<p>You might:</p>
+<ul>
+  <li>Take a photograph before leaving for the airport.</li>
+  <li>Write a note for the journey.</li>
+  <li>Share a favorite memory from the visit.</li>
+  <li>Leave a small item at each other’s places, with permission.</li>
+  <li>Use the same phrase before you part.</li>
+</ul>
+<p>The Gottman Institute includes intentional greetings and goodbyes among its suggested rituals of connection. For a long-distance couple, you can adapt that idea into something that suits both of you.</p>
+<p>Keep it simple. A ritual shouldn’t become another task you worry about getting right.</p>
+<p>And be willing to change it. If taking airport photos makes one of you feel worse, take the picture earlier or skip it.</p>
+
+<h2>Agree on the first contact after you separate</h2>
+<p>Once you walk away, uncertainty can make an already difficult moment harder.</p>
+<p>A quick plan helps:</p>
+<blockquote><p>“I’ll message once I’m through security, then again when I land. We can decide about a call after I’m home.”</p></blockquote>
+<p>If you’re the person leaving, remember that your partner may also have a journey ahead. If you’re staying, remember that the traveler may be navigating security, boarding, or a poor connection.</p>
+<p>Neither person needs to reply constantly.</p>
+<p>You can also say what kind of contact you think you’ll want later:</p>
+<blockquote><p>“I’d like to hear your voice tonight, but I might only manage a short call.”</p></blockquote>
+<p>Or:</p>
+<blockquote><p>“I’m going to be sad and exhausted. Could we text tonight and talk properly tomorrow?”</p></blockquote>
+<p>That’s more useful than assuming a quiet evening means the other person has already stopped missing you.</p>
+
+<h2>On the journey home, keep the expectations small</h2>
+<p>You might cry at the gate, fall asleep on the plane, or distract yourself with a film. You might feel unexpectedly calm until you reach your front door.</p>
+<p>There’s no need to grade your reaction.</p>
+<p>Take care of what’s in front of you: eat something, drink some water, keep track of your belongings, and get home safely.</p>
+<p>Bring something you’d like to listen to or watch. You can look through your photos if that feels comforting. If it makes the journey more painful, save them for another day.</p>
+<p>If you’re driving and become too upset to concentrate, pull over somewhere safe before continuing or using your phone.</p>
+<p>You don’t have to turn the trip into productive time. Getting yourself home is enough.</p>
+
+<h2>Remember the person going back to the empty room</h2>
+<p>If you’re the one staying behind, the airport goodbye may be followed by a strangely quiet journey home.</p>
+<p>Your partner’s mug is still by the sink. The place they left their bag is empty. A few hours ago, you were making breakfast for two.</p>
+<p>Plan for that part of the day, too.</p>
+<p>Would you prefer to call a friend, stop for food, or go straight home? Do you want to put the spare bedding away immediately, or would you rather leave it until tomorrow?</p>
+<p>There isn’t a correct answer. Choose what makes the evening manageable for you.</p>
+<p>Let your partner know you got back safely, then allow them time to travel. You can miss them without spending the entire evening watching their message status.</p>
+
+<h2>Make the first evening home easier on yourself</h2>
+<p>Before you leave for a visit, consider doing a few favors for your future self: put clean sheets on the bed, leave something easy to eat, and avoid creating a mountain of chores to return to.</p>
+<p>Once you’re home, start with the basics.</p>
+<p>Have a meal. Shower if you want to. Put the things you need for tomorrow somewhere you can find them. Leave the rest of the unpacking if it can wait.</p>
+<p>General NHS guidance for low mood recommends small, manageable activities, regular meals, sleep, and staying in touch with other people. You don’t need to apply that as a strict routine; it’s a reminder that ordinary care still matters when you’re feeling low.</p>
+<p>You can be sad and still eat dinner. You can miss your partner and still enjoy a familiar show.</p>
+<p>Feeling a little better doesn’t make the goodbye less meaningful.</p>
+
+<h2>Have a next step without forcing a booking</h2>
+<p>Knowing when you’ll see each other again may be reassuring. But not everyone can book the next visit before this one ends.</p>
+<p>Money, work, family responsibilities, and travel arrangements may still be uncertain.</p>
+<p>If you can’t choose a date, choose a time to discuss it:</p>
+<blockquote><p>“Let’s look at our calendars on Sunday and work out what’s realistic.”</p></blockquote>
+<p>You can also plan your next ordinary connection: a call, an online date, or a shared film.</p>
+<p>Try not to book an unaffordable trip simply because the goodbye hurts. Let the plan fit the lives you both have to return to.</p>
+
+<h2>Pay attention to how you feel over the following days</h2>
+<p>After the journey, give yourself room to settle back into everyday life. Reconnect with friends, return to familiar activities, and tell your partner what you’ve found difficult.</p>
+<p>If each goodbye reveals the same practical problem—travel you can’t afford, exhaustion, or uncertainty neither of you will discuss—that deserves a conversation of its own.</p>
+<p>And if low mood persists, is affecting your daily life, or feels too difficult to cope with, seek support from a healthcare professional. NHS guidance recommends getting help when low mood lasts more than two weeks, when coping is difficult, or when the things you’re trying aren’t helping. You don’t have to wait two weeks if you need support sooner.</p>
+<p>For now, give yourself some kindness. The last day doesn’t have to be perfect, and the first night apart doesn’t have to be brave.</p>
+<p>Say what you need. Get home safely. Eat something. Let someone know how you’re doing.</p>
+<p>The goodbye may still hurt, but you don’t have to leave yourself—or each other—unsupported once it’s over.</p>
+`
   }
 ];
 
