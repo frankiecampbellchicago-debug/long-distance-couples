@@ -1,4 +1,4 @@
-// Dream Life Night (Plus): seven chapters about the life you're building, talked through together,
+// Looking Forward (Plus): seven chapters about the life you're building, talked through together,
 // ending in a vision board you can download as an image or send as a link (#dream=).
 (function () {
   const $ = id => document.getElementById(id);
@@ -98,7 +98,7 @@
     $("drEdit").onclick = () => { go(0); $("dream").scrollIntoView({ behavior: K.motion(), block: "start" }); };
     $("drSend").onclick = async () => {
       const url = K.link("dream-life-night", "dream", await K.pack({ v: 1, a: st.a, b: st.b, when: st.when, ch: st.ch }));
-      if (!await K.share("The life we're building", "Our dream life board. Keep it somewhere you'll see it.", url, $("drSend"), "Link copied")) { $("drLink").value = url; $("drLink").hidden = false; $("drLink").select(); }
+      if (!await K.share("The life we're building", "Our looking forward board. Keep it somewhere you'll see it.", url, $("drSend"), "Link copied")) { $("drLink").value = url; $("drLink").hidden = false; $("drLink").select(); }
     };
     go(Math.min(st.step || 0, D.length));
   }
@@ -137,7 +137,7 @@
     x.strokeStyle = "#6e4020"; x.lineWidth = 36; x.strokeRect(18, 18, W - 36, c.height - 36);
     x.save(); x.translate(W / 2, 130); x.rotate(-0.012); x.shadowColor = "rgba(40,20,5,.4)"; x.shadowBlur = 16; x.shadowOffsetY = 6; x.fillStyle = "#fffaf0"; x.fillRect(-300, -78, 600, 132); x.restore();
     x.textAlign = "center"; x.fillStyle = "#b4532f"; x.font = "800 22px " + sans; x.fillText("THE LIFE WE'RE BUILDING", W / 2, 96);
-    x.fillStyle = "#2f241b"; x.font = "600 64px " + serif; x.fillText(st.a && st.b ? st.a + " & " + st.b : "Our dream life", W / 2, 166);
+    x.fillStyle = "#2f241b"; x.font = "600 64px " + serif; x.fillText(st.a && st.b ? st.a + " & " + st.b : "Looking forward", W / 2, 166);
     x.textAlign = "left";
     const PAPER = ["#fffaf0", "#fbefc4", "#f7e1da", "#e4ecdf"];
     placed.forEach(([[label, line, picks, big, pin], cx, cy, h], i) => {
@@ -153,6 +153,6 @@
       x.restore();
     });
     x.textAlign = "center"; x.fillStyle = "#fdf3e4"; x.font = "italic 500 26px " + serif; x.fillText("Love Is In The Air", W / 2, c.height - 50);
-    const a = document.createElement("a"); a.download = "our-dream-life.png"; a.href = c.toDataURL("image/png"); a.click();
+    const a = document.createElement("a"); a.download = "looking-forward.png"; a.href = c.toDataURL("image/png"); a.click();
   }
 })();
