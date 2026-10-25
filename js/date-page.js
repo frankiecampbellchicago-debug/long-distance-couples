@@ -9,7 +9,8 @@
   const d = all[idx], more = window.DATE_MORE[d.s] || {};
   document.title = d.t + " · Love Is In The Air";
   $("dIcon").innerHTML = window.datePhoto(d, "big");
-  $("dIcon").classList.toggle("hasphoto", window.DATE_PHOTOS.includes(d.s));
+  $("dIcon").classList.toggle("hasphoto", window.hasPhoto(d));
+  if (!window.hasPhoto(d)) $("dIcon").classList.add("tile", "t-" + window.dateTone(d));
   $("dWhere").textContent = d.where || window.DATE_WHERE[d.k];
   $("dTitle").textContent = d.t;
   $("dText").textContent = d.d;

@@ -65,11 +65,17 @@ window.dateIcon=(k,cls,kind)=>'<span class="clay '+(cls||"")+'" aria-hidden="tru
   '<circle cx="13" cy="13.2" r="8" fill="'+(DATE_WASH[kind]||DATE_WASH.apart)+'" opacity=".55"/>'+
   '<g fill="none" stroke="#4a3527" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round">'+(DATE_ICONS[k]||"")+'</g></svg></span>';
 
-// a real photo for each date (CC0, sources in images/dates/sources.json); falls back to the clay icon
+// Each date's tile color, cycling like the Deep Talks topics: peach, blue, coral, sand.
+window.DATE_TONES=["together","apart","arcade","table"];
+window.dateTone=d=>d.k==="plus"?"plus":DATE_TONES[Math.max(0,DATES.indexOf(d))%DATE_TONES.length];
+// Tiles show the clay icon on the date's color. true brings back the real photos below
+// (CC0, sources in images/dates/sources.json).
+window.SHOW_PHOTOS=false;
 window.DATE_PHOTOS=["passport-night","countdown-calendar","how-well-do-you-know-me","murder-mystery","our-story","dream-life-night","holiday-packs","would-you-rather","two-truths","bucket-list","love-languages","date-bingo","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
-window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
+window.hasPhoto=d=>SHOW_PHOTOS&&DATE_PHOTOS.includes(d.s);
+window.datePhoto=(d,cls)=>hasPhoto(d)
   ?'<picture class="dphoto '+(cls||"")+'"><source srcset="images/dates/'+d.s+'.webp" type="image/webp"><img src="images/dates/'+d.s+'.jpg" alt="" decoding="async" draggable="false"></picture>'
-  :dateIcon(d.i,cls,d.k);
+  :dateIcon(d.i,cls,dateTone(d));
 
 // Extra detail for each date's own page: how to do it, what you need, one tip.
 // app:true dates live inside the app (coming soon). tool names a widget on the page.

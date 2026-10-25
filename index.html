@@ -332,6 +332,11 @@ section.band{padding-block:80px}
 .k-arcade{--tile:linear-gradient(160deg,#f9cdbb,#ee927a);--tag:#b8473a}
 .k-table{--tile:linear-gradient(160deg,#f6dcb8,#e2ad7b);--tag:#94552a}
 .k-plus{--tile:linear-gradient(160deg,#b45a35,#7a3219);--tag:#fde3cf}
+.t-together{--tile:linear-gradient(160deg,#f6c9b0,#df8e6b)}
+.t-apart{--tile:linear-gradient(160deg,#cad6e5,#97adc9)}
+.t-arcade{--tile:linear-gradient(160deg,#f9cdbb,#ee927a)}
+.t-table{--tile:linear-gradient(160deg,#f6dcb8,#e2ad7b)}
+.t-plus{--tile:linear-gradient(160deg,#b45a35,#7a3219)}
 .dcard.k-plus{background:#8f3f22;border-color:#8f3f22;color:var(--onblue)}
 .dcard.k-plus .facts{color:rgba(253,243,228,.8)}
 .carctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:2px}
@@ -902,7 +907,7 @@ section.band{position:relative;isolation:isolate}
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=598d149d"></script>
+<script src="js/dates.js?v=b39be098"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script>
 // visit countdown (defaults to an example date 23 days out)
@@ -947,7 +952,7 @@ chipRow(document.getElementById("chipsMood"),MOOD_F,()=>fm,k=>fm=k);
 function favCount(){const b=document.querySelector('#chipsWhere [data-k="saved"]');b.innerHTML="";b.append("Saved");const saved=DATES.filter(d=>!d.plus&&favs.includes(d.s)).length;if(saved){const n=document.createElement("span");n.className="n";n.textContent=saved;b.appendChild(n)}}
 function build(){
   list=DATES.filter(match);ring.innerHTML="";
-  cards=list.map((d,i)=>{const c=document.createElement("div");c.className="dcard k-"+d.k;c.setAttribute("role","button");c.tabIndex=-1;
+  cards=list.map((d,i)=>{const c=document.createElement("div");c.className="dcard k-"+d.k+" t-"+window.dateTone(d);c.setAttribute("role","button");c.tabIndex=-1;
     c.innerHTML='<span class="dc-tile">'+window.datePhoto(d)+'</span>'+(d.plus?'<span class="plusmark">Plus</span>':"")+'<span class="dc-body"><span class="where"></span><h3></h3><span class="facts"></span></span>'+(favs.includes(d.s)?'<span class="savedmark" title="Saved">'+HEART+'</span>':"");
     c.querySelector(".where").textContent=d.where?d.where.replace(" · In the app",""):WHERE[d.k];
     c.querySelector("h3").textContent=d.t;c.querySelector(".facts").textContent=d.f.slice(0,2).join("  ·  ");
@@ -969,7 +974,7 @@ function render(){
   if(f!==front){front=f;showDetail()}
 }
 function showDetail(){const d=list[front];if(!d)return;
-  detailEl.className="detail k-"+d.k;void detailEl.offsetWidth;detailEl.classList.add("in");
+  detailEl.className="detail k-"+d.k+" t-"+window.dateTone(d);void detailEl.offsetWidth;detailEl.classList.add("in");
   const tag=detailEl.querySelector(".pickTag");if(tag)tag.remove();
   document.getElementById("dTile").innerHTML=window.datePhoto(d)+(d.plus?'<span class="plusmark">Plus</span>':"");
   document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;

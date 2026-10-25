@@ -60,7 +60,17 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-
 .pcard:hover{transform:translateY(-5px);box-shadow:0 18px 28px -18px rgba(90,45,20,.55)}
 .pcard:hover h2{color:var(--red)}
 .pcard:hover .go svg{transform:translateX(4px)}
-.ptile{position:relative;aspect-ratio:16/11;overflow:hidden;background:#d9c6a5}
+.ptile{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--tile,#d9c6a5);display:grid;place-items:center}
+.ptile .clay{--sz:96px;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.pcard:hover .ptile .clay{transform:rotate(-9deg) scale(1.08)}
+.clay{--sz:84px;position:relative;z-index:1;display:grid;place-items:center;flex:none;width:var(--sz);height:var(--sz);border-radius:50%;
+  background:radial-gradient(circle at 36% 30%,#fffaf1 0,#f7e8d2 60%,#ecd5b6 100%);box-shadow:0 10px 18px -10px rgba(80,35,12,.6),inset 0 -4px 7px rgba(160,100,60,.16)}
+.clay svg{display:block;width:58%;height:58%}
+.t-together{--tile:linear-gradient(160deg,#f6c9b0,#df8e6b)}
+.t-apart{--tile:linear-gradient(160deg,#cad6e5,#97adc9)}
+.t-arcade{--tile:linear-gradient(160deg,#f9cdbb,#ee927a)}
+.t-table{--tile:linear-gradient(160deg,#f6dcb8,#e2ad7b)}
+.t-plus{--tile:linear-gradient(160deg,#b45a35,#7a3219)}
 .ptile .plusmark{position:absolute;top:12px;left:12px;z-index:2;background:#7a3219;color:#fdf3e4;padding:4px 10px;border-radius:2px;font:800 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .dphoto{position:absolute;inset:0;display:block}
 .dphoto img{display:block;width:100%;height:100%;object-fit:cover;filter:sepia(.14) saturate(.92) contrast(.97);transition:transform .6s cubic-bezier(.2,.8,.3,1)}
@@ -115,7 +125,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 </main>
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=598d149d"></script>
+<script src="js/dates.js?v=b39be098"></script>
 <script>
 // plus.html: every Plus date. Visitors see previews; anyone with Plus (set on this device for now) opens them.
 (function () {
@@ -125,7 +135,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
   window.DATES.filter(d => d.plus).forEach((d, i) => {
     const a = document.createElement("a");
     a.className = "pcard"; a.href = "date.html?d=" + d.s; a.style.animationDelay = (i * 50) + "ms";
-    a.innerHTML = '<div class="ptile">' + window.datePhoto(d) + '<span class="plusmark">Plus</span></div><div class="pbody"><h2></h2><p></p><div class="pfacts"></div><span class="go">' + (member ? "Open it" : "Preview it") + " " + ARROW + "</span></div>";
+    a.innerHTML = '<div class="ptile t-' + window.dateTone(d) + '">' + window.datePhoto(d) + '<span class="plusmark">Plus</span></div><div class="pbody"><h2></h2><p></p><div class="pfacts"></div><span class="go">' + (member ? "Open it" : "Preview it") + " " + ARROW + "</span></div>";
     a.querySelector("h2").textContent = d.t;
     a.querySelector("p").textContent = d.d;
     d.f.filter(f => f !== "Plus").forEach(f => { const s = document.createElement("span"); s.textContent = f; a.querySelector(".pfacts").appendChild(s); });
