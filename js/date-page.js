@@ -56,6 +56,11 @@
   if (more.tool === "story") window.setupStory();
   if (more.tool === "dream") window.setupDream();
   if (more.tool === "holiday") window.setupHoliday();
+  if (more.tool === "wyr") window.setupWyr();
+  if (more.tool === "truths") window.setupTruths();
+  if (more.tool === "bucket") window.setupBucket();
+  if (more.tool === "lovelang") window.setupLoveLang();
+  if (more.tool === "bingo") window.setupBingo();
   if (more.tool === "food") setupFood();
   if (more.tool === "movies") setupMovies();
   if (more.tool === "stars") window.setupStars();

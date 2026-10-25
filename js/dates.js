@@ -26,6 +26,11 @@ window.DATES=[
  {s:"our-story",k:"apart",plus:true,i:"book",t:"Our Story Timeline",d:"Build the story of you two, moment by moment: the first hello, the first goodbye, the day you knew. Add photos, then print it as a keepsake.",f:["Plus","1–2 hrs","Printable"],tags:["cozy"]},
  {s:"dream-life-night",k:"apart",plus:true,i:"sparkle",t:"Looking Forward",d:"Plan the life you're building, out loud: where you live, a normal Tuesday, the first big trip, the month you close the distance. You end with a board to keep.",f:["Plus","1–2 hrs","Vision board"],tags:["cozy"]},
  {s:"holiday-packs",k:"apart",plus:true,i:"letter",t:"Holiday Packs",d:"Valentine's Day, birthdays, anniversaries and the holidays, apart. What to mail and when, what goes in the box, and the night planned hour by hour.",f:["Plus","4 occasions","Mail-by dates"],tags:["cozy"]},
+ {s:"would-you-rather",k:"apart",plus:true,i:"split",t:"Would You Rather: Couples Edition",d:"Thirty quick would-you-rathers. You answer, they answer the same ones without seeing yours, then the reveal shows where you matched and where you split.",f:["Plus","30 min","Play by link"],tags:["fun"]},
+ {s:"two-truths",k:"apart",plus:true,i:"cards",t:"Two Truths and a Lie: Us",d:"Write rounds of two true things and one lie about yourself. They try to catch every lie, and the real stories come out after.",f:["Plus","45 min","Play by link"],tags:["fun"]},
+ {s:"bucket-list",k:"apart",plus:true,i:"checklist",t:"Our Bucket List",d:"Everything you want to do once you're in the same place: trips, food, firsts and someday. Tick them off, and each one gets a stamp with the date.",f:["Plus","30 min to start","Ongoing"],tags:["cozy","adventurous"]},
+ {s:"love-languages",k:"apart",plus:true,i:"chatheart",t:"Love Language Night",d:"Twenty quick choices each, then your results side by side, with ideas for loving each other the way you each need it, from far away.",f:["Plus","30 min","Side by side"],tags:["cozy"]},
+ {s:"date-bingo",k:"apart",plus:true,i:"grid",t:"Date Night Bingo",d:"A bingo card of long-distance moments: fell asleep on a call, sent a song, watched the same movie. Mark them off over a month. Five in a row wins the prize you set.",f:["Plus","All month","25 squares"],tags:["fun"]},
  {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"More dates with Plus",d:"Holiday dates, anniversary plans, and new ideas as we add them.",f:["Plus"],tags:["all-only"]}
 ];
 window.DATE_WHERE={apart:"While apart",together:"When you visit"};
@@ -47,6 +52,11 @@ window.DATE_ICONS={
  hourglass:'<path d="M6 3h12M6 21h12"/><path d="M7.5 3c0 4.5 4.5 5.5 4.5 9s-4.5 4.5-4.5 9M16.5 3c0 4.5-4.5 5.5-4.5 9s4.5 4.5 4.5 9"/>',
  phone:'<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/><path d="M12 7.2a2.2 2.2 0 0 1 2.2 2.2c0 1.8-2.2 3.6-2.2 3.6s-2.2-1.8-2.2-3.6A2.2 2.2 0 0 1 12 7.2Z"/>',
  vase:'<path d="M9 3h6"/><path d="M10 3c0 2.5-4 4-4 9 0 5 3 8.5 6 8.5s6-3.5 6-8.5c0-5-4-6.5-4-9"/><path d="M7 12.5h10"/>',
+ split:'<path d="M12 21v-8L6.5 6.5M12 13l5.5-6.5"/><path d="M5 10.5V5.5h5M19 10.5V5.5h-5"/>',
+ cards:'<rect x="3.2" y="6.5" width="10" height="14" rx="1.6" transform="rotate(-10 8.2 13.5)"/><rect x="10.8" y="4" width="10" height="14" rx="1.6" transform="rotate(8 15.8 11)"/><path d="M14.6 9.2a1.6 1.6 0 1 1 2.2 1.5c-.6.3-.8.7-.8 1.3M16 14.3v.1"/>',
+ checklist:'<path d="M10 6.5h10M10 12h10M10 17.5h10"/><path d="m3.5 6.5 1.5 1.5 2.5-3M3.5 12l1.5 1.5 2.5-3"/><circle cx="5.4" cy="17.5" r="1.4"/>',
+ chatheart:'<path d="M4 4.5h16v11.5H10l-4.5 4v-4H4Z"/><path d="M12 13s-3.2-2-3.2-4.2a1.7 1.7 0 0 1 3.2-.8 1.7 1.7 0 0 1 3.2.8C15.2 11 12 13 12 13Z"/>',
+ grid:'<rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17"/><circle cx="12" cy="12" r="1.1"/>',
  sparkle:'<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z"/><path d="M19 15.5v4M17 17.5h4"/>'
 };
 window.DATE_WASH={apart:"#9fb4cf",together:"#eba486",arcade:"#f2a68c",table:"#ecc08e",plus:"#e7a07f"};
@@ -56,7 +66,7 @@ window.dateIcon=(k,cls,kind)=>'<span class="clay '+(cls||"")+'" aria-hidden="tru
   '<g fill="none" stroke="#4a3527" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round">'+(DATE_ICONS[k]||"")+'</g></svg></span>';
 
 // a real photo for each date (CC0, sources in images/dates/sources.json); falls back to the clay icon
-window.DATE_PHOTOS=["passport-night","countdown-calendar","how-well-do-you-know-me","murder-mystery","our-story","dream-life-night","holiday-packs","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
+window.DATE_PHOTOS=["passport-night","countdown-calendar","how-well-do-you-know-me","murder-mystery","our-story","dream-life-night","holiday-packs","would-you-rather","two-truths","bucket-list","love-languages","date-bingo","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
 window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
   ?'<picture class="dphoto '+(cls||"")+'"><source srcset="images/dates/'+d.s+'.webp" type="image/webp"><img src="images/dates/'+d.s+'.jpg" alt="" decoding="async" draggable="false"></picture>'
   :dateIcon(d.i,cls,d.k);
@@ -64,6 +74,26 @@ window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
 // Extra detail for each date's own page: how to do it, what you need, one tip.
 // app:true dates live inside the app (coming soon). tool names a widget on the page.
 window.DATE_MORE={
+ "would-you-rather":{tool:"wyr",gift:"wyr",
+  steps:["Put your name in and answer all thirty. Go with your gut, it's quick.","Send them the link. They answer the same thirty without seeing yours.","When they finish, you both get the reveal: what you matched on and where you split.","Get on a call and argue about the splits. That's the fun part."],
+  need:["About 10 minutes each","A call for the reveal"],
+  tip:"Don't overthink it. The first answer that pops into your head is the honest one."},
+ "two-truths":{tool:"truths",gift:"tl",
+  steps:["Write at least three rounds. Each one gets two true things and one lie about you.","Mark which one is the lie, and add the real story behind it if there is one.","Send them the link, and ask them to make a set for you.","Get on a call to hear the stories behind the ones that fooled you."],
+  need:["About 15 minutes to write yours","A call for the stories"],
+  tip:"The best lies sound boring. The best truths sound made up."},
+ "bucket-list":{tool:"bucket",gift:"bl",
+  steps:["Put both your names on the list.","Add what you want to do together, or tap the ideas under each kind.","Send it to them so they can add it to theirs and send theirs back.","Every time you do one, tick it off. It gets a stamp with the date."],
+  need:["An hour on a call, dreaming out loud","Your next visit, to start ticking things off"],
+  tip:"Put something small on it you can do on the very next visit. Ticking one off early keeps the list alive."},
+ "love-languages":{tool:"lovelang",gift:"ll",
+  steps:["Take it on your own: twenty quick choices between two sweet things.","Send them the link. They take it too, and then you both see your results side by side.","Read each other's ideas for loving from far away.","Pick one idea each and do it this week."],
+  need:["About 10 minutes each","A call to talk it through"],
+  tip:"Most people show love the way they want to get it. Notice where you've been speaking your language instead of theirs."},
+ "date-bingo":{tool:"bingo",gift:"bg",
+  steps:["Pick the prize first. “The loser plans the next date night” is a good one.","Swap out any squares that don't fit you two.","Send them the card. Every time either of you marks something, send it again so the marks combine.","Five in a row wins. Keep going for a full card if you're brave."],
+  need:["A month","Each other's links"],
+  tip:"Do the hard squares on purpose. Plan a sunrise call just to mark it off."},
  "how-well-do-you-know-me":{tool:"quiz",gift:"q",
   steps:["Each of you makes a quiz: twenty questions about yourself, with your real answer picked.","Send each other the links.","Get on a call and take them at the same time, or one at a time while the other watches.","Go through every miss and ask for the story behind the answer."],
   need:["About 10 minutes to make yours","A call to compare scores"],
