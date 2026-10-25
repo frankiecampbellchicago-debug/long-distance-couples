@@ -190,26 +190,40 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .walkc{background:linear-gradient(90deg,var(--paper) 55%,rgba(244,233,212,.6)),repeating-linear-gradient(0deg,transparent 0 23px,rgba(154,91,22,.12) 23px 24px),repeating-linear-gradient(90deg,transparent 0 23px,rgba(154,91,22,.12) 23px 24px)}
 .ppstampbtn{justify-self:start;padding:14px 26px;font-size:16px}
 /* the passport itself */
-.ppbook{background:#6e2c16;border-radius:12px;padding:12px;box-shadow:0 24px 36px -26px rgba(60,25,10,.8),inset 0 0 0 2px rgba(195,149,78,.35)}
-.pppages{background:#f1e4c8;border-radius:6px;padding:20px 22px 22px;display:grid;gap:14px;
-  background-image:repeating-linear-gradient(0deg,transparent 0 27px,rgba(122,50,25,.07) 27px 28px)}
-.ppbookhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.ppbrand{display:flex;align-items:center;gap:12px}
-.ppseal{width:46px;height:46px;flex:none;color:#c3954e}
-.ppbookhead h3{font-size:28px}
-.ppbookhead small{display:block;font:700 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.ppbook{background:#5a2412;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.5px),linear-gradient(160deg,#6e2c16,#4a1d0e);background-size:5px 5px,auto;border-radius:14px;padding:12px 14px 16px;box-shadow:0 26px 38px -26px rgba(60,25,10,.85),inset 0 0 0 2px rgba(195,149,78,.3)}
+.ppcover{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 14px;padding:4px 6px 12px}
+.ppcover h3{display:flex;align-items:center;gap:10px;font:800 13px var(--mono);letter-spacing:.32em;text-transform:uppercase;color:#e3c48a}
+.ppseal{width:30px;height:30px;flex:none;color:#e3c48a}
 .ppbookr{display:flex;gap:14px;align-items:baseline}
-.ppbookr span{font:700 12px var(--mono);color:var(--muted)}
-#ppReset[data-armed]{color:#a8362f;font-weight:800}
-.ppprog{height:6px;border-radius:3px;background:rgba(122,50,25,.13);overflow:hidden}
-.ppprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#a8362f,#c3954e);border-radius:3px;transition:width .8s cubic-bezier(.2,.7,.3,1)}
+.ppbookr span{font:700 12px var(--mono);color:rgba(243,226,190,.8)}
+.ppcover .linkbtn{color:rgba(243,226,190,.85)}
+#ppReset[data-armed]{color:#ffb8a3;font-weight:800}
+.ppspread{position:relative;display:grid;grid-template-columns:1fr 1fr;border-radius:5px;overflow:hidden;box-shadow:0 2px 0 #e2d3b2,0 4px 0 #d3c09a,0 6px 0 #c6b088}
+.ppspread::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:56px;transform:translateX(-50%);pointer-events:none;background:linear-gradient(90deg,transparent,rgba(70,35,15,.1) 40%,rgba(70,35,15,.26) 50%,rgba(70,35,15,.1) 60%,transparent)}
+.pppage{position:relative;overflow:hidden;min-width:0;min-height:400px;padding:18px 22px 20px;display:flex;flex-direction:column;gap:14px;background-color:#f3ead5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='18'%3E%3Cpath d='M0 9 Q10 1 20 9 T40 9 T60 9 T80 9' fill='none' stroke='rgba(44,74,122,.11)'/%3E%3Cpath d='M0 9 Q10 17 20 9 T40 9 T60 9 T80 9' fill='none' stroke='rgba(168,54,47,.08)'/%3E%3C/svg%3E")}
+.pppage>*{position:relative}
+.pppage>.ppros{position:absolute;left:50%;top:52%;width:330px;height:330px;transform:translate(-50%,-50%);color:rgba(44,74,122,.12);pointer-events:none}
+.pphdr{display:flex;justify-content:space-between;gap:10px;font:800 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#2c4a7a;border-bottom:1px solid rgba(44,74,122,.28);padding-bottom:8px}
+.ppdatabody{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;align-items:start}
+.ppphoto{aspect-ratio:3/4;background:#e4d6b8;border:1px solid rgba(44,74,122,.3);border-radius:3px;overflow:hidden}
+.ppphoto svg{display:block;width:100%;height:100%}
+.ppfields{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;margin:0}
+.ppfields .w{grid-column:1/-1}
+.ppfields dt{font:700 8.5px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#2c4a7a}
+.ppfields dd{margin:0;font:700 14px/1.25 Consolas,"Courier New",ui-monospace,monospace;letter-spacing:.04em;color:var(--ink)}
+.ppfields dd.ppsig{font:italic 600 28px/1 var(--display);letter-spacing:0;color:#2c4a7a;border-bottom:1px solid rgba(44,74,122,.3);padding-bottom:2px}
+.ppmrz{margin-top:auto;padding:8px 6px 6px;background:rgba(255,255,255,.4);font:600 clamp(7.5px,2.3vw,12px)/1.55 Consolas,"OCR B","Courier New",monospace;letter-spacing:.1em;color:var(--ink);white-space:pre;overflow:hidden}
+.ppvisas .ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:4px 10px;align-content:start}
 .ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:12px}
+.ppstamp:nth-child(3n+2){transform:translateY(10px)}.ppstamp:nth-child(4n+3){transform:translate(6px,-4px)}
+.ppvisafoot{margin-top:auto;display:flex;justify-content:space-between;font:700 9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(44,74,122,.7)}
+@media (max-width:720px){.ppspread{grid-template-columns:minmax(0,1fr)}.ppspread::after{display:none}.ppvisas{border-top:1px dashed rgba(70,35,15,.3)}.pppage{min-height:0}.ppdatabody{grid-template-columns:84px minmax(0,1fr)}.ppfields{grid-template-columns:minmax(0,1fr)}.ppfields .w{grid-column:auto}.ppcover h3{letter-spacing:.2em}}
 .ppstamp .stamp{display:block;width:100%;height:auto;opacity:.88;mix-blend-mode:multiply}
 .ppstamp.fresh{animation:ppstampin .55s cubic-bezier(.3,1.5,.5,1) backwards}
 @keyframes ppstampin{0%{transform:scale(2.6) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
 .ppslot{aspect-ratio:1;border:2px dashed rgba(122,50,25,.28);border-radius:50%;display:grid;place-items:center;text-align:center;padding:12px;font:700 10px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(107,88,72,.75)}
 .ppempty{color:var(--muted);font-style:italic}
-@media (prefers-reduced-motion:reduce){.ppflip,.pptplane,.ppcard,.ppprog i{transition:none}.ppstamp.fresh,.pptvisited,.ppres.fresh .ppcard,.flap,.passport.spinning .ppglobe,.passport.spinning .pptplane{animation:none}}
+@media (prefers-reduced-motion:reduce){.ppflip,.pptplane,.ppcard{transition:none}.ppstamp.fresh,.pptvisited,.ppres.fresh .ppcard,.flap,.passport.spinning .ppglobe,.passport.spinning .pptplane{animation:none}}
 .cdmake,.cdview{display:grid;gap:18px}
 .cdtop{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:12px}
 .cdbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:10px}
@@ -1174,13 +1188,34 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
         <button class="btn red ppstampbtn" type="button" id="ppStamp">We did it. Stamp our passports</button>
       </div>
       <div class="ppbook" id="ppBook">
-        <div class="pppages">
-          <div class="ppbookhead">
-            <div class="ppbrand"><svg class="ppseal" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="24" cy="24" r="21"/><circle cx="24" cy="24" r="12"/><ellipse cx="24" cy="24" rx="5" ry="12"/><path d="M12 24h24M14 18h20M14 30h20"/></svg><div><small>Passport Night</small><h3>Our passport</h3></div></div>
-            <div class="ppbookr"><span id="ppCount"></span><button class="linkbtn" type="button" id="ppReset" hidden>Reset</button></div>
+        <div class="ppcover">
+          <h3><svg class="ppseal" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="24" cy="24" r="21"/><circle cx="24" cy="24" r="12"/><ellipse cx="24" cy="24" rx="5" ry="12"/><path d="M12 24h24M14 18h20M14 30h20"/></svg>Our passport</h3>
+          <div class="ppbookr"><span id="ppCount"></span><button class="linkbtn" type="button" id="ppReset" hidden>Reset</button></div>
+        </div>
+        <div class="ppspread">
+          <div class="pppage ppdata">
+            <div class="ppros" aria-hidden="true"></div>
+            <div class="pphdr"><span>Passport · Passeport · Pasaporte</span><span>LITA</span></div>
+            <div class="ppdatabody">
+              <div class="ppphoto"><svg viewBox="0 0 90 120" role="img" aria-label="The two of you"><g fill="rgba(44,74,122,.38)"><circle cx="31" cy="62" r="13"/><path d="M6 120c0-21 11-35 25-35s25 14 25 35z"/><circle cx="60" cy="57" r="14"/><path d="M34 120c0-23 12-37 26-37s26 14 26 37z"/></g><path fill="#a8362f" opacity=".8" d="M45 40c-2-4-9-3-8 2 0 3 8 9 8 9s8-6 8-9c1-5-6-6-8-2z"/></svg></div>
+              <dl class="ppfields">
+                <div><dt>Type / Type</dt><dd>P</dd></div>
+                <div><dt>Passport no. / N&#176;</dt><dd id="ppNo">LI0000000</dd></div>
+                <div class="w"><dt>Holders / Titulaires</dt><dd>THE TWO OF YOU</dd></div>
+                <div class="w"><dt>Nationality / Nationalit&#233;</dt><dd>LONG DISTANCE</dd></div>
+                <div><dt>Date of issue</dt><dd id="ppIssued">FIRST STAMP</dd></div>
+                <div><dt>Countries / Pays</dt><dd id="ppHeld">0 / 24</dd></div>
+                <div class="w"><dt>Signature of holders</dt><dd class="ppsig">Us, together</dd></div>
+              </dl>
+            </div>
+            <div class="ppmrz" id="ppMrz" aria-hidden="true"></div>
           </div>
-          <div class="ppprog" aria-hidden="true"><i id="ppProg"></i></div>
-          <div class="ppstamps" id="ppStamps"></div>
+          <div class="pppage ppvisas">
+            <div class="ppros" aria-hidden="true"></div>
+            <div class="pphdr"><span>Visas · Visas · Visados</span><span>3</span></div>
+            <div class="ppstamps" id="ppStamps"></div>
+            <div class="ppvisafoot"><span>Love Is In The Air</span><span>Passport Night</span></div>
+          </div>
         </div>
       </div>
       <p class="credit">Walks open in Google Street View. Stamps are saved on this device.</p>
@@ -1487,7 +1522,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/dream.js?v=02af4b85"></script>
 <script src="js/holiday.js?v=f52f2f63"></script>
 <script src="js/countdown.js?v=08b0460c"></script>
-<script src="js/passport.js?v=ddb63c05"></script>
+<script src="js/passport.js?v=3f384447"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
 <script src="js/date-page.js?v=917457ba"></script>
 </body>

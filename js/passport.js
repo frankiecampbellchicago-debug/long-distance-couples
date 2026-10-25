@@ -89,12 +89,25 @@
     const pickSel = $("ppPick");
     P.forEach((p, i) => { const o = document.createElement("option"); o.value = i; o.textContent = p.c; pickSel.appendChild(o); });
 
+    // The data page: passport number and issue date come from the first stamp, plus the two machine-readable lines.
+    function fillDataPage() {
+      const first = st.stamps[0], n = st.stamps.length;
+      const no = "LI" + String(first ? first.t % 1e7 : 0).padStart(7, "0");
+      const d = first ? new Date(first.t) : null;
+      const yymmdd = d ? String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0") : "000000";
+      $("ppNo").textContent = no;
+      $("ppIssued").textContent = d ? d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase() : "FIRST STAMP";
+      $("ppHeld").textContent = n + " / " + P.length;
+      const line = t => (t + "<".repeat(44)).slice(0, 44);
+      $("ppMrz").textContent = line("P<LITATHE<TWO<OF<YOU<<LONG<DISTANCE") + "\n" + line(no + "<" + (n % 10) + "LDR" + yymmdd + "<" + String(n).padStart(2, "0") + "<<TOGETHER");
+    }
+
     // fresh: the stamp that was just added lands with a thump.
     function renderBook(fresh) {
       const book = $("ppStamps");
       book.innerHTML = "";
       $("ppCount").textContent = st.stamps.length ? st.stamps.length + " of " + P.length + " countries" : "No stamps yet";
-      $("ppProg").style.width = (st.stamps.length / P.length * 100) + "%";
+      fillDataPage();
       $("ppReset").hidden = !st.stamps.length && !st.skip.length;
       st.stamps.forEach((s, i) => { const d = document.createElement("div"); d.className = "ppstamp" + (fresh && i === st.stamps.length - 1 ? " fresh" : ""); d.innerHTML = stampSvg(s, i); book.appendChild(d); });
       if (st.stamps.length < P.length) { const slot = document.createElement("div"); slot.className = "ppslot"; slot.textContent = st.stamps.length ? "Your next stamp" : "Your first stamp goes here"; book.appendChild(slot); }
@@ -209,6 +222,11 @@
       st = { stamps: [], skip: [] }; save(st); renderBook();
       if (cur !== null) show(cur);
     });
+
+    // A guilloche rosette, like the security print on a real passport page.
+    const ros = '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width=".55">' +
+      Array.from({ length: 40 }, (_, i) => { const a = i * Math.PI / 20; return '<circle cx="' + (100 + 44 * Math.cos(a)).toFixed(1) + '" cy="' + (100 + 44 * Math.sin(a)).toFixed(1) + '" r="44"/>'; }).join("") + "</svg>";
+    document.querySelectorAll("#ppBook .ppros").forEach(el => { el.innerHTML = ros; });
 
     renderBook();
     const want = new URLSearchParams(location.search).get("c");
