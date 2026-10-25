@@ -105,6 +105,7 @@
     $("stPrompts").onclick = e => {
       const i = e.target.dataset.i; if (i === undefined) return;
       const [t, q] = window.STORY_PROMPTS[i];
+      $("stPrompts").querySelectorAll(".stchip").forEach(b => b.classList.toggle("on", b === e.target));
       $("stTitle").value = t; $("stText").placeholder = q; $("stDate").focus();
     };
     ["stA", "stB", "stSince"].forEach(id => $(id).addEventListener("input", () => { st[id === "stA" ? "a" : id === "stB" ? "b" : "since"] = $(id).value.trim(); save(); head(); }));
@@ -117,6 +118,7 @@
 
     const reset = () => {
       editing = null; photo = ""; $("stForm").reset(); $("stThumbWrap").hidden = true;
+      $("stPrompts").querySelectorAll(".on").forEach(b => b.classList.remove("on"));
       $("stAdd").textContent = "Add it to our story"; $("stCancel").hidden = true; $("stText").placeholder = "What happened? What do you remember?";
     };
     $("stForm").addEventListener("submit", e => {
