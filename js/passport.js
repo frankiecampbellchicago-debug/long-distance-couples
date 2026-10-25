@@ -88,6 +88,7 @@
       const book = $("ppStamps");
       book.innerHTML = "";
       $("ppCount").textContent = st.stamps.length ? st.stamps.length + " of " + P.length + " countries" : "No stamps yet";
+      $("ppReset").hidden = !st.stamps.length && !st.skip.length;
       if (!st.stamps.length) { const p = document.createElement("p"); p.className = "ppempty"; p.textContent = "Finish your first night and stamp it here."; book.appendChild(p); return; }
       st.stamps.forEach((s, i) => { const d = document.createElement("div"); d.className = "ppstamp"; d.innerHTML = stampSvg(s, i); book.appendChild(d); });
     }
@@ -154,6 +155,20 @@
       try { if (navigator.share) { await navigator.share({ title: "Passport Night", text, url }); return; } } catch (e) { return; }
       try { await navigator.clipboard.writeText(url); $("ppSend").textContent = "Link copied"; setTimeout(() => { $("ppSend").textContent = "Send them tonight's country"; }, 2200); }
       catch (e) { $("ppLink").value = url; $("ppLink").hidden = false; $("ppLink").select(); }
+    });
+
+    // Reset clears every stamp and skipped country. The first tap asks, the second one clears.
+    let disarm;
+    $("ppReset").addEventListener("click", () => {
+      const b = $("ppReset");
+      if (!b.dataset.armed) {
+        b.dataset.armed = "1"; b.textContent = "Tap again to clear every stamp";
+        disarm = setTimeout(() => { delete b.dataset.armed; b.textContent = "Reset"; }, 4000);
+        return;
+      }
+      clearTimeout(disarm); delete b.dataset.armed; b.textContent = "Reset";
+      st = { stamps: [], skip: [] }; save(st); renderBook();
+      if (cur !== null) show(cur);
     });
 
     renderBook();

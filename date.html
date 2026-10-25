@@ -141,6 +141,8 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .ppbookhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .ppbookhead h3{font-size:26px}
 .ppbookhead span{font:700 12px var(--mono);color:var(--muted)}
+.ppbookr{display:flex;gap:14px;align-items:baseline}
+#ppReset[data-armed]{color:#a8362f;font-weight:800}
 .ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
 .ppstamp .stamp{display:block;width:100%;height:auto;opacity:.88;mix-blend-mode:multiply}
 .ppempty{color:var(--muted);font-style:italic}
@@ -1097,7 +1099,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
         <button class="btn red ppstampbtn" type="button" id="ppStamp">We did it. Stamp our passports</button>
       </div>
       <div class="ppbook" id="ppBook">
-        <div class="ppbookhead"><h3>Our passport</h3><span id="ppCount"></span></div>
+        <div class="ppbookhead"><h3>Our passport</h3><div class="ppbookr"><span id="ppCount"></span><button class="linkbtn" type="button" id="ppReset" hidden>Reset</button></div></div>
         <div class="ppstamps" id="ppStamps"></div>
       </div>
       <p class="credit">Walks open in Google Street View. Stamps are saved on this device.</p>
@@ -1404,7 +1406,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/dream.js?v=02af4b85"></script>
 <script src="js/holiday.js?v=f52f2f63"></script>
 <script src="js/countdown.js?v=08b0460c"></script>
-<script src="js/passport.js?v=b89d4a97"></script>
+<script src="js/passport.js?v=5837a9ae"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
 <script src="js/date-page.js?v=917457ba"></script>
 </body>
