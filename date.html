@@ -190,6 +190,144 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .cdanswer .btn{justify-self:start}
 @media (max-width:640px){.cdtop{grid-template-columns:1fr}.cdrowfoot{flex-wrap:wrap}.cdgrid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}.cdnum{font-size:32px}}
 @media (prefers-reduced-motion:reduce){.cddoor.today,.cddoor.pop,.cdreveal{animation:none}}
+.vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.qztop{grid-template-columns:minmax(0,320px)}
+.qzlist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.qzrow{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:3px;padding:12px 14px;display:grid;gap:10px}
+.qzrow.empty{border-color:#c0412f;box-shadow:0 0 0 2px rgba(192,65,47,.18)}
+.qzrowhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.qzrowhead b{font:600 24px/1 var(--display);color:var(--red);width:26px}
+.qzq{flex:1;min-width:200px;font:600 20px var(--display);color:var(--ink);background:transparent;border:0;border-bottom:1px dashed var(--line);padding:4px 2px}
+.qzopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.qzopt{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:6px 10px}
+.qzopt:has(input:checked){border-color:var(--red);box-shadow:inset 3px 0 0 var(--red)}
+.qzopt input[type=radio]{accent-color:var(--red);width:18px;height:18px;flex:none}
+.qzopt input[type=text]{flex:1;min-width:0;border:0;background:transparent;font:15px var(--body);color:var(--ink);padding:4px 0}
+.qzprog{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.qzprog span{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.qzcard,.qzend{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:24px;display:grid;gap:14px;justify-items:start}
+.qzcard h3{font-size:clamp(26px,4vw,36px);line-height:1.15}
+.qzchoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+.qzchoice{font:600 16px var(--body);color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:3px;padding:14px 16px;text-align:left;cursor:pointer}
+.qzchoice:hover:not(:disabled){border-color:var(--red)}
+.qzchoice:disabled{cursor:default;opacity:.7}
+.qzchoice.right{background:#e6edd8;border-color:#5f7148;opacity:1}
+.qzchoice.wrong{background:#f5d9cf;border-color:#a8362f;opacity:1}
+.qzverdict{font:600 20px var(--display);min-height:1.3em}
+.qzverdict.ok{color:#4f6339}.qzverdict.no{color:#a8362f}
+.cdmake h3,.qzend h3,.myaccuse h3{font-size:clamp(26px,4vw,32px);line-height:1.15}
+.qzscore{font:600 clamp(64px,12vw,110px)/1 var(--display);color:var(--red)}
+.qzrecap{margin:0;padding:0;list-style:none;display:grid;gap:8px;width:100%}
+.qzrecap li{display:grid;gap:2px;border-left:3px solid #5f7148;padding:4px 0 4px 12px}
+.qzrecap li.no{border-color:#a8362f}
+.qzrecap span{color:var(--muted);font-size:14px}
+.myhead{display:grid;gap:6px}
+.myhead h2{font-size:clamp(34px,6vw,52px);line-height:1.05}
+.mysetup{font:500 19px/1.55 var(--display);background:#f1e4c8;border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+.myroles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.myrole{background:#2f241b;color:#f4e9d4;border-radius:3px;padding:20px;display:grid;gap:8px;align-content:start}
+.myrole h4{font:600 30px/1.1 var(--display);margin:0;color:#fdf3e4}
+.myrole .pplabel{color:#e2a07e!important}
+.myrole .mylook{color:rgba(244,233,212,.78);font-size:14px}
+.myroleacts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:6px}
+.myrole .linkbtn{color:rgba(244,233,212,.8)}
+.myplay{display:grid;gap:14px}
+.myid{background:#2f241b;color:#f4e9d4;border-radius:3px;padding:20px 22px;display:grid;gap:6px}
+.myid h3{font-size:clamp(32px,5vw,44px);color:#fdf3e4;line-height:1}
+.myid .pplabel{color:#e2a07e!important}
+.myid .mylook{color:rgba(244,233,212,.8)}
+.mydet{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:12px 16px}
+.mydet summary{cursor:pointer;font-weight:700}
+.mydet p{margin-top:10px}
+.mycols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.myblock{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.myintro{font:italic 500 19px/1.5 var(--display)}
+.mynight{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.mynight li{display:grid;grid-template-columns:52px 1fr;gap:8px}
+.mynight b{font:700 13px var(--mono);color:var(--red);padding-top:2px}
+.mysecret{border:1.5px dashed #a8362f;background:#fbefe6}
+.mysecret.due{box-shadow:0 0 0 3px rgba(168,54,47,.15)}
+.mysus{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.mysus li{display:grid;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:10px 12px}
+.mysus b{font:600 20px var(--display)}
+.mysus small{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.mysus span{font-size:14px;color:var(--muted)}
+.mysus li.you{border-style:dashed}
+.myrounds{display:grid;gap:12px}
+.myround{border:1px solid var(--line);border-radius:3px;padding:16px 18px;display:grid;gap:10px;justify-items:start;background:repeating-linear-gradient(135deg,var(--paper) 0 10px,#efe2c9 10px 20px)}
+.myround.open{background:var(--paper);border-top:4px solid var(--red)}
+.myroundhead{display:flex;gap:12px;align-items:baseline}
+.myroundhead h4{font:600 26px var(--display);margin:0}
+.myhow{color:var(--muted)}
+.myclue{background:#fffaf0;border:1px solid var(--line);box-shadow:2px 3px 0 rgba(47,36,27,.08);padding:12px 14px;width:100%;display:grid;gap:4px}
+.myclue small{font:700 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.myclue p{font:500 18px/1.5 var(--display)}
+.mynote{font-weight:700;color:#a8362f}
+.myaccuse,.myreveal{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:20px;display:grid;gap:14px;justify-items:start}
+.myacc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%}
+.myreveal{border-top:5px solid #2f241b}
+.myreveal h3{font-size:30px}
+.myscore{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.myscore li{display:flex;gap:10px}.myscore b{width:44px;font:700 12px var(--mono);text-transform:uppercase;padding-top:3px}
+.myscore li.ok span{color:#4f6339}.myscore li.no span{color:#a8362f}
+.mysolution{display:grid;gap:10px;max-width:70ch}
+.mysolution p:first-child{font:600 26px var(--display)}
+.stadd{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:16px;display:grid;gap:12px}
+.stchips{display:flex;flex-wrap:wrap;gap:8px}
+.stchip{font:600 14px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.stchip:hover{border-color:var(--red)}
+.stchip.on{background:var(--red);border-color:var(--red);color:var(--onblue)}
+.stform{display:grid;gap:12px}
+.stformrow{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.stform textarea,.drstep input{font:16px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:2px;padding:12px;width:100%;resize:vertical}
+.stphoto{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.stphoto .btn{cursor:pointer}
+.stthumb{display:flex;gap:10px;align-items:center}
+.stthumb img{width:64px;height:64px;object-fit:cover;border:3px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sttimeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--red);display:grid;gap:14px}
+.styear{font:600 30px/1 var(--display);color:var(--red);margin:6px 0 -4px -18px;padding-left:18px;position:relative}
+.stmoment{position:relative;display:grid;grid-template-columns:auto 1fr;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:14px}
+.stmoment::before{content:"";position:absolute;left:-26px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--red);border:2px solid var(--card)}
+.stmoment img{width:150px;aspect-ratio:1;object-fit:cover;border:6px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.15);transform:rotate(-1.5deg)}
+.stmoment:not(:has(img)){grid-template-columns:1fr}
+.stdate{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.stmoment h4{font:600 24px/1.15 var(--display);margin:2px 0 4px}
+.sttext{white-space:pre-line;color:var(--muted)}
+.stacts{display:flex;gap:14px;margin-top:8px}
+.drtop{grid-template-columns:1fr 1fr}
+.drdots{display:flex;gap:8px;flex-wrap:wrap}
+.drdots button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);cursor:pointer;font:600 13px var(--body);color:var(--red)}
+.drdots button.done{background:#f3dccb;border-color:var(--red);font-weight:800}
+.drdots button.on{background:var(--red);border-color:var(--red);color:var(--onblue)}
+.drstep{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:20px;display:grid;gap:12px}
+.drstep h3{font-size:clamp(30px,5vw,42px);line-height:1.05}
+.drsub{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.drtalk{margin:0;padding-left:22px;display:grid;gap:6px;font:500 20px/1.4 var(--display)}
+.drboard{columns:2 260px;column-gap:16px;background:#e9dcc2;border-radius:4px;padding:18px}
+.drcard{break-inside:avoid;background:var(--card);box-shadow:0 2px 6px rgba(47,36,27,.15);padding:16px 18px;margin-bottom:16px;display:grid;gap:8px;position:relative}
+.drcard::before{content:"";position:absolute;top:-8px;left:50%;width:60px;height:16px;margin-left:-30px;background:rgba(244,233,212,.75);box-shadow:0 1px 2px rgba(0,0,0,.08);transform:rotate(-3deg)}
+.drcard.tilt0{transform:rotate(-1deg)}.drcard.tilt1{transform:rotate(.8deg)}.drcard.tilt2{transform:rotate(-.4deg)}.drcard.tilt3{transform:rotate(1.2deg)}
+.drcard.drbig{background:linear-gradient(160deg,#b45a35,#8a3a1f);color:var(--onblue)}
+.drcard.drbig .pplabel{color:#fbe1cf!important}
+.drwhen{font:600 38px/1 var(--display)}
+.drline{font:600 24px/1.2 var(--display)}
+.drtags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.drtags li{font:600 12px var(--body);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.hotabs{display:flex;flex-wrap:wrap;gap:8px}
+.hotabs button{font:600 15px var(--body);background:var(--paper);color:var(--ink);border:1.5px solid var(--line);border-radius:3px;padding:10px 16px;cursor:pointer}
+.hotabs button[aria-selected=true]{background:var(--red);border-color:var(--red);color:var(--onblue)}
+.hotop{grid-template-columns:minmax(0,1fr) minmax(0,1fr);max-width:560px}
+.hoask{font-weight:700;color:var(--red)}
+.hocheck{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:10px}
+.hocheck label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.hocheck input{accent-color:var(--red);width:18px;height:18px;margin-top:3px;flex:none}
+.hocheck small{display:block;font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.hocheck input:checked+span{color:var(--muted);text-decoration:line-through}
+.hocheck a,.honight a{font-weight:700;color:var(--red)}
+.honight{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:10px}
+.honight li{display:grid;grid-template-columns:86px 1fr;gap:10px;border-top:1px dashed var(--line);padding-top:10px}
+.honight b{font:700 14px var(--mono);color:var(--red)}
+@media (max-width:640px){.qzopts,.qzchoices,.myroles,.mycols,.myacc,.stformrow,.drtop,.hotop{grid-template-columns:minmax(0,1fr)}.stmoment{grid-template-columns:1fr}.stmoment img{width:100%;aspect-ratio:4/3}.honight li{grid-template-columns:70px 1fr}}
 @media (max-width:640px){.ppgrid{grid-template-columns:minmax(0,1fr)}.ppctrl .field{min-width:0;flex:1}}
 .fform{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end}
 @media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
@@ -1011,6 +1149,169 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
       </div>
     </section>
 
+    <section class="finder quiz" id="quiz" hidden>
+      <div id="qzMake" class="cdmake">
+        <div>
+          <h2>Make your quiz</h2>
+          <p class="sub">Ten questions about you. Pick your real answer for each one, and rewrite anything that doesn't fit you. Then send the link and find out how well they really know you. They don't need Plus to play.</p>
+        </div>
+        <div class="cdtop qztop"><div class="field"><label for="qzName">Your name</label><input id="qzName" type="text" maxlength="40" autocomplete="given-name" placeholder="Alex"></div></div>
+        <div class="cdbar"><p class="cdcount" id="qzCount"></p><button class="linkbtn" type="button" id="qzShuffle">Swap the ones I haven't answered</button></div>
+        <ol class="qzlist" id="qzList"></ol>
+        <p class="cderr" id="qzErr" role="alert" hidden></p>
+        <div class="cdacts"><button class="btn red" type="button" id="qzMakeLink">Make their link</button><button class="btn ghost" type="button" id="qzPreview">Try it yourself first</button></div>
+        <div class="cdout" id="qzOut" hidden>
+          <p><b>Your quiz is ready.</b> Send it, then ask them to make one for you.</p>
+          <input class="pplink" id="qzLink" type="text" readonly aria-label="Link for your partner">
+          <button class="btn red" type="button" id="qzSend">Send it to them</button>
+        </div>
+      </div>
+      <div id="qzTake" class="cdview" hidden>
+        <div class="cdpeek" id="qzPeek" hidden><span>Preview: this is what they'll see.</span><button class="linkbtn" type="button" id="qzBack">Back to editing</button></div>
+        <div class="cdhero"><h2 id="qzHead"></h2><p class="sub" id="qzSub"></p></div>
+        <div class="qzprog" aria-hidden="true"><span id="qzBar"></span></div>
+        <div class="qzcard" id="qzCard">
+          <p class="pplabel" id="qzStep"></p>
+          <h3 id="qzQ"></h3>
+          <div class="qzchoices" id="qzChoices"></div>
+          <p class="qzverdict" id="qzVerdict" aria-live="polite"></p>
+          <button class="btn red" type="button" id="qzNext" hidden></button>
+        </div>
+        <div class="qzend" id="qzEnd" hidden>
+          <p class="qzscore" id="qzScore"></p>
+          <h3 id="qzTitle"></h3>
+          <div class="cdacts"><button class="btn red" type="button" id="qzShare">Send them your score</button><a class="btn ghost" href="date.html?d=how-well-do-you-know-me">Make one for them</a></div>
+          <ol class="qzrecap" id="qzRecap"></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="finder mystery" id="mystery" hidden>
+      <div class="myhead"><p class="eyebrow" id="myWhen"></p><h2 id="myTitle"></h2></div>
+      <div id="myChoose" class="cdmake" hidden>
+        <p class="mysetup" id="mySetupText"></p>
+        <div><h3>Pick your characters</h3><p class="sub">Each of you gets your own link, with your own secret and your own clues. Don't peek at the other one.</p></div>
+        <div class="myroles" id="myRoles"></div>
+        <input class="pplink" id="myLink" type="text" readonly hidden aria-label="Link for your partner">
+      </div>
+      <div id="myPlay" class="myplay" hidden>
+        <div class="myid"><p class="pplabel">Your character · <span id="myRole"></span></p><h3 id="myWho"></h3><p class="mylook"><b>Wear:</b> <span id="myLook"></span></p></div>
+        <details class="mydet"><summary>The case: read it out loud before round 1</summary><p id="mySetup2"></p><p><b>The victim.</b> <span id="myVictim"></span></p></details>
+        <div class="mycols">
+          <div class="myblock"><p class="pplabel">Your introduction · read it in round 1</p><p class="myintro" id="myIntro"></p></div>
+          <div class="myblock"><p class="pplabel">Your night · only you know this</p><ol class="mynight" id="myNight"></ol></div>
+        </div>
+        <div class="myblock mysecret" id="mySecretBox"><p class="pplabel">Your secret · confess it in round 2</p><p id="mySecret"></p></div>
+        <div class="myblock"><p class="pplabel">The suspects</p><ul class="mysus" id="mySuspects"></ul></div>
+        <div class="myrounds" id="myRounds"></div>
+        <div class="myaccuse" id="myAccuse" hidden>
+          <div><h3>Make your accusation</h3><p class="sub">Talk it through and agree on one answer. Then both press the button at the same time.</p></div>
+          <div class="myacc">
+            <div class="field"><label for="myAccWho">Who did it?</label><select id="myAccWho"></select></div>
+            <div class="field"><label for="myAccHow">How?</label><select id="myAccHow"></select></div>
+            <div class="field"><label for="myAccWhy">Why?</label><select id="myAccWhy"></select></div>
+          </div>
+          <p class="cderr" id="myAccErr" hidden>Answer all three first.</p>
+          <button class="btn red" type="button" id="myAccuseBtn">Reveal the truth</button>
+        </div>
+        <div class="myreveal" id="myReveal" hidden aria-live="polite">
+          <p class="pplabel">The solution</p>
+          <h3 id="myVerdict"></h3>
+          <ul class="myscore" id="myScore"></ul>
+          <div class="mysolution" id="mySolution"></div>
+          <button class="linkbtn" type="button" id="myReset">Play it again from the start</button>
+        </div>
+      </div>
+      <p class="credit">Your progress is saved on this device.</p>
+    </section>
+
+    <section class="finder story" id="story" hidden>
+      <div id="stMake" class="cdmake" hidden>
+        <div>
+          <h2>Our story so far</h2>
+          <p class="sub">Get on a call and build it together. Add the moments that made you two, with a photo if you have one. When it's ready, print it or save it as a PDF.</p>
+        </div>
+        <div class="cdtop">
+          <div class="field"><label for="stA">Your name</label><input id="stA" type="text" maxlength="40" autocomplete="given-name" placeholder="Alex"></div>
+          <div class="field"><label for="stB">Their name</label><input id="stB" type="text" maxlength="40" autocomplete="off" placeholder="Sam"></div>
+          <div class="field"><label for="stSince">Together since</label><input id="stSince" type="date"></div>
+        </div>
+        <p class="cdcount" id="stStats"></p>
+        <div class="stadd">
+          <p class="pplabel">Need a starting point? Tap one</p>
+          <div class="stchips" id="stPrompts"></div>
+          <form class="stform" id="stForm" novalidate>
+            <div class="stformrow">
+              <div class="field"><label for="stTitle">The moment</label><input id="stTitle" type="text" maxlength="120" placeholder="The first hello"></div>
+              <div class="field"><label for="stDate">When</label><input id="stDate" type="date"></div>
+            </div>
+            <div class="field"><label for="stText">What happened</label><textarea id="stText" rows="3" maxlength="2000" placeholder="What happened? What do you remember?"></textarea></div>
+            <div class="stphoto"><label class="btn ghost" for="stPhoto">Add a photo</label><input class="vh" id="stPhoto" type="file" accept="image/*"><span class="stthumb" id="stThumbWrap" hidden><img id="stThumb" alt="Photo preview"><button class="linkbtn" type="button" id="stNoPhoto">Remove photo</button></span></div>
+            <div class="cdacts"><button class="btn red" type="submit" id="stAdd">Add it to our story</button><button class="linkbtn" type="button" id="stCancel" hidden>Cancel</button></div>
+          </form>
+        </div>
+        <p class="cderr" id="stErr" role="alert" hidden></p>
+        <ol class="sttimeline" id="stList"></ol>
+        <div class="cdacts"><button class="btn red" type="button" id="stPrint">Make the keepsake</button><button class="btn ghost" type="button" id="stSend">Send it to them</button></div>
+        <input class="pplink" id="stLink" type="text" readonly hidden aria-label="Link for your partner">
+        <p class="credit">Saved on this device. When you send it, the words travel in the link and the photos stay on your device.</p>
+      </div>
+      <div id="stGot" class="cdview" hidden>
+        <div class="cdhero"><p class="eyebrow">They sent you your story</p><h2 id="stGotHead"></h2></div>
+        <ol class="sttimeline" id="stGotList"></ol>
+        <div class="cdacts"><button class="btn red" type="button" id="stMerge">Add these to my timeline</button></div>
+      </div>
+    </section>
+
+    <section class="finder dream" id="dream" hidden>
+      <div id="drGuide" class="cdmake">
+        <div id="drIntro">
+          <h2>The life we're building</h2>
+          <p class="sub">Seven chapters. In each one, talk through the questions, then pick what fits and write one line together. At the end you get your board.</p>
+        </div>
+        <div class="cdtop drtop">
+          <div class="field"><label for="drA">Your name</label><input id="drA" type="text" maxlength="40" autocomplete="given-name" placeholder="Alex"></div>
+          <div class="field"><label for="drB">Their name</label><input id="drB" type="text" maxlength="40" autocomplete="off" placeholder="Sam"></div>
+        </div>
+        <div class="drdots" id="drDots"></div>
+        <div class="drstep" id="drStep">
+          <p class="pplabel" id="drNum"></p>
+          <h3 id="drName"></h3>
+          <p class="drsub">Talk about it</p>
+          <ol class="drtalk" id="drTalk"></ol>
+          <p class="drsub">Put it on the board</p>
+          <div class="stchips" id="drPicks"></div>
+          <div class="field"><label for="drLine" id="drLineLabel"></label><input id="drLine" type="text" maxlength="140"></div>
+          <div class="field" id="drWhenWrap" hidden><label for="drWhen">The month we close the distance</label><input id="drWhen" type="month"></div>
+          <div class="cdacts"><button class="btn ghost" type="button" id="drPrev">Back</button><button class="btn red" type="button" id="drNext"></button></div>
+        </div>
+      </div>
+      <div id="drBoardWrap" class="cdview" hidden>
+        <div class="cdhero"><p class="eyebrow">The life we're building</p><h2 id="drBoardNames"></h2></div>
+        <div class="drboard" id="drBoard"></div>
+        <div class="cdacts"><button class="btn red" type="button" id="drSave">Save it as a picture</button><button class="btn ghost" type="button" id="drSend">Send it to them</button><button class="linkbtn" type="button" id="drEdit">Change something</button></div>
+        <input class="pplink" id="drLink" type="text" readonly hidden aria-label="Link for your partner">
+      </div>
+    </section>
+
+    <section class="finder holiday" id="holiday" hidden>
+      <div><h2>Pick your occasion</h2></div>
+      <div class="hotabs" id="hoTabs" role="tablist" aria-label="Holiday packs"></div>
+      <p class="sub" id="hoIntro"></p>
+      <div class="cdtop hotop">
+        <div class="field"><label for="hoDate" id="hoDateLabel"></label><input id="hoDate" type="date"></div>
+        <div class="field"><label for="hoTime">Your call starts at</label><input id="hoTime" type="time" step="300"></div>
+      </div>
+      <p class="hoask" id="hoNeedDate" hidden>Add the date and we'll work out when to mail everything.</p>
+      <p class="cdcount" id="hoProgress"></p>
+      <div class="ppgrid">
+        <div class="ppcard"><p class="pplabel">1 · Before</p><h4>Get ready</h4><ul class="hocheck" id="hoBefore"></ul></div>
+        <div class="ppcard"><p class="pplabel">2 · The box</p><h4>What to mail them</h4><ul class="hocheck" id="hoBox"></ul></div>
+        <div class="ppcard wide"><p class="pplabel">3 · The night</p><h4>Hour by hour</h4><ol class="honight" id="hoNight"></ol></div>
+      </div>
+      <p class="credit">Checkmarks are saved on this device.</p>
+    </section>
+
     <section class="finder" id="stars" aria-labelledby="skyTitle" hidden>
       <div>
         <h2 id="skyTitle">What's in your sky</h2>
@@ -1088,7 +1389,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=47ebce96"></script>
+<script src="js/dates.js?v=99657423"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
 <script src="js/classes.js?v=78c6c8b8"></script>
 <script src="js/escaperooms.js?v=fc8fb9d9"></script>
@@ -1097,9 +1398,15 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/citytour.js?v=e1944ee7"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
-<script src="js/countdown.js?v=50925f6e"></script>
+<script src="js/plus-kit.js?v=9764765f"></script>
+<script src="js/quiz.js?v=2f070b89"></script>
+<script src="js/mystery.js?v=a02eb829"></script>
+<script src="js/story.js?v=0cfd945e"></script>
+<script src="js/dream.js?v=02af4b85"></script>
+<script src="js/holiday.js?v=f52f2f63"></script>
+<script src="js/countdown.js?v=08b0460c"></script>
 <script src="js/passport.js?v=b89d4a97"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=cf8237db"></script>
+<script src="js/date-page.js?v=bd44d3cd"></script>
 </body>
 </html>

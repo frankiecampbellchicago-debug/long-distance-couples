@@ -33,41 +33,20 @@
   const fmt = (t, o) => new Date(t).toLocaleDateString("en-US", o || { weekday: "short", month: "short", day: "numeric" });
   const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
   const pick = a => a[Math.floor(Math.random() * a.length)];
-  const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
-  const store = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
-  const safeUrl = u => { u = (u || "").trim(); if (!u) return ""; if (!/^https?:\/\//i.test(u)) u = "https://" + u; try { return /^https?:$/.test(new URL(u).protocol) ? u : ""; } catch (e) { return ""; } };
-
-  // the calendar travels in the link: JSON, deflated where the browser can, then base64url
-  const b64 = bytes => { let s = ""; for (let i = 0; i < bytes.length; i += 8192) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
-  const unb64 = s => { const bin = atob(s.replace(/-/g, "+").replace(/_/g, "/")); const out = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out; };
-  async function pack(cal) {
-    const raw = new TextEncoder().encode(JSON.stringify(cal));
-    if (window.CompressionStream) {
-      try { return "z" + b64(new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream("deflate-raw"))).arrayBuffer())); } catch (e) {}
-    }
-    return "j" + b64(raw);
-  }
+  const { load, store, safeUrl, share } = window.PlusKit;
   async function unpack(code) {
-    let bytes = unb64(code.slice(1));
-    if (code[0] === "z") bytes = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).arrayBuffer());
-    const cal = JSON.parse(new TextDecoder().decode(bytes));
+    const cal = await window.PlusKit.unpack(code);
     if (!cal || !/^\d{4}-\d{2}-\d{2}$/.test(cal.w) || !Array.isArray(cal.d) || !cal.d.length) throw new Error("bad calendar");
     cal.d = cal.d.slice(0, MAX).map(x => [KINDS[x[0]] ? x[0] : "n", String(x[1] || "").slice(0, 400), String(x[2] || "").slice(0, 600)]);
     return cal;
   }
   const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = (h * 33 + s.charCodeAt(i)) >>> 0; return h.toString(36); };
 
-  async function share(title, text, url, btn, done) {
-    try { if (navigator.share) { await navigator.share(url ? { title, text, url } : { title, text }); return true; } } catch (e) { return true; }
-    try { await navigator.clipboard.writeText(url ? text + " " + url : text); const was = btn.textContent; btn.textContent = done; setTimeout(() => { btn.textContent = was; }, 2200); return true; }
-    catch (e) { return false; }
-  }
-
   window.setupCountdown = function () {
     $("countdown").hidden = false;
     // pasting a calendar link into a tab already on this page only changes the #, so reload to open it
     addEventListener("hashchange", () => location.reload());
-    const code = (location.hash.match(/^#cal=([zj][A-Za-z0-9_-]+)$/) || [])[1];
+    const code = window.PlusKit.fromHash("cal");
     if (code) {
       $("cdMake").hidden = true;
       unpack(code).then(cal => { view(cal, false, hash(code)); $("countdown").scrollIntoView({ block: "start" }); })
@@ -168,7 +147,7 @@
 
     $("cdMakeLink").addEventListener("click", async () => {
       if (!ready()) return;
-      const url = location.origin + location.pathname + "?d=countdown-calendar#cal=" + await pack(build());
+      const url = window.PlusKit.link("countdown-calendar", "cal", await window.PlusKit.pack(build()));
       $("cdLink").value = url; $("cdOut").hidden = false;
       $("cdOut").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
     });

@@ -17,6 +17,11 @@ window.DATES=[
  {s:"take-a-class",k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, cooking, anything you'd both be a little bad at. That's half the fun.",f:["$$","2–3 hrs"],tags:["adventurous"]},
  {s:"passport-night",k:"apart",plus:true,i:"plane",t:"Passport Night",d:"Spin the globe and land somewhere neither of you has been. Cook its dish, play its music, learn five words, walk one of its streets, then stamp your passports.",f:["Plus","2–3 hrs","24 countries"],tags:["cozy","adventurous"]},
  {s:"countdown-calendar",k:"apart",plus:true,i:"hourglass",t:"Countdown Calendar",d:"One little door for every day until you see each other: a note, a song, a question, a coupon for the visit. They open one a day, and never early.",f:["Plus","20 min to make","Up to 31 days"],tags:["cozy"]},
+ {s:"how-well-do-you-know-me",k:"apart",plus:true,i:"heart",t:"How Well Do You Know Me?",d:"Answer ten questions about yourself and send the link. They guess every answer and get a score, and the ones they miss are the best part.",f:["Plus","30 min","Play by link"],tags:["cozy"]},
+ {s:"murder-mystery",k:"apart",plus:true,i:"key",t:"Murder Mystery for Two",d:"New Year's Eve, 1928. The owner of a rooftop speakeasy is dead. You each get a character, a secret and half the clues. Solve it before the police arrive at dawn.",f:["Plus","2 hrs","1920s Chicago"],tags:["adventurous"]},
+ {s:"our-story",k:"apart",plus:true,i:"book",t:"Our Story Timeline",d:"Build the story of you two, moment by moment: the first hello, the first goodbye, the day you knew. Add photos, then print it as a keepsake.",f:["Plus","1–2 hrs","Printable"],tags:["cozy"]},
+ {s:"dream-life-night",k:"apart",plus:true,i:"sparkle",t:"Dream Life Night",d:"Plan the life you're building, out loud: where you live, a normal Tuesday, the first big trip, the month you close the distance. You end with a board to keep.",f:["Plus","1–2 hrs","Vision board"],tags:["cozy"]},
+ {s:"holiday-packs",k:"apart",plus:true,i:"letter",t:"Holiday Packs",d:"Valentine's Day, birthdays, anniversaries and the holidays, apart. What to mail and when, what goes in the box, and the night planned hour by hour.",f:["Plus","4 occasions","Mail-by dates"],tags:["cozy"]},
  {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"More dates with Plus",d:"Holiday dates, anniversary plans, and new ideas as we add them.",f:["Plus"],tags:["all-only"]}
 ];
 window.DATE_WHERE={apart:"While apart",together:"When you visit"};
@@ -47,7 +52,7 @@ window.dateIcon=(k,cls,kind)=>'<span class="clay '+(cls||"")+'" aria-hidden="tru
   '<g fill="none" stroke="#4a3527" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round">'+(DATE_ICONS[k]||"")+'</g></svg></span>';
 
 // a real photo for each date (CC0, sources in images/dates/sources.json); falls back to the clay icon
-window.DATE_PHOTOS=["passport-night","countdown-calendar","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
+window.DATE_PHOTOS=["passport-night","countdown-calendar","how-well-do-you-know-me","murder-mystery","our-story","dream-life-night","holiday-packs","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
 window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
   ?'<picture class="dphoto '+(cls||"")+'"><source srcset="images/dates/'+d.s+'.webp" type="image/webp"><img src="images/dates/'+d.s+'.jpg" alt="" decoding="async" draggable="false"></picture>'
   :dateIcon(d.i,cls,d.k);
@@ -55,7 +60,27 @@ window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
 // Extra detail for each date's own page: how to do it, what you need, one tip.
 // app:true dates live inside the app (coming soon). tool names a widget on the page.
 window.DATE_MORE={
- "countdown-calendar":{tool:"countdown",
+ "how-well-do-you-know-me":{tool:"quiz",gift:"q",
+  steps:["Each of you makes a quiz: ten questions about yourself, with your real answer picked.","Send each other the links.","Get on a call and take them at the same time, or one at a time while the other watches.","Go through every miss and ask for the story behind the answer."],
+  need:["About 10 minutes to make yours","A call to compare scores"],
+  tip:"Rewrite the questions. The best ones are things only someone who really listens would know."},
+ "murder-mystery":{tool:"mystery",gift:"role",
+  steps:["Pick your characters and send your partner their link. No peeking at each other's clues.","Dress the part and make a drink from the era: a gin fizz, or a mocktail.","Play three rounds over video: introductions, secrets, then the last clues.","Agree on who did it, how and why. Then reveal the truth."],
+  need:["About 2 hours","A video call","A 1920s outfit, any level of effort","A drink"],
+  tip:"Stay in character, even when you're confessing. Especially when you're confessing."},
+ "our-story":{tool:"story",gift:"story",
+  steps:["Get on a call with your camera rolls open.","Start from the beginning. Tap a prompt and tell each other what you remember. You'll remember it differently, and that's the fun part.","Add each moment with a date and a photo.","Make the keepsake to print or save as a PDF. Then send them the link so they can add what you missed."],
+  need:["Your camera roll","An hour or two","A printer, if you want it on paper"],
+  tip:"Don't skip the hard parts. The stretch where it almost didn't work is usually the best chapter."},
+ "dream-life-night":{tool:"dream",gift:"dream",
+  steps:["Get comfortable on a call. Something to drink helps.","Go through the seven chapters together. Talk through the questions first, then put your answers on the board.","Pick the month you'll close the distance, even if it's a guess.","Save the board as a picture. Make it your lock screen."],
+  need:["An hour or two","A quiet evening","Honesty, especially about the big stuff"],
+  tip:"If you disagree, put both answers on the board. Figuring it out is the point."},
+ "holiday-packs":{tool:"holiday",
+  steps:["Pick the occasion and add the date. We'll work out when everything needs to be mailed.","Check things off as you go: the gift, the box, the call time.","Set the time your call starts, and the night plans itself hour by hour.","On the day, follow the plan and leave room to go off it."],
+  need:["A box and postage","A gift, big or small","A few hours on the day"],
+  tip:"Mail it earlier than you think. Holiday shipping is always slower than it says."},
+ "countdown-calendar":{tool:"countdown",gift:"cal",
   steps:["Pick the day you'll see each other next. You get one door for every day until then, up to 31.","Fill each door: a note, a song, a question, a little mission for the day, or a coupon they cash in on the visit.","Make the link and send it. They open one door a day, and a door won't open before its day.","The last door opens on the day you're together. Save the best one for it."],
   need:["About 20 minutes","The date of your next visit","A way to send them a link"],
   tip:"Mix it up. A coupon is perfect for a hard Wednesday. And ask them to make one back for you."},
