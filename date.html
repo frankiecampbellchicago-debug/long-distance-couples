@@ -105,6 +105,17 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .finder{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:24px;display:grid;gap:18px;margin-bottom:40px;box-shadow:0 1px 2px rgba(47,36,27,.2)}
 .finder h2{font-size:30px}
 .finder .sub{color:var(--muted)}
+.camtabs{display:flex;flex-wrap:wrap;gap:8px}
+.camtabs button{display:grid;gap:1px;text-align:left;font:600 14px var(--body);color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:3px;padding:8px 14px;cursor:pointer}
+.camtabs button small{font:700 11px var(--mono);color:var(--muted)}
+.camtabs button.night small{color:#55709a}
+.camtabs button:hover{border-color:var(--blue)}
+.camtabs button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:var(--onblue)}
+.camtabs button[aria-pressed="true"] small{color:rgba(253,243,228,.85)}
+.camframe{position:relative;aspect-ratio:16/9;background:#14110f;border-radius:3px;overflow:hidden}
+.camframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.camnote{margin:0;color:var(--muted);font-size:15px}
+@media (max-width:560px){.camtabs{display:grid;grid-template-columns:1fr 1fr}.camtabs button{padding:8px 10px;font-size:13px}}
 .fform{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end}
 @media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
 .field{display:grid;gap:6px;min-width:0}
@@ -842,6 +853,17 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
       </div>
     </section>
 
+    <section class="finder" id="liveSky" aria-labelledby="liveTitle" hidden>
+      <div>
+        <h2 id="liveTitle">Watch the sky live</h2>
+        <p class="sub">Real cameras pointed at the night sky, streaming right now from some of the darkest places on Earth. Pick one where it's night and watch it together on your call.</p>
+      </div>
+      <div class="camtabs" id="camTabs" role="group" aria-label="Choose a live camera"></div>
+      <div class="camframe" id="camFrame"></div>
+      <p class="camnote" id="camNote" aria-live="polite"></p>
+      <p class="credit">Live streams by <a href="https://www.youtube.com/@astroasahi/streams" target="_blank" rel="noopener">Asahi Shimbun's Astro Asahi LIVE</a> with the Subaru Telescope (NAOJ), CFHT and ALMA. If a camera is offline, <a href="https://www.youtube.com/@astroasahi/streams" target="_blank" rel="noopener">see all their live cameras</a>.</p>
+    </section>
+
     <section class="finder" id="stars" aria-labelledby="skyTitle" hidden>
       <div>
         <h2 id="skyTitle">What's in your sky</h2>
@@ -928,7 +950,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/citytour.js?v=e1944ee7"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
-<script src="js/stars.js?v=be7b5d14"></script>
+<script src="js/stars.js?v=cc829da8"></script>
 <script src="js/date-page.js?v=bcb62495"></script>
 </body>
 </html>
