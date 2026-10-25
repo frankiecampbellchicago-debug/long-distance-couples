@@ -56,7 +56,7 @@
   ];
 
   const KEY = "liita-passport";
-  // a, b: your names; issued: a date you picked; photo: one of the two of you, shrunk to a small JPEG
+  // a, b: your names; issued: a date you picked; sig: your signature; photo: one of the two of you, shrunk to a small JPEG
   const load = () => {
     try {
       const v = JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -120,7 +120,8 @@
       const a = (st.a || "").trim(), b = (st.b || "").trim();
       $("ppHolders").textContent = a && b ? (a + " & " + b).toUpperCase() : (a || b || "The two of you").toUpperCase();
       const sig = $("ppSig"); sig.innerHTML = "";
-      (a || b ? [a, b].filter(Boolean) : ["Us, together"]).forEach(x => { const sp = document.createElement("span"); sp.textContent = x; sig.appendChild(sp); });
+      const own = (st.sig || "").trim();
+      (own ? [own] : a || b ? [a, b].filter(Boolean) : ["Us, together"]).forEach(x => { const sp = document.createElement("span"); sp.textContent = x; sig.appendChild(sp); });
       const img = $("ppImg"), src = st.photo;
       img.hidden = !src; if (src) img.src = src; else img.removeAttribute("src");
       img.alt = src ? "Photo of " + (a && b ? a + " and " + b : "the two of you") : "";
@@ -261,14 +262,24 @@
       Array.from({ length: 40 }, (_, i) => { const a = i * Math.PI / 20; return '<circle cx="' + (100 + 44 * Math.cos(a)).toFixed(1) + '" cy="' + (100 + 44 * Math.sin(a)).toFixed(1) + '" r="44"/>'; }).join("") + "</svg>";
     document.querySelectorAll("#ppBook .ppros").forEach(el => { el.innerHTML = ros; });
 
-    // Personalize: names, issue date and a photo of the two of you. The photo can be added any time by tapping it.
-    $("ppEdit").addEventListener("click", () => {
-      const on = $("ppBook").classList.toggle("editing");
-      $("ppEdit").textContent = on ? "Done" : "Personalize";
+    // Edit the passport: names, issue date, signature and a photo of the two of you. Tapping a field also
+    // opens it for editing; the photo can be changed any time by tapping it.
+    function editing(on, focus) {
+      $("ppBook").classList.toggle("editing", on);
+      $("ppEdit").textContent = on ? "Done" : "Edit passport";
       $("ppEdit").setAttribute("aria-pressed", on);
-      if (on) { $("ppNameA").value = st.a || ""; $("ppNameB").value = st.b || ""; $("ppIssue").value = st.issued || ""; $("ppNameA").focus(); }
+      if (!on) return;
+      $("ppNameA").value = st.a || ""; $("ppNameB").value = st.b || ""; $("ppIssue").value = st.issued || ""; $("ppSigIn").value = st.sig || "";
+      $(focus || "ppNameA").focus();
+    }
+    $("ppEdit").addEventListener("click", () => editing(!$("ppBook").classList.contains("editing")));
+    document.querySelectorAll("#ppBook .pptap").forEach(el => {
+      el.addEventListener("click", () => editing(true, el.dataset.go));
+      el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); editing(true, el.dataset.go); } });
     });
-    [["ppNameA", "a"], ["ppNameB", "b"], ["ppIssue", "issued"]].forEach(([id, k]) => $(id).addEventListener("input", () => { st[k] = $(id).value.trim(); save(st); fillDataPage(); }));
+    // Enter in any field finishes editing
+    $("ppBook").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.matches(".ppedit input, .ppnames input")) editing(false); });
+    [["ppNameA", "a"], ["ppNameB", "b"], ["ppIssue", "issued"], ["ppSigIn", "sig"]].forEach(([id, k]) => $(id).addEventListener("input", () => { st[k] = $(id).value.trim(); save(st); fillDataPage(); }));
     $("ppPhoto").addEventListener("change", async () => {
       const f = $("ppPhoto").files[0]; $("ppPhoto").value = ""; if (!f) return;
       try { st.photo = await shrink(f); } catch (e) { return; }

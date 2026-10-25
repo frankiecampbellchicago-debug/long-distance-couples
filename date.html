@@ -220,6 +220,12 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .ppfields input{min-width:0;width:100%;font:700 14px Consolas,"Courier New",ui-monospace,monospace;letter-spacing:.04em;color:var(--ink);background:rgba(255,255,255,.55);border:0;border-bottom:1.5px dashed #2c4a7a;border-radius:2px 2px 0 0;padding:4px 6px}
 .ppfields input:focus{outline:none;background:#fff;border-bottom-style:solid}
 .ppsig{display:flex;flex-wrap:wrap;gap:2px 22px}
+.pptap{cursor:pointer;border-radius:2px;transition:background .2s}
+.pptap:hover,.pptap:focus-visible{background:rgba(44,74,122,.08);outline:none}
+.pptap::after{content:"\270E";margin-left:8px;font:400 13px var(--body);color:#2c4a7a;opacity:0;transition:opacity .2s}
+.pptap:hover::after,.pptap:focus-visible::after{opacity:.7}
+.ppsig.pptap::after{align-self:center;margin-left:-12px}
+#ppSigIn{font:italic 600 24px var(--display);letter-spacing:0;color:#2c4a7a}
 .ppsig span{transform:rotate(-3deg);display:inline-block}
 .ppsig span+span{transform:rotate(2deg)}
 .ppcover .linkbtn[aria-pressed=true]{color:#e3c48a;font-weight:800}
@@ -1417,7 +1423,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
       <div class="ppbook" id="ppBook">
         <div class="ppcover">
           <h3><svg class="ppseal" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="24" cy="24" r="21"/><circle cx="24" cy="24" r="12"/><ellipse cx="24" cy="24" rx="5" ry="12"/><path d="M12 24h24M14 18h20M14 30h20"/></svg>Our passport</h3>
-          <div class="ppbookr"><span id="ppCount"></span><button class="linkbtn" type="button" id="ppEdit" aria-pressed="false">Personalize</button><button class="linkbtn" type="button" id="ppReset" hidden>Reset</button></div>
+          <div class="ppbookr"><span id="ppCount"></span><button class="linkbtn" type="button" id="ppEdit" aria-pressed="false">Edit passport</button><button class="linkbtn" type="button" id="ppReset" hidden>Reset</button></div>
         </div>
         <div class="ppspread">
           <div class="pppage ppdata">
@@ -1428,11 +1434,11 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
               <dl class="ppfields">
                 <div><dt>Type / Type</dt><dd>P</dd></div>
                 <div><dt>Passport no. / N&#176;</dt><dd id="ppNo">LI0000000</dd></div>
-                <div class="w"><dt>Holders / Titulaires</dt><dd><span class="ppshow" id="ppHolders">THE TWO OF YOU</span><span class="ppedit ppnames"><input id="ppNameA" type="text" maxlength="24" autocomplete="given-name" placeholder="Your name" aria-label="Your name"><i>&amp;</i><input id="ppNameB" type="text" maxlength="24" autocomplete="off" placeholder="Their name" aria-label="Their name"></span></dd></div>
+                <div class="w"><dt>Holders / Titulaires</dt><dd><span class="ppshow pptap" id="ppHolders" role="button" tabindex="0" data-go="ppNameA" title="Tap to edit">THE TWO OF YOU</span><span class="ppedit ppnames"><input id="ppNameA" type="text" maxlength="24" autocomplete="given-name" placeholder="Your name" aria-label="Your name"><i>&amp;</i><input id="ppNameB" type="text" maxlength="24" autocomplete="off" placeholder="Their name" aria-label="Their name"></span></dd></div>
                 <div class="w"><dt>Nationality / Nationalit&#233;</dt><dd>LONG DISTANCE</dd></div>
-                <div><dt>Date of issue</dt><dd><span class="ppshow" id="ppIssued">FIRST STAMP</span><input class="ppedit" id="ppIssue" type="date" aria-label="Date of issue"></dd></div>
+                <div><dt>Date of issue</dt><dd><span class="ppshow pptap" id="ppIssued" role="button" tabindex="0" data-go="ppIssue" title="Tap to edit">FIRST STAMP</span><input class="ppedit" id="ppIssue" type="date" aria-label="Date of issue"></dd></div>
                 <div><dt>Countries / Pays</dt><dd id="ppHeld">0 / 24</dd></div>
-                <div class="w"><dt>Signature of holders</dt><dd class="ppsig" id="ppSig">Us, together</dd></div>
+                <div class="w"><dt>Signature of holders</dt><dd class="ppsig ppshow pptap" id="ppSig" role="button" tabindex="0" data-go="ppSigIn" title="Tap to edit">Us, together</dd><dd class="ppedit"><input id="ppSigIn" type="text" maxlength="40" placeholder="Your names, or anything you like" aria-label="Signature"></dd></div>
               </dl>
             </div>
             <div class="ppmrz" id="ppMrz" aria-hidden="true"></div>
@@ -1761,7 +1767,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/dream.js?v=a71bd29f"></script>
 <script src="js/holiday.js?v=3de55c63"></script>
 <script src="js/countdown.js?v=1e9a8e86"></script>
-<script src="js/passport.js?v=87d570bf"></script>
+<script src="js/passport.js?v=ac3d235e"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
 <script src="js/date-page.js?v=917457ba"></script>
 </body>
