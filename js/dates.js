@@ -1,7 +1,5 @@
 // Every date idea, shared by the home page carousel and the date.html "View more" page.
 window.DATES=[
- {s:"arcade-night",k:"arcade",where:"Virtual date · In the app",i:"arcade",t:"Arcade Night",d:"Walk into a shared arcade, pick a cabinet, and play two-player co-op games in real time. Win tickets as a team and trade them in for prizes you send to each other.",f:["In the app","30–60 min","Co-op games","Shared ticket jar"],tags:["app","fun","adventurous"]},
- {s:"table-for-two",k:"table",where:"Virtual date · In the app",i:"cloche",t:"Table for Two",d:"Sit down at a virtual restaurant with an AI waiter who takes your orders, tells stories, and walks you both through cooking the same recipe in your own kitchens.",f:["In the app","1 hr","AI waiter","Cook-along recipes"],tags:["app","cozy"]},
  {s:"movie-night",k:"apart",i:"popcorn",t:"Movie night, in sync",d:"Count down and press play on the same movie at the same second. Keep a call open for the commentary.",f:["Free","2–3 hrs"],tags:["free","cozy"]},
  {s:"order-dinner",k:"apart",i:"takeout",t:"Order each other dinner",d:"Each of you picks a meal and has it delivered to the other's door. Eat together on video.",f:["$$","1 hr"],tags:["cozy"]},
  {s:"stargazing",k:"apart",i:"moon",t:"Stargazing call",d:"Go outside on the same night, open a star map app, and try to find the same constellation.",f:["Free","1 hr"],tags:["free","cozy"]},
@@ -17,7 +15,7 @@ window.DATES=[
  {s:"time-capsule",k:"together",i:"hourglass",t:"Build a time capsule",d:"Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.",f:["Free","1 hr"],tags:["free","cozy"]},
  {s:"walk-along",k:"apart",i:"phone",t:"Neighborhood walk-along",d:"Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.",f:["Free","45 min"],tags:["free"]},
  {s:"take-a-class",k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, cooking, anything you'd both be a little bad at. That's half the fun.",f:["$$","2–3 hrs"],tags:["adventurous"]},
- {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"More dates with Plus",d:"Holiday dates, anniversary plans, and new ideas as we add them, plus unlimited virtual dates.",f:["Plus"],tags:["all-only"]}
+ {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"More dates with Plus",d:"Holiday dates, anniversary plans, and new ideas as we add them.",f:["Plus"],tags:["all-only"]}
 ];
 window.DATE_WHERE={apart:"While apart",together:"When you visit"};
 window.DATE_ICONS={
@@ -47,7 +45,7 @@ window.dateIcon=(k,cls,kind)=>'<span class="clay '+(cls||"")+'" aria-hidden="tru
   '<g fill="none" stroke="#4a3527" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round">'+(DATE_ICONS[k]||"")+'</g></svg></span>';
 
 // a real photo for each date (CC0, sources in images/dates/sources.json); falls back to the clay icon
-window.DATE_PHOTOS=["arcade-night","table-for-two","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
+window.DATE_PHOTOS=["movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
 window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
   ?'<picture class="dphoto '+(cls||"")+'"><source srcset="images/dates/'+d.s+'.webp" type="image/webp"><img src="images/dates/'+d.s+'.jpg" alt="" decoding="async" draggable="false"></picture>'
   :dateIcon(d.i,cls,d.k);
@@ -55,14 +53,6 @@ window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
 // Extra detail for each date's own page: how to do it, what you need, one tip.
 // app:true dates live inside the app (coming soon). tool names a widget on the page.
 window.DATE_MORE={
- "arcade-night":{app:true,
-  steps:["Open Love Is In The Air together and step into the arcade lobby.","Pick a two-player cabinet. Every game is co-op, so you win or lose as a team.","Collect tickets from each round in your shared ticket jar.","Trade the jar for a prize, from a silly sticker to a real gift mailed to their door."],
-  need:["The app on a phone, tablet, or computer","A video or voice call","About an hour"],
-  tip:"Set a ticket goal at the start. Hitting it together feels better than any single high score."},
- "table-for-two":{app:true,
-  steps:["Choose a recipe together from the menu before the date.","Each of you shops for the same ingredients.","Sit down at your virtual table. The AI waiter greets you, takes your orders, and keeps the conversation going.","Cook side by side as the waiter walks you through each step, then eat together."],
-  need:["The app","Ingredients for the recipe you picked","A kitchen and a phone stand"],
-  tip:"Dress up a little and light a candle. It turns a cooking call into a real night out."},
  "movie-night":{tool:"movies",
   steps:["Use the search on this page to pick a movie you can both stream. Take turns choosing each week.","Get a call going on your phones, so your laptops are free for the movie.","Count down from three and press play at the same second.","Pause together for snack breaks and talk about it when the credits roll."],
   need:["The same streaming service, or a watch-party feature","Snacks","Headphones if the call echoes"],

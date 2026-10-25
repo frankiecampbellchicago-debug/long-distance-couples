@@ -565,7 +565,7 @@ section.band{position:relative;isolation:isolate}
 <section class="band" id="dates"><div class="wrap">
   <div class="sechead">
     <h2>Somewhere to go together.</h2>
-    <p>A video call works, but you end up just staring at each other. Play and cook together in the app, or pick an idea for tonight or your next visit.</p>
+    <p>A video call works, but you end up just staring at each other. Pick an idea for tonight or your next visit.</p>
   </div>
   <div class="dpick">
     <div class="dfilters">
@@ -855,7 +855,6 @@ section.band{position:relative;isolation:isolate}
         <h3>Plus</h3>
         <div class="price">$7.99 <small>/ month per couple</small></div>
         <ul>
-          <li>Unlimited arcade and restaurant dates</li>
           <li>All 6 Deep Talks topics (300 questions)</li>
           <li>More date ideas, with new ones added over time</li>
           <li>Fare alerts and the shared trip board</li>
@@ -900,7 +899,7 @@ section.band{position:relative;isolation:isolate}
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=a028d973"></script>
+<script src="js/dates.js?v=507d4e02"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script>
 // visit countdown (defaults to an example date 23 days out)
@@ -922,7 +921,7 @@ cd();setInterval(cd,1000);
 
 // dates: a spinning wheel of date cards. Filter by where and mood, save with the heart, or spin for a surprise.
 const DATES=window.DATES,WHERE=window.DATE_WHERE,svgIcon=window.dateIcon;
-const WHERE_F=[["all","Anywhere"],["app","In the app"],["apart","While apart"],["together","When you visit"],["saved","Saved"]];
+const WHERE_F=[["all","Anywhere"],["apart","While apart"],["together","When you visit"],["saved","Saved"]];
 const MOOD_F=[["any","Any mood"],["cozy","Cozy"],["adventurous","Adventurous"],["free","Free"]];
 const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20Z"/></svg>';
 const stage=document.getElementById("stage"),ring=document.getElementById("ring"),countEl=document.getElementById("dCount"),detailEl=document.getElementById("detail"),dSave=document.getElementById("dSave");
@@ -930,11 +929,9 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 let fw="all",fm="any",favs=[],list=[],cards=[],rot=0,step=0,radius=400,anim=null,auto=!reduce,front=-1,spinning=false;
 try{favs=JSON.parse(localStorage.getItem("ldr-saved-dates")||"[]")}catch(e){}
 const keepFavs=()=>{try{localStorage.setItem("ldr-saved-dates",JSON.stringify(favs))}catch(e){}};
-const isApp=d=>d.k==="arcade"||d.k==="table"||d.tags.includes("app");
 function match(d){
-  if(d.k==="plus")return(fw==="all"||fw==="app")&&fm==="any";
+  if(d.k==="plus")return fw==="all"&&fm==="any";
   if(fw==="saved"&&!favs.includes(d.s))return false;
-  if(fw==="app"&&!isApp(d))return false;
   if((fw==="apart"||fw==="together")&&d.k!==fw)return false;
   return fm==="any"||d.tags.includes(fm);
 }
