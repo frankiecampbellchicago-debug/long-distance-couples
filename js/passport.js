@@ -56,8 +56,22 @@
   ];
 
   const KEY = "liita-passport";
-  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "{}"); return { stamps: v.stamps || [], skip: v.skip || [] }; } catch (e) { return { stamps: [], skip: [] }; } };
-  const save = s => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} };
+  // a, b: your names; issued: a date you picked; pa, pb: your photos, shrunk to small JPEGs
+  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "{}"); return Object.assign({}, v, { stamps: v.stamps || [], skip: v.skip || [] }); } catch (e) { return { stamps: [], skip: [] }; } };
+  const save = s => { try { localStorage.setItem(KEY, JSON.stringify(s)); return true; } catch (e) { return false; } };
+  // shrink a photo so two of them fit comfortably in this device's storage
+  const shrink = file => new Promise((ok, bad) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const k = Math.min(1, 420 / Math.max(img.width, img.height)), c = document.createElement("canvas");
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url); ok(c.toDataURL("image/jpeg", .8));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); bad(); };
+    img.src = url;
+  });
+  const mrz = t => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z]+/g, "<").replace(/^<|<$/g, "");
   const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
   const pano = ([lat, lon]) => "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + lat + "," + lon;
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
@@ -89,17 +103,30 @@
     const pickSel = $("ppPick");
     P.forEach((p, i) => { const o = document.createElement("option"); o.value = i; o.textContent = p.c; pickSel.appendChild(o); });
 
-    // The data page: passport number and issue date come from the first stamp, plus the two machine-readable lines.
+    // The data page: your names, photos and issue date if you've set them; otherwise the passport number and
+    // issue date come from the first stamp. Plus the two machine-readable lines.
     function fillDataPage() {
       const first = st.stamps[0], n = st.stamps.length;
       const no = "LI" + String(first ? first.t % 1e7 : 0).padStart(7, "0");
-      const d = first ? new Date(first.t) : null;
+      const d = st.issued ? new Date(st.issued + "T00:00") : first ? new Date(first.t) : null;
+      const a = (st.a || "").trim(), b = (st.b || "").trim();
+      $("ppHolders").textContent = a && b ? (a + " & " + b).toUpperCase() : (a || b || "The two of you").toUpperCase();
+      const sig = $("ppSig"); sig.innerHTML = "";
+      (a || b ? [a, b].filter(Boolean) : ["Us, together"]).forEach(x => { const sp = document.createElement("span"); sp.textContent = x; sig.appendChild(sp); });
+      [["a", "ppImgA"], ["b", "ppImgB"]].forEach(([w, id]) => {
+        const img = $(id), src = st["p" + w];
+        img.hidden = !src; if (src) img.src = src; else img.removeAttribute("src");
+        img.alt = src ? "Photo of " + (st[w] || (w === "a" ? "you" : "them")) : "";
+        document.querySelector('.ppnophoto[data-who="' + w + '"]').hidden = !src;
+        img.parentNode.querySelector(".ppadd").textContent = src ? "Change photo" : "Add a photo";
+      });
       const yymmdd = d ? String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0") : "000000";
       $("ppNo").textContent = no;
       $("ppIssued").textContent = d ? d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase() : "FIRST STAMP";
       $("ppHeld").textContent = n + " / " + P.length;
       const line = t => (t + "<".repeat(44)).slice(0, 44);
-      $("ppMrz").textContent = line("P<LITATHE<TWO<OF<YOU<<LONG<DISTANCE") + "\n" + line(no + "<" + (n % 10) + "LDR" + yymmdd + "<" + String(n).padStart(2, "0") + "<<TOGETHER");
+      const names = a || b ? [mrz(a), mrz(b)].filter(Boolean).join("<<") : "THE<TWO<OF<YOU";
+      $("ppMrz").textContent = line("P<LITA" + names + "<<LONG<DISTANCE") + "\n" + line(no + "<" + (n % 10) + "LDR" + yymmdd + "<" + String(n).padStart(2, "0") + "<<TOGETHER");
     }
 
     // fresh: the stamp that was just added lands with a thump.
@@ -219,7 +246,7 @@
         return;
       }
       clearTimeout(disarm); delete b.dataset.armed; b.textContent = "Reset";
-      st = { stamps: [], skip: [] }; save(st); renderBook();
+      st.stamps = []; st.skip = []; save(st); renderBook();
       if (cur !== null) show(cur);
     });
 
@@ -227,6 +254,27 @@
     const ros = '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width=".55">' +
       Array.from({ length: 40 }, (_, i) => { const a = i * Math.PI / 20; return '<circle cx="' + (100 + 44 * Math.cos(a)).toFixed(1) + '" cy="' + (100 + 44 * Math.sin(a)).toFixed(1) + '" r="44"/>'; }).join("") + "</svg>";
     document.querySelectorAll("#ppBook .ppros").forEach(el => { el.innerHTML = ros; });
+
+    // Personalize: names, issue date and a photo each. Photos can be added any time by tapping them.
+    $("ppEdit").addEventListener("click", () => {
+      const on = $("ppBook").classList.toggle("editing");
+      $("ppEdit").textContent = on ? "Done" : "Personalize";
+      $("ppEdit").setAttribute("aria-pressed", on);
+      if (on) { $("ppNameA").value = st.a || ""; $("ppNameB").value = st.b || ""; $("ppIssue").value = st.issued || ""; $("ppNameA").focus(); }
+    });
+    [["ppNameA", "a"], ["ppNameB", "b"], ["ppIssue", "issued"]].forEach(([id, k]) => $(id).addEventListener("input", () => { st[k] = $(id).value.trim(); save(st); fillDataPage(); }));
+    [["ppPhotoA", "a"], ["ppPhotoB", "b"]].forEach(([id, w]) => $(id).addEventListener("change", async () => {
+      const f = $(id).files[0]; $(id).value = ""; if (!f) return;
+      try { st["p" + w] = await shrink(f); } catch (e) { return; }
+      if (!save(st)) { delete st["p" + w]; save(st); alertLine("That photo didn't fit on this device. Try a smaller one."); }
+      fillDataPage();
+    }));
+    document.querySelectorAll(".ppnophoto").forEach(b => b.addEventListener("click", () => { delete st["p" + b.dataset.who]; save(st); fillDataPage(); }));
+    function alertLine(msg) {
+      let p = document.querySelector(".pperr");
+      if (!p) { p = document.createElement("p"); p.className = "pperr"; p.setAttribute("role", "alert"); document.querySelector(".ppdatabody").after(p); }
+      p.textContent = msg; setTimeout(() => p.remove(), 5000);
+    }
 
     renderBook();
     const want = new URLSearchParams(location.search).get("c");
