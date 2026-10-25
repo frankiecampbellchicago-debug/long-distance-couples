@@ -66,7 +66,7 @@
       const n = st.i.length, d = st.i.filter(x => x.done).length;
       $("blTitle").textContent = st.a && st.b ? st.a + " & " + st.b + "'s list" : "Our bucket list";
       $("blNum").textContent = d + " of " + n;
-      $("blRing").style.setProperty("--p", n ? d / n : 0);
+      $("blRing").style.setProperty("--done", n ? d / n : 0);
       $("blMsg").textContent = !n ? "Start with three things." : d === n ? "Every single one. Time to add more." : d ? (n - d) + " still to go." : "Nothing ticked off yet. Soon.";
     };
     const render = () => { draw($("blList"), st.i, true, filter); head(); };

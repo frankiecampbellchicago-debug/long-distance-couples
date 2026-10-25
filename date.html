@@ -1258,54 +1258,75 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 .tlend h3{font-size:30px;margin-top:6px}
 .tlend .cdacts{justify-content:center;margin-top:8px}
 
-/* Bucket list: a field journal, grouped by kind, ticked off with a stamp */
-.finder.bucket{background:#f5f1e6;background-image:radial-gradient(rgba(95,113,72,.16) 1px,transparent 1.3px);background-size:18px 18px}
-.blhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px}
-.blheadtext{display:grid;gap:6px}
-.blhead h2{font-size:clamp(32px,5vw,44px)}
-.blring{--p:0;position:relative;width:150px;height:150px;flex:none;border-radius:50%;display:grid;place-content:center;justify-items:center;text-align:center;background:conic-gradient(#5f7148 calc(var(--p)*100%),rgba(95,113,72,.15) 0);transition:--p .6s}
-.blring::before{content:"";position:absolute;inset:12px;border-radius:50%;background:#fffdf6}
-.blring>*{position:relative}
-.blring b{font:600 32px/1 var(--display)}
-.blring small{font:800 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.blring p{font-size:11.5px;line-height:1.25;color:var(--muted);max-width:100px;margin-top:4px}
-.bladd{--c:#2c5d8a;display:grid;gap:12px;background:#fffdf6;border-radius:14px;padding:18px;box-shadow:0 0 0 1px rgba(47,36,27,.08),0 14px 24px -20px rgba(40,30,10,.6);border-top:5px solid var(--c);transition:border-color .3s}
-.blcats{display:flex;flex-wrap:wrap;gap:6px}
-.blcats button{--c:#2c5d8a;display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;padding:7px 14px 7px 10px;font:700 13px var(--body);color:var(--c);background:color-mix(in srgb,var(--c) 9%,#fff);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c) 22%,transparent);cursor:pointer}
+/* Bucket list: an adventure map in deep teal, a route that fills as you go, and a ticket for each kind of plan */
+.finder.bucket{background-color:#1f3b35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%23e9dcbf' stroke-opacity='.09' stroke-width='1.2'%3E%3Cpath d='M-20 80c60-40 120 30 190-10s120-50 210 0'/%3E%3Cpath d='M-20 110c70-40 130 30 200-5s120-45 200 5'/%3E%3Cpath d='M-20 140c80-35 140 35 210 0s110-40 190 10'/%3E%3Cpath d='M-20 250c50 30 110-40 180-5s140 40 220-10'/%3E%3Cpath d='M-20 280c60 30 120-35 190 0s130 35 210-10'/%3E%3Cellipse cx='280' cy='200' rx='46' ry='30'/%3E%3Cellipse cx='280' cy='200' rx='28' ry='17'/%3E%3Cellipse cx='280' cy='200' rx='11' ry='6'/%3E%3Cellipse cx='70' cy='200' rx='34' ry='22'/%3E%3Cellipse cx='70' cy='200' rx='16' ry='9'/%3E%3C/g%3E%3C/svg%3E"),radial-gradient(ellipse at 15% 0,rgba(233,196,120,.16),transparent 55%);background-size:360px 360px,auto;color:#f3ead6;border:0}
+.bucket .sub,.bucket .credit{color:rgba(243,234,214,.7)}
+.bucket .eyebrow{color:#e9c478}
+.bucket .cderr{color:#ffab94}
+.bucket .cdhero h2{color:#f3ead6}
+.blhead{display:grid;gap:6px}
+.blhead h2{font-size:clamp(34px,5.5vw,52px);color:#f3ead6}
+.bucket .drnames{color:rgba(243,234,214,.6)}
+.bucket .drnames input{color:#f3ead6;border-bottom-color:rgba(233,196,120,.55)}
+.bucket .drnames input::placeholder{color:rgba(243,234,214,.38)}
+.bucket .drnames i{color:#e9c478}
+.blroute{--done:0;display:grid;gap:10px;background:rgba(0,0,0,.18);border:1px solid rgba(233,196,120,.2);border-radius:16px;padding:14px 20px 18px}
+.blroutetop{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;font-size:14px;color:rgba(243,234,214,.75)}
+.blroutetop b{font:600 26px var(--display);color:#f3ead6}
+.bltrack{position:relative;height:30px;margin:0 16px 0 6px}
+.bltrack::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2.5px dashed rgba(243,234,214,.35)}
+.blfill{position:absolute;left:0;top:50%;height:3px;margin-top:-1.5px;width:calc(var(--done) * 100%);background:#e9c478;border-radius:3px;transition:width .7s cubic-bezier(.3,1,.4,1)}
+.blplane{position:absolute;top:50%;left:calc(var(--done) * 100%);width:30px;height:30px;margin:-15px 0 0 -15px;display:grid;place-items:center;border-radius:50%;background:#e9c478;color:#1f3b35;box-shadow:0 0 0 5px rgba(233,196,120,.2);transition:left .7s cubic-bezier(.3,1,.4,1)}
+.blplane svg{width:18px;height:18px;transform:rotate(90deg)}
+.blflag{position:absolute;right:-18px;top:50%;margin-top:-13px;width:26px;height:26px;color:#e46a5a}
+.blflag svg{width:100%;height:100%}
+.bladd{--c:#2c5d8a;position:relative;display:grid;gap:12px;background:#fbf4e4;color:var(--ink);border-radius:16px;padding:18px 20px 20px;box-shadow:0 18px 30px -20px rgba(0,0,0,.8)}
+.bladd::before{content:"Add to the list";position:absolute;top:-11px;left:20px;font:800 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;background:#e9c478;color:#2a1d0c;border-radius:99px;padding:4px 12px}
+.blcats{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.blcats button{--c:#2c5d8a;display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;padding:7px 14px 7px 10px;font:700 13px var(--body);color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c) 22%,transparent);cursor:pointer;transition:transform .2s}
+.blcats button:hover{transform:translateY(-2px)}
 .blcats button svg{width:17px;height:17px}
 .blcats button[aria-selected=true]{background:var(--c);color:#fdf3e4;box-shadow:0 6px 12px -6px var(--c)}
 .blform{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
-.blform input{font:16px var(--body);color:var(--ink);background:#fff;border:1.5px solid #e2dccd;border-radius:8px;padding:12px 14px;min-width:0}
+.blform input{font:16px var(--body);color:var(--ink);background:#fff;border:1.5px solid #e6dcc6;border-radius:10px;padding:12px 14px;min-width:0}
 .blform input:focus{outline:none;border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 15%,transparent)}
-.blform .btn{background:var(--c)}
+.blform .btn{background:var(--c);border-radius:10px}
 .blideahead{font:800 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .blideas{display:flex;flex-wrap:wrap;gap:6px}
 .blidea{border:1.5px dashed color-mix(in srgb,var(--c) 40%,transparent);background:transparent;color:var(--ink);border-radius:999px;padding:6px 13px;font:600 13px var(--body);cursor:pointer}
 .blidea::before{content:"+ ";color:var(--c);font-weight:800}
 .blidea:hover{background:color-mix(in srgb,var(--c) 8%,#fff);border-style:solid}
 .blnone{font-size:13px;color:var(--muted);font-style:italic}
-.bllist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
-.blgroup{--c:#2c5d8a;background:#fffdf6;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px rgba(47,36,27,.08),0 12px 20px -18px rgba(40,30,10,.6)}
-.blgroup h3{display:flex;align-items:center;gap:10px;padding:12px 16px;background:color-mix(in srgb,var(--c) 10%,#fffdf6);color:var(--c);font:700 15px var(--body);border-bottom:2px solid var(--c)}
-.blgroup h3 small{margin-left:auto;font:800 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;opacity:.8}
-.blico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--c);color:#fdf3e4}
-.blico svg{width:17px;height:17px}
-.blgroup ul{list-style:none;margin:0;padding:4px 0}
-.blgroup li{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px dashed rgba(47,36,27,.1)}
-.blgroup li:last-child{border-bottom:0}
-.blcheck{width:24px;height:24px;border-radius:50%;border:2px solid color-mix(in srgb,var(--c) 55%,transparent);background:#fff;padding:0;cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}
-button.blcheck:hover{transform:scale(1.1)}
-.blgroup li.done .blcheck{background:var(--c);border-color:var(--c)}
-.blgroup li.done .blcheck::after{content:"\2713";color:#fff;font:800 13px/1 var(--body)}
-.bltext{font-size:15px;line-height:1.35}
-.blgroup li.done .bltext{color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--c) 60%,transparent);text-decoration-thickness:2px}
-.blstamp{position:absolute;right:42px;top:50%;display:grid;justify-items:center;padding:2px 8px;border:2px solid var(--c);border-radius:5px;color:var(--c);font:800 9px var(--mono);letter-spacing:.08em;text-transform:uppercase;transform:translateY(-50%) rotate(-8deg);background:rgba(255,253,246,.88);opacity:.9;pointer-events:none;animation:blstamp .35s cubic-bezier(.3,1.6,.5,1)}
-.blstamp b{font:800 12px var(--mono);letter-spacing:.2em}
-@keyframes blstamp{from{transform:translateY(-50%) rotate(-8deg) scale(1.8);opacity:0}}
-.blx{border:0;background:none;color:var(--muted);font-size:20px;line-height:1;padding:2px 4px;cursor:pointer;opacity:.5}
+.bucket .pillgroup button{background:rgba(243,234,214,.1);color:#f3ead6}
+.bucket .pillgroup button[aria-pressed=true]{background:#e9c478;color:#2a1d0c}
+.bllist{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px 18px;align-items:start}
+/* each kind of plan is a ticket: a colored stub with notches, then the list on cream */
+.blgroup{--c:#2c5d8a;position:relative;background:#fbf4e4;color:var(--ink);border-radius:14px;box-shadow:0 18px 28px -20px rgba(0,0,0,.85)}
+.blgroup h3{position:relative;display:flex;align-items:center;gap:12px;margin:0;padding:14px 18px 16px;background:var(--c);color:#fdf3e4;border-radius:14px 14px 0 0;font:600 24px/1.1 var(--display)}
+.blgroup h3::before,.blgroup h3::after{content:"";position:absolute;bottom:-9px;width:18px;height:18px;border-radius:50%;background:#1f3b35;z-index:1}
+.blgroup h3::before{left:-9px}.blgroup h3::after{right:-9px}
+.blgroup h3 small{margin-left:auto;font:800 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.18);border-radius:99px;padding:4px 10px}
+.blgroup ul{list-style:none;margin:0;padding:8px 0 6px;border-top:2.5px dashed color-mix(in srgb,var(--c) 30%,#e6dcc6)}
+.blico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#fdf3e4;color:var(--c);transform:rotate(-6deg);flex:none}
+.blico svg{width:19px;height:19px}
+.blgroup li{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 14px 10px 16px}
+.blgroup li+li{border-top:1px solid rgba(47,36,27,.07)}
+.blcheck{width:26px;height:26px;border-radius:8px;border:2px solid color-mix(in srgb,var(--c) 55%,transparent);background:#fff;padding:0;cursor:pointer;display:grid;place-items:center;transform:rotate(-4deg);transition:background .2s,transform .2s}
+button.blcheck:hover{transform:rotate(0) scale(1.1)}
+.blgroup li.done .blcheck{background:var(--c);border-color:var(--c);transform:rotate(0)}
+.blgroup li.done .blcheck::after{content:"\2713";color:#fff;font:800 14px/1 var(--body)}
+.bltext{font:500 19px/1.25 var(--display)}
+.blgroup li.done .bltext{color:#8a7b68}
+.blstamp{position:absolute;right:40px;top:50%;display:grid;justify-items:center;padding:3px 10px;border:2.5px double var(--c);border-radius:50% / 40%;color:var(--c);font:800 9px var(--mono);letter-spacing:.08em;text-transform:uppercase;transform:translateY(-50%) rotate(-10deg);background:rgba(251,244,228,.75);opacity:.85;pointer-events:none;animation:blstamp .35s cubic-bezier(.3,1.6,.5,1)}
+.blstamp b{font:800 12px var(--mono);letter-spacing:.22em}
+@keyframes blstamp{from{transform:translateY(-50%) rotate(-10deg) scale(1.9);opacity:0}}
+.blx{border:0;background:none;color:#a89880;font-size:20px;line-height:1;padding:2px 4px;cursor:pointer;opacity:.6}
 .blx:hover{opacity:1;color:#a8362f}
-.blgroup li:has(.blstamp) .bltext{padding-right:90px}
-.blempty{color:var(--muted);font-style:italic;text-align:center;padding:20px}
+.blgroup li:has(.blstamp) .bltext{padding-right:96px}
+.blempty{grid-column:1/-1;color:rgba(243,234,214,.7);font:italic 500 22px var(--display);text-align:center;padding:30px 20px;border:2px dashed rgba(233,196,120,.35);border-radius:16px}
+.bucket .cdacts{justify-content:center}
+.bucket .btn.red{background:#e9c478;color:#2a1d0c}
+.bladd .btn.red{background:var(--c);color:#fdf3e4}
 
 /* Love Language Night: rose and lavender, a bar for each language */
 .finder.lovelang{background:linear-gradient(160deg,#fbe6e6,#ece4f3 70%);border:0}
@@ -1421,14 +1442,13 @@ button.blcheck:hover{transform:scale(1.1)}
   .tlround{padding:14px 12px 16px}
   .tlcard{min-height:110px;padding:26px 16px 30px}
   .tltable{padding:20px 14px 24px}
-  .blring{width:96px;height:96px}
-  .blring b{font-size:24px}
-  .blhead{flex-wrap:nowrap;align-items:flex-start}
-  .bucket .drnames input{width:104px;font-size:20px}
+  .blroute{padding:12px 14px 16px}
+  .blgroup h3{font-size:21px}
+  .bucket .drnames input{width:112px;font-size:20px}
+  .bucket .drnames span{display:none}
   .blcats{flex-wrap:nowrap;overflow-x:auto;margin:0 -18px;padding:2px 18px 6px;scrollbar-width:none;mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
   .blcats::-webkit-scrollbar{display:none}
   .blcats button{flex:none}
-  .blring p{display:none}
   .bllist{grid-template-columns:minmax(0,1fr)}
   .llduo{grid-template-columns:minmax(0,1fr)}
   .llbars li{grid-template-columns:110px minmax(0,1fr) 18px;font-size:12.5px}
@@ -2127,7 +2147,10 @@ button.blcheck:hover{transform:scale(1.1)}
             <h2 id="blTitle">Our bucket list</h2>
             <div class="drnames"><span>Made by</span><input id="blA" type="text" maxlength="40" autocomplete="given-name" placeholder="Your name" aria-label="Your name"><i>&amp;</i><input id="blB" type="text" maxlength="40" autocomplete="off" placeholder="Their name" aria-label="Their name"></div>
           </div>
-          <div class="blring" id="blRing"><b id="blNum">0 of 0</b><small>done</small><p id="blMsg"></p></div>
+        </div>
+        <div class="blroute" id="blRing">
+          <div class="blroutetop"><p><b id="blNum">0 of 0</b> done</p><p id="blMsg"></p></div>
+          <div class="bltrack"><i class="blfill"></i><span class="blplane"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="currentColor"/></svg></span><span class="blflag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></span></div>
         </div>
         <div class="bladd" id="blAddBox">
           <div class="blcats" id="blCats" role="tablist" aria-label="Kind of thing"></div>
@@ -2318,7 +2341,7 @@ button.blcheck:hover{transform:scale(1.1)}
 <script src="js/passport.js?v=ac3d235e"></script>
 <script src="js/wyr.js?v=bdde5bf7"></script>
 <script src="js/truths.js?v=2dfaa41b"></script>
-<script src="js/bucket.js?v=2cef2a76"></script>
+<script src="js/bucket.js?v=cbf26e28"></script>
 <script src="js/lovelang.js?v=c86e0a37"></script>
 <script src="js/bingo.js?v=5fcdef89"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
