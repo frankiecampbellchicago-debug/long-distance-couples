@@ -44,7 +44,7 @@
   $("page").hidden = false;
 
   // Plus dates: a preview and the waitlist until Plus launches. ?plus=preview unlocks this device for testing.
-  const plusOn = (() => { try { const q = new URLSearchParams(location.search).get("plus"); if (q === "preview") localStorage.setItem("liita-plus", "1"); if (q === "off") localStorage.removeItem("liita-plus"); return localStorage.getItem("liita-plus") === "1"; } catch (e) { return false; } })();
+  const plusOn = (() => { try { const q = new URLSearchParams(location.search).get("plus"); if (q === "preview") localStorage.setItem("liita-plus", "1"); if (q === "off") localStorage.removeItem("liita-plus"); } catch (e) {} return window.plusOn(); })();
   // Someone opening a link they were sent (a calendar, a quiz, a character) doesn't need Plus; only the person making it does.
   const gift = more.gift && location.hash.startsWith("#" + more.gift + "=");
   if (d.plus && !plusOn && !gift) { $("plusGate").hidden = false; return; }

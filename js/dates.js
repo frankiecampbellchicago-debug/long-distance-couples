@@ -1,4 +1,8 @@
 // Every date idea, shared by the home page carousel and the date.html "View more" page.
+// Plus switch. true = everything Plus is open to everyone (for checking the site before launch).
+// false = Plus is locked again, except on devices unlocked with date.html?plus=preview.
+window.PLUS_OPEN = true;
+window.plusOn = () => { if (window.PLUS_OPEN) return true; try { return localStorage.getItem("liita-plus") === "1"; } catch (e) { return false; } };
 window.DATES=[
  {s:"movie-night",k:"apart",i:"popcorn",t:"Movie night, in sync",d:"Count down and press play on the same movie at the same second. Keep a call open for the commentary.",f:["Free","2–3 hrs"],tags:["free","cozy"]},
  {s:"order-dinner",k:"apart",i:"takeout",t:"Order each other dinner",d:"Each of you picks a meal and has it delivered to the other's door. Eat together on video.",f:["$$","1 hr"],tags:["cozy"]},

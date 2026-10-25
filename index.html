@@ -902,7 +902,7 @@ section.band{position:relative;isolation:isolate}
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=99657423"></script>
+<script src="js/dates.js?v=071281cd"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script>
 // visit countdown (defaults to an example date 23 days out)
@@ -940,8 +940,6 @@ function match(d){
   if((fw==="apart"||fw==="together")&&d.k!==fw)return false;
   return fm==="any"||d.tags.includes(fm);
 }
-// set on this device by date.html?plus=preview until real Plus accounts exist
-function plusOn(){try{return localStorage.getItem("liita-plus")==="1"}catch(e){return false}}
 function chipRow(el,items,get,set){items.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.dataset.k=k;b.textContent=label;
   b.setAttribute("aria-pressed",k===get());b.addEventListener("click",()=>{set(k);el.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));build()});el.appendChild(b)})}
 chipRow(document.getElementById("chipsWhere"),WHERE_F,()=>fw,k=>fw=k);
@@ -1018,6 +1016,7 @@ addEventListener("resize",()=>{size();render()});
 build();
 
 // deep talks: pick a topic, flip through the deck, take turns, save the good ones
+const talkOpen=t=>t.free||plusOn(); // Plus topics open with Plus (see PLUS_OPEN in js/dates.js)
 const TALKS=window.DEEP_TALKS,TOPIC={"Getting closer":["heart","together"],"Dreams & future":["map","apart"],"Just for fun":["popcorn","arcade"],
   "Trust & hard stuff":["key","table"],"Intimacy":["moon","together"],"Money & moving":["plane","apart"]};
 const LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
@@ -1030,17 +1029,17 @@ qEl("nameMe").value=names.me;qEl("nameThem").value=names.them;
 const keepQ=()=>{try{localStorage.setItem("ldr-saved-qs",JSON.stringify(savedQs))}catch(e){}};
 Object.keys(TALKS).forEach(k=>{const [ic,kind]=TOPIC[k]||["heart","together"],t=TALKS[k],b=document.createElement("button");
   b.type="button";b.className="tpc k-"+kind;b.setAttribute("aria-pressed",k===cat);
-  b.innerHTML=svgIcon(ic,"",kind)+"<b></b><small></small>"+(t.free?"":'<span class="lock" title="Plus">'+LOCK+"</span>");
-  b.querySelector("b").textContent=k;b.querySelector("small").textContent=t.free?t.q.length+" questions · Free":"Plus";
+  b.innerHTML=svgIcon(ic,"",kind)+"<b></b><small></small>"+(talkOpen(t)?"":'<span class="lock" title="Plus">'+LOCK+"</span>");
+  b.querySelector("b").textContent=k;b.querySelector("small").textContent=talkOpen(t)?t.q.length+" questions · "+(t.free?"Free":"Plus"):"Plus";
   b.addEventListener("click",()=>{if(cat===k)return;cat=k;idx=0;catsEl.querySelectorAll(".tpc").forEach(x=>x.setAttribute("aria-pressed",x===b));swap(1)});
   catsEl.appendChild(b)});
 const who=n=>n===0?(names.me.trim()?names.me.trim()+"'s turn":"Your turn"):((names.them.trim()||"Their")+"'s turn");
 function showQ(){const t=TALKS[cat],[ic,kind]=TOPIC[cat]||["heart","together"],n=((idx%t.q.length)+t.q.length)%t.q.length,q=t.q[n];
-  deck.className="qdeck k-"+kind;qcard.classList.toggle("locked",!t.free);
+  deck.className="qdeck k-"+kind;qcard.classList.toggle("locked",!talkOpen(t));
   qEl("qIcon").innerHTML=svgIcon(ic,"",kind);qEl("qCat").textContent=cat;qEl("q").textContent=q;
-  qEl("qnum").textContent=t.free?(n+1)+" / "+t.q.length:"Plus";qEl("lockmsg").hidden=t.free;
-  ["nextQ","prevQ","shufQ"].forEach(id=>qEl(id).disabled=!t.free);
-  qEl("qbar").style.width=t.free?((n+1)/t.q.length*100)+"%":"0%";
+  qEl("qnum").textContent=talkOpen(t)?(n+1)+" / "+t.q.length:"Plus";qEl("lockmsg").hidden=talkOpen(t);
+  ["nextQ","prevQ","shufQ"].forEach(id=>qEl(id).disabled=!talkOpen(t));
+  qEl("qbar").style.width=talkOpen(t)?((n+1)/t.q.length*100)+"%":"0%";
   qEl("turn").textContent=who((n+first)%2);
   const on=savedQs.some(x=>x.q===q),sv=qEl("saveQ");sv.innerHTML=HEART;sv.setAttribute("aria-pressed",on);sv.setAttribute("aria-label",on?"Unsave this question":"Save this question");
 }
@@ -1050,9 +1049,9 @@ function swap(dir,change){if(reduce){if(change)change();showQ();return}
 qEl("nextQ").addEventListener("click",()=>swap(1,()=>idx++));
 qEl("prevQ").addEventListener("click",()=>swap(-1,()=>idx--));
 qEl("shufQ").addEventListener("click",()=>{const len=TALKS[cat].q.length;swap(1,()=>{let r;do{r=Math.floor(Math.random()*len)}while(len>1&&r===((idx%len)+len)%len);idx=r})});
-deck.addEventListener("keydown",e=>{if(!TALKS[cat].free)return;if(e.key==="ArrowRight"){e.preventDefault();qEl("nextQ").click()}if(e.key==="ArrowLeft"){e.preventDefault();qEl("prevQ").click()}});
+deck.addEventListener("keydown",e=>{if(!talkOpen(TALKS[cat]))return;if(e.key==="ArrowRight"){e.preventDefault();qEl("nextQ").click()}if(e.key==="ArrowLeft"){e.preventDefault();qEl("prevQ").click()}});
 // swipe the card on phones
-let sx=null;deck.addEventListener("pointerdown",e=>{sx=e.clientX});deck.addEventListener("pointerup",e=>{if(sx===null||!TALKS[cat].free)return;const dx=e.clientX-sx;sx=null;
+let sx=null;deck.addEventListener("pointerdown",e=>{sx=e.clientX});deck.addEventListener("pointerup",e=>{if(sx===null||!talkOpen(TALKS[cat]))return;const dx=e.clientX-sx;sx=null;
   if(Math.abs(dx)>50&&!e.target.closest("button,a"))qEl(dx<0?"nextQ":"prevQ").click()});
 function renderSaved(){const ul=qEl("savedList");ul.innerHTML="";qEl("savedN").textContent=savedQs.length?savedQs.length:"";
   if(!savedQs.length){const li=document.createElement("li");li.className="none";li.textContent="Tap the heart on a question to keep it here for your next call.";ul.appendChild(li);return}
