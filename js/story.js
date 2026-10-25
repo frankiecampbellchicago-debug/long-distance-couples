@@ -19,6 +19,14 @@
 
   const fmt = s => { if (!s) return ""; const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }); };
   const year = s => (s || "").slice(0, 4);
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const WORDS = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+  // the postmark on each moment: month, day and year, or "someday" for an undated one
+  const post = d => {
+    if (!d) return '<span class="stpost none" aria-hidden="true"><b>Some day</b></span>';
+    const [y, m, dd] = d.split("-").map(Number);
+    return '<span class="stpost" aria-hidden="true"><i>' + MON[m - 1] + "</i><b>" + dd + "</b><i>" + y + "</i></span>";
+  };
   const sorted = m => m.slice().sort((a, b) => (a.d || "9999").localeCompare(b.d || "9999"));
   const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 
@@ -51,14 +59,30 @@
     const m = sorted(st.m);
     box.innerHTML = "";
     if (!m.length) { box.innerHTML = '<li class="stghost"><span>Your first memory goes here</span><small>Start with how you met</small></li>'; return; }
-    let y = "";
-    // moments alternate sides of the thread, each held on with a different piece of tape
-    m.forEach((x, i) => {
-      if (year(x.d) !== y) { y = year(x.d); const h = document.createElement("li"); h.className = "styear"; h.textContent = y || "Someday"; box.appendChild(h); }
-      const li = document.createElement("li"); li.className = "stmoment " + (i % 2 ? "r" : "l") + " tape" + (i % 4) + (x.img ? " pol" : ""); li.dataset.id = x.id;
-      li.innerHTML = (x.img ? '<img alt="" src="' + x.img + '">' : "") + '<div><p class="stdate">' + esc(fmt(x.d)) + "</p><h4>" + esc(x.t) + "</h4>" + (x.x ? '<p class="sttext">' + esc(x.x) + "</p>" : "") +
-        (editable ? '<div class="stacts"><button class="linkbtn" type="button" data-act="edit">Edit</button><button class="linkbtn" type="button" data-act="del">Remove</button></div>' : "") + "</div>";
-      box.appendChild(li);
+    const since = st.since ? new Date(st.since + "T00:00") : null;
+    // each year is a chapter: a tag on the thread, then its moments hung on alternating sides.
+    // On a phone the two sides fold into one column, and order keeps them in date order.
+    let y = null, ch = 0, n = 0, cols;
+    m.forEach(x => {
+      if (year(x.d) !== y) {
+        y = year(x.d); ch++;
+        const h = document.createElement("li"); h.className = "styear";
+        h.innerHTML = '<span class="sttag"><small>Chapter ' + (WORDS[ch - 1] || ch) + "</small><b>" + esc(y || "Someday") + "</b></span>";
+        const g = document.createElement("li"); g.className = "stgroup";
+        g.innerHTML = '<div class="stcol l"></div><div class="stcol r"></div>';
+        box.append(h, g); cols = g.children; n = 0;
+      }
+      const day = since && x.d ? Math.floor((new Date(x.d + "T00:00") - since) / 864e5) + 1 : 0;
+      const li = document.createElement("div");
+      li.className = "stmoment k" + (n % 4) + " tape" + (n % 4) + (x.img ? " pol" : ""); li.dataset.id = x.id;
+      li.style.order = n;
+      li.innerHTML = '<span class="stknot" aria-hidden="true"></span>' + post(x.d) +
+        (x.img ? '<span class="stpol"><img alt="" src="' + x.img + '"></span>' : "") +
+        '<p class="vh">' + esc(fmt(x.d) || "Undated") + "</p><h4>" + esc(x.t) + "</h4>" +
+        (day > 0 ? '<p class="stday">Day ' + day.toLocaleString() + " of us</p>" : "") +
+        (x.x ? '<p class="sttext">' + esc(x.x) + "</p>" : "") +
+        (editable ? '<div class="stacts"><button class="linkbtn" type="button" data-act="edit">Edit</button><button class="linkbtn" type="button" data-act="del">Remove</button></div>' : "");
+      cols[n++ % 2].appendChild(li);
     });
   }
 
