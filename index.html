@@ -347,6 +347,8 @@ section.band{padding-block:80px}
 .detail h3{font-size:30px;padding-right:48px}
 .detail p{margin:0;color:var(--muted)}
 .detail .facts{display:flex;flex-wrap:wrap;gap:8px}
+.detail .facts .pvbtn{font:700 13px var(--body);color:var(--red);background:transparent;border:1.5px solid var(--red);border-radius:3px;padding:6px 14px;cursor:pointer}
+.detail .facts .pvbtn:hover{background:var(--red);color:var(--onblue)}
 .detail .facts span{font:700 12px var(--mono);border:1px solid var(--line);border-radius:3px;padding:4px 10px;color:var(--muted)}
 .detail .btn{justify-self:start;margin-top:4px}
 .detail.in{animation:dIn .35s cubic-bezier(.2,.8,.3,1)}
@@ -937,6 +939,9 @@ function match(d){
   if((fw==="apart"||fw==="together")&&d.k!==fw)return false;
   return fm==="any"||d.tags.includes(fm);
 }
+// set on this device by date.html?plus=preview until real Plus accounts exist
+function plusOn(){try{return localStorage.getItem("liita-plus")==="1"}catch(e){return false}}
+function showPlusDates(){fw="plus";document.querySelectorAll("#chipsWhere .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.k==="plus"));build();document.getElementById("chipsWhere").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})}
 function chipRow(el,items,get,set){items.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.dataset.k=k;b.textContent=label;
   b.setAttribute("aria-pressed",k===get());b.addEventListener("click",()=>{set(k);el.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));build()});el.appendChild(b)})}
 chipRow(document.getElementById("chipsWhere"),WHERE_F,()=>fw,k=>fw=k);
@@ -970,8 +975,12 @@ function showDetail(){const d=list[front];if(!d)return;
   const tag=detailEl.querySelector(".pickTag");if(tag)tag.remove();
   document.getElementById("dTile").innerHTML=window.datePhoto(d)+(d.plus?'<span class="plusmark">Plus</span>':"");
   document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;
-  const fx=document.getElementById("dFacts");fx.innerHTML="";d.f.forEach(t=>{const s=document.createElement("span");s.textContent=t;fx.appendChild(s)});
-  const dl=document.getElementById("dLink");dl.href=d.k==="plus"?"#pricing":"date.html?d="+d.s;dl.textContent=d.k==="plus"?"See Plus":"View more";
+  const fx=document.getElementById("dFacts");fx.innerHTML="";const promo=d.k==="plus",member=plusOn();
+  // the Plus card: Preview (shows the Plus dates) and Get Plus; members just get View more
+  if(promo){if(!member){const b=document.createElement("button");b.type="button";b.className="pvbtn";b.textContent="Preview";b.addEventListener("click",showPlusDates);fx.appendChild(b)}}
+  else d.f.forEach(t=>{const s=document.createElement("span");s.textContent=t;fx.appendChild(s)});
+  const dl=document.getElementById("dLink");dl.href=promo?(member?"#dates":"#pricing"):"date.html?d="+d.s;dl.textContent=promo&&!member?"Get Plus":"View more";
+  dl.onclick=promo&&member?e=>{e.preventDefault();showPlusDates()}:null;
   dSave.hidden=d.k==="plus";const on=favs.includes(d.s);dSave.innerHTML=HEART;dSave.setAttribute("aria-pressed",on);dSave.setAttribute("aria-label",(on?"Unsave ":"Save ")+d.t);
   document.getElementById("counter").textContent=(front+1)+" / "+list.length;
   cards.forEach((c,i)=>c.setAttribute("aria-current",i===front?"true":"false"))}
