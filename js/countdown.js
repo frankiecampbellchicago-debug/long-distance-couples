@@ -22,6 +22,19 @@
     p: ["A photo from our last visit", "The view from my window right now", "A photo of us I've never shown you", "Where I'll be waiting for you"]
   };
   const LAST = "The last door. Today we're together.";
+  // each kind gets a color and an icon, on the editor tiles, the doors and the letter
+  const KCOL = { n: "#a8362f", s: "#2c4a7a", q: "#5f7148", m: "#9a5b16", c: "#7a3a6a", p: "#2f6f6a" };
+  const svg = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
+  const ICON = {
+    n: svg('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>'),
+    s: svg('<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>'),
+    q: svg('<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.7v.5M12 17h.01"/>'),
+    m: svg('<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'),
+    c: svg('<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v8a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2z"/><path d="M14 6v12" stroke-dasharray="2 2.5"/>'),
+    p: svg('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),
+    heart: svg('<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>'),
+    lock: svg('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>')
+  };
 
   // dates are "YYYY-MM-DD", read as local midnight
   const day = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
@@ -72,6 +85,8 @@
     const count = () => {
       const n = doors.length, full = doors.filter(x => x[1].trim()).length;
       $("cdCount").textContent = plural(n, "door") + " to fill · " + full + " done" + (between(today(), day($("cdWhen").value)) + 1 > MAX ? " · it starts " + MAX + " days before the visit" : "");
+      // the little calendar up top fills in as doors do
+      $("cdMini").innerHTML = doors.map((x, i) => '<li><button type="button" data-i="' + i + '" class="' + (x[1].trim() ? "full" : "") + (i === n - 1 ? " last" : "") + '" style="--k:' + KCOL[x[0]] + '" aria-label="Door ' + (i + 1) + (x[1].trim() ? ", filled" : ", empty") + '">' + (i === n - 1 ? "♥" : n - 1 - i) + "</button></li>").join("");
     };
 
     function render() {
@@ -83,10 +98,12 @@
       doors.forEach((x, i) => {
         const left = n - 1 - i, li = document.createElement("li");
         li.className = "cdrow"; li.dataset.i = i;
-        li.innerHTML = '<div class="cdrowhead"><b></b><span></span></div>' +
+        li.style.setProperty("--k", KCOL[x[0]]);
+        li.innerHTML = '<div class="cdtile">' + (left ? ICON[x[0]] : ICON.heart) + '<i class="cdtnum">' + (left || "♥") + '</i><i class="cdtday">' + (left ? (left === 1 ? "day left" : "days left") : "together") + "</i></div>" +
+          '<div class="cdrowbody"><div class="cdrowhead"><b></b><span></span></div>' +
           '<select aria-label="What goes behind this door">' + Object.keys(KINDS).map(k => '<option value="' + k + '">' + KINDS[k].name + "</option>").join("") + "</select>" +
           '<textarea rows="2" maxlength="280"></textarea>' +
-          '<div class="cdrowfoot"><input type="url" inputmode="url" placeholder="Link (optional): a song, a photo, a video"><button class="linkbtn" type="button">Give me an idea</button></div>';
+          '<div class="cdrowfoot"><input type="url" inputmode="url" placeholder="Link (optional): a song, a photo, a video"><button class="linkbtn" type="button">Give me an idea</button></div></div>';
         li.querySelector("b").textContent = left ? "Door " + (i + 1) : "The visit";
         li.querySelector("span").textContent = fmt(back(visit, left)) + (left ? " · " + plural(left, "day") + " to go" : " · you're together");
         li.querySelector("select").value = x[0];
@@ -109,6 +126,9 @@
     $("cdDoors").addEventListener("change", e => {
       const li = row(e); if (!li || e.target.tagName !== "SELECT") return;
       const x = doors[li.dataset.i]; x[0] = e.target.value;
+      li.style.setProperty("--k", KCOL[x[0]]);
+      if (+li.dataset.i < doors.length - 1) li.querySelector(".cdtile svg").outerHTML = ICON[x[0]];
+      count();
       if (+li.dataset.i < doors.length - 1) li.querySelector("textarea").placeholder = KINDS[x[0]].ph;
       save();
     });
@@ -130,6 +150,12 @@
       render();
     });
     $("cdWhen").addEventListener("change", render);
+    $("cdMini").addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      const li = $("cdDoors").children[b.dataset.i]; if (!li) return;
+      $("cdDoors").scrollTo({ top: li.offsetTop - $("cdDoors").offsetTop, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      li.querySelector("textarea").focus({ preventScroll: true });
+    });
     ["cdFrom", "cdTo"].forEach(id => $(id).addEventListener("input", save));
 
     const build = () => ({ v: 1, a: $("cdFrom").value.trim().slice(0, 40), b: $("cdTo").value.trim().slice(0, 40), w: $("cdWhen").value, d: doors.map(x => [x[0], x[1].trim(), safeUrl(x[2])]) });
@@ -179,9 +205,11 @@
     function tickClock() {
       const left = between(today(), visit), ms = visit - Date.now();
       $("cdHead").textContent = left > 1 ? left + " days until you see " + from : left === 1 ? "Tomorrow you see " + from : left === 0 ? "Today's the day" : "You made it";
-      if (ms <= 0) { $("cdClock").textContent = left === 0 ? "Go open the last door." : "Every door is open now. Hope the visit was everything."; return; }
+      if (ms <= 0) { $("cdFlip").hidden = true; $("cdClock").textContent = left === 0 ? "Go open the last door." : "Every door is open now. Hope the visit was everything."; return; }
       const s = Math.floor(ms / 1000), p = v => String(v).padStart(2, "0");
-      $("cdClock").textContent = fmt(visit, { weekday: "long", month: "long", day: "numeric" }) + " · " + Math.floor(s / 3600) + ":" + p(Math.floor(s / 60) % 60) + ":" + p(s % 60) + " to go";
+      $("cdClock").textContent = fmt(visit, { weekday: "long", month: "long", day: "numeric" });
+      $("cdFlip").hidden = false;
+      [Math.floor(s / 86400), Math.floor(s / 3600) % 24, Math.floor(s / 60) % 60, s % 60].forEach((v, i) => { const b = $("cdFlip").children[i].firstChild, t = i ? p(v) : String(v); if (b.textContent !== t) b.textContent = t; });
     }
     clearInterval(clock); tickClock(); clock = setInterval(tickClock, 1000);
 
@@ -193,9 +221,14 @@
         const left = n - 1 - i, when = back(visit, left), can = peek || when <= t0, li = document.createElement("li"), b = document.createElement("button");
         b.type = "button"; b.className = "cddoor" + (opened.has(i) ? " opened" : can ? " ready" : " locked") + (left ? "" : " last");
         b.disabled = !can; b.dataset.i = i;
-        b.innerHTML = '<span class="cdnum"></span><small></small>';
-        b.firstChild.textContent = left ? left : "♥";
-        b.lastChild.textContent = !can ? "Opens " + fmt(when, { month: "short", day: "numeric" }) : opened.has(i) ? KINDS[x[0]].name : left ? (left === 1 ? "day to go" : "days to go") : "Together";
+        if (!left) li.className = "cdlast";
+        b.style.setProperty("--k", KCOL[x[0]]);
+        // the inside (seen once it swings open) and the paper door on its hinge
+        b.innerHTML = '<span class="cdinside">' + ICON[x[0]] + "<small></small></span>" +
+          '<span class="cdleaf"><span class="cdnum"></span><small></small>' + (can ? "" : ICON.lock) + "</span>";
+        b.querySelector(".cdinside small").textContent = KINDS[x[0]].name.replace(/^An? /, "");
+        b.querySelector(".cdnum").textContent = left ? left : "♥";
+        b.querySelector(".cdleaf small").textContent = !can ? "Opens " + fmt(when, { month: "short", day: "numeric" }) : left ? (left === 1 ? "day to go" : "days to go") : "Together";
         b.setAttribute("aria-label", (left ? plural(left, "day") + " to go" : "The visit") + ", " + (!can ? "opens " + fmt(when, { weekday: "long", month: "long", day: "numeric" }) : opened.has(i) ? "opened" : "ready to open"));
         li.appendChild(b); grid.appendChild(li);
       });
@@ -204,8 +237,11 @@
       const b = e.target.closest(".cddoor"); if (!b || b.disabled) return;
       const i = +b.dataset.i;
       if (!peek) { opened.add(i); all[key] = [...opened]; store(OPENED, all); }
+      const was = b.classList.contains("opened");
       drawGrid(); reveal(cal.d[i], n - 1 - i, from);
-      const nb = grid.querySelector('[data-i="' + i + '"]'); if (nb) nb.classList.add("pop");
+      // swing the door open the first time
+      const nb = grid.querySelector('[data-i="' + i + '"]');
+      if (nb && !was) { nb.classList.remove("opened"); void nb.offsetWidth; nb.classList.add("opened"); }
     };
     drawGrid();
     // land on today's door if it's waiting
@@ -215,6 +251,9 @@
   function reveal([k, text, link], left, from) {
     const box = $("cdReveal");
     box.className = "cdreveal kind-" + k; box.hidden = false;
+    box.style.setProperty("--k", KCOL[k]);
+    $("cdIcon").innerHTML = left ? ICON[k] : ICON.heart;
+    void box.offsetWidth; box.classList.add("in");
     $("cdKind").textContent = (left ? plural(left, "day") + " to go · " : "The visit · ") + KINDS[k].label;
     $("cdText").textContent = text;
     const a = $("cdLinkOut");

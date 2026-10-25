@@ -228,12 +228,24 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .cdtop{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:12px}
 .cdbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:10px}
 .cdcount{font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.cddoors{list-style:none;margin:0;padding:0 4px 0 0;display:grid;gap:10px;max-height:min(70vh,760px);overflow:auto}
-.cdrow{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:3px;padding:12px 14px;display:grid;gap:8px}
+.cddoors{list-style:none;margin:0;padding:0 4px 0 0;display:grid;grid-auto-rows:max-content;gap:10px;max-height:min(70vh,760px);overflow:auto}
+.cdrow{--k:#a8362f;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:0;display:grid;grid-template-columns:86px minmax(0,1fr);overflow:hidden;transition:box-shadow .2s}
+.cdrow:focus-within{box-shadow:0 10px 22px -16px rgba(90,45,20,.6),0 0 0 2px color-mix(in srgb,var(--k) 35%,transparent)}
 .cdrow.empty{border-color:#c0412f;box-shadow:0 0 0 2px rgba(192,65,47,.18)}
+.cdtile{background:var(--k);color:#fdf3e4;display:grid;justify-items:center;align-content:center;gap:2px;padding:12px 6px;transition:background .3s;position:relative}
+.cdtile::after{content:"";position:absolute;right:-1px;top:0;bottom:0;width:6px;background:radial-gradient(circle at 100% 50%,var(--paper) 3px,transparent 3.5px) 0 0/6px 12px repeat-y}
+.cdtile svg{width:22px;height:22px;opacity:.9}
+.cdtnum{font:600 34px/1 var(--display);font-style:normal}
+.cdtday{font:800 8.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;font-style:normal;opacity:.8}
+.cdrowbody{padding:12px 14px;display:grid;gap:8px;min-width:0}
 .cdrowhead{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
 .cdrowhead b{font:600 21px/1 var(--display)}
 .cdrowhead span{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cdmini{list-style:none;margin:0;padding:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:6px;background:#7a3219;border-radius:8px;box-shadow:inset 0 0 0 2px rgba(195,149,78,.35)}
+.cdmini button{width:100%;aspect-ratio:1;border:1px dashed rgba(253,243,228,.4);border-radius:4px;background:transparent;color:rgba(253,243,228,.7);font:700 12px var(--mono);cursor:pointer;padding:0;transition:transform .2s,background .3s}
+.cdmini button.full{background:var(--k);border:1px solid rgba(253,243,228,.35);color:#fdf3e4}
+.cdmini button.last{border-color:#e3c48a;color:#e3c48a}.cdmini button.last.full{color:#fdf3e4}
+.cdmini button:hover{transform:translateY(-2px)}
 .cdrow select,.cdrow textarea,.cdrow input,.cdanswer textarea{font:16px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:2px;padding:9px 10px;width:100%;min-width:0}
 .cdrow select{justify-self:start;width:auto;padding:6px 8px;font-size:14px}
 .cdrow textarea,.cdanswer textarea{resize:vertical;line-height:1.4}
@@ -244,32 +256,57 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .cdacts{display:flex;flex-wrap:wrap;gap:12px}
 .cdout{display:grid;gap:10px;justify-items:start;background:var(--paper);border:1px dashed var(--red);border-radius:3px;padding:16px}
 .cdpeek{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:#f1e4c8;border:1px solid var(--line);border-radius:3px;padding:10px 14px;font-size:14px}
-.cdhero{text-align:center;display:grid;gap:8px;justify-items:center;padding:8px 0}
+.cdhero{text-align:center;display:grid;gap:12px;justify-items:center;padding:8px 0}
 .cdhero h2{font-size:clamp(34px,6vw,54px);line-height:1.05}
-.cdclock{font:700 15px var(--mono);letter-spacing:.12em;color:var(--muted);font-variant-numeric:tabular-nums}
-.cdgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
-.cddoor{width:100%;aspect-ratio:1/1.08;border-radius:4px;display:grid;place-content:center;gap:6px;text-align:center;font:inherit;cursor:pointer;padding:6px;transition:transform .2s}
-.cdnum{font:600 40px/1.1 var(--display);font-variant-numeric:lining-nums}
-.cddoor small{font:700 10px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase}
-.cddoor.locked{background:repeating-linear-gradient(135deg,var(--paper) 0 8px,#efe2c9 8px 16px);border:1px dashed var(--line);color:var(--muted);cursor:default}
-.cddoor.locked .cdnum{opacity:.55}
-.cddoor.ready{background:linear-gradient(160deg,#b45a35,#8a3a1f);border:0;color:var(--onblue);box-shadow:0 2px 0 #6e2c16}
-.cddoor.ready:hover{transform:translateY(-2px) rotate(-1deg)}
-.cddoor.today{animation:cdwiggle 2.6s ease-in-out infinite}
-.cddoor.opened{background:var(--paper);border:1.5px solid var(--red);color:var(--red)}
-.cddoor.last.locked .cdnum{color:#c0412f}
-.cddoor.pop{animation:cdpop .35s ease-out}
-@keyframes cdwiggle{0%,86%,100%{transform:none}90%{transform:rotate(-4deg)}94%{transform:rotate(4deg)}}
+.cdclock{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}
+.cdflip{display:flex;gap:10px;justify-content:center}
+.cdflip div{position:relative;min-width:74px;padding:12px 10px 8px;border-radius:7px;background:linear-gradient(#3a2d22 50%,#2f241b 50%);color:#fdf3e4;box-shadow:0 5px 0 #1d1510,0 14px 20px -12px rgba(0,0,0,.6);display:grid;gap:4px}
+.cdflip div::after{content:"";position:absolute;left:0;right:0;top:calc(50% - 8px);height:1px;background:rgba(0,0,0,.55)}
+.cdflip b{font:700 clamp(28px,5vw,40px)/1 var(--mono);font-variant-numeric:tabular-nums}
+.cdflip small{font:800 9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(253,243,228,.6)}
+.cdboard{background:#7a3219;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.5px),linear-gradient(160deg,#86391e,#5e2512);background-size:6px 6px,auto;border-radius:14px;padding:18px;box-shadow:0 26px 38px -26px rgba(60,25,10,.85),inset 0 0 0 3px rgba(195,149,78,.45),inset 0 0 0 9px #7a3219,inset 0 0 0 10px rgba(195,149,78,.3)}
+.cdgrid{list-style:none;margin:0;padding:8px;display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
+.cdgrid li{perspective:900px}
+.cdgrid li.cdlast{grid-column:span 2}
+.cdgrid li:nth-child(4n+1){--leaf:#fbf3e2}.cdgrid li:nth-child(4n+2){--leaf:#f2e4c8}.cdgrid li:nth-child(4n+3){--leaf:#efdfd4}.cdgrid li:nth-child(4n){--leaf:#e8e4cd}
+.cddoor{position:relative;display:block;width:100%;height:100%;min-height:104px;padding:0;border:0;border-radius:6px;font:inherit;cursor:pointer;background:var(--k);box-shadow:inset 0 4px 10px rgba(0,0,0,.4)}
+.cdinside{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:6px;color:#fdf3e4;padding:6px;text-align:center}
+.cdinside svg{width:30px;height:30px}
+.cdinside small{font:800 9.5px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.cdleaf{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:4px;padding:6px;text-align:center;border-radius:6px;background:var(--leaf,#fbf3e2);color:var(--ink);border:1px solid rgba(90,45,20,.22);box-shadow:0 3px 0 rgba(60,25,10,.4);transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .8s cubic-bezier(.3,.9,.3,1)}
+.cdleaf::after{content:"";position:absolute;right:9px;top:50%;width:9px;height:9px;margin-top:-4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f0d49a,#a87a35);box-shadow:0 1px 1px rgba(0,0,0,.35)}
+.cdnum{font:600 40px/1 var(--display);font-variant-numeric:lining-nums}
+.cdleaf small{font:700 9.5px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cdleaf svg{width:14px;height:14px;color:var(--muted)}
+.cddoor.locked{cursor:default}
+.cddoor.locked .cdleaf{background:repeating-linear-gradient(135deg,var(--leaf,#fbf3e2) 0 9px,color-mix(in srgb,var(--leaf,#fbf3e2) 88%,#7a3219) 9px 18px)}
+.cddoor.locked .cdnum{opacity:.5}
+.cddoor.ready:hover .cdleaf{transform:rotateY(-18deg)}
+.cddoor.ready .cdleaf{box-shadow:0 3px 0 rgba(60,25,10,.4),0 0 0 2px #e3c48a}
+.cddoor.today .cdleaf{animation:cdwiggle 2.6s ease-in-out infinite}
+.cddoor.opened .cdleaf{transform:rotateY(-112deg);box-shadow:none}
+.cddoor:focus-visible{outline:3px solid #e3c48a;outline-offset:3px}
+.cdlast .cddoor .cdleaf{background:linear-gradient(160deg,#c0412f,#8a2f1f);color:#fdf3e4}
+.cdlast .cddoor .cdleaf small,.cdlast .cddoor .cdleaf svg{color:rgba(253,243,228,.8)}
+@keyframes cdwiggle{0%,86%,100%{transform:none}90%{transform:rotateY(-14deg)}94%{transform:rotateY(-4deg)}}
 @keyframes cdpop{0%{transform:scale(.9)}60%{transform:scale(1.06)}100%{transform:none}}
-.cdreveal{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--red);border-radius:3px;padding:22px 24px;display:grid;gap:12px;justify-items:start;animation:cdpop .35s ease-out}
+.cdreveal{--k:#a8362f;position:relative;background:#fffaf0;border:1px solid var(--line);border-top:6px solid var(--k);border-radius:4px;padding:24px 28px;display:grid;gap:14px;justify-items:start;box-shadow:0 22px 32px -24px rgba(90,45,20,.7)}
+.cdreveal.in{animation:cdletter .55s cubic-bezier(.2,.8,.3,1)}
+@keyframes cdletter{from{opacity:0;transform:translateY(18px) rotate(-1deg)}}
+.cdrhead{display:flex;align-items:center;gap:12px}
+.cdricon{width:44px;height:44px;border-radius:50%;background:var(--k);color:#fdf3e4;display:grid;place-items:center;flex:none}
+.cdricon svg{width:22px;height:22px}
+.cdreveal .pplabel{color:var(--k)!important}
 .cdtext{font:500 clamp(24px,3.6vw,32px)/1.25 var(--display);white-space:pre-line;overflow-wrap:anywhere}
-.cdreveal.kind-c{border:2px dashed var(--red);background:#fbf1de}
-.cdreveal.kind-c .cdtext::after{content:"Redeem on the visit";display:block;margin-top:10px;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.cdreveal.kind-c{border:2px dashed var(--k);background:#fbf1de}
+.cdreveal.kind-c::before,.cdreveal.kind-c::after{content:"";position:absolute;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;background:var(--card);border:2px dashed var(--k)}
+.cdreveal.kind-c::before{left:-14px}.cdreveal.kind-c::after{right:-14px}
+.cdreveal.kind-c .cdtext::after{content:"Redeem on the visit";display:block;margin-top:10px;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--k)}
 .cdanswer{display:grid;gap:8px;width:100%}
 .cdanswer label{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .cdanswer .btn{justify-self:start}
-@media (max-width:640px){.cdtop{grid-template-columns:1fr}.cdrowfoot{flex-wrap:wrap}.cdgrid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}.cdnum{font-size:32px}}
-@media (prefers-reduced-motion:reduce){.cddoor.today,.cddoor.pop,.cdreveal{animation:none}}
+@media (max-width:640px){.cdtop{grid-template-columns:1fr}.cdrowfoot{flex-wrap:wrap}.cdrow{grid-template-columns:62px minmax(0,1fr)}.cdtnum{font-size:26px}.cdtday{display:none}.cdgrid{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:9px;padding:2px}.cdboard{padding:12px}.cddoor{min-height:86px}.cdnum{font-size:30px}.cdflip{gap:6px}.cdflip div{min-width:60px}}
+@media (prefers-reduced-motion:reduce){.cddoor.today .cdleaf,.cdreveal.in{animation:none}.cdleaf{transition:none}}
 .vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
 .qztop{grid-template-columns:minmax(0,320px)}
 .qzlist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
@@ -1233,6 +1270,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
           <div class="field"><label for="cdWhen">The day you see each other</label><input id="cdWhen" type="date"></div>
         </div>
         <div class="cdbar"><p class="cdcount" id="cdCount"></p><button class="linkbtn" type="button" id="cdIdeas">Fill the empty doors with ideas</button></div>
+        <ol class="cdmini" id="cdMini" aria-label="Your calendar so far"></ol>
         <ol class="cddoors" id="cdDoors"></ol>
         <p class="cderr" id="cdErr" role="alert" hidden></p>
         <div class="cdacts"><button class="btn red" type="button" id="cdMakeLink">Make their link</button><button class="btn ghost" type="button" id="cdPreview">Preview what they'll see</button></div>
@@ -1249,10 +1287,11 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
         <div class="cdhero">
           <p class="eyebrow" id="cdFromLine"></p>
           <h2 id="cdHead"></h2>
+          <div class="cdflip" id="cdFlip" aria-hidden="true" hidden><div><b></b><small>Days</small></div><div><b></b><small>Hours</small></div><div><b></b><small>Minutes</small></div><div><b></b><small>Seconds</small></div></div>
           <p class="cdclock" id="cdClock" aria-live="off"></p>
         </div>
         <div class="cdreveal" id="cdReveal" hidden aria-live="polite">
-          <p class="pplabel" id="cdKind"></p>
+          <div class="cdrhead"><span class="cdricon" id="cdIcon"></span><p class="pplabel" id="cdKind"></p></div>
           <p class="cdtext" id="cdText"></p>
           <a class="btn ghost" id="cdLinkOut" target="_blank" rel="noopener" hidden></a>
           <div class="cdanswer" id="cdAnswer" hidden>
@@ -1261,7 +1300,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
             <button class="btn red" type="button" id="cdAnsSend">Send them your answer</button>
           </div>
         </div>
-        <ol class="cdgrid" id="cdGrid"></ol>
+        <div class="cdboard"><ol class="cdgrid" id="cdGrid"></ol></div>
         <p class="credit">Doors you've opened are remembered on this device. <a href="date.html?d=countdown-calendar">Make one back for them &#8594;</a></p>
       </div>
     </section>
@@ -1521,7 +1560,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/story.js?v=0cfd945e"></script>
 <script src="js/dream.js?v=02af4b85"></script>
 <script src="js/holiday.js?v=f52f2f63"></script>
-<script src="js/countdown.js?v=08b0460c"></script>
+<script src="js/countdown.js?v=1e9a8e86"></script>
 <script src="js/passport.js?v=3f384447"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
 <script src="js/date-page.js?v=917457ba"></script>
