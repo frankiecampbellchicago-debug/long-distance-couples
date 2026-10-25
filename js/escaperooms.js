@@ -10,6 +10,9 @@
   // f: format (browser, live, game). t: themes. on: what you play it on. price: what one booking or copy costs.
   const ROOMS = [
     // ---- play in your browser: buy it, get a link, both open it on your own screens while you're on a call ----
+    // ours: Lockline is our own escape room site, so it gets a house card and no trailer link
+    { f: "browser", by: "Lockline", n: "The Last Call", url: "https://frankiecampbellchicago-debug.github.io/lockline/rooms/the-last-call.html", price: "$10 per team", on: "Computer or tablet", t: ["Mystery & detective"], own: true,
+      d: "Chicago, 1952: a jazz club owner vanished after closing and you have until sunrise to find him. One of you works the crime scene, the other runs the police files, and every lock needs a clue from the other screen. 45 to 60 minutes." },
     { f: "browser", by: "Wolf Escape Games", n: "Miami Bay", url: WOLF + "miami-bay", price: "$35 per team", on: "Laptop or desktop", t: ["Mystery & detective", "Heist & spy"],
       d: "Neon-lit Miami, 1985: you're rogue detectives chasing a case across airplanes, nightclubs and super-yachts. Award-winning and a popular date night. About 3 hours, difficulty 4/5." },
     { f: "browser", by: "Wolf Escape Games", n: "Pharaoh's Tomb", url: WOLF + "pharaohs-tomb", price: "$35 per team", on: "Laptop or desktop", t: ["Mystery & detective", "Adventure"],
@@ -205,7 +208,7 @@
       const li = document.createElement("li");
       li.className = "mcard2 pic esc";
       const fmt = FORMAT(r), img = r.img || (r.id ? IMG(r.id) : null);
-      const art = '<div class="escart ' + fmt + '" aria-hidden="true"><span>' + (fmt === "live" ? "LIVE OVER ZOOM" : "PLAY IN YOUR BROWSER") + '</span><b></b><small></small></div>';
+      const art = '<div class="escart ' + fmt + (r.own ? " own" : "") + '" aria-hidden="true"><span>' + (fmt === "live" ? "LIVE OVER ZOOM" : "PLAY IN YOUR BROWSER") + '</span><b></b><small></small></div>';
       li.innerHTML = (img ? '<img alt="" loading="lazy" referrerpolicy="no-referrer">' : art) +
         '<div class="mbody"><h4></h4><div class="etags"></div><p class="mmeta"></p><p class="edesc"></p><div class="ractions"></div></div>';
       const fillArt = () => { li.querySelector(".escart b").textContent = r.n.replace(" (live)", ""); li.querySelector(".escart small").textContent = r.by || ""; };
@@ -220,6 +223,7 @@
       a.className = "btn"; a.href = r.url || STEAM(r.id); a.target = "_blank"; a.rel = "noopener";
       a.textContent = fmt === "live" ? "Book it" : r.price === "Free" ? "Play free" : "Get it";
       acts.appendChild(a);
+      if (r.own) return li;
       const tr = document.createElement("a");
       tr.className = "btn ghost"; tr.target = "_blank"; tr.rel = "noopener"; tr.textContent = "Watch a trailer";
       tr.href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(fmt === "game" ? r.n + " trailer" : (r.by || "").replace(" ×", "") + " " + r.n.replace(" (live)", "") + " online escape room");
