@@ -23,6 +23,18 @@
       ["I move to you", "You move to me", "We both move somewhere new", "We work it out together"], "One step we'll take this month"]
   ];
   const D = window.DREAM;
+  // each chapter's color and icon, for the road at the top and the chapter page
+  const svg = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
+  const LOOK = {
+    where: ["#a8362f", svg('<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>')],
+    home: ["#9a5b16", svg('<path d="M3 11 12 4l9 7v9H3z"/><path d="M9 20v-6h6v6"/>')],
+    tuesday: ["#2c4a7a", svg('<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 11h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/>')],
+    work: ["#5f7148", svg('<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/>')],
+    trips: ["#2f6f6a", svg('<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>')],
+    family: ["#7a3a6a", svg('<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.5 2.7-6 6-6s6 2.5 6 6M12 20c0-3.5 2-6 4-6 3.3 0 6 2.5 6 6"/>')],
+    close: ["#c0412f", svg('<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>')],
+    board: ["#c3954e", svg('<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>')]
+  };
 
   const monthsTo = ym => { if (!ym) return null; const [y, m] = ym.split("-").map(Number), n = new Date(); return (y - n.getFullYear()) * 12 + (m - 1 - n.getMonth()); };
   const monthName = ym => { const [y, m] = ym.split("-").map(Number); return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" }); };
@@ -46,8 +58,9 @@
     $("drA").value = st.a; $("drB").value = st.b;
     ["drA", "drB"].forEach(id => $(id).addEventListener("input", () => { st[id === "drA" ? "a" : "b"] = $(id).value.trim(); save(); }));
 
-    $("drDots").innerHTML = D.map((c, i) => '<button type="button" data-i="' + i + '" aria-label="Chapter ' + (i + 1) + ": " + esc(c[1]) + '">' + (i + 1) + "</button>").join("") + '<button type="button" data-i="' + D.length + '" aria-label="The board">♥</button>';
-    $("drDots").onclick = e => { const i = e.target.dataset.i; if (i !== undefined) go(+i); };
+    $("drDots").innerHTML = D.map((c, i) => '<button type="button" data-i="' + i + '" style="--c:' + LOOK[c[0]][0] + '" aria-label="Chapter ' + (i + 1) + ": " + esc(c[1]) + '"><span>' + LOOK[c[0]][1] + "</span><small>" + esc(c[1]) + "</small></button>").join("") +
+      '<button type="button" data-i="' + D.length + '" style="--c:' + LOOK.board[0] + '" aria-label="The board"><span>' + LOOK.board[1] + "</span><small>Our board</small></button>";
+    $("drDots").onclick = e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i); };
 
     function go(i) {
       st.step = i; save();
@@ -57,6 +70,8 @@
       $("drBoardWrap").hidden = true; $("drStep").hidden = false;
       const [key, name, talk, picks, label] = D[i], c = st.ch[key] || (st.ch[key] = { p: [], t: "" });
       $("drNum").textContent = "Chapter " + (i + 1) + " of " + D.length;
+      $("drStep").style.setProperty("--c", LOOK[key][0]); $("drIco").innerHTML = LOOK[key][1];
+      $("drStep").classList.remove("in"); void $("drStep").offsetWidth; $("drStep").classList.add("in");
       $("drName").textContent = name;
       $("drTalk").innerHTML = talk.map(t => "<li>" + esc(t) + "</li>").join("");
       $("drPicks").innerHTML = picks.map(p => '<button type="button" class="stchip' + (c.p.includes(p) ? " on" : "") + '" aria-pressed="' + c.p.includes(p) + '">' + esc(p) + "</button>").join("");
@@ -98,7 +113,7 @@
     let html = "";
     if (st.when && /^\d{4}-\d{2}$/.test(st.when)) html += '<div class="drcard drbig"><p class="pplabel">Together for good</p><p class="drwhen">' + esc(monthName(st.when)) + "</p><p>" + (m > 0 ? m + (m === 1 ? " month to go" : " months to go") : m === 0 ? "This month" : "We did it") + "</p></div>";
     cards.forEach(([key, name, picks, t], i) => {
-      html += '<div class="drcard tilt' + (i % 4) + '"><p class="pplabel">' + esc(name) + "</p>" + (t ? '<p class="drline">' + esc(t) + "</p>" : "") + (picks.length ? '<ul class="drtags">' + picks.map(p => "<li>" + esc(p) + "</li>").join("") + "</ul>" : "") + "</div>";
+      html += '<div class="drcard tilt' + (i % 4) + '" style="--c:' + LOOK[key][0] + '"><p class="pplabel">' + esc(name) + "</p>" + (t ? '<p class="drline">' + esc(t) + "</p>" : "") + (picks.length ? '<ul class="drtags">' + picks.map(p => "<li>" + esc(p) + "</li>").join("") + "</ul>" : "") + "</div>";
     });
     $("drBoard").innerHTML = html || '<p class="ppempty">Nothing on the board yet. Go back and fill in a chapter or two.</p>';
     $("drSave").onclick = () => download(st, cards, m);
@@ -111,27 +126,33 @@
     const wrap = (text, font, max) => { x.font = font; const out = []; let line = ""; String(text).split(/\s+/).forEach(w => { const t = line ? line + " " + w : w; if (x.measureText(t).width > max && line) { out.push(line); line = w; } else line = t; }); if (line) out.push(line); return out; };
     const items = [];
     if (st.when && /^\d{4}-\d{2}$/.test(st.when)) items.push(["Together for good", monthName(st.when), [m > 0 ? m + (m === 1 ? " month to go" : " months to go") : m === 0 ? "This month" : "We did it"], true]);
-    cards.forEach(([k, name, picks, t]) => items.push([name, t, picks, false]));
+    cards.forEach(([k, name, picks, t]) => items.push([name, t, picks, false, LOOK[k][0]]));
     const measure = it => { const lines = it[1] ? wrap(it[1], "600 38px " + serif, colW - 48) : []; const tags = wrap(it[2].join("  ·  "), "600 22px " + sans, colW - 48); return 40 + 30 + lines.length * 44 + (tags.length ? 12 + tags.length * 32 : 0) + 30; };
     // two columns, each card goes in the shorter one
     const cols = [230, 230], placed = items.map(it => { const h = measure(it), k = cols[0] <= cols[1] ? 0 : 1, y = cols[k]; cols[k] += h + 28; return [it, pad + k * (colW + pad), y, h]; });
     c.width = W; c.height = Math.max(...cols) + 90;
-    x.fillStyle = "#f4e9d4"; x.fillRect(0, 0, W, c.height);
+    // cork, speckled, in a wooden frame
+    x.fillStyle = "#b98a5a"; x.fillRect(0, 0, W, c.height);
+    for (let k = 0; k < W * c.height / 90; k++) { x.fillStyle = k % 3 ? "rgba(70,40,15,.28)" : "rgba(255,230,190,.22)"; x.fillRect(Math.random() * W, Math.random() * c.height, 2, 2); }
+    x.strokeStyle = "#6e4020"; x.lineWidth = 36; x.strokeRect(18, 18, W - 36, c.height - 36);
+    x.save(); x.translate(W / 2, 130); x.rotate(-0.012); x.shadowColor = "rgba(40,20,5,.4)"; x.shadowBlur = 16; x.shadowOffsetY = 6; x.fillStyle = "#fffaf0"; x.fillRect(-300, -78, 600, 132); x.restore();
     x.textAlign = "center"; x.fillStyle = "#b4532f"; x.font = "800 22px " + sans; x.fillText("THE LIFE WE'RE BUILDING", W / 2, 96);
-    x.fillStyle = "#2f241b"; x.font = "600 64px " + serif; x.fillText(st.a && st.b ? st.a + " & " + st.b : "Our dream life", W / 2, 170);
+    x.fillStyle = "#2f241b"; x.font = "600 64px " + serif; x.fillText(st.a && st.b ? st.a + " & " + st.b : "Our dream life", W / 2, 166);
     x.textAlign = "left";
-    placed.forEach(([[label, line, picks, big], cx, cy, h], i) => {
+    const PAPER = ["#fffaf0", "#fbefc4", "#f7e1da", "#e4ecdf"];
+    placed.forEach(([[label, line, picks, big, pin], cx, cy, h], i) => {
       x.save(); x.translate(cx + colW / 2, cy + h / 2); x.rotate(((i * 37) % 5 - 2) * 0.006); x.translate(-colW / 2, -h / 2);
       x.shadowColor = "rgba(47,36,27,.18)"; x.shadowBlur = 14; x.shadowOffsetY = 4;
-      x.fillStyle = big ? "#b4532f" : "#fbf5e9"; x.fillRect(0, 0, colW, h); x.shadowColor = "transparent";
-      x.fillStyle = big ? "#fdf3e4" : "#b4532f"; x.font = "800 18px " + sans; x.fillText(label.toUpperCase(), 24, 48);
+      x.fillStyle = big ? "#b4532f" : PAPER[(i - (items[0][3] ? 1 : 0) + 4) % 4]; x.fillRect(0, 0, colW, h); x.shadowColor = "transparent";
+      x.beginPath(); x.arc(colW / 2, 16, 9, 0, 7); x.fillStyle = big ? "#e3c48a" : pin; x.fill();
+      x.fillStyle = big ? "#fdf3e4" : pin; x.font = "800 18px " + sans; x.fillText(label.toUpperCase(), 24, 52);
       let y = 70;
       x.fillStyle = big ? "#fdf3e4" : "#2f241b";
       if (line) wrap(line, "600 38px " + serif, colW - 48).forEach(l => { y += 44; x.font = "600 38px " + serif; x.fillText(l, 24, y); });
       if (picks.length) { y += 12; x.fillStyle = big ? "rgba(253,243,228,.85)" : "#6d5a49"; wrap(picks.join("  ·  "), "600 22px " + sans, colW - 48).forEach(l => { y += 32; x.font = "600 22px " + sans; x.fillText(l, 24, y); }); }
       x.restore();
     });
-    x.textAlign = "center"; x.fillStyle = "#6d5a49"; x.font = "italic 500 26px " + serif; x.fillText("Love Is In The Air", W / 2, c.height - 40);
+    x.textAlign = "center"; x.fillStyle = "#fdf3e4"; x.font = "italic 500 26px " + serif; x.fillText("Love Is In The Air", W / 2, c.height - 50);
     const a = document.createElement("a"); a.download = "our-dream-life.png"; a.href = c.toDataURL("image/png"); a.click();
   }
 })();
