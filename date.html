@@ -465,7 +465,7 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .myscore li.ok span{color:#4f6339}.myscore li.no span{color:#a8362f}
 .mysolution{display:grid;gap:10px;max-width:70ch;font-family:var(--display);font-size:18px;line-height:1.5}
 .mysolution p:first-child{font:600 26px var(--display)}
-@media (max-width:640px){.finder.mystery{padding:28px 18px 22px}.myrole{grid-template-columns:72px minmax(0,1fr);padding:22px 16px 16px}.myface{width:72px}.myid{grid-template-columns:64px minmax(0,1fr);gap:14px;padding:18px}.myid .myface{width:64px}.mymast{grid-template-columns:1fr}.mymast span,.mymast span:last-child{text-align:center}.mymast span:first-child{display:none}.mypaper{transform:none;padding:16px}}
+@media (max-width:640px){.mystamp{right:auto;left:8px;top:112px;font-size:9px;padding:2px 6px}.qzq{font-size:18px}.finder.mystery{padding:28px 18px 22px}.myrole{grid-template-columns:72px minmax(0,1fr);padding:22px 16px 16px}.myface{width:72px}.myid{grid-template-columns:64px minmax(0,1fr);gap:14px;padding:18px}.myid .myface{width:64px}.mymast{grid-template-columns:1fr}.mymast span,.mymast span:last-child{text-align:center}.mymast span:first-child{display:none}.mypaper{transform:none;padding:16px}}
 /* Our Story: a scrapbook */
 .stadd{position:relative;background:#fffdf7;background-image:linear-gradient(90deg,transparent 46px,rgba(192,65,47,.35) 46px 47px,transparent 47px),repeating-linear-gradient(0deg,transparent 0 29px,rgba(44,74,122,.13) 29px 30px);border:1px solid var(--line);border-radius:4px;padding:30px 22px 22px 62px;display:grid;gap:12px;box-shadow:0 14px 24px -18px rgba(90,45,20,.6)}
 .stadd::before{content:"";position:absolute;left:14px;top:20px;bottom:20px;width:16px;background:radial-gradient(circle,var(--card) 0 5px,rgba(90,45,20,.25) 5.5px 6.5px,transparent 7px) 0 0/16px 34px repeat-y}
@@ -562,21 +562,62 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .drtags li{font:700 12px var(--body);background:rgba(255,255,255,.6);border:1px solid rgba(90,45,20,.2);border-radius:999px;padding:3px 10px}
 @media (max-width:640px){.drdots{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:14px}.drdots::before{display:none}.drstep{padding:20px 16px}.drico{width:52px;height:52px}.drboard{border-width:10px;padding:20px 12px 4px}}
 @media (prefers-reduced-motion:reduce){.drstep.in{animation:none}}
-.hotabs{display:flex;flex-wrap:wrap;gap:8px}
-.hotabs button{font:600 15px var(--body);background:var(--paper);color:var(--ink);border:1.5px solid var(--line);border-radius:3px;padding:10px 16px;cursor:pointer}
-.hotabs button[aria-selected=true]{background:var(--red);border-color:var(--red);color:var(--onblue)}
+/* Holiday packs: gift tags, a rosette, a to-do list, a gift box and an evening program */
+.holiday{--h:#b0303a}
+.hotabs{display:flex;flex-wrap:wrap;gap:14px;padding-top:8px}
+.hotabs button{--h:#b0303a;position:relative;display:flex;align-items:center;gap:9px;font:700 15px var(--body);background:#f6ead2;color:var(--ink);border:1.5px solid color-mix(in srgb,var(--h) 40%,var(--line));border-radius:4px 18px 18px 4px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%);padding:11px 30px 11px 34px;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.4,.5,1),background .2s}
+.hotabs button::before{content:"";position:absolute;left:12px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--h) 60%,#000)}
+.hotabs button:nth-child(odd){transform:rotate(-2deg)}.hotabs button:nth-child(even){transform:rotate(1.5deg)}
+.hotabs button:hover{transform:rotate(0) translateY(-2px)}
+.hoicon{display:grid;color:var(--h)}.hoicon svg{width:18px;height:18px}
+.hotabs button[aria-selected=true]{background:var(--h);border-color:var(--h);color:#fdf3e4;transform:rotate(0) scale(1.05);box-shadow:0 8px 14px -8px var(--h)}
+.hotabs button[aria-selected=true] .hoicon{color:#fdf3e4}
 .hotop{grid-template-columns:minmax(0,1fr) minmax(0,1fr);max-width:560px}
-.hoask{font-weight:700;color:var(--red)}
-.hocheck{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:10px}
-.hocheck label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
-.hocheck input{accent-color:var(--red);width:18px;height:18px;margin-top:3px;flex:none}
-.hocheck small{display:block;font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
-.hocheck input:checked+span{color:var(--muted);text-decoration:line-through}
-.hocheck a,.honight a{font-weight:700;color:var(--red)}
-.honight{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:10px}
-.honight li{display:grid;grid-template-columns:86px 1fr;gap:10px;border-top:1px dashed var(--line);padding-top:10px}
-.honight b{font:700 14px var(--mono);color:var(--red)}
-@media (max-width:640px){.qzopts,.qzchoices,.myroles,.mycols,.myacc,.stformrow,.drtop,.hotop{grid-template-columns:minmax(0,1fr)}.stmoment{grid-template-columns:1fr}.stmoment img{width:100%;aspect-ratio:4/3}.honight li{grid-template-columns:70px 1fr}.qzcard{padding:24px 18px 22px}}
+.hoask{font-weight:700;color:var(--h)}
+.hostatus{isolation:isolate;padding:12px 0 0 12px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.hobadge{position:relative;width:132px;height:132px;flex:none;display:grid;place-content:center;justify-items:center;text-align:center;color:#fdf3e4;background:var(--h);border-radius:50%;box-shadow:0 0 0 5px var(--card),0 0 0 7px var(--h),0 14px 22px -12px var(--h)}
+.hobadge::before{content:"";position:absolute;inset:-12px;z-index:-1;background:repeating-conic-gradient(var(--h) 0 7deg,transparent 7deg 15deg);border-radius:50%;opacity:.35}
+.hobadgeicon{display:grid;opacity:.75}.hobadgeicon svg{width:20px;height:20px}
+.hobadge b{font:600 46px/1 var(--display)}
+.hobadge small{font:800 9.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.hoprog{flex:1;min-width:220px;display:grid;gap:8px}
+.hobar{height:10px;border-radius:5px;background:color-mix(in srgb,var(--h) 14%,var(--paper));overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
+.hobar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--h) 0 10px,color-mix(in srgb,var(--h) 80%,#fff) 10px 20px);border-radius:5px;transition:width .6s cubic-bezier(.2,.7,.3,1)}
+.hogrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.hopanel{position:relative;padding:22px 22px 20px;display:grid;gap:8px;border-radius:4px;box-shadow:0 16px 24px -18px rgba(70,35,15,.7)}
+.hopanel h4{font:600 26px/1.1 var(--display);margin:0}
+.hopanel .pplabel{color:var(--h)!important}
+.holist{background:#d9bf8f;background-image:repeating-linear-gradient(0deg,transparent 0 31px,rgba(90,60,25,.16) 31px 32px);transform:rotate(-.6deg)}
+.holist::before{content:"";position:absolute;top:-12px;left:50%;width:90px;height:26px;margin-left:-45px;background:rgba(253,243,228,.7);transform:rotate(-3deg);box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.hobox{--rib:84%;background:var(--h);background-image:linear-gradient(90deg,transparent calc(var(--rib) - 14px),rgba(253,243,228,.9) calc(var(--rib) - 14px) calc(var(--rib) + 14px),transparent calc(var(--rib) + 14px));color:#fdf3e4;margin-top:22px;padding-top:30px}
+.holid{--rib:inherit;position:absolute;left:-8px;right:-8px;top:-22px;height:30px;border-radius:4px;background:color-mix(in srgb,var(--h) 85%,#000);background-image:linear-gradient(90deg,transparent calc(var(--rib) + 8px - 14px),#fdf3e4 calc(var(--rib) + 8px - 14px) calc(var(--rib) + 8px + 14px),transparent calc(var(--rib) + 8px + 14px));box-shadow:0 6px 10px -6px rgba(0,0,0,.5)}
+.hobow{position:absolute;left:calc(var(--rib) + 8px);top:-38px;width:88px;margin-left:-44px;overflow:visible;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.hobow .edge{stroke:color-mix(in srgb,var(--h) 80%,#000);stroke-width:10}.hobow .fill{stroke:#fdf3e4;stroke-width:5.5}.hobow .knot{stroke:color-mix(in srgb,var(--h) 80%,#000)}
+.hobox .pplabel{color:#fdf3e4!important;opacity:.85}
+.hobox>*:not(.holid){position:relative;z-index:1}
+.hoslip{justify-self:start;font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;background:#fffaf0;color:var(--h);padding:4px 10px;border:1.5px dashed var(--h);transform:rotate(-1.5deg)}
+.hobox .hocheck{background:#fffaf0;color:var(--ink);padding:14px 16px;border-radius:2px;box-shadow:0 6px 12px -8px rgba(0,0,0,.5)}
+.honightp{grid-column:1/-1;background:#2f241b;color:#f6ead2;border:1px solid color-mix(in srgb,var(--h) 60%,#e3c48a);outline:1px solid rgba(227,196,138,.35);outline-offset:-8px;padding:30px 30px 26px;text-align:center;justify-items:center}
+.honightp .pplabel{color:#e3c48a!important}
+.honightp h4{font:italic 600 34px var(--display);color:#fdf3e4}
+.hocheck{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:12px}
+.hocheck label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.hocheck input{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:1px 0 0;flex:none;border:2px solid color-mix(in srgb,var(--h) 70%,#2f241b);border-radius:3px;background:#fffaf0;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.hocheck input::after{content:"";width:6px;height:11px;border:solid #fdf3e4;border-width:0 3px 3px 0;transform:rotate(45deg) scale(0);margin-top:-3px;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.hocheck input:checked{background:var(--h)}
+.hocheck input:checked::after{transform:rotate(45deg) scale(1)}
+.hocheck input:focus-visible{outline:2px solid var(--h);outline-offset:2px}
+.hocheck small{display:block;font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--h)}
+.hocheck input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--h)}
+.hocheck a{font-weight:700;color:var(--h)}
+.honight a{font-weight:700;color:#e3c48a}
+.honight{position:relative;list-style:none;margin:10px 0 0;padding:0;display:grid;gap:0;width:min(640px,100%);text-align:left}
+.honight::before{content:"";position:absolute;left:91px;top:10px;bottom:10px;border-left:2px dotted rgba(227,196,138,.5)}
+.honight li{position:relative;display:grid;grid-template-columns:78px 1fr;gap:28px;padding:10px 0;border:0}
+.honight li::before{content:"";position:absolute;left:86px;top:17px;width:12px;height:12px;border-radius:50%;background:var(--h);box-shadow:0 0 0 3px #2f241b,0 0 0 4px rgba(227,196,138,.6)}
+.honight b{font:700 14px var(--mono);color:#e3c48a;text-align:right;padding-top:2px}
+.honight span{font:500 19px/1.4 var(--display)}
+@media (max-width:640px){.qzopts,.qzchoices,.myroles,.mycols,.myacc,.stformrow,.drtop,.hotop{grid-template-columns:minmax(0,1fr)}.stmoment{grid-template-columns:1fr}.stmoment img{width:100%;aspect-ratio:4/3}.hogrid{grid-template-columns:minmax(0,1fr)}.honight::before{left:79px}.honight li{grid-template-columns:66px 1fr;gap:26px}.honight li::before{left:74px}.honightp{padding:26px 16px 20px}.hobadge{width:108px;height:108px}.hobadge b{font-size:38px}.qzcard{padding:24px 18px 22px}}
 @media (max-width:640px){.ppgrid{grid-template-columns:minmax(0,1fr)}.ppctrl .field{min-width:0;flex:1}}
 .fform{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end}
 @media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
@@ -1598,11 +1639,14 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
         <div class="field"><label for="hoTime">Your call starts at</label><input id="hoTime" type="time" step="300"></div>
       </div>
       <p class="hoask" id="hoNeedDate" hidden>Add the date and we'll work out when to mail everything.</p>
-      <p class="cdcount" id="hoProgress"></p>
-      <div class="ppgrid">
-        <div class="ppcard"><p class="pplabel">1 · Before</p><h4>Get ready</h4><ul class="hocheck" id="hoBefore"></ul></div>
-        <div class="ppcard"><p class="pplabel">2 · The box</p><h4>What to mail them</h4><ul class="hocheck" id="hoBox"></ul></div>
-        <div class="ppcard wide"><p class="pplabel">3 · The night</p><h4>Hour by hour</h4><ol class="honight" id="hoNight"></ol></div>
+      <div class="hostatus">
+        <div class="hobadge"><span class="hobadgeicon" id="hoBadgeIcon"></span><b id="hoDays"></b><small id="hoDaysLabel"></small></div>
+        <div class="hoprog"><p class="cdcount" id="hoProgress"></p><div class="hobar"><i id="hoBar"></i></div></div>
+      </div>
+      <div class="hogrid">
+        <div class="hopanel holist"><p class="pplabel">1 · Before</p><h4>Get ready</h4><ul class="hocheck" id="hoBefore"></ul></div>
+        <div class="hopanel hobox"><div class="holid" aria-hidden="true"><svg class="hobow" viewBox="0 0 88 46"><g class="edge"><path d="M44 31C33 9 8 5 10 22c1 9 20 11 34 9zM44 31c11-22 36-26 34-9-1 9-20 11-34 9z" fill="none" stroke-linejoin="round"/><path d="M40 32 30 44M48 32l10 12" stroke-linecap="round"/></g><g class="fill"><path d="M44 31C33 9 8 5 10 22c1 9 20 11 34 9zM44 31c11-22 36-26 34-9-1 9-20 11-34 9z" fill="none" stroke-linejoin="round"/><path d="M40 32 30 44M48 32l10 12" stroke-linecap="round"/></g><circle cx="44" cy="30" r="7.5" fill="#fdf3e4" stroke-width="2.5" class="knot"/></svg></div><p class="pplabel">2 · The box</p><h4>What to mail them</h4><p class="hoslip">Packing slip · Fragile · Handle with love</p><ul class="hocheck" id="hoBox"></ul></div>
+        <div class="hopanel honightp"><p class="pplabel">3 · The night</p><h4>Hour by hour</h4><ol class="honight" id="hoNight"></ol></div>
       </div>
       <p class="credit">Checkmarks are saved on this device.</p>
     </section>
@@ -1698,7 +1742,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/mystery.js?v=fb98589c"></script>
 <script src="js/story.js?v=382d789b"></script>
 <script src="js/dream.js?v=a71bd29f"></script>
-<script src="js/holiday.js?v=f52f2f63"></script>
+<script src="js/holiday.js?v=3de55c63"></script>
 <script src="js/countdown.js?v=1e9a8e86"></script>
 <script src="js/passport.js?v=3f384447"></script>
 <script src="js/stars.js?v=be7b5d14"></script>

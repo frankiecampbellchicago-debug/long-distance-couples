@@ -53,19 +53,29 @@
         [50, "Eat or cook each other's family recipe."], [80, "Holiday movie, pressing play together.", "date.html?d=movie-night"], [200, "Before you hang up, each say one thing you're grateful for this year."]] }
   ];
   const P = window.HOLIDAY_PACKS;
+  // each occasion's color and icon, for its gift tag and the whole page
+  const svg = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
+  const LOOK = {
+    valentines: ["#b0303a", svg('<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>')],
+    birthday: ["#2c5d8a", svg('<path d="M4 21h16v-8H4zM4 16c2 1.5 4 1.5 5.3 0 1.4 1.5 4 1.5 5.4 0 1.3 1.5 3.3 1.5 5.3 0"/><path d="M12 13V9M12 5.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z"/>')],
+    anniversary: ["#9a6a1c", svg('<circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="m10 5 2-2 2 2-2 2z"/>')],
+    holidays: ["#3f6b47", svg('<path d="M12 3 6 11h3l-4 6h14l-4-6h3z"/><path d="M12 17v4"/>')]
+  };
 
   window.setupHoliday = function () {
     $("holiday").hidden = false;
     const st = K.load(KEY, { pack: "valentines" });
     const save = () => K.store(KEY, st);
-    $("hoTabs").innerHTML = P.map(p => '<button type="button" role="tab" data-id="' + p.id + '">' + esc(p.name) + "</button>").join("");
-    $("hoTabs").onclick = e => { const id = e.target.dataset.id; if (id) { st.pack = id; save(); show(); } };
+    $("hoTabs").innerHTML = P.map(p => '<button type="button" role="tab" data-id="' + p.id + '" style="--h:' + LOOK[p.id][0] + '"><span class="hoicon">' + LOOK[p.id][1] + "</span>" + esc(p.name) + "</button>").join("");
+    $("hoTabs").onclick = e => { const b = e.target.closest("button"); if (b) { st.pack = b.dataset.id; save(); show(); } };
 
     function show() {
       const p = P.find(x => x.id === st.pack) || P[0], s = st[p.id] || (st[p.id] = { done: [] });
       if (!s.date && p.date) s.date = ymd(p.date());
       if (!s.time) s.time = "19:00";
       [...$("hoTabs").children].forEach(b => b.setAttribute("aria-selected", b.dataset.id === p.id));
+      $("holiday").style.setProperty("--h", LOOK[p.id][0]);
+      $("hoBadgeIcon").innerHTML = LOOK[p.id][1];
       $("hoIntro").textContent = p.intro;
       $("hoDateLabel").textContent = p.ask;
       $("hoDate").value = s.date || ""; $("hoTime").value = s.time;
@@ -86,7 +96,11 @@
         return "<li><b>" + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) + "</b><span>" + esc(t) + (link ? ' <a href="' + link + '">Open it &#8594;</a>' : "") + "</span></li>";
       }).join("");
       const n = s.done.length, total = p.before.length + p.box.length;
-      $("hoProgress").textContent = n + " of " + total + " done" + (day ? " · " + Math.max(0, Math.round((day - today) / 864e5)) + " days to go" : "");
+      const left = day ? Math.max(0, Math.round((day - today) / 864e5)) : null;
+      $("hoProgress").textContent = n + " of " + total + " ready";
+      $("hoBar").style.width = (n / total * 100) + "%";
+      $("hoDays").textContent = left === null ? "?" : left;
+      $("hoDaysLabel").textContent = left === null ? "pick the date" : left === 0 ? "it's today" : left === 1 ? "day to go" : "days to go";
       $("hoNeedDate").hidden = !!day;
     }
     $("hoDate").addEventListener("change", () => { st[st.pack].date = $("hoDate").value; save(); show(); });
