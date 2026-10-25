@@ -204,10 +204,9 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .pppage>*{position:relative}
 .pppage>.ppros{position:absolute;left:50%;top:52%;width:330px;height:330px;transform:translate(-50%,-50%);color:rgba(44,74,122,.12);pointer-events:none}
 .pphdr{display:flex;justify-content:space-between;gap:10px;font:800 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#2c4a7a;border-bottom:1px solid rgba(44,74,122,.28);padding-bottom:8px}
-.ppdatabody{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;align-items:start}
-.ppphotos{display:grid;gap:10px}
-.ppphotoslot{display:grid;gap:2px;justify-items:center}
-.ppphoto{position:relative;display:block;width:100%;aspect-ratio:3/4;background:#e4d6b8;border:1px solid rgba(44,74,122,.3);border-radius:3px;overflow:hidden;cursor:pointer}
+.ppdatabody{display:grid;grid-template-columns:138px minmax(0,1fr);gap:16px;align-items:start}
+.ppphotoslot{display:grid;gap:4px;justify-items:center;align-content:start}
+.ppphoto{position:relative;display:block;width:100%;aspect-ratio:4/5;background:#e4d6b8;border:1px solid rgba(44,74,122,.3);border-radius:3px;overflow:hidden;cursor:pointer}
 .ppphoto svg{display:block;width:100%;height:100%}
 .ppphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.35) sepia(.2) contrast(1.05)}
 .ppphoto img:not([hidden])+svg{display:none}
@@ -235,7 +234,7 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:12px}
 .ppstamp:nth-child(3n+2){transform:translateY(10px)}.ppstamp:nth-child(4n+3){transform:translate(6px,-4px)}
 .ppvisafoot{margin-top:auto;display:flex;justify-content:space-between;font:700 9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(44,74,122,.7)}
-@media (max-width:720px){.ppspread{grid-template-columns:minmax(0,1fr)}.ppspread::after{display:none}.ppvisas{border-top:1px dashed rgba(70,35,15,.3)}.pppage{min-height:0}.ppdatabody{grid-template-columns:84px minmax(0,1fr)}.ppfields{grid-template-columns:minmax(0,1fr)}.ppfields .w{grid-column:auto}.ppcover h3{letter-spacing:.2em}.ppnames{flex-direction:column;align-items:stretch;gap:6px}.ppnames i{display:none}}
+@media (max-width:720px){.ppspread{grid-template-columns:minmax(0,1fr)}.ppspread::after{display:none}.ppvisas{border-top:1px dashed rgba(70,35,15,.3)}.pppage{min-height:0}.ppdatabody{grid-template-columns:108px minmax(0,1fr)}.ppfields{grid-template-columns:minmax(0,1fr)}.ppfields .w{grid-column:auto}.ppcover h3{letter-spacing:.2em}.ppnames{flex-direction:column;align-items:stretch;gap:6px}.ppnames i{display:none}}
 .ppstamp .stamp{display:block;width:100%;height:auto;opacity:.88;mix-blend-mode:multiply}
 .ppstamp.fresh{animation:ppstampin .55s cubic-bezier(.3,1.5,.5,1) backwards}
 @keyframes ppstampin{0%{transform:scale(2.6) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
@@ -1425,10 +1424,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
             <div class="ppros" aria-hidden="true"></div>
             <div class="pphdr"><span>Passport · Passeport · Pasaporte</span><span>LITA</span></div>
             <div class="ppdatabody">
-              <div class="ppphotos">
-                <div class="ppphotoslot"><label class="ppphoto" for="ppPhotoA"><img id="ppImgA" alt="" hidden><svg viewBox="0 0 90 120" aria-hidden="true"><g fill="rgba(44,74,122,.38)"><circle cx="45" cy="56" r="17"/><path d="M12 120c0-25 15-42 33-42s33 17 33 42z"/></g></svg><span class="ppadd">Add a photo</span></label><input class="vh" type="file" accept="image/*" id="ppPhotoA" aria-label="Add a photo of you"><button class="linkbtn ppnophoto" type="button" data-who="a" hidden>Remove</button></div>
-                <div class="ppphotoslot"><label class="ppphoto" for="ppPhotoB"><img id="ppImgB" alt="" hidden><svg viewBox="0 0 90 120" aria-hidden="true"><g fill="rgba(44,74,122,.38)"><circle cx="45" cy="56" r="17"/><path d="M12 120c0-25 15-42 33-42s33 17 33 42z"/></g></svg><span class="ppadd">Add a photo</span></label><input class="vh" type="file" accept="image/*" id="ppPhotoB" aria-label="Add a photo of them"><button class="linkbtn ppnophoto" type="button" data-who="b" hidden>Remove</button></div>
-              </div>
+              <div class="ppphotoslot"><label class="ppphoto" for="ppPhoto"><img id="ppImg" alt="" hidden><svg viewBox="0 0 90 120" aria-hidden="true"><g fill="rgba(44,74,122,.38)"><circle cx="31" cy="62" r="13"/><path d="M6 120c0-21 11-35 25-35s25 14 25 35z"/><circle cx="60" cy="57" r="14"/><path d="M34 120c0-23 12-37 26-37s26 14 26 37z"/></g><path fill="#a8362f" opacity=".8" d="M45 40c-2-4-9-3-8 2 0 3 8 9 8 9s8-6 8-9c1-5-6-6-8-2z"/></svg><span class="ppadd">Add your photo</span></label><input class="vh" type="file" accept="image/*" id="ppPhoto" aria-label="Add a photo of the two of you"><button class="linkbtn ppnophoto" type="button" id="ppNoPhoto" hidden>Remove</button></div>
               <dl class="ppfields">
                 <div><dt>Type / Type</dt><dd>P</dd></div>
                 <div><dt>Passport no. / N&#176;</dt><dd id="ppNo">LI0000000</dd></div>
@@ -1765,7 +1761,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/dream.js?v=a71bd29f"></script>
 <script src="js/holiday.js?v=3de55c63"></script>
 <script src="js/countdown.js?v=1e9a8e86"></script>
-<script src="js/passport.js?v=fcf4abbe"></script>
+<script src="js/passport.js?v=87d570bf"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
 <script src="js/date-page.js?v=917457ba"></script>
 </body>

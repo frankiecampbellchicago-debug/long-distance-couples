@@ -56,14 +56,22 @@
   ];
 
   const KEY = "liita-passport";
-  // a, b: your names; issued: a date you picked; pa, pb: your photos, shrunk to small JPEGs
-  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "{}"); return Object.assign({}, v, { stamps: v.stamps || [], skip: v.skip || [] }); } catch (e) { return { stamps: [], skip: [] }; } };
+  // a, b: your names; issued: a date you picked; photo: one of the two of you, shrunk to a small JPEG
+  const load = () => {
+    try {
+      const v = JSON.parse(localStorage.getItem(KEY) || "{}");
+      // it used to hold a photo each; keep the first one as the photo
+      if (!v.photo && (v.pa || v.pb)) v.photo = v.pa || v.pb;
+      delete v.pa; delete v.pb;
+      return Object.assign({}, v, { stamps: v.stamps || [], skip: v.skip || [] });
+    } catch (e) { return { stamps: [], skip: [] }; }
+  };
   const save = s => { try { localStorage.setItem(KEY, JSON.stringify(s)); return true; } catch (e) { return false; } };
-  // shrink a photo so two of them fit comfortably in this device's storage
+  // shrink the photo so it fits comfortably in this device's storage
   const shrink = file => new Promise((ok, bad) => {
     const img = new Image(), url = URL.createObjectURL(file);
     img.onload = () => {
-      const k = Math.min(1, 420 / Math.max(img.width, img.height)), c = document.createElement("canvas");
+      const k = Math.min(1, 640 / Math.max(img.width, img.height)), c = document.createElement("canvas");
       c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
       c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
       URL.revokeObjectURL(url); ok(c.toDataURL("image/jpeg", .8));
@@ -113,13 +121,11 @@
       $("ppHolders").textContent = a && b ? (a + " & " + b).toUpperCase() : (a || b || "The two of you").toUpperCase();
       const sig = $("ppSig"); sig.innerHTML = "";
       (a || b ? [a, b].filter(Boolean) : ["Us, together"]).forEach(x => { const sp = document.createElement("span"); sp.textContent = x; sig.appendChild(sp); });
-      [["a", "ppImgA"], ["b", "ppImgB"]].forEach(([w, id]) => {
-        const img = $(id), src = st["p" + w];
-        img.hidden = !src; if (src) img.src = src; else img.removeAttribute("src");
-        img.alt = src ? "Photo of " + (st[w] || (w === "a" ? "you" : "them")) : "";
-        document.querySelector('.ppnophoto[data-who="' + w + '"]').hidden = !src;
-        img.parentNode.querySelector(".ppadd").textContent = src ? "Change photo" : "Add a photo";
-      });
+      const img = $("ppImg"), src = st.photo;
+      img.hidden = !src; if (src) img.src = src; else img.removeAttribute("src");
+      img.alt = src ? "Photo of " + (a && b ? a + " and " + b : "the two of you") : "";
+      $("ppNoPhoto").hidden = !src;
+      img.parentNode.querySelector(".ppadd").textContent = src ? "Change photo" : "Add your photo";
       const yymmdd = d ? String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0") : "000000";
       $("ppNo").textContent = no;
       $("ppIssued").textContent = d ? d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase() : "FIRST STAMP";
@@ -255,7 +261,7 @@
       Array.from({ length: 40 }, (_, i) => { const a = i * Math.PI / 20; return '<circle cx="' + (100 + 44 * Math.cos(a)).toFixed(1) + '" cy="' + (100 + 44 * Math.sin(a)).toFixed(1) + '" r="44"/>'; }).join("") + "</svg>";
     document.querySelectorAll("#ppBook .ppros").forEach(el => { el.innerHTML = ros; });
 
-    // Personalize: names, issue date and a photo each. Photos can be added any time by tapping them.
+    // Personalize: names, issue date and a photo of the two of you. The photo can be added any time by tapping it.
     $("ppEdit").addEventListener("click", () => {
       const on = $("ppBook").classList.toggle("editing");
       $("ppEdit").textContent = on ? "Done" : "Personalize";
@@ -263,13 +269,13 @@
       if (on) { $("ppNameA").value = st.a || ""; $("ppNameB").value = st.b || ""; $("ppIssue").value = st.issued || ""; $("ppNameA").focus(); }
     });
     [["ppNameA", "a"], ["ppNameB", "b"], ["ppIssue", "issued"]].forEach(([id, k]) => $(id).addEventListener("input", () => { st[k] = $(id).value.trim(); save(st); fillDataPage(); }));
-    [["ppPhotoA", "a"], ["ppPhotoB", "b"]].forEach(([id, w]) => $(id).addEventListener("change", async () => {
-      const f = $(id).files[0]; $(id).value = ""; if (!f) return;
-      try { st["p" + w] = await shrink(f); } catch (e) { return; }
-      if (!save(st)) { delete st["p" + w]; save(st); alertLine("That photo didn't fit on this device. Try a smaller one."); }
+    $("ppPhoto").addEventListener("change", async () => {
+      const f = $("ppPhoto").files[0]; $("ppPhoto").value = ""; if (!f) return;
+      try { st.photo = await shrink(f); } catch (e) { return; }
+      if (!save(st)) { delete st.photo; save(st); alertLine("That photo didn't fit on this device. Try a smaller one."); }
       fillDataPage();
-    }));
-    document.querySelectorAll(".ppnophoto").forEach(b => b.addEventListener("click", () => { delete st["p" + b.dataset.who]; save(st); fillDataPage(); }));
+    });
+    $("ppNoPhoto").addEventListener("click", () => { delete st.photo; save(st); fillDataPage(); });
     function alertLine(msg) {
       let p = document.querySelector(".pperr");
       if (!p) { p = document.createElement("p"); p.className = "pperr"; p.setAttribute("role", "alert"); document.querySelector(".ppdatabody").after(p); }
