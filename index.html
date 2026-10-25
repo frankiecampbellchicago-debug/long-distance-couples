@@ -1073,9 +1073,10 @@ showQ();renderSaved();
 // clay icons on the article and pricing tiles
 document.querySelectorAll(".post .thumb[data-icon],.ptile[data-icon]").forEach(t=>{if(window.dateIcon)t.insertAdjacentHTML("beforeend",window.dateIcon(t.dataset.icon,"",t.dataset.wash))});
 
-// waitlist: each sign-up is emailed to us through FormSubmit (free). INBOX is the address (or the
-// private alias FormSubmit gives you after activating), so new sign-ups arrive as emails.
-const INBOX="";
+// waitlist: each sign-up joins our MailerLite list, which sends the welcome email and the newsletters.
+// Both numbers are in the form's embed code: assets.mailerlite.com/jsonp/ACCOUNT/forms/FORM/subscribe
+const ML_ACCOUNT="",ML_FORM="";
+const INBOX=ML_ACCOUNT&&ML_FORM?"https://assets.mailerlite.com/jsonp/"+ML_ACCOUNT+"/forms/"+ML_FORM+"/subscribe":"";
 if(!INBOX)document.getElementById("formMsg").textContent="Preview only. Sign-ups aren't collected yet.";
 let wantPlan="";
 document.querySelectorAll('.plan a[href="#join"]').forEach(a=>a.addEventListener("click",()=>{
@@ -1091,9 +1092,12 @@ document.getElementById("joinForm").addEventListener("submit",e=>{e.preventDefau
  if(!INBOX){joinDone(v,true);return}
  btn.disabled=true;btn.textContent="Joining...";
  const fail=t=>{btn.disabled=false;btn.textContent="Join the waitlist";msg.textContent=t||"That didn't go through. Check your connection and try again."};
- fetch("https://formsubmit.co/ajax/"+INBOX,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
-   body:JSON.stringify({email:v,interested_in:wantPlan||"Just the waitlist",page:location.href,_subject:"New waitlist sign-up: "+v,_template:"table",_captcha:"false"})})
-  .then(r=>r.json()).then(r=>{if(String(r.success)!=="true")throw 0;try{localStorage.setItem("ldr-waitlist",v)}catch(err){}joinDone(v)})
+ const body=new URLSearchParams({"fields[email]":v,"ml-submit":"1",anticsrf:"true"});
+ if(wantPlan)body.set("fields[interest]",wantPlan);
+ fetch(INBOX,{method:"POST",body})
+  .then(r=>r.json().catch(()=>({}))).then(r=>{
+    if(!r.success)return fail(r.errors&&r.errors.fields&&r.errors.fields.email?"That email didn't work. Check it and try again.":"");
+    try{localStorage.setItem("ldr-waitlist",v)}catch(err){}joinDone(v)})
   .catch(()=>fail());
 });
 </script>
