@@ -1002,7 +1002,7 @@ document.getElementById("nextD").addEventListener("click",()=>{stopAuto();tween(
 document.getElementById("spinD").addEventListener("click",()=>{if(spinning||!list.length)return;stopAuto();spinning=true;
   const picks=list.map((d,i)=>i).filter(i=>list[i].k!=="plus"),pick=picks[Math.floor(Math.random()*picks.length)];
   const base=Math.ceil(rot/360)*360+720;
-  tween(base+pick*step,2600,()=>{spinning=false;detailEl.classList.add("picked");detailEl.insertAdjacentHTML("afterbegin",'<span class="pickTag">Tonight\'s pick</span>');if(!reduce)burst();
+  tween(base+pick*step,3400,()=>{spinning=false;detailEl.classList.add("picked");detailEl.insertAdjacentHTML("afterbegin",'<span class="pickTag">Tonight\'s pick</span>');if(!reduce)burst();
     detailEl.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"})})});
 stage.addEventListener("keydown",e=>{if(e.key==="ArrowRight"){e.preventDefault();document.getElementById("nextD").click()}if(e.key==="ArrowLeft"){e.preventDefault();document.getElementById("prevD").click()}});
 // drag to turn
@@ -1013,7 +1013,7 @@ addEventListener("pointermove",e=>{if(dragX===null)return;const dx=e.clientX-dra
 addEventListener("pointerup",()=>{if(dragX===null)return;dragX=null;stage.classList.remove("dragging");if(moved)tween(Math.round(rot/step)*step,450);setTimeout(()=>moved=false,0)});
 // slow idle spin until someone touches it
 let last=performance.now();
-(function idle(now){if(auto&&!stage.matches(":hover")&&list.length){rot+=(now-last)*0.008;render()}last=now;if(auto)requestAnimationFrame(idle)})(last);
+(function idle(now){if(auto&&!stage.matches(":hover")&&list.length){rot+=(now-last)*0.0055;render()}last=now;if(auto)requestAnimationFrame(idle)})(last);
 addEventListener("resize",()=>{size();render()});
 build();
 
