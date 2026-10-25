@@ -74,7 +74,7 @@
       st.q.forEach((x, i) => {
         const li = document.createElement("li"); li.className = "qzrow"; li.dataset.i = i;
         li.innerHTML = '<div class="qzrowhead"><b>' + (i + 1) + '</b><input class="qzq" type="text" maxlength="120" aria-label="Question ' + (i + 1) + '"><button class="linkbtn" type="button" data-act="swap">Different question</button></div>' +
-          '<div class="qzopts">' + x.o.map((o, j) => '<label class="qzopt"><input type="radio" name="qzr' + i + '" value="' + j + '" aria-label="This one is me"><input type="text" maxlength="80" data-j="' + j + '" aria-label="Answer ' + (j + 1) + '"></label>').join("") + "</div>";
+          '<div class="qzopts">' + x.o.map((o, j) => '<label class="qzopt"><input type="radio" name="qzr' + i + '" value="' + j + '" aria-label="This one is me"><span class="qzletter" aria-hidden="true">' + "ABCDEF"[j] + "</span>" + '<input type="text" maxlength="80" data-j="' + j + '" aria-label="Answer ' + (j + 1) + '"></label>').join("") + "</div>";
         li.querySelector(".qzq").value = x.q;
         li.querySelectorAll('input[type=text][data-j]').forEach(t => { t.value = x.o[t.dataset.j]; });
         if (x.a >= 0) li.querySelector('input[type=radio][value="' + x.a + '"]').checked = true;
@@ -144,15 +144,18 @@
     $("qzHead").textContent = "How well do you know " + name + "?";
     $("qzSub").textContent = name + " answered " + qs.length + " questions about themselves. Pick what you think they said.";
 
+    $("qzDots").innerHTML = qs.map(() => "<li></li>").join(""); $("qzLive").textContent = "0";
     function ask() {
       const [q, opts] = qs[i];
       $("qzStep").textContent = "Question " + (i + 1) + " of " + qs.length;
       $("qzBar").style.width = (i / qs.length * 100) + "%";
+      $("qzDots").children[i].classList.add("now");
       $("qzQ").textContent = q;
       $("qzNext").hidden = true; $("qzVerdict").textContent = "";
       const box = $("qzChoices"); box.innerHTML = "";
       opts.forEach((o, j) => {
-        const b = document.createElement("button"); b.type = "button"; b.className = "qzchoice"; b.textContent = o; b.dataset.j = j;
+        const b = document.createElement("button"); b.type = "button"; b.className = "qzchoice"; b.dataset.j = j;
+        b.innerHTML = '<span class="qzl" aria-hidden="true">' + "ABCDEF"[j] + "</span><span></span>"; b.lastChild.textContent = o;
         box.appendChild(b);
       });
       box.firstChild.focus({ preventScroll: true });
@@ -164,6 +167,8 @@
       [...$("qzChoices").children].forEach(c => { c.disabled = true; if (+c.dataset.j === ans) c.classList.add("right"); });
       if (!ok) b.classList.add("wrong");
       if (ok) right++;
+      const dot = $("qzDots").children[i]; dot.classList.remove("now"); dot.classList.add(ok ? "ok" : "no");
+      $("qzLive").textContent = right;
       picks.push([j, ans]);
       $("qzVerdict").textContent = ok ? pick(["Yes! You know " + name + ".", "Correct.", "Nailed it.", "That's the one."]) : name + " said “" + qs[i][1][ans] + "”.";
       $("qzVerdict").className = "qzverdict " + (ok ? "ok" : "no");
@@ -176,6 +181,8 @@
       $("qzCard").hidden = true; $("qzEnd").hidden = false; $("qzBar").style.width = "100%";
       const pct = right / qs.length;
       $("qzScore").textContent = right + "/" + qs.length;
+      $("qzRing").style.setProperty("--p", 0); void $("qzRing").offsetWidth;
+      $("qzRing").style.setProperty("--p", pct);
       $("qzTitle").textContent = pct === 1 ? "Perfect score. You really know " + name + "." : pct >= .8 ? "You know " + name + " really well." : pct >= .5 ? "Not bad. Some surprises in there." : "Okay. You two have some talking to do.";
       const recap = $("qzRecap"); recap.innerHTML = "";
       qs.forEach(([q, opts], k) => {
