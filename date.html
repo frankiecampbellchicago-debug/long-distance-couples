@@ -144,6 +144,52 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
 .ppstamp .stamp{display:block;width:100%;height:auto;opacity:.88;mix-blend-mode:multiply}
 .ppempty{color:var(--muted);font-style:italic}
+.cdmake,.cdview{display:grid;gap:18px}
+.cdtop{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:12px}
+.cdbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.cdcount{font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cddoors{list-style:none;margin:0;padding:0 4px 0 0;display:grid;gap:10px;max-height:min(70vh,760px);overflow:auto}
+.cdrow{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:3px;padding:12px 14px;display:grid;gap:8px}
+.cdrow.empty{border-color:#c0412f;box-shadow:0 0 0 2px rgba(192,65,47,.18)}
+.cdrowhead{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cdrowhead b{font:600 21px/1 var(--display)}
+.cdrowhead span{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cdrow select,.cdrow textarea,.cdrow input,.cdanswer textarea{font:16px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:2px;padding:9px 10px;width:100%;min-width:0}
+.cdrow select{justify-self:start;width:auto;padding:6px 8px;font-size:14px}
+.cdrow textarea,.cdanswer textarea{resize:vertical;line-height:1.4}
+.cdrowfoot{display:flex;gap:12px;align-items:center}
+.cdrowfoot input{flex:1;font-size:14px}
+.cdrowfoot .linkbtn{flex:none}
+.cderr{color:#a8362f;font-weight:700}
+.cdacts{display:flex;flex-wrap:wrap;gap:12px}
+.cdout{display:grid;gap:10px;justify-items:start;background:var(--paper);border:1px dashed var(--red);border-radius:3px;padding:16px}
+.cdpeek{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:#f1e4c8;border:1px solid var(--line);border-radius:3px;padding:10px 14px;font-size:14px}
+.cdhero{text-align:center;display:grid;gap:8px;justify-items:center;padding:8px 0}
+.cdhero h2{font-size:clamp(34px,6vw,54px);line-height:1.05}
+.cdclock{font:700 15px var(--mono);letter-spacing:.12em;color:var(--muted);font-variant-numeric:tabular-nums}
+.cdgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.cddoor{width:100%;aspect-ratio:1/1.08;border-radius:4px;display:grid;place-content:center;gap:6px;text-align:center;font:inherit;cursor:pointer;padding:6px;transition:transform .2s}
+.cdnum{font:600 40px/1.1 var(--display);font-variant-numeric:lining-nums}
+.cddoor small{font:700 10px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.cddoor.locked{background:repeating-linear-gradient(135deg,var(--paper) 0 8px,#efe2c9 8px 16px);border:1px dashed var(--line);color:var(--muted);cursor:default}
+.cddoor.locked .cdnum{opacity:.55}
+.cddoor.ready{background:linear-gradient(160deg,#b45a35,#8a3a1f);border:0;color:var(--onblue);box-shadow:0 2px 0 #6e2c16}
+.cddoor.ready:hover{transform:translateY(-2px) rotate(-1deg)}
+.cddoor.today{animation:cdwiggle 2.6s ease-in-out infinite}
+.cddoor.opened{background:var(--paper);border:1.5px solid var(--red);color:var(--red)}
+.cddoor.last.locked .cdnum{color:#c0412f}
+.cddoor.pop{animation:cdpop .35s ease-out}
+@keyframes cdwiggle{0%,86%,100%{transform:none}90%{transform:rotate(-4deg)}94%{transform:rotate(4deg)}}
+@keyframes cdpop{0%{transform:scale(.9)}60%{transform:scale(1.06)}100%{transform:none}}
+.cdreveal{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--red);border-radius:3px;padding:22px 24px;display:grid;gap:12px;justify-items:start;animation:cdpop .35s ease-out}
+.cdtext{font:500 clamp(24px,3.6vw,32px)/1.25 var(--display);white-space:pre-line;overflow-wrap:anywhere}
+.cdreveal.kind-c{border:2px dashed var(--red);background:#fbf1de}
+.cdreveal.kind-c .cdtext::after{content:"Redeem on the visit";display:block;margin-top:10px;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.cdanswer{display:grid;gap:8px;width:100%}
+.cdanswer label{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cdanswer .btn{justify-self:start}
+@media (max-width:640px){.cdtop{grid-template-columns:1fr}.cdrowfoot{flex-wrap:wrap}.cdgrid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}.cdnum{font-size:32px}}
+@media (prefers-reduced-motion:reduce){.cddoor.today,.cddoor.pop,.cdreveal{animation:none}}
 @media (max-width:640px){.ppgrid{grid-template-columns:minmax(0,1fr)}.ppctrl .field{min-width:0;flex:1}}
 .fform{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end}
 @media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
@@ -920,6 +966,51 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
       <p class="credit">Walks open in Google Street View. Stamps are saved on this device.</p>
     </section>
 
+    <section class="finder countdown" id="countdown" hidden>
+      <div id="cdMake" class="cdmake">
+        <div>
+          <h2>Make their countdown</h2>
+          <p class="sub">Pick the day you'll see each other. You get one door for every day until then. Fill each one, send the link, and they can open one door a day, never early. They don't need Plus to open it.</p>
+        </div>
+        <div class="cdtop">
+          <div class="field"><label for="cdFrom">Your name</label><input id="cdFrom" type="text" maxlength="40" autocomplete="given-name" placeholder="Alex"></div>
+          <div class="field"><label for="cdTo">Their name</label><input id="cdTo" type="text" maxlength="40" autocomplete="off" placeholder="Sam"></div>
+          <div class="field"><label for="cdWhen">The day you see each other</label><input id="cdWhen" type="date"></div>
+        </div>
+        <div class="cdbar"><p class="cdcount" id="cdCount"></p><button class="linkbtn" type="button" id="cdIdeas">Fill the empty doors with ideas</button></div>
+        <ol class="cddoors" id="cdDoors"></ol>
+        <p class="cderr" id="cdErr" role="alert" hidden></p>
+        <div class="cdacts"><button class="btn red" type="button" id="cdMakeLink">Make their link</button><button class="btn ghost" type="button" id="cdPreview">Preview what they'll see</button></div>
+        <div class="cdout" id="cdOut" hidden>
+          <p><b>Their calendar is ready.</b> Everything is inside this link, so send the whole thing.</p>
+          <input class="pplink" id="cdLink" type="text" readonly aria-label="Link for your partner">
+          <button class="btn red" type="button" id="cdSend">Send it to them</button>
+        </div>
+        <p class="credit">Your draft is saved on this device while you work on it.</p>
+      </div>
+
+      <div id="cdView" class="cdview" hidden>
+        <div class="cdpeek" id="cdPeek" hidden><span>Preview: you can open every door. They'll only be able to open one a day.</span><button class="linkbtn" type="button" id="cdBack">Back to editing</button></div>
+        <div class="cdhero">
+          <p class="eyebrow" id="cdFromLine"></p>
+          <h2 id="cdHead"></h2>
+          <p class="cdclock" id="cdClock" aria-live="off"></p>
+        </div>
+        <div class="cdreveal" id="cdReveal" hidden aria-live="polite">
+          <p class="pplabel" id="cdKind"></p>
+          <p class="cdtext" id="cdText"></p>
+          <a class="btn ghost" id="cdLinkOut" target="_blank" rel="noopener" hidden></a>
+          <div class="cdanswer" id="cdAnswer" hidden>
+            <label for="cdAns">Your answer</label>
+            <textarea id="cdAns" rows="2" maxlength="500"></textarea>
+            <button class="btn red" type="button" id="cdAnsSend">Send them your answer</button>
+          </div>
+        </div>
+        <ol class="cdgrid" id="cdGrid"></ol>
+        <p class="credit">Doors you've opened are remembered on this device. <a href="date.html?d=countdown-calendar">Make one back for them &#8594;</a></p>
+      </div>
+    </section>
+
     <section class="finder" id="stars" aria-labelledby="skyTitle" hidden>
       <div>
         <h2 id="skyTitle">What's in your sky</h2>
@@ -997,17 +1088,18 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=b288f4f1"></script>
+<script src="js/dates.js?v=47ebce96"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
 <script src="js/classes.js?v=78c6c8b8"></script>
-<script src="js/escaperooms.js?v=ebeb289d"></script>
+<script src="js/escaperooms.js?v=fc8fb9d9"></script>
 <script src="js/meetup.js?v=e114f7f2"></script>
 <script src="js/locate.js?v=a3649b11"></script>
 <script src="js/citytour.js?v=e1944ee7"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
+<script src="js/countdown.js?v=50925f6e"></script>
 <script src="js/passport.js?v=b89d4a97"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=4d10aaf0"></script>
+<script src="js/date-page.js?v=cf8237db"></script>
 </body>
 </html>
