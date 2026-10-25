@@ -324,6 +324,7 @@ section.band{padding-block:80px}
 .dcard .where,.detail .where{font:700 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tag)}
 .dcard h3{font-size:21px;line-height:1.15}
 .dcard .facts{font:700 12px var(--mono);color:var(--muted);margin-top:2px}
+.dcard .plusmark,.detail .plusmark{position:absolute;top:10px;left:10px;z-index:2;font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;background:#8f3f22;color:var(--onblue);border-radius:3px;padding:4px 8px;box-shadow:0 2px 6px rgba(60,25,10,.3)}
 .dcard .savedmark{position:absolute;top:9px;right:9px;z-index:2;width:28px;height:28px;border-radius:50%;background:rgba(253,246,235,.92);color:var(--blue);display:grid;place-items:center}
 .dcard .savedmark svg{width:14px;height:14px;fill:currentColor}
 .k-apart{--tile:linear-gradient(160deg,#cad6e5,#97adc9);--tag:#55709a}
@@ -899,7 +900,7 @@ section.band{position:relative;isolation:isolate}
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=507d4e02"></script>
+<script src="js/dates.js?v=b288f4f1"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script>
 // visit countdown (defaults to an example date 23 days out)
@@ -921,7 +922,7 @@ cd();setInterval(cd,1000);
 
 // dates: a spinning wheel of date cards. Filter by where and mood, save with the heart, or spin for a surprise.
 const DATES=window.DATES,WHERE=window.DATE_WHERE,svgIcon=window.dateIcon;
-const WHERE_F=[["all","Anywhere"],["apart","While apart"],["together","When you visit"],["saved","Saved"]];
+const WHERE_F=[["all","Anywhere"],["apart","While apart"],["together","When you visit"],["plus","Plus"],["saved","Saved"]];
 const MOOD_F=[["any","Any mood"],["cozy","Cozy"],["adventurous","Adventurous"],["free","Free"]];
 const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20Z"/></svg>';
 const stage=document.getElementById("stage"),ring=document.getElementById("ring"),countEl=document.getElementById("dCount"),detailEl=document.getElementById("detail"),dSave=document.getElementById("dSave");
@@ -930,7 +931,8 @@ let fw="all",fm="any",favs=[],list=[],cards=[],rot=0,step=0,radius=400,anim=null
 try{favs=JSON.parse(localStorage.getItem("ldr-saved-dates")||"[]")}catch(e){}
 const keepFavs=()=>{try{localStorage.setItem("ldr-saved-dates",JSON.stringify(favs))}catch(e){}};
 function match(d){
-  if(d.k==="plus")return fw==="all"&&fm==="any";
+  if(d.k==="plus")return(fw==="all"||fw==="plus")&&fm==="any";
+  if(fw==="plus"&&!d.plus)return false;
   if(fw==="saved"&&!favs.includes(d.s))return false;
   if((fw==="apart"||fw==="together")&&d.k!==fw)return false;
   return fm==="any"||d.tags.includes(fm);
@@ -943,7 +945,7 @@ function favCount(){const b=document.querySelector('#chipsWhere [data-k="saved"]
 function build(){
   list=DATES.filter(match);ring.innerHTML="";
   cards=list.map((d,i)=>{const c=document.createElement("div");c.className="dcard k-"+d.k;c.setAttribute("role","button");c.tabIndex=-1;
-    c.innerHTML='<span class="dc-tile">'+window.datePhoto(d)+'</span><span class="dc-body"><span class="where"></span><h3></h3><span class="facts"></span></span>'+(favs.includes(d.s)?'<span class="savedmark" title="Saved">'+HEART+'</span>':"");
+    c.innerHTML='<span class="dc-tile">'+window.datePhoto(d)+'</span>'+(d.plus?'<span class="plusmark">Plus</span>':"")+'<span class="dc-body"><span class="where"></span><h3></h3><span class="facts"></span></span>'+(favs.includes(d.s)?'<span class="savedmark" title="Saved">'+HEART+'</span>':"");
     c.querySelector(".where").textContent=d.where?d.where.replace(" · In the app",""):WHERE[d.k];
     c.querySelector("h3").textContent=d.t;c.querySelector(".facts").textContent=d.f.slice(0,2).join("  ·  ");
     c.addEventListener("click",()=>{if(!moved){stopAuto();goTo(i)}});ring.appendChild(c);return c});
@@ -966,7 +968,7 @@ function render(){
 function showDetail(){const d=list[front];if(!d)return;
   detailEl.className="detail k-"+d.k;void detailEl.offsetWidth;detailEl.classList.add("in");
   const tag=detailEl.querySelector(".pickTag");if(tag)tag.remove();
-  document.getElementById("dTile").innerHTML=window.datePhoto(d);
+  document.getElementById("dTile").innerHTML=window.datePhoto(d)+(d.plus?'<span class="plusmark">Plus</span>':"");
   document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;
   const fx=document.getElementById("dFacts");fx.innerHTML="";d.f.forEach(t=>{const s=document.createElement("span");s.textContent=t;fx.appendChild(s)});
   const dl=document.getElementById("dLink");dl.href=d.k==="plus"?"#pricing":"date.html?d="+d.s;dl.textContent=d.k==="plus"?"See Plus":"View more";

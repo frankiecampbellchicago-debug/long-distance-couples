@@ -40,6 +40,11 @@
   link($("nextLink"), "Next date →", all[(idx + 1) % all.length]);
   $("page").hidden = false;
 
+  // Plus dates: a preview and the waitlist until Plus launches. ?plus=preview unlocks this device for testing.
+  const plusOn = (() => { try { const q = new URLSearchParams(location.search).get("plus"); if (q === "preview") localStorage.setItem("liita-plus", "1"); if (q === "off") localStorage.removeItem("liita-plus"); return localStorage.getItem("liita-plus") === "1"; } catch (e) { return false; } })();
+  if (d.plus && !plusOn) { $("plusGate").hidden = false; return; }
+
+  if (more.tool === "passport") window.setupPassport();
   if (more.tool === "food") setupFood();
   if (more.tool === "movies") setupMovies();
   if (more.tool === "stars") window.setupStars();

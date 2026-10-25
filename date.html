@@ -105,6 +105,46 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .finder{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:24px;display:grid;gap:18px;margin-bottom:40px;box-shadow:0 1px 2px rgba(47,36,27,.2)}
 .finder h2{font-size:30px}
 .finder .sub{color:var(--muted)}
+/* Plus */
+.plusgate{display:grid;gap:12px;justify-items:start;background:linear-gradient(160deg,#b45a35,#7a3219);color:var(--onblue);border-radius:4px;padding:28px;margin-bottom:40px}
+.plusgate h2{font-size:32px}
+.plusgate p{max-width:60ch;color:rgba(253,243,228,.88)}
+.plusgate .btn{background:var(--onblue);color:#7a3219}
+.pluschip{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;background:rgba(253,243,228,.18);border:1px solid rgba(253,243,228,.5);border-radius:3px;padding:4px 9px}
+/* Passport Night */
+.ppctrl{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
+.ppctrl .field{min-width:220px}
+.pphead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:14px;border-bottom:1px dashed var(--line);padding-bottom:14px}
+.ppcountry{font-size:clamp(40px,7vw,64px);line-height:1}
+.ppacts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.linkbtn{border:0;background:none;padding:0;font:600 14px var(--body);color:var(--muted);text-decoration:underline;cursor:pointer}
+.pplink{width:100%;font:14px var(--body);padding:8px 10px;border:1px solid var(--line);border-radius:3px;background:var(--paper)}
+.ppres{display:grid;gap:16px}
+.ppgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ppcard{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:16px 18px;display:grid;gap:6px;align-content:start}
+.ppcard.wide{grid-column:1/-1}
+.ppcard h4{font:600 22px/1.15 var(--display);margin:0}
+.ppcard p{color:var(--muted)}
+.ppcard a{font-weight:700;color:var(--red);justify-self:start}
+.ppcard .btn{color:var(--ink);margin-top:4px}
+.pplabel{font:800 11px var(--mono)!important;letter-spacing:.14em;text-transform:uppercase;color:var(--red)!important}
+.ppmusic{margin:0;padding-left:18px}
+.ppmusic a{color:var(--ink)!important;font-weight:600}
+.ppwords{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.ppwords li{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:10px 12px;display:grid;gap:2px}
+.ppwords small{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ppwords b{font:600 21px/1.15 var(--display)}
+.ppwords span{font-size:13px;color:var(--muted)}
+.ppstampbtn{justify-self:start}
+.ppbook{background:#f1e4c8;border:1px solid var(--line);border-radius:4px;padding:18px 20px;display:grid;gap:12px;
+  background-image:repeating-linear-gradient(0deg,transparent 0 27px,rgba(122,50,25,.07) 27px 28px)}
+.ppbookhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ppbookhead h3{font-size:26px}
+.ppbookhead span{font:700 12px var(--mono);color:var(--muted)}
+.ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.ppstamp .stamp{display:block;width:100%;height:auto;opacity:.88;mix-blend-mode:multiply}
+.ppempty{color:var(--muted);font-style:italic}
+@media (max-width:640px){.ppgrid{grid-template-columns:minmax(0,1fr)}.ppctrl .field{min-width:0;flex:1}}
 .fform{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end}
 @media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
 .field{display:grid;gap:6px;min-width:0}
@@ -842,6 +882,43 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
       </div>
     </section>
 
+    <section class="plusgate" id="plusGate" hidden>
+      <span class="pluschip">Plus</span>
+      <h2>This date comes with Plus</h2>
+      <p id="gateText">Plus unlocks the dates with something extra built in. It's launching soon. Join the waitlist and we'll let you know the day it opens.</p>
+      <a class="btn red" href="index.html#join">Join the waitlist</a>
+    </section>
+
+    <section class="finder passport" id="passport" aria-labelledby="ppTitle" hidden>
+      <div>
+        <h2 id="ppTitle">Where are we going tonight?</h2>
+        <p class="sub">Spin the globe, or pick a country neither of you has been to. Then cook the same dish, put on its music, learn a few words, and take a walk down one of its streets together.</p>
+      </div>
+      <div class="ppctrl">
+        <button class="btn red" type="button" id="ppSpin">Spin the globe</button>
+        <div class="field"><label for="ppPick">Or pick a country</label><select id="ppPick"><option value="" disabled selected>Choose…</option></select></div>
+      </div>
+      <div class="ppres" id="ppResult" hidden aria-live="polite">
+        <div class="pphead">
+          <div><p class="eyebrow" id="ppCity"></p><h3 class="ppcountry" id="ppCountry"></h3></div>
+          <div class="ppacts"><button class="btn ghost" type="button" id="ppSend">Send them tonight's country</button><button class="linkbtn" type="button" id="ppSkip">We've been there, skip it</button></div>
+        </div>
+        <input class="pplink" id="ppLink" type="text" readonly hidden aria-label="Link for your partner">
+        <div class="ppgrid">
+          <div class="ppcard"><p class="pplabel">1 · Cook</p><h4 id="ppDish"></h4><p id="ppNote"></p><a id="ppRecipe" target="_blank" rel="noopener">Find a recipe &#8594;</a></div>
+          <div class="ppcard"><p class="pplabel">2 · Listen</p><h4>Put this on while you cook</h4><ul class="ppmusic" id="ppMusic"></ul><a id="ppSpotify" target="_blank" rel="noopener">Search on Spotify &#8594;</a></div>
+          <div class="ppcard wide"><p class="pplabel">3 · Learn</p><h4>Say these to each other</h4><ul class="ppwords" id="ppWords"></ul></div>
+          <div class="ppcard wide walkc"><p class="pplabel">4 · Walk</p><h4>Take a walk down <span id="ppWalkName"></span></h4><p>Both open the link, share a screen if you like, and take turns choosing which way to go.</p><a class="btn ghost" id="ppWalk" target="_blank" rel="noopener">Open the street view</a></div>
+        </div>
+        <button class="btn red ppstampbtn" type="button" id="ppStamp">We did it. Stamp our passports</button>
+      </div>
+      <div class="ppbook" id="ppBook">
+        <div class="ppbookhead"><h3>Our passport</h3><span id="ppCount"></span></div>
+        <div class="ppstamps" id="ppStamps"></div>
+      </div>
+      <p class="credit">Walks open in Google Street View. Stamps are saved on this device.</p>
+    </section>
+
     <section class="finder" id="stars" aria-labelledby="skyTitle" hidden>
       <div>
         <h2 id="skyTitle">What's in your sky</h2>
@@ -919,7 +996,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 
 <footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
 
-<script src="js/dates.js?v=507d4e02"></script>
+<script src="js/dates.js?v=b288f4f1"></script>
 <script src="js/tripboard.js?v=3dbf8c7c"></script>
 <script src="js/classes.js?v=78c6c8b8"></script>
 <script src="js/escaperooms.js?v=4343726d"></script>
@@ -928,7 +1005,8 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/citytour.js?v=e1944ee7"></script>
 <script src="js/museums.js?v=91254792"></script>
 <script src="js/deep-talks.js?v=452bc1e0"></script>
+<script src="js/passport.js?v=b89d4a97"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
-<script src="js/date-page.js?v=bcb62495"></script>
+<script src="js/date-page.js?v=4d10aaf0"></script>
 </body>
 </html>

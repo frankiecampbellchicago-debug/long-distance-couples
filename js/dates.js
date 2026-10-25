@@ -15,6 +15,7 @@ window.DATES=[
  {s:"time-capsule",k:"together",i:"hourglass",t:"Build a time capsule",d:"Fill a box with notes, photos, and ticket stubs from this visit. Open it at the next one.",f:["Free","1 hr"],tags:["free","cozy"]},
  {s:"walk-along",k:"apart",i:"phone",t:"Neighborhood walk-along",d:"Take them on a video walk through your neighborhood. Show them your coffee shop, your shortcut, your view.",f:["Free","45 min"],tags:["free"]},
  {s:"take-a-class",k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, cooking, anything you'd both be a little bad at. That's half the fun.",f:["$$","2–3 hrs"],tags:["adventurous"]},
+ {s:"passport-night",k:"apart",plus:true,i:"plane",t:"Passport Night",d:"Spin the globe and land somewhere neither of you has been. Cook its dish, play its music, learn five words, walk one of its streets, then stamp your passports.",f:["Plus","2–3 hrs","24 countries"],tags:["cozy","adventurous"]},
  {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"More dates with Plus",d:"Holiday dates, anniversary plans, and new ideas as we add them.",f:["Plus"],tags:["all-only"]}
 ];
 window.DATE_WHERE={apart:"While apart",together:"When you visit"};
@@ -45,7 +46,7 @@ window.dateIcon=(k,cls,kind)=>'<span class="clay '+(cls||"")+'" aria-hidden="tru
   '<g fill="none" stroke="#4a3527" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round">'+(DATE_ICONS[k]||"")+'</g></svg></span>';
 
 // a real photo for each date (CC0, sources in images/dates/sources.json); falls back to the clay icon
-window.DATE_PHOTOS=["movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
+window.DATE_PHOTOS=["passport-night","movie-night","order-dinner","stargazing","first-date","story-playlist","museum-trip","tourist-in-my-city","letters","book-club","meet-somewhere-new","cook-off","escape-room","time-capsule","walk-along","take-a-class","plus"];
 window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
   ?'<picture class="dphoto '+(cls||"")+'"><source srcset="images/dates/'+d.s+'.webp" type="image/webp"><img src="images/dates/'+d.s+'.jpg" alt="" decoding="async" draggable="false"></picture>'
   :dateIcon(d.i,cls,d.k);
@@ -53,6 +54,10 @@ window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
 // Extra detail for each date's own page: how to do it, what you need, one tip.
 // app:true dates live inside the app (coming soon). tool names a widget on the page.
 window.DATE_MORE={
+ "passport-night":{tool:"passport",
+  steps:["Spin the globe on this page, or pick a country neither of you has been to. Send your partner the link so you both land in the same place.","Shop for the dish ahead of time, then cook it together on video with the country's music playing.","While it simmers, learn the five phrases and say them to each other. Bad accents count.","Eat together, then open the street view and take a walk, taking turns choosing which way to go.","Stamp your passports. Next time, spin again."],
+  need:["Ingredients for the dish (check the recipe a day ahead)","A video call and a speaker for the music","A laptop or tablet for the walk"],
+  tip:"Dress for the country, even if it's just a scarf or a hat. The photos are half the fun."},
  "movie-night":{tool:"movies",
   steps:["Use the search on this page to pick a movie you can both stream. Take turns choosing each week.","Get a call going on your phones, so your laptops are free for the movie.","Count down from three and press play at the same second.","Pause together for snack breaks and talk about it when the credits roll."],
   need:["The same streaming service, or a watch-party feature","Snacks","Headphones if the call echoes"],
