@@ -324,67 +324,7 @@
   };
 
   /* ---------- page ---------- */
-  /* ---------- live sky cameras (Asahi Shimbun's 24/7 YouTube streams) ---------- */
-  // Stream IDs change if a channel restarts a stream; the credit line links to all of their cameras.
-  const CAMS = [
-    { n: "Hawaii, looking east", v: "Kj5DjRYkzD8", lat: 19.8207, lon: -155.4681, tz: "Pacific/Honolulu" },
-    { n: "Hawaii, looking west", v: "Q3UhCgsWDw8", lat: 19.8253, lon: -155.4689, tz: "Pacific/Honolulu" },
-    { n: "Atacama Desert, Chile", v: "BVKRAzTSnB0", lat: -23.0193, lon: -67.7532, tz: "America/Santiago" },
-    { n: "Kozushima Island, Japan", v: "K00ZtM98fHs", lat: 34.21, lon: 139.14, tz: "Asia/Tokyo" },
-    { n: "Kiso Observatory, Japan", v: "_HZDjlfTuvQ", lat: 35.7972, lon: 137.6253, tz: "Asia/Tokyo" }
-  ];
-  function setupLiveSky() {
-    $("liveSky").hidden = false;
-    const tabs = $("camTabs");
-    let cur = null;
-    const state = (c, t) => {
-      const alt = sunAltAt(c, t);
-      if (alt < -12) return { night: true, word: "Night there now" };
-      let tt = t;
-      while (sunAltAt(c, tt) >= -12 && tt < t + 86400000) tt += 600000;
-      const h = Math.max(1, Math.round((tt - t) / 3600000));
-      return { night: false, word: (alt > 0 ? "Daytime there" : "Twilight there") + ", dark in about " + h + " hour" + (h > 1 ? "s" : "") };
-    };
-    const note = () => {
-      const c = CAMS[cur], s = state(c, Date.now());
-      $("camNote").textContent = c.n + ": " + zoned(c.tz).time(Date.now()) + ". " + s.word + "." +
-        (s.night ? " Go full screen in a dark room. Faint stars show up better that way." : " For stars, pick a camera marked night.");
-    };
-    const show = (i, play) => {
-      cur = i;
-      const c = CAMS[i];
-      [...tabs.children].forEach((b, j) => b.setAttribute("aria-pressed", j === i ? "true" : "false"));
-      $("camFrame").innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + c.v + "?autoplay=" + (play ? 1 : 0) + '&mute=1&playsinline=1&rel=0" title="Live sky camera: ' + c.n +
-        '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>';
-      note();
-    };
-    const label = () => {
-      const now = Date.now();
-      [...tabs.children].forEach((b, i) => {
-        const c = CAMS[i], s = state(c, now);
-        b.classList.toggle("night", s.night);
-        b.querySelector("small").textContent = zoned(c.tz).time(now) + " · " + (s.night ? "night" : "day");
-      });
-    };
-    CAMS.forEach((c, i) => {
-      const b = document.createElement("button");
-      b.type = "button"; b.setAttribute("aria-pressed", "false");
-      b.innerHTML = "<span></span><small></small>";
-      b.firstChild.textContent = c.n;
-      b.addEventListener("click", () => show(i, true));
-      tabs.appendChild(b);
-    });
-    label();
-    setInterval(() => { label(); if (cur !== null) note(); }, 60000);
-    // start on whichever camera is darkest right now
-    const now = Date.now();
-    let best = 0;
-    CAMS.forEach((c, i) => { if (sunAltAt(c, now) < sunAltAt(CAMS[best], now)) best = i; });
-    show(best, false);
-  }
-
   window.setupStars = function () {
-    setupLiveSky();
     $("stars").hidden = false;
     const status = (msg, err) => { $("skyStatus").textContent = msg; $("skyStatus").classList.toggle("err", !!err); };
     window.addLocateButton($("skyPlace"), { kind: "city", status });
