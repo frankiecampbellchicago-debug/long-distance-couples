@@ -347,7 +347,7 @@ section.band{padding-block:80px}
 .detail h3{font-size:30px;padding-right:48px}
 .detail p{margin:0;color:var(--muted)}
 .detail .facts{display:flex;flex-wrap:wrap;gap:8px}
-.detail .facts .pvbtn{font:700 13px var(--body);color:var(--red);background:transparent;border:1.5px solid var(--red);border-radius:3px;padding:6px 14px;cursor:pointer}
+.detail .facts .pvbtn{display:inline-block;text-decoration:none;font:700 13px var(--body);color:var(--red);background:transparent;border:1.5px solid var(--red);border-radius:3px;padding:6px 14px;cursor:pointer}
 .detail .facts .pvbtn:hover{background:var(--red);color:var(--onblue)}
 .detail .facts span{font:700 12px var(--mono);border:1px solid var(--line);border-radius:3px;padding:4px 10px;color:var(--muted)}
 .detail .btn{justify-self:start;margin-top:4px}
@@ -933,21 +933,18 @@ let fw="all",fm="any",favs=[],list=[],cards=[],rot=0,step=0,radius=400,anim=null
 try{favs=JSON.parse(localStorage.getItem("ldr-saved-dates")||"[]")}catch(e){}
 const keepFavs=()=>{try{localStorage.setItem("ldr-saved-dates",JSON.stringify(favs))}catch(e){}};
 function match(d){
-  // Plus dates live behind the "More dates with Plus" card and show only in the Plus view it opens
+  // Plus dates live on plus.html, reached from the "More dates with Plus" card
   if(d.k==="plus")return fw==="all"&&fm==="any";
-  if((fw==="plus")!==!!d.plus)return false;
+  if(d.plus)return false;
   if(fw==="saved"&&!favs.includes(d.s))return false;
   if((fw==="apart"||fw==="together")&&d.k!==fw)return false;
   return fm==="any"||d.tags.includes(fm);
 }
 // set on this device by date.html?plus=preview until real Plus accounts exist
 function plusOn(){try{return localStorage.getItem("liita-plus")==="1"}catch(e){return false}}
-function showPlusDates(){fw="plus";const row=document.getElementById("chipsWhere");let c=row.querySelector('[data-k="plus"]');
-  if(!c){c=document.createElement("button");c.type="button";c.className="chip";c.dataset.k="plus";c.textContent="Plus dates";row.appendChild(c)}
-  row.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));build();document.getElementById("chipsWhere").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})}
 function chipRow(el,items,get,set){items.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.dataset.k=k;b.textContent=label;
   b.setAttribute("aria-pressed",k===get());b.addEventListener("click",()=>{set(k);el.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));build()});el.appendChild(b)})}
-chipRow(document.getElementById("chipsWhere"),WHERE_F,()=>fw,k=>{fw=k;const p=document.querySelector('#chipsWhere [data-k="plus"]');if(p)p.remove()});
+chipRow(document.getElementById("chipsWhere"),WHERE_F,()=>fw,k=>fw=k);
 chipRow(document.getElementById("chipsMood"),MOOD_F,()=>fm,k=>fm=k);
 function favCount(){const b=document.querySelector('#chipsWhere [data-k="saved"]');b.innerHTML="";b.append("Saved");const saved=DATES.filter(d=>!d.plus&&favs.includes(d.s)).length;if(saved){const n=document.createElement("span");n.className="n";n.textContent=saved;b.appendChild(n)}}
 function build(){
@@ -979,11 +976,10 @@ function showDetail(){const d=list[front];if(!d)return;
   document.getElementById("dTile").innerHTML=window.datePhoto(d)+(d.plus?'<span class="plusmark">Plus</span>':"");
   document.getElementById("dWhere").textContent=d.where||WHERE[d.k];document.getElementById("dTitle").textContent=d.t;document.getElementById("dText").textContent=d.d;
   const fx=document.getElementById("dFacts");fx.innerHTML="";const promo=d.k==="plus",member=plusOn();
-  // the Plus card: Preview (shows the Plus dates) and Get Plus; members just get View more
-  if(promo){if(!member){const b=document.createElement("button");b.type="button";b.className="pvbtn";b.textContent="Preview";b.addEventListener("click",showPlusDates);fx.appendChild(b)}}
+  // the Plus card: Preview (the Plus dates page) and Get Plus; members just get View more
+  if(promo){if(!member){const b=document.createElement("a");b.className="pvbtn";b.href="plus.html";b.textContent="Preview";fx.appendChild(b)}}
   else d.f.forEach(t=>{const s=document.createElement("span");s.textContent=t;fx.appendChild(s)});
-  const dl=document.getElementById("dLink");dl.href=promo?(member?"#dates":"#pricing"):"date.html?d="+d.s;dl.textContent=promo&&!member?"Get Plus":"View more";
-  dl.onclick=promo&&member?e=>{e.preventDefault();showPlusDates()}:null;
+  const dl=document.getElementById("dLink");dl.href=promo?(member?"plus.html":"#pricing"):"date.html?d="+d.s;dl.textContent=promo&&!member?"Get Plus":"View more";
   dSave.hidden=d.k==="plus";const on=favs.includes(d.s);dSave.innerHTML=HEART;dSave.setAttribute("aria-pressed",on);dSave.setAttribute("aria-label",(on?"Unsave ":"Save ")+d.t);
   document.getElementById("counter").textContent=(front+1)+" / "+list.length;
   cards.forEach((c,i)=>c.setAttribute("aria-current",i===front?"true":"false"))}

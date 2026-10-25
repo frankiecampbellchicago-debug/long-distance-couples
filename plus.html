@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Every date that comes with Love Is In The Air Plus.">
+<title>Plus dates · Love Is In The Air</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#f4e9d4;--paper2:#ecdcbf;--card:#fbf5e9;--ink:#2f241b;--muted:#6b5848;--line:#d9c6a5;
+  --red:#b4532f;--blue:#b4532f;--onblue:#fdf3e4;--navy:#7a3219;
+  --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body:"Nunito Sans", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"Nunito Sans", "Avenir Next", ui-monospace, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body)}
+[hidden]{display:none!important}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:3px;padding:12px 22px;font:600 15px var(--body);cursor:pointer;text-decoration:none;background:var(--blue);color:var(--onblue)}
+.btn:hover{filter:brightness(1.1)}
+.btn:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+
+/* nav: same terracotta bar as the rest of the site */
+nav{position:sticky;top:0;z-index:50;background:#b4532f;color:#fdf3e4;box-shadow:0 1px 0 rgba(47,36,27,.12)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:14px;gap:16px}
+.logo{font:600 24px var(--display);display:flex;align-items:center;gap:10px;text-decoration:none;color:#fdf3e4}
+.logo svg{flex:none}
+.back{font-weight:600;font-size:15px;color:#fdf3e4;text-decoration:none}
+.back:hover{text-decoration:underline}
+@media (max-width:480px){.logo{font-size:19px;gap:8px}.back{font-size:14px}}
+
+/* page header */
+.ahead{padding:64px 0 34px}
+.ahead .wrap{display:grid;gap:14px}
+.ahead h1{font-size:clamp(40px,6vw,68px);max-width:12em}
+.ahead p{color:var(--muted);font-size:18px;max-width:40em}
+
+/* Plus dates */
+.ahead .eyebrow{font-size:12px;color:var(--red)}
+.ahead .acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:6px}
+.ahead .have{font-weight:700;color:var(--red)}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:900px){.pgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pgrid{grid-template-columns:1fr}}
+.pcard{text-decoration:none;color:var(--ink);display:grid;grid-template-rows:auto 1fr;background:var(--card);border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s;animation:pIn .45s cubic-bezier(.2,.7,.3,1) backwards}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 18px 28px -18px rgba(90,45,20,.55)}
+.pcard:hover h2{color:var(--red)}
+.pcard:hover .go svg{transform:translateX(4px)}
+.ptile{position:relative;aspect-ratio:16/11;overflow:hidden;background:#d9c6a5}
+.ptile .plusmark{position:absolute;top:12px;left:12px;z-index:2;background:#7a3219;color:#fdf3e4;padding:4px 10px;border-radius:2px;font:800 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.dphoto{position:absolute;inset:0;display:block}
+.dphoto img{display:block;width:100%;height:100%;object-fit:cover;filter:sepia(.14) saturate(.92) contrast(.97);transition:transform .6s cubic-bezier(.2,.8,.3,1)}
+.dphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(120,55,25,.16));pointer-events:none}
+.pcard:hover .dphoto img{transform:scale(1.05)}
+.pbody{display:grid;gap:10px;align-content:start;padding:18px 20px 20px}
+.pbody h2{font-size:26px;line-height:1.1;transition:color .2s}
+.pbody p{color:var(--muted);font-size:15px}
+.pfacts{display:flex;flex-wrap:wrap;gap:6px}
+.pfacts span{font:700 11px var(--mono);border:1px solid var(--line);border-radius:3px;padding:3px 9px;color:var(--muted)}
+.go{display:inline-flex;align-items:center;gap:6px;font:700 14px var(--body);color:var(--red);margin-top:4px}
+.go svg{width:14px;height:14px;transition:transform .25s}
+@keyframes pIn{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){.pcard,.dphoto img{animation:none;transition:none}}
+section.list{padding-bottom:80px}
+.join{background:#f6e2c8;padding-block:56px}
+.join .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.join h2{font-size:clamp(28px,3.4vw,38px)}
+.join p{color:var(--muted)}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted)}
+.logo img{display:block;height:42px;width:auto}
+@media (max-width:480px){.logo img{height:31px}}
+footer .flogo{display:block;height:30px;width:auto;margin-bottom:6px}
+/* same as the home page: soft color in the side margins, all the way down: washes from the hero palette */
+body{position:relative;min-height:100vh}
+body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(40vw 30% at 0% 22%,rgba(238,160,124,.5),transparent 70%),radial-gradient(38vw 30% at 100% 50%,rgba(150,186,220,.5),transparent 70%),radial-gradient(40vw 30% at 0% 78%,rgba(232,190,130,.5),transparent 70%),radial-gradient(36vw 34% at 100% 20%,rgba(244,170,152,.48),transparent 70%),radial-gradient(34vw 34% at 0% 52%,rgba(150,186,220,.5),transparent 70%),radial-gradient(36vw 34% at 100% 80%,rgba(238,160,124,.5),transparent 70%);
+  background-size:100% 1500px,100% 1500px,100% 1500px,100% 1150px,100% 1150px,100% 1150px;
+  background-position:0 0,0 0,0 0,0 380px,0 380px,0 380px;
+  background-repeat:repeat-y}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Love Is In The Air home"><picture><source srcset="images/logo-light.webp" type="image/webp"><img src="images/logo-light.png" alt="Love Is In The Air" width="668" height="120"></picture></a>
+  <a class="back" href="index.html#dates">&#8592; All dates</a>
+</div></nav>
+<main>
+<header class="ahead"><div class="wrap">
+  <p class="eyebrow">Love Is In The Air Plus</p>
+  <h1>More dates with Plus.</h1>
+  <p>Dates with something built in: a globe to spin, a murder mystery with secret clues, a calendar they open one door at a time. Tap any of them to see how it works.</p>
+  <div class="acts" id="acts"><a class="btn" href="index.html#pricing">Get Plus</a></div>
+</div></header>
+<section class="list"><div class="wrap">
+  <div class="pgrid" id="pgrid"></div>
+</div></section>
+<section class="join" id="join"><div class="wrap">
+  <div><h2>Unlock all of them.</h2><p>Plus opens every date on this page, and new ones as we add them.</p></div>
+  <a class="btn" href="index.html#pricing">Get Plus</a>
+</div></section>
+</main>
+<footer><div class="wrap"><span><picture><source srcset="images/logo.webp" type="image/webp"><img class="flogo" src="images/logo.png" alt="Love Is In The Air" width="668" height="120" loading="lazy"></picture>© 2026 Love Is In The Air</span><span>Made for couples doing the distance.</span></div></footer>
+
+<script src="js/dates.js?v=99657423"></script>
+<script>
+// plus.html: every Plus date. Visitors see previews; anyone with Plus (set on this device for now) opens them.
+(function () {
+  const member = (() => { try { return localStorage.getItem("liita-plus") === "1"; } catch (e) { return false; } })();
+  const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const grid = document.getElementById("pgrid");
+  window.DATES.filter(d => d.plus).forEach((d, i) => {
+    const a = document.createElement("a");
+    a.className = "pcard"; a.href = "date.html?d=" + d.s; a.style.animationDelay = (i * 50) + "ms";
+    a.innerHTML = '<div class="ptile">' + window.datePhoto(d) + '<span class="plusmark">Plus</span></div><div class="pbody"><h2></h2><p></p><div class="pfacts"></div><span class="go">' + (member ? "Open it" : "Preview it") + " " + ARROW + "</span></div>";
+    a.querySelector("h2").textContent = d.t;
+    a.querySelector("p").textContent = d.d;
+    d.f.filter(f => f !== "Plus").forEach(f => { const s = document.createElement("span"); s.textContent = f; a.querySelector(".pfacts").appendChild(s); });
+    grid.appendChild(a);
+  });
+  if (member) {
+    document.getElementById("acts").innerHTML = '<span class="have">You have Plus. Pick one for tonight.</span>';
+    document.getElementById("join").hidden = true;
+  }
+})();
+</script>
+</body>
+</html>

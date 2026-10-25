@@ -40,6 +40,7 @@
   const group = all.filter(x => !!x.plus === !!d.plus), gi = group.indexOf(d);
   link($("prevLink"), "← Previous date", group[(gi - 1 + group.length) % group.length]);
   link($("nextLink"), "Next date →", group[(gi + 1) % group.length]);
+  if (d.plus) { const back = document.querySelector("nav .back"); back.href = "plus.html"; back.innerHTML = "&#8592; Plus dates"; }
   $("page").hidden = false;
 
   // Plus dates: a preview and the waitlist until Plus launches. ?plus=preview unlocks this device for testing.
