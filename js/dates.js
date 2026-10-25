@@ -30,7 +30,7 @@ window.DATES=[
  {s:"two-truths",k:"apart",plus:true,i:"cards",t:"Two Truths and a Lie: Us",d:"Write rounds of two true things and one lie about yourself. They try to catch every lie, and the real stories come out after.",f:["Plus","45 min","Play by link"],tags:["fun"]},
  {s:"bucket-list",k:"apart",plus:true,i:"checklist",t:"Our Bucket List",d:"Everything you want to do once you're in the same place: trips, food, firsts and someday. Tick them off, and each one gets a stamp with the date.",f:["Plus","30 min to start","Ongoing"],tags:["cozy","adventurous"]},
  {s:"love-languages",k:"apart",plus:true,i:"chatheart",t:"Love Language Night",d:"Twenty quick choices each, then your results side by side, with ideas for loving each other the way you each need it, from far away.",f:["Plus","30 min","Side by side"],tags:["cozy"]},
- {s:"date-bingo",k:"apart",plus:true,i:"grid",t:"Date Night Bingo",d:"A bingo card of long-distance moments: fell asleep on a call, sent a song, watched the same movie. Mark them off over a month. Five in a row wins the prize you set.",f:["Plus","All month","25 squares"],tags:["fun"]},
+ {s:"date-bingo",k:"apart",plus:true,i:"grid",t:"Date Night Bingo",d:"A bingo card of long-distance moments: fell asleep on a call, sent a song, watched the same movie. Mark them off over a month. Whoever gets five in a row first wins, and the loser draws a challenge.",f:["Plus","All month","25 squares"],tags:["fun"]},
  {s:"plus",k:"plus",where:"Love Is In The Air Plus",i:"key",t:"More dates with Plus",d:"Holiday dates, anniversary plans, and new ideas as we add them.",f:["Plus"],tags:["all-only"]}
 ];
 window.DATE_WHERE={apart:"While apart",together:"When you visit"};
@@ -97,7 +97,7 @@ window.DATE_MORE={
   need:["About 10 minutes each","A call to talk it through"],
   tip:"Most people show love the way they want to get it. Notice where you've been speaking your language instead of theirs."},
  "date-bingo":{tool:"bingo",gift:"bg",
-  steps:["Pick the prize first. “The loser plans the next date night” is a good one.","Swap out any squares that don't fit you two.","Send them the card. Every time either of you marks something, send it again so the marks combine.","Five in a row wins. Keep going for a full card if you're brave."],
+  steps:["Put your name in, swap out any squares that don't fit you two, and look through the loser's challenges. Add your own.","Send them the card. Every time either of you marks something, send it again so the marks combine.","Whoever finishes five in a row first wins. The other one draws a challenge.","Do the challenge on your next call, then tap Challenge done."],
   need:["A month","Each other's links"],
   tip:"Do the hard squares on purpose. Plan a sunrise call just to mark it off."},
  "how-well-do-you-know-me":{tool:"quiz",gift:"q",
