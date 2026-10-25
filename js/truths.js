@@ -41,10 +41,10 @@
         const li = document.createElement("li"); li.className = "tlround"; li.dataset.i = i;
         li.innerHTML = '<div class="tlroundhead"><b>Round ' + (i + 1) + '</b><span class="tltopic"></span><button class="linkbtn" type="button" data-act="topic">Different idea</button>' +
           (st.r.length > MIN ? '<button class="linkbtn" type="button" data-act="del">Remove</button>' : "") + "</div>" +
-          '<div class="tlrows">' + [0, 1, 2].map(j => '<label class="tlrow"><input type="radio" name="tll' + i + '" value="' + j + '" aria-label="Statement ' + (j + 1) + ' is the lie"><span class="tlmark" aria-hidden="true"></span><input type="text" maxlength="140" data-j="' + j + '" aria-label="Statement ' + (j + 1) + '" placeholder="' + (j === 2 ? "And one more" : j ? "Another one" : "Something about you") + '"></label>').join("") + "</div>" +
-          '<input class="tlstory" type="text" maxlength="200" placeholder="The real story behind the lie (optional, shown after they guess)" aria-label="The real story, round ' + (i + 1) + '">';
+          '<div class="tlhand">' + [0, 1, 2].map(j => '<div class="tlslot"><span class="tlcorner" aria-hidden="true">' + "ABC"[j] + '</span><textarea data-j="' + j + '" rows="3" maxlength="140" aria-label="Round ' + (i + 1) + ", card " + "ABC"[j] + '" placeholder="' + (j === 2 ? "And one more" : j ? "Another thing" : "Something about you") + '"></textarea><label class="tlpick"><input class="vh" type="radio" name="tll' + i + '" value="' + j + '"><span>This one\'s the lie</span></label></div>').join("") + "</div>" +
+          '<input class="tlstory" type="text" maxlength="200" placeholder="The real story behind the lie (optional)" aria-label="The real story, round ' + (i + 1) + '">';
         li.querySelector(".tltopic").textContent = "Idea: " + r.t.toLowerCase();
-        li.querySelectorAll("input[data-j]").forEach(t => { t.value = r.s[t.dataset.j]; });
+        li.querySelectorAll("textarea[data-j]").forEach(t => { t.value = r.s[t.dataset.j]; });
         if (r.lie >= 0) li.querySelector('input[type=radio][value="' + r.lie + '"]').checked = true;
         li.querySelector(".tlstory").value = r.story || "";
         $("tlRounds").appendChild(li);
@@ -70,7 +70,7 @@
       if (act === "topic") st.r[i].t = topic(window.TRUTH_TOPICS.indexOf(st.r[i].t) + 1 + Math.floor(Math.random() * 5));
       save(); render();
     });
-    $("tlAdd").onclick = () => { st.r.push(blank(Math.floor(Math.random() * 15))); save(); render(); $("tlRounds").lastChild.querySelector("input[data-j]").focus(); };
+    $("tlAdd").onclick = () => { st.r.push(blank(Math.floor(Math.random() * 15))); save(); render(); $("tlRounds").lastChild.querySelector("textarea[data-j]").focus(); };
 
     const fail = (msg, el) => { $("tlErr").textContent = msg; $("tlErr").hidden = false; if (el) el.focus(); return false; };
     const ready = () => {
@@ -78,7 +78,7 @@
       if (!st.a) return fail("Add your name so they know who's lying.", $("tlName"));
       const rows = [...$("tlRounds").children];
       const gap = rows.find(li => st.r[li.dataset.i].s.some(x => !x.trim()));
-      if (gap) return fail("Round " + (+gap.dataset.i + 1) + " needs all three.", gap.querySelector("input[data-j]"));
+      if (gap) return fail("Round " + (+gap.dataset.i + 1) + " needs all three.", gap.querySelector("textarea[data-j]"));
       const open = rows.filter(li => st.r[li.dataset.i].lie < 0);
       open.forEach(li => li.classList.add("empty"));
       if (open.length) return fail("Mark the lie in round " + (+open[0].dataset.i + 1) + ". Tap the circle next to it.", open[0].querySelector("input[type=radio]"));

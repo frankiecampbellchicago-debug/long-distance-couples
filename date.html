@@ -1174,27 +1174,61 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 .wywho{display:flex;gap:3px;flex:none}
 
 /* Two Truths and a Lie: cards dealt on green felt */
-.tlrounds{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.tlround{background:#fffaf2;border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px}
-.tlround.empty{box-shadow:0 0 0 2px #a8362f}
-.tlroundhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
-.tlroundhead b{font:600 22px var(--display)}
-.tltopic{font-size:13px;color:var(--muted);font-style:italic;margin-right:auto}
-.tlroundhead .linkbtn{font-size:12.5px}
-.tlrows{display:grid;gap:8px}
-.tlrow{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;border-radius:8px;padding:2px 2px 2px 0}
-.tlrow input[type=radio]{position:absolute;opacity:0;width:1px;height:1px}
-.tlmark{width:30px;height:30px;border-radius:50%;border:2px dashed #b9a88e;display:grid;place-items:center;cursor:pointer;font:800 8.5px var(--mono);letter-spacing:.06em;color:transparent;transition:background .2s,border-color .2s,transform .2s}
-.tlrow input[type=radio]:checked+.tlmark{background:#a8362f;border:2px solid #a8362f;color:#fff;transform:rotate(-10deg)}
-.tlrow input[type=radio]:checked+.tlmark::before{content:"LIE"}
-.tlrow input[type=radio]:focus-visible+.tlmark{outline:2px solid var(--ink);outline-offset:2px}
-.tlrow:has(input[type=radio]:checked) input[type=text]{border-color:#a8362f;background:#fdf1ee}
-.tlround input[type=text]{width:100%;font:16px var(--body);color:var(--ink);background:#fff;border:1.5px solid #e6dccb;border-radius:8px;padding:11px 13px}
-.tlround input[type=text]:focus{outline:none;border-color:#2f6a4f;box-shadow:0 0 0 3px rgba(47,106,79,.14)}
-.tlround .tlstory{font-size:14px;padding:9px 12px;background:transparent;border-style:dashed}
-.tllegend{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-.tllegend .tlmark{width:20px;height:20px;cursor:default}
-.tladd{justify-self:start}
+/* the whole date sits in a card room: dark green, with rounds dealt on felt */
+.finder.truths{background:#17251e;background-image:radial-gradient(ellipse at 50% 0,rgba(227,196,138,.14),transparent 60%),radial-gradient(rgba(255,255,255,.035) 1px,transparent 1.4px);background-size:auto,14px 14px;color:#f3ecd9;border:0}
+.finder.truths .sub{color:rgba(243,236,217,.72)}
+.truths .cderr{color:#ff9d8a}
+.truths .btn.ghost{color:#f3ecd9;border-color:rgba(243,236,217,.4)}
+.truths .btn.red{background:#e3c48a;color:#2a1d0c}
+.truths .linkbtn{color:rgba(243,236,217,.7)}
+.truths .cdout{background:rgba(0,0,0,.25);border-color:#e3c48a}
+.truths .cdpeek{background:rgba(227,196,138,.15);border-color:rgba(227,196,138,.4);color:#f3ecd9}
+.truths .cdhero h2{color:#f3ecd9}
+.tlintro{display:grid;gap:10px;justify-items:center;text-align:center;padding:6px 0 4px}
+.tlintro h2{font-size:clamp(34px,5.5vw,52px);color:#f3ecd9}
+.tlintro .sub{max-width:620px}
+.tlsuits{display:flex;gap:10px;font-size:20px}
+.tlsuits i{font-style:normal;color:#f3ecd9;opacity:.85}
+.tlsuits i:nth-child(odd){color:#e46a5a}
+.tldealer{display:flex;align-items:baseline;gap:10px;margin-top:4px;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#e3c48a}
+.tldealer input{width:200px;font:italic 600 26px var(--display);letter-spacing:0;text-transform:none;color:#f3ecd9;background:transparent;border:0;border-bottom:1.5px dashed rgba(227,196,138,.6);padding:0 4px 4px;text-align:center}
+.tldealer input::placeholder{color:rgba(243,236,217,.4)}
+.tldealer input:focus{outline:none;border-bottom-style:solid}
+.tlbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;padding:10px 0;border-top:1px dashed rgba(227,196,138,.3);font-size:13.5px;color:rgba(243,236,217,.7)}
+.tlbar p{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#e3c48a}
+.tlbar b{color:#f3ecd9}
+.tlrounds{list-style:none;margin:0;padding:0;display:grid;gap:20px}
+.tlround{position:relative;display:grid;gap:14px;border-radius:18px;padding:16px 18px 18px;background:radial-gradient(ellipse at 50% 20%,#357557,#22513c 75%);box-shadow:inset 0 0 0 7px #6b4226,inset 0 0 0 9px #8a5a35,inset 0 0 40px rgba(0,0,0,.3),0 16px 26px -20px rgba(0,0,0,.8)}
+.tlround.empty{box-shadow:inset 0 0 0 7px #6b4226,inset 0 0 0 9px #e46a5a,inset 0 0 40px rgba(0,0,0,.3)}
+.tlroundhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:4px 6px 0}
+.tlroundhead b{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;background:#e3c48a;color:#2a1d0c;border-radius:99px;padding:5px 12px}
+.tltopic{font:italic 500 17px var(--display);color:rgba(243,236,217,.85);margin-right:auto}
+.tlroundhead .linkbtn{font-size:12.5px;color:rgba(243,236,217,.7)}
+.tlhand{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0 6px}
+.tlslot{--r:0deg;position:relative;display:grid;grid-template-rows:auto 1fr auto;gap:6px;min-height:200px;background:#fffaf0;color:var(--ink);border-radius:12px;padding:12px 12px 10px;box-shadow:0 12px 20px -12px rgba(0,0,0,.7),inset 0 0 0 5px #fffaf0,inset 0 0 0 6px rgba(168,54,47,.25);transform:rotate(var(--r));transition:transform .3s cubic-bezier(.3,1.4,.5,1),box-shadow .3s}
+.tlslot:nth-child(1){--r:-2deg}.tlslot:nth-child(3){--r:2deg}
+.tlslot:focus-within{transform:rotate(0) translateY(-4px)}
+.tlcorner{font:600 22px/1 var(--display);color:#a8362f;padding-left:4px}
+.tlslot textarea{width:100%;min-height:96px;resize:none;border:0;background:transparent;font:500 20px/1.3 var(--display);color:var(--ink);text-align:center;padding:4px;field-sizing:content}
+.tlslot textarea::placeholder{color:#b3a48c;font-style:italic}
+.tlslot textarea:focus{outline:none}
+.tlpick{display:flex;justify-content:center}
+.tlpick span{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:6px 12px;font:700 12.5px var(--body);color:#7a6a58;border:1.5px dashed #cdbd9f;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.tlpick span::before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid currentColor}
+.tlpick span:hover{border-color:#a8362f;color:#a8362f}
+.tlpick input:focus-visible+span{outline:2px solid #e3c48a;outline-offset:2px}
+.tlslot:has(input:checked){box-shadow:0 0 0 3px #e46a5a,0 16px 24px -12px rgba(0,0,0,.75),inset 0 0 0 5px #fffaf0,inset 0 0 0 6px rgba(168,54,47,.4);transform:rotate(var(--r)) translateY(-6px)}
+.tlslot:has(input:checked) .tlpick span{background:#a8362f;border:1.5px solid #a8362f;color:#fff}
+.tlslot:has(input:checked) .tlpick span::before{content:"\2713";border:0;width:auto;height:auto;font-size:12px;line-height:1}
+.tlslot:has(input:checked)::after{content:"Lie";position:absolute;top:10px;right:10px;font:800 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#b3261e;border:2px solid currentColor;border-radius:4px;padding:2px 7px;transform:rotate(10deg);animation:tlthump .3s cubic-bezier(.3,1.6,.5,1)}
+@keyframes tlthump{from{transform:rotate(10deg) scale(1.8);opacity:0}}
+.tlround .tlstory{width:calc(100% - 12px);margin:0 6px;font:14px var(--body);color:#f3ecd9;background:rgba(0,0,0,.2);border:1.5px dashed rgba(227,196,138,.45);border-radius:10px;padding:10px 14px}
+.tlround .tlstory::placeholder{color:rgba(243,236,217,.5)}
+.tlround .tlstory:focus{outline:none;border-style:solid;border-color:#e3c48a}
+.tladd{justify-self:center;display:inline-flex;align-items:center;gap:8px;border:2px dashed rgba(227,196,138,.5);background:transparent;color:#e3c48a;border-radius:14px;padding:14px 26px;font:700 15px var(--body);cursor:pointer;transition:background .2s}
+.tladd span{font-size:22px;line-height:1}
+.tladd:hover{background:rgba(227,196,138,.08)}
+.truths .cdmake>.cdacts{justify-content:center}
 .tltable{position:relative;display:grid;gap:16px;justify-items:center;border-radius:22px;padding:22px 20px 26px;color:#f3ecd9;background:radial-gradient(ellipse at 50% 30%,#3b7a5c,#22513c 70%,#1b4130);box-shadow:inset 0 0 0 10px #6b4226,inset 0 0 0 12px #8a5a35,inset 0 0 50px rgba(0,0,0,.35),0 20px 30px -22px rgba(0,0,0,.7)}
 .tlboard{justify-self:stretch;display:flex;justify-content:space-between;align-items:center;padding:4px 10px 0;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:rgba(243,236,217,.75)}
 .tlchips{background:#e3c48a;color:#3b2a14;padding:5px 12px;border-radius:99px;letter-spacing:.06em}
@@ -1219,8 +1253,8 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 .tlstorybox p{font:500 19px/1.35 var(--display)}
 .tlnext{background:#e3c48a;color:#3b2a14}
 .tlend{display:grid;justify-items:center;gap:6px;text-align:center;padding:10px 0}
-.tlfinal{font:600 72px/1 var(--display);color:#2f6a4f}
-.tlend small{font:800 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.tlfinal{font:600 72px/1 var(--display);color:#e3c48a}
+.tlend small{font:800 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(243,236,217,.6)}
 .tlend h3{font-size:30px;margin-top:6px}
 .tlend .cdacts{justify-content:center;margin-top:8px}
 
@@ -1351,7 +1385,10 @@ button.blcheck:hover{transform:scale(1.1)}
   .wyopt{min-height:130px;padding:22px 18px}
   .wylist li{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .wytag{grid-column:1/-1;justify-self:start;padding:3px 10px}
-  .tlcards{grid-template-columns:minmax(0,1fr);gap:12px}
+  .tlcards,.tlhand{grid-template-columns:minmax(0,1fr);gap:12px}
+  .tlslot{min-height:0;--r:0deg!important}
+  .tlslot textarea{min-height:56px}
+  .tlround{padding:14px 12px 16px}
   .tlcard{min-height:110px;padding:26px 16px 30px}
   .tltable{padding:20px 14px 24px}
   .blring{width:96px;height:96px}
@@ -2012,14 +2049,15 @@ button.blcheck:hover{transform:scale(1.1)}
 
     <section class="finder truths" id="truths" hidden>
       <div id="tlMake" class="cdmake">
-        <div>
+        <div class="tlintro">
+          <span class="tlsuits" aria-hidden="true"><i>&#9829;</i><i>&#9824;</i><i>&#9830;</i><i>&#9827;</i></span>
           <h2>Two truths and a lie</h2>
-          <p class="sub">For each round, write two true things and one lie, all about you. The lie gets shuffled in when you make the link, so its spot won't give it away. They don't need Plus to play.</p>
+          <p class="sub">Deal a hand of three cards each round: two true things about you and one lie. The lie gets shuffled when you make the link, so its spot won't give it away. They don't need Plus to play.</p>
+          <label class="tldealer"><span>Dealt by</span><input id="tlName" type="text" maxlength="40" autocomplete="given-name" placeholder="your name"></label>
         </div>
-        <div class="cdtop tltop"><div class="field"><label for="tlName">Your name</label><input id="tlName" type="text" maxlength="40" autocomplete="given-name" placeholder="Alex"></div></div>
-        <div class="cdbar"><p class="cdcount" id="tlCount"></p><span class="tllegend"><span class="tlmark" aria-hidden="true"></span>Tap the circle next to your lie</span></div>
+        <div class="tlbar"><p id="tlCount"></p><span>Write on each card, then tap <b>This one's the lie</b> on one of them.</span></div>
         <ol class="tlrounds" id="tlRounds"></ol>
-        <button class="btn ghost tladd" type="button" id="tlAdd">+ Add a round</button>
+        <button class="tladd" type="button" id="tlAdd"><span aria-hidden="true">+</span> Deal another round</button>
         <p class="cderr" id="tlErr" role="alert" hidden></p>
         <div class="cdacts"><button class="btn red" type="button" id="tlMakeLink">Make their link</button><button class="btn ghost" type="button" id="tlPreview">Try it yourself first</button></div>
         <div class="cdout" id="tlOut" hidden>
@@ -2234,7 +2272,7 @@ button.blcheck:hover{transform:scale(1.1)}
 <script src="js/countdown.js?v=1e9a8e86"></script>
 <script src="js/passport.js?v=ac3d235e"></script>
 <script src="js/wyr.js?v=bdde5bf7"></script>
-<script src="js/truths.js?v=65a79c96"></script>
+<script src="js/truths.js?v=2dfaa41b"></script>
 <script src="js/bucket.js?v=2cef2a76"></script>
 <script src="js/lovelang.js?v=c86e0a37"></script>
 <script src="js/bingo.js?v=7b712b69"></script>
