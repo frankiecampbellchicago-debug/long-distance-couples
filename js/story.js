@@ -50,11 +50,12 @@
   function timeline(box, st, editable) {
     const m = sorted(st.m);
     box.innerHTML = "";
-    if (!m.length) { box.innerHTML = '<p class="ppempty">No moments yet. Start with how you met.</p>'; return; }
+    if (!m.length) { box.innerHTML = '<li class="stghost"><span>Your first memory goes here</span><small>Start with how you met</small></li>'; return; }
     let y = "";
-    m.forEach(x => {
+    // moments alternate sides of the thread, each held on with a different piece of tape
+    m.forEach((x, i) => {
       if (year(x.d) !== y) { y = year(x.d); const h = document.createElement("li"); h.className = "styear"; h.textContent = y || "Someday"; box.appendChild(h); }
-      const li = document.createElement("li"); li.className = "stmoment"; li.dataset.id = x.id;
+      const li = document.createElement("li"); li.className = "stmoment " + (i % 2 ? "r" : "l") + " tape" + (i % 4) + (x.img ? " pol" : ""); li.dataset.id = x.id;
       li.innerHTML = (x.img ? '<img alt="" src="' + x.img + '">' : "") + '<div><p class="stdate">' + esc(fmt(x.d)) + "</p><h4>" + esc(x.t) + "</h4>" + (x.x ? '<p class="sttext">' + esc(x.x) + "</p>" : "") +
         (editable ? '<div class="stacts"><button class="linkbtn" type="button" data-act="edit">Edit</button><button class="linkbtn" type="button" data-act="del">Remove</button></div>' : "") + "</div>";
       box.appendChild(li);
@@ -71,6 +72,8 @@
     const head = () => {
       const n = st.m.length, d = st.since ? Math.floor((Date.now() - new Date(st.since + "T00:00")) / 864e5) : 0;
       $("stStats").textContent = (n ? n + (n === 1 ? " moment" : " moments") : "No moments yet") + (d > 0 ? " · " + d.toLocaleString() + " days together" : "");
+      const a = $("stA").value.trim(), b = $("stB").value.trim();
+      $("stNames").textContent = a && b ? a + " & " + b : a || b || "The two of us";
     };
     const draw = () => { timeline($("stList"), st, true); head(); };
 
