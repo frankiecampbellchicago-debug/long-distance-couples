@@ -80,7 +80,7 @@
       $("drWhenWrap").hidden = key !== "close";
       $("drWhen").value = st.when;
       $("drPrev").disabled = i === 0;
-      $("drNext").textContent = i === D.length - 1 ? "Make our board" : "Next chapter";
+      $("drNext").textContent = i === D.length - 1 ? "Make our board" : "Next: " + D[i + 1][1];
     }
     const filled = k => { const c = st.ch[k]; return c && (c.p.length || c.t); };
     const cur = () => st.ch[D[st.step][0]];

@@ -582,37 +582,55 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .stghost span{font:italic 600 26px/1.15 var(--display);color:#7a2f28}
 .stghost small{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8a6a55}
 @media (max-width:720px){.sttimeline{padding-left:30px}.sttimeline::before{left:12px}.styear{justify-self:start;margin-left:-22px}.stgroup{display:flex;flex-direction:column;gap:30px}.stcol{display:contents}.stcol.l .stknot,.stcol.r .stknot{left:-30px;right:auto;width:30px}.stcol.l .stknot::after,.stcol.r .stknot::after{left:-8px;right:auto}.stghost{margin-left:-30px;justify-self:center}.stbook{padding:22px 14px 26px}.stadd{padding:24px 16px 20px}.stadd .stchips{flex-wrap:nowrap;overflow-x:auto;margin:0 -8px;padding:4px 8px 6px;scroll-padding:0 8px;scrollbar-width:none;scroll-snap-type:x proximity;mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}.stadd .stchips::-webkit-scrollbar{display:none}.stadd .stchip{flex:none;scroll-snap-align:start}.staddhead h3{font-size:26px}.stfoot .cdacts{width:100%}.stfoot .btn{flex:1}.stpost{width:66px;height:66px;right:-8px}.stpost b{font-size:23px}.stmoment.pol .stpost{bottom:calc(100% - 110px)}.stmoment h4{font-size:23px;padding-right:52px}}
-.drtop{grid-template-columns:1fr 1fr}
 /* Looking Forward: a road through seven chapters, ending at a cork board */
+.drnames{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.drnames span{margin-right:4px}
+.drnames input{width:150px;min-width:0;font:italic 600 24px var(--display);letter-spacing:0;text-transform:none;color:var(--ink);background:transparent;border:0;border-bottom:1.5px dashed rgba(122,50,25,.4);border-radius:0;padding:2px 2px 4px}
+.drnames input:focus{outline:none;border-bottom:1.5px solid var(--red)}
+.drnames i{font:italic 600 24px var(--display);color:var(--red);letter-spacing:0}
 .drdots{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;padding:6px 0 2px}
-.drdots::before{content:"";position:absolute;left:6%;right:6%;top:30px;border-top:3px dashed rgba(122,50,25,.3)}
+.drdots::before{content:"";position:absolute;left:6%;right:6%;top:27px;border-top:3px dashed rgba(122,50,25,.25)}
 .drdots button{position:relative;display:grid;justify-items:center;gap:6px;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:var(--muted)}
-.drdots button span{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--card);color:var(--c);box-shadow:0 0 0 2px var(--c) inset,0 0 0 5px var(--card);transition:transform .25s cubic-bezier(.3,1.4,.5,1),background .25s,color .25s}
-.drdots button span svg{width:22px;height:22px}
+.drdots button span{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--card);color:var(--c);box-shadow:0 0 0 2px var(--c) inset,0 0 0 5px var(--card);transition:transform .25s cubic-bezier(.3,1.4,.5,1),background .25s,color .25s}
+.drdots button span svg{width:20px;height:20px}
 .drdots button small{font:700 10.5px/1.25 var(--body);text-align:center;max-width:96px}
 .drdots button:hover span{transform:translateY(-3px)}
 .drdots button.done span{background:color-mix(in srgb,var(--c) 18%,var(--card))}
-.drdots button.done span::after{content:"✓";position:absolute;top:-2px;right:calc(50% - 30px);width:18px;height:18px;border-radius:50%;background:var(--c);color:#fdf3e4;font:800 10px/18px var(--body);text-align:center}
+.drdots button.done span::after{content:"✓";position:absolute;top:-3px;right:calc(50% - 27px);width:17px;height:17px;border-radius:50%;background:var(--c);color:#fdf3e4;font:800 10px/17px var(--body);text-align:center}
 .drdots button.on span{background:var(--c);color:#fdf3e4;transform:scale(1.14);box-shadow:0 0 0 5px var(--card),0 8px 16px -6px var(--c)}
 .drdots button.on small{color:var(--ink);font-weight:800}
-.drstep{--c:#a8362f;position:relative;background:var(--paper);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:8px;padding:24px 26px;display:grid;gap:14px;overflow:hidden}
-.drstep::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:var(--c);opacity:.07;pointer-events:none}
+.drstep{--c:#a8362f;position:relative;background:#fffaf2;border-radius:14px;display:grid;overflow:hidden;box-shadow:0 0 0 1px color-mix(in srgb,var(--c) 22%,transparent),0 20px 34px -26px rgba(60,30,15,.7)}
 .drstep.in{animation:drin .45s cubic-bezier(.2,.8,.3,1)}
 @keyframes drin{from{opacity:0;transform:translateX(18px)}}
-.drhead{display:flex;align-items:center;gap:16px}
-.drico{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;flex:none;background:var(--c);color:#fdf3e4;transform:rotate(-6deg);box-shadow:0 10px 18px -10px var(--c)}
-.drico svg{width:32px;height:32px}
-.drstep .pplabel{color:var(--c)!important}
-.drstep h3{font-size:clamp(32px,5vw,46px);line-height:1.02}
-.drsub{font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px}
-.drtalk{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:dt}
-.drtalk li{position:relative;justify-self:start;max-width:min(560px,92%);background:var(--card);border:1px solid var(--line);border-radius:18px 18px 18px 4px;padding:10px 16px;font:500 20px/1.35 var(--display);box-shadow:0 6px 12px -10px rgba(90,45,20,.6)}
-.drtalk li:nth-child(even){justify-self:end;border-radius:18px 18px 4px 18px;background:color-mix(in srgb,var(--c) 10%,var(--card));border-color:color-mix(in srgb,var(--c) 30%,var(--line))}
-.dream .stchip{border-radius:2px;padding:9px 14px;background:#f6e3a1;color:#3d3020;box-shadow:0 6px 10px -6px rgba(60,40,10,.55)}
+/* the chapter's colored banner */
+.drhead{position:relative;display:flex;align-items:center;gap:18px;padding:22px 26px;background:var(--c);color:#fdf3e4;overflow:hidden;isolation:isolate}
+.drhead::before,.drhead::after{content:"";position:absolute;z-index:-1;border-radius:50%;background:#fff;opacity:.08}
+.drhead::before{right:-40px;top:-70px;width:200px;height:200px}
+.drhead::after{right:120px;bottom:-60px;width:110px;height:110px;opacity:.06}
+.drico{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;flex:none;background:#fdf3e4;color:var(--c);transform:rotate(-6deg);box-shadow:0 10px 18px -8px rgba(0,0,0,.35)}
+.drico svg{width:30px;height:30px}
+.drnum{font:800 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(253,243,228,.8);margin:0}
+.drstep h3{font-size:clamp(30px,4.6vw,42px);line-height:1.02;color:#fdf3e4;margin:0}
+.drbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:24px 26px}
+.drcol{display:grid;gap:12px;align-content:start}
+.drsub{display:flex;align-items:center;gap:9px;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--c);margin:0}
+.drsub b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fdf3e4;font:800 11px var(--body);letter-spacing:0}
+.drtalk{list-style:none;margin:0;padding:0;display:grid;counter-reset:dt}
+.drtalk li{counter-increment:dt;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px dashed color-mix(in srgb,var(--c) 25%,transparent);font:500 20px/1.3 var(--display)}
+.drtalk li:first-child{padding-top:4px}
+.drtalk li:last-child{border-bottom:0}
+.drtalk li::before{content:counter(dt);font:600 26px/1 var(--display);color:color-mix(in srgb,var(--c) 70%,#fff)}
+.drstep .field>label{color:var(--muted)}
+.drstep .field input{font:16px var(--body);color:var(--ink);background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 22%,#eadfd2);border-radius:8px;padding:12px 14px;width:100%;transition:border-color .2s,box-shadow .2s}
+.drstep .field input:focus{outline:none;border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 15%,transparent)}
+.dream .stchips{gap:8px}
+.dream .stchip{border-radius:999px;padding:8px 14px;background:color-mix(in srgb,var(--c,var(--red)) 9%,#fff);color:var(--c,var(--red));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c,var(--red)) 25%,transparent);transform:none}
 .dream .stchip::before{display:none}
-.dream .stchip:nth-child(4n+2){background:#f3c9bd}.dream .stchip:nth-child(4n+3){background:#cfe0d0}.dream .stchip:nth-child(4n){background:#cfdcec}
-.dream .stchip.on{background:var(--c,var(--red));color:#fdf3e4;transform:rotate(0) scale(1.05)}
+.dream .stchip:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1.5px var(--c,var(--red))}
+.dream .stchip.on{background:var(--c,var(--red));color:#fdf3e4;box-shadow:0 6px 12px -6px var(--c,var(--red));transform:none}
 .dream .stchip.on::after{content:" ✓"}
+.drfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 26px;background:color-mix(in srgb,var(--c) 6%,#fffaf2);border-top:1px solid color-mix(in srgb,var(--c) 15%,transparent)}
+.drfoot .btn.red{background:var(--c)}
 .drboard{columns:2 260px;column-gap:22px;background:#b98a5a;background-image:radial-gradient(rgba(70,40,15,.35) 1px,transparent 1.6px),radial-gradient(rgba(255,230,190,.25) 1px,transparent 1.6px),radial-gradient(rgba(70,40,15,.2) 1.5px,transparent 2px);background-size:6px 6px,9px 9px,13px 13px;background-position:0 0,4px 3px,7px 9px;border:14px solid #7a4a26;border-image:linear-gradient(135deg,#8a5730,#5e3518) 1;padding:26px 22px 8px;box-shadow:0 26px 36px -24px rgba(50,25,8,.9),inset 0 2px 10px rgba(0,0,0,.35)}
 .drcard{--c:#a8362f;break-inside:avoid;background:#fffaf0;box-shadow:0 10px 16px -10px rgba(40,20,5,.8);padding:22px 18px 16px;margin-bottom:22px;display:grid;gap:8px;position:relative}
 .drcard::before{content:"";position:absolute;top:8px;left:50%;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--c) 55%,#fff),var(--c) 60%,color-mix(in srgb,var(--c) 70%,#000));box-shadow:2px 3px 3px rgba(0,0,0,.35)}
@@ -624,7 +642,7 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .drline{font:italic 600 25px/1.2 var(--display)}
 .drtags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .drtags li{font:700 12px var(--body);background:rgba(255,255,255,.6);border:1px solid rgba(90,45,20,.2);border-radius:999px;padding:3px 10px}
-@media (max-width:640px){.drdots{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:14px}.drdots::before{display:none}.drstep{padding:20px 16px}.drico{width:52px;height:52px}.drboard{border-width:10px;padding:20px 12px 4px}}
+@media (max-width:640px){.drdots{gap:2px}.drdots::before{top:19px}.drdots button span{width:34px;height:34px;box-shadow:0 0 0 2px var(--c) inset,0 0 0 3px var(--card)}.drdots button span svg{width:16px;height:16px}.drdots button small{display:none}.drdots button.done span::after{width:14px;height:14px;font-size:8px;line-height:14px;right:calc(50% - 22px)}.drhead{padding:18px 16px;gap:14px}.drico{width:48px;height:48px}.drico svg{width:24px;height:24px}.drbody{grid-template-columns:minmax(0,1fr);gap:22px;padding:20px 16px}.drfoot{padding:14px 16px}.drfoot .btn.red{flex:1}.drnames input{width:120px;font-size:21px}.dream .stchip{font-size:12.5px;padding:7px 12px}.drboard{border-width:10px;padding:20px 12px 4px}}
 @media (prefers-reduced-motion:reduce){.drstep.in{animation:none}}
 /* Holiday packs: gift tags, a rosette, a to-do list, a gift box and an evening program */
 .holiday{--h:#b0303a}
@@ -681,7 +699,7 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .honight li::before{content:"";position:absolute;left:86px;top:17px;width:12px;height:12px;border-radius:50%;background:var(--h);box-shadow:0 0 0 3px #2f241b,0 0 0 4px rgba(227,196,138,.6)}
 .honight b{font:700 14px var(--mono);color:#e3c48a;text-align:right;padding-top:2px}
 .honight span{font:500 19px/1.4 var(--display)}
-@media (max-width:640px){.qzopts,.qzchoices,.myroles,.mycols,.myacc,.stformrow,.drtop,.hotop{grid-template-columns:minmax(0,1fr)}.hogrid{grid-template-columns:minmax(0,1fr)}.honight::before{left:79px}.honight li{grid-template-columns:66px 1fr;gap:26px}.honight li::before{left:74px}.honightp{padding:26px 16px 20px}.hobadge{width:108px;height:108px}.hobadge b{font-size:38px}.qzcard{padding:24px 18px 22px}}
+@media (max-width:640px){.qzopts,.qzchoices,.myroles,.mycols,.myacc,.stformrow,.hotop{grid-template-columns:minmax(0,1fr)}.hogrid{grid-template-columns:minmax(0,1fr)}.honight::before{left:79px}.honight li{grid-template-columns:66px 1fr;gap:26px}.honight li::before{left:74px}.honightp{padding:26px 16px 20px}.hobadge{width:108px;height:108px}.hobadge b{font-size:38px}.qzcard{padding:24px 18px 22px}}
 @media (max-width:640px){.ppgrid{grid-template-columns:minmax(0,1fr)}.ppctrl .field{min-width:0;flex:1}}
 .fform{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end}
 @media (max-width:720px){.fform{grid-template-columns:1fr}.fform .btn{width:100%}}
@@ -1669,23 +1687,21 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
     <section class="finder dream" id="dream" hidden>
       <div id="drGuide" class="cdmake">
         <div id="drIntro">
-          <h2>The life we're building</h2>
-          <p class="sub">Seven chapters. In each one, talk through the questions, then pick what fits and write one line together. At the end you get your board.</p>
+          <h2>Looking forward</h2>
+          <p class="sub">Seven chapters about the life you're building. Talk each one through, pick what fits, and write one line together. At the end you get your board.</p>
         </div>
-        <div class="cdtop drtop">
-          <div class="field"><label for="drA">Your name</label><input id="drA" type="text" maxlength="40" autocomplete="given-name" placeholder="Alex"></div>
-          <div class="field"><label for="drB">Their name</label><input id="drB" type="text" maxlength="40" autocomplete="off" placeholder="Sam"></div>
-        </div>
+        <div class="drnames"><span>This board belongs to</span><input id="drA" type="text" maxlength="40" autocomplete="given-name" placeholder="Your name" aria-label="Your name"><i>&amp;</i><input id="drB" type="text" maxlength="40" autocomplete="off" placeholder="Their name" aria-label="Their name"></div>
         <div class="drdots" id="drDots" role="group" aria-label="Chapters"></div>
         <div class="drstep" id="drStep">
-          <div class="drhead"><span class="drico" id="drIco"></span><div><p class="pplabel" id="drNum"></p><h3 id="drName"></h3></div></div>
-          <p class="drsub">Talk about it</p>
-          <ol class="drtalk" id="drTalk"></ol>
-          <p class="drsub">Put it on the board</p>
-          <div class="stchips" id="drPicks"></div>
-          <div class="field"><label for="drLine" id="drLineLabel"></label><input id="drLine" type="text" maxlength="140"></div>
-          <div class="field" id="drWhenWrap" hidden><label for="drWhen">The month we close the distance</label><input id="drWhen" type="month"></div>
-          <div class="cdacts"><button class="btn ghost" type="button" id="drPrev">Back</button><button class="btn red" type="button" id="drNext"></button></div>
+          <div class="drhead"><span class="drico" id="drIco"></span><div><p class="drnum" id="drNum"></p><h3 id="drName"></h3></div></div>
+          <div class="drbody">
+            <div class="drcol"><p class="drsub"><b>1</b>Talk about it</p><ol class="drtalk" id="drTalk"></ol></div>
+            <div class="drcol"><p class="drsub"><b>2</b>Put it on the board</p><div class="stchips" id="drPicks"></div>
+              <div class="field"><label for="drLine" id="drLineLabel"></label><input id="drLine" type="text" maxlength="140" placeholder="Write it together"></div>
+              <div class="field" id="drWhenWrap" hidden><label for="drWhen">The month we close the distance</label><input id="drWhen" type="month"></div>
+            </div>
+          </div>
+          <div class="drfoot"><button class="btn ghost" type="button" id="drPrev">Back</button><button class="btn red" type="button" id="drNext"></button></div>
         </div>
       </div>
       <div id="drBoardWrap" class="cdview" hidden>
@@ -1807,7 +1823,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/quiz.js?v=6b44b8ce"></script>
 <script src="js/mystery.js?v=fb98589c"></script>
 <script src="js/story.js?v=b6ede9f0"></script>
-<script src="js/dream.js?v=047821da"></script>
+<script src="js/dream.js?v=0644a5c1"></script>
 <script src="js/holiday.js?v=3de55c63"></script>
 <script src="js/countdown.js?v=1e9a8e86"></script>
 <script src="js/passport.js?v=ac3d235e"></script>
