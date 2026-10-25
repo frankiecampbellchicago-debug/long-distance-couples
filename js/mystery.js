@@ -78,6 +78,13 @@
     $("mystery").scrollIntoView({ block: "start" });
   };
 
+  // Silhouettes for the dossiers: a feather for the singer, a fedora for the bandleader.
+  const FACE = {
+    a: '<svg viewBox="0 0 80 100" aria-hidden="true"><path d="M8 100c0-22 14-36 32-36s32 14 32 36z"/><circle cx="40" cy="38" r="16"/><path d="M50 24c6-12 14-18 22-19-5 5-9 12-16 22z"/><path d="M24 34c0-12 7-18 16-18s16 6 16 18c-4-6-10-8-16-8s-12 2-16 8z"/></svg>',
+    b: '<svg viewBox="0 0 80 100" aria-hidden="true"><path d="M8 100c0-22 14-36 32-36s32 14 32 36z"/><circle cx="40" cy="40" r="16"/><path d="M16 29h48v4H16z"/><path d="M27 14h26l3 16H24z"/></svg>'
+  };
+  const initials = n => n.split(" ").map(w => w[0]).join("").slice(0, 2);
+
   // ---- picking characters ----
   function choose() {
     $("myChoose").hidden = false;
@@ -86,7 +93,7 @@
     ["a", "b"].forEach(r => {
       const p = M.roles[r], other = r === "a" ? "b" : "a";
       const card = document.createElement("div"); card.className = "myrole";
-      card.innerHTML = '<p class="pplabel">' + esc(p.title) + "</p><h4>" + esc(p.name) + '</h4><p class="mylook">' + esc(p.look) + '</p><div class="myroleacts"><a class="btn red" href="#role=' + r + '">Play ' + esc(p.name.split(" ")[0]) + '</a><button class="linkbtn" type="button" data-other="' + other + '">Send them ' + esc(M.roles[other].name.split(" ")[0]) + "'s link</button></div>";
+      card.innerHTML = '<span class="mytab">Case file · ' + esc(p.title) + '</span><span class="mystamp">Confidential</span><div class="myface">' + FACE[r] + '</div><div class="myroletext"><p class="pplabel">' + esc(p.title) + "</p><h4>" + esc(p.name) + '</h4><p class="mylook">' + esc(p.look) + '</p></div><div class="myroleacts"><a class="btn red" href="#role=' + r + '">Play ' + esc(p.name.split(" ")[0]) + '</a><button class="linkbtn" type="button" data-other="' + other + '">Send them ' + esc(M.roles[other].name.split(" ")[0]) + "'s link</button></div>";
       box.appendChild(card);
     });
     box.onclick = async e => {
@@ -102,6 +109,7 @@
     const save = () => { all[r] = st; K.store(KEY, all); };
     $("myPlay").hidden = false;
     $("myWho").textContent = p.name;
+    $("myFace").innerHTML = FACE[r];
     $("myRole").textContent = p.title;
     $("myLook").textContent = p.look;
     $("myIntro").textContent = p.intro;
@@ -109,17 +117,17 @@
     $("myVictim").textContent = M.victim;
     $("myNight").innerHTML = p.night.map(([t, x]) => "<li><b>" + esc(t) + "</b><span>" + esc(x) + "</span></li>").join("");
     $("mySecret").textContent = p.secret;
-    $("mySuspects").innerHTML = M.suspects.map(([n, t, d]) => '<li><b>' + esc(n) + "</b><small>" + esc(t) + "</small><span>" + esc(d) + "</span></li>").join("") +
-      ["a", "b"].filter(x => x !== r).map(x => '<li class="you"><b>' + esc(M.roles[x].name) + "</b><small>" + esc(M.roles[x].title) + " · your partner</small><span>They'll tell you about themselves in round 1.</span></li>").join("");
+    $("mySuspects").innerHTML = M.suspects.map(([n, t, d], i) => '<li><i class="mymug" aria-hidden="true">' + esc(initials(n)) + '</i><em aria-hidden="true">No. ' + (1929 + i * 7) + "</em><b>" + esc(n) + "</b><small>" + esc(t) + "</small><span>" + esc(d) + "</span></li>").join("") +
+      ["a", "b"].filter(x => x !== r).map(x => '<li class="you"><i class="mymug" aria-hidden="true">' + FACE[x] + '</i><em aria-hidden="true">Your partner</em><b>' + esc(M.roles[x].name) + "</b><small>" + esc(M.roles[x].title) + "</small><span>They'll tell you about themselves in round 1.</span></li>").join("");
 
     function rounds() {
       const box = $("myRounds"); box.innerHTML = "";
       M.rounds.forEach(([name, how], i) => {
         const open = i < st.round, next = i === st.round;
         const el = document.createElement("div");
-        el.className = "myround" + (open ? " open" : "");
+        el.className = "myround" + (open ? " open" : next ? " next" : " shut");
         el.innerHTML = '<div class="myroundhead"><span class="pplabel">Round ' + (i + 1) + "</span><h4>" + esc(name) + "</h4></div>" +
-          (open ? '<p class="myhow">' + esc(how) + "</p>" + p.clues[i].map((c, k) => '<div class="myclue"><small>Clue ' + (i + 1) + String.fromCharCode(65 + k) + " · read it out loud</small><p>" + esc(c) + "</p></div>").join("") + (i === 1 ? '<p class="mynote">And now, your secret. It\'s in your file above.</p>' : "")
+          (open ? '<p class="myhow">' + esc(how) + "</p>" + p.clues[i].map((c, k) => '<div class="myclue"><small>Evidence · clue ' + (i + 1) + String.fromCharCode(65 + k) + " · read it out loud</small><p>" + esc(c) + "</p></div>").join("") + (i === 1 ? '<p class="mynote">And now, your secret. It\'s in your file above.</p>' : "")
             : next ? '<button class="btn red" type="button" data-start="' + i + '">Start round ' + (i + 1) + '</button><p class="myhow">Start it together, at the same time.</p>'
             : '<p class="myhow">Locked until you finish round ' + i + ".</p>");
         box.appendChild(el);

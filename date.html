@@ -367,57 +367,105 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 .qzrecap li{display:grid;gap:2px;background:var(--card);border:1px solid var(--line);border-left:4px solid #5f7148;border-radius:4px;padding:8px 12px}
 .qzrecap li.no{border-color:#a8362f}
 .qzrecap span{color:var(--muted);font-size:14px}
-.myhead{display:grid;gap:6px}
-.myhead h2{font-size:clamp(34px,6vw,52px);line-height:1.05}
-.mysetup{font:500 19px/1.55 var(--display);background:#f1e4c8;border:1px solid var(--line);border-radius:3px;padding:16px 18px}
-.myroles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.myrole{background:#2f241b;color:#f4e9d4;border-radius:3px;padding:20px;display:grid;gap:8px;align-content:start}
-.myrole h4{font:600 30px/1.1 var(--display);margin:0;color:#fdf3e4}
-.myrole .pplabel{color:#e2a07e!important}
-.myrole .mylook{color:rgba(244,233,212,.78);font-size:14px}
-.myroleacts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:6px}
-.myrole .linkbtn{color:rgba(244,233,212,.8)}
-.myplay{display:grid;gap:14px}
-.myid{background:#2f241b;color:#f4e9d4;border-radius:3px;padding:20px 22px;display:grid;gap:6px}
-.myid h3{font-size:clamp(32px,5vw,44px);color:#fdf3e4;line-height:1}
-.myid .pplabel{color:#e2a07e!important}
-.myid .mylook{color:rgba(244,233,212,.8)}
-.mydet{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:12px 16px}
-.mydet summary{cursor:pointer;font-weight:700}
-.mydet p{margin-top:10px}
-.mycols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.myblock{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+/* Murder mystery: a 1920s noir room with a gold art-deco frame */
+.finder.mystery{position:relative;background:#1c1611;background-image:radial-gradient(ellipse at 50% 0,rgba(212,173,98,.16),transparent 55%),repeating-linear-gradient(90deg,transparent 0 46px,rgba(212,173,98,.05) 46px 47px);color:#efe3cc;border:0;border-radius:4px;padding:36px 32px 28px;box-shadow:0 30px 50px -30px rgba(20,10,5,.95),inset 0 0 0 1px rgba(212,173,98,.6),inset 0 0 0 7px #1c1611,inset 0 0 0 8px rgba(212,173,98,.35)}
+.mystery .credit{color:rgba(239,227,204,.55)}
+.mystery .sub{color:rgba(239,227,204,.75)}
+.mystery h3{color:#f6ead2}
+.myhead{display:grid;gap:10px;justify-items:center;text-align:center}
+.myhead .eyebrow{color:#d4ad62;letter-spacing:.3em}
+.myhead h2{font-size:clamp(38px,6.5vw,62px);line-height:1.02;color:#f6ead2;letter-spacing:.01em}
+.mydeco{display:block;width:min(360px,80%);height:18px;background:linear-gradient(#d4ad62,#d4ad62) left 50%/42% 1px no-repeat,linear-gradient(#d4ad62,#d4ad62) right 50%/42% 1px no-repeat,linear-gradient(#d4ad62,#d4ad62) left calc(50% + 4px)/36% 1px no-repeat,linear-gradient(#d4ad62,#d4ad62) right calc(50% + 4px)/36% 1px no-repeat;position:relative}
+.mydeco::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;border:1px solid #d4ad62;transform:translate(-50%,-50%) rotate(45deg);box-shadow:inset 0 0 0 3px #1c1611,inset 0 0 0 6px #d4ad62}
+/* the newspaper */
+.mypaper{position:relative;background:#ebe2cd;background-image:radial-gradient(rgba(60,45,30,.08) 1px,transparent 1.2px);background-size:4px 4px;color:#231b14;padding:20px 26px 24px;transform:rotate(-.6deg);box-shadow:0 18px 30px -18px rgba(0,0,0,.8);display:grid;gap:8px}
+.mymast{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;border-top:3px double #231b14;border-bottom:3px double #231b14;padding:6px 0}
+.mymast span{font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.mymast span:last-child{text-align:right}
+.mymast b{font:700 clamp(20px,3.4vw,30px)/1 var(--display);font-style:italic;letter-spacing:.01em;text-align:center}
+.myheadline{font:700 clamp(28px,5vw,46px)/1 var(--display);text-transform:uppercase;letter-spacing:.02em;text-align:center;margin-top:6px}
+.mydeck{font:italic 600 17px var(--display);text-align:center;border-bottom:1px solid #231b14;padding-bottom:10px}
+.mysetup{font:500 17px/1.55 var(--display);columns:2 260px;column-gap:28px;column-rule:1px solid rgba(35,27,20,.3);text-align:justify;hyphens:auto}
+.mysetup::first-letter{float:left;font:700 54px/.8 var(--display);margin:6px 8px 0 0}
+/* the dossiers */
+.myroles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:10px}
+.myrole{position:relative;background:#d6bb85;background-image:linear-gradient(170deg,rgba(255,255,255,.18),transparent 40%);color:#2b2018;border-radius:2px 8px 8px 8px;padding:26px 22px 20px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px 18px;align-content:start;box-shadow:0 16px 26px -16px rgba(0,0,0,.85)}
+.mytab{position:absolute;left:0;top:-22px;background:#d6bb85;border-radius:6px 6px 0 0;padding:4px 14px 3px;font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#5a4426}
+.mystamp{position:absolute;right:14px;top:14px;transform:rotate(9deg);border:2px solid #a8362f;color:#a8362f;font:800 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;padding:3px 8px;border-radius:3px;opacity:.75;mix-blend-mode:multiply}
+.myface{width:96px;aspect-ratio:4/5;background:#efe3c8;border:5px solid #fbf4e4;box-shadow:0 3px 8px rgba(0,0,0,.3);transform:rotate(-3deg);overflow:hidden;display:flex;align-items:flex-end}
+.myface svg{width:100%;fill:#3a2d22;opacity:.85}
+.myroletext{display:grid;gap:6px;align-content:start}
+.myrole h4{font:600 30px/1.05 Consolas,"Courier New",monospace;letter-spacing:-.02em;margin:0;color:#231b14}
+.myrole .pplabel{color:#8a2f1f!important}
+.myrole .mylook{color:#4a3a2a;font-size:14px}
+.myroleacts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px;border-top:1px dashed rgba(43,32,24,.35);padding-top:12px}
+.myrole .linkbtn{color:#4a3a2a}
+.myplay{display:grid;gap:16px}
+/* your character card */
+.myid{position:relative;background:#120e0b;border:1px solid #d4ad62;outline:1px solid rgba(212,173,98,.4);outline-offset:4px;border-radius:2px;padding:22px 24px;display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;align-items:center;margin:4px}
+.myid .myface{width:88px;background:#2a211a;border-color:#d4ad62;transform:none}
+.myid .myface svg{fill:#d4ad62;opacity:.75}
+.myid h3{font-size:clamp(32px,5vw,46px);color:#f6ead2;line-height:1}
+.myid .pplabel{color:#d4ad62!important}
+.myid .mylook{color:rgba(239,227,204,.8);margin-top:6px}
+.mydet{background:#ebe2cd;color:#231b14;border-radius:2px;padding:12px 16px}
+.mydet summary{cursor:pointer;font:700 15px var(--body)}
+.mydet p{margin-top:10px;font:500 17px/1.55 var(--display)}
+.mycols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.myblock{background:#efe5cf;color:#231b14;border-radius:2px;padding:16px 18px;display:grid;gap:8px;align-content:start;box-shadow:0 10px 18px -12px rgba(0,0,0,.8)}
+.myblock .pplabel{color:#8a2f1f!important}
 .myintro{font:italic 500 19px/1.5 var(--display)}
-.mynight{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.mynight li{display:grid;grid-template-columns:52px 1fr;gap:8px}
-.mynight b{font:700 13px var(--mono);color:var(--red);padding-top:2px}
-.mysecret{border:1.5px dashed #a8362f;background:#fbefe6}
-.mysecret.due{box-shadow:0 0 0 3px rgba(168,54,47,.15)}
-.mysus{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.mysus li{display:grid;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:10px 12px}
-.mysus b{font:600 20px var(--display)}
-.mysus small{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
-.mysus span{font-size:14px;color:var(--muted)}
+.mynight{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.mynight li{display:grid;grid-template-columns:58px 1fr;gap:10px;font-family:Consolas,"Courier New",monospace;font-size:14px;line-height:1.45}
+.mynight b{font:700 13px Consolas,"Courier New",monospace;color:#8a2f1f;padding-top:1px;border-right:1px dotted rgba(35,27,20,.4)}
+/* the secret, in a sealed envelope */
+.mysecret{position:relative;background:#e2cc9e;background-image:linear-gradient(to top right,transparent calc(50% - 1px),rgba(90,60,25,.25) 50%,transparent calc(50% + 1px)),linear-gradient(to top left,transparent calc(50% - 1px),rgba(90,60,25,.25) 50%,transparent calc(50% + 1px));background-size:100% 70px;background-repeat:no-repeat;padding-top:22px;padding-right:76px}
+.mysecret::after{content:"S";position:absolute;right:20px;top:18px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c24a3a,#7e1f15);color:rgba(255,220,200,.7);font:700 20px var(--display);box-shadow:0 2px 0 #5a140d,0 0 0 4px rgba(126,31,21,.25)}
+.mysecret.due{box-shadow:0 0 0 2px #d4ad62,0 0 24px rgba(212,173,98,.35)}
+/* the suspects, as mugshots */
+.mysus{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.mysus li{display:grid;gap:3px;background:#2a211a;background-image:repeating-linear-gradient(0deg,transparent 0 17px,rgba(239,227,204,.08) 17px 18px);border:1px solid rgba(212,173,98,.3);border-radius:2px;padding:14px;color:#efe3cc}
+.mymug{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#3a2d22;border:2px solid rgba(212,173,98,.55);font:600 24px var(--display);font-style:normal;color:#d4ad62;overflow:hidden;margin-bottom:6px}
+.mymug svg{width:100%;height:100%;fill:#d4ad62;opacity:.7;margin-top:12px}
+.mysus em{font:800 9px var(--mono);font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:rgba(239,227,204,.5)}
+.mysus b{font:600 21px var(--display);color:#f6ead2}
+.mysus small{font:700 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#d4ad62}
+.mysus span{font-size:14px;color:rgba(239,227,204,.72)}
 .mysus li.you{border-style:dashed}
-.myrounds{display:grid;gap:12px}
-.myround{border:1px solid var(--line);border-radius:3px;padding:16px 18px;display:grid;gap:10px;justify-items:start;background:repeating-linear-gradient(135deg,var(--paper) 0 10px,#efe2c9 10px 20px)}
-.myround.open{background:var(--paper);border-top:4px solid var(--red)}
+.mystery .myblock:has(.mysus){background:transparent;box-shadow:none;padding:4px 0 0;color:#efe3cc}
+.mystery .myblock:has(.mysus) .pplabel{color:#d4ad62!important}
+/* the rounds */
+.myrounds{display:grid;gap:14px}
+.myround{border:1px solid rgba(212,173,98,.35);border-radius:2px;padding:18px 20px;display:grid;gap:12px;justify-items:start;background:repeating-linear-gradient(135deg,#221a14 0 12px,#1c1611 12px 24px)}
+.myround .pplabel{color:#d4ad62!important}
+.myround.next{border:1px solid #d4ad62;box-shadow:0 0 22px rgba(212,173,98,.18)}
+.myround.shut{opacity:.6}
+.myround.open{background:#efe5cf;color:#231b14;border:0;border-top:5px solid #8a2f1f}
+.myround.open .pplabel{color:#8a2f1f!important}
 .myroundhead{display:flex;gap:12px;align-items:baseline}
-.myroundhead h4{font:600 26px var(--display);margin:0}
-.myhow{color:var(--muted)}
-.myclue{background:#fffaf0;border:1px solid var(--line);box-shadow:2px 3px 0 rgba(47,36,27,.08);padding:12px 14px;width:100%;display:grid;gap:4px}
-.myclue small{font:700 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.myroundhead h4{font:600 27px var(--display);margin:0}
+.myhow{color:inherit;opacity:.75}
+.myclue{position:relative;background:#d9bf86;color:#231b14;border-radius:3px 14px 14px 3px;padding:14px 18px 14px 44px;width:100%;display:grid;gap:4px;box-shadow:0 6px 12px -8px rgba(0,0,0,.6)}
+.myclue::before{content:"";position:absolute;left:14px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:#efe5cf;box-shadow:inset 0 0 0 3px #b89a5e}
+.myclue small{font:800 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8a2f1f}
 .myclue p{font:500 18px/1.5 var(--display)}
-.mynote{font-weight:700;color:#a8362f}
-.myaccuse,.myreveal{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:20px;display:grid;gap:14px;justify-items:start}
+.mynote{font-weight:700;color:#8a2f1f}
+.myaccuse{background:#120e0b;border:1px solid #d4ad62;outline:1px solid rgba(212,173,98,.4);outline-offset:4px;border-radius:2px;padding:22px;display:grid;gap:14px;justify-items:start;margin:4px}
+.mystery .field label{color:#d4ad62}
+.mystery select{background:#2a211a;color:#f6ead2;border-color:rgba(212,173,98,.5)}
+.mystery .cderr{color:#f0a08c}
 .myacc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%}
-.myreveal{border-top:5px solid #2f241b}
-.myreveal h3{font-size:30px}
+.myreveal{background:#ebe2cd;background-image:radial-gradient(rgba(60,45,30,.08) 1px,transparent 1.2px);background-size:4px 4px;color:#231b14;padding:20px 26px 24px;display:grid;gap:12px;justify-items:start;box-shadow:0 18px 30px -18px rgba(0,0,0,.8)}
+.myreveal .mymast{width:100%}
+.myreveal .pplabel{color:#8a2f1f!important}
+.myreveal h3{font:700 clamp(26px,4.4vw,38px)/1.05 var(--display);text-transform:uppercase;color:#231b14}
+.myreveal .linkbtn{color:#4a3a2a}
 .myscore{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .myscore li{display:flex;gap:10px}.myscore b{width:44px;font:700 12px var(--mono);text-transform:uppercase;padding-top:3px}
 .myscore li.ok span{color:#4f6339}.myscore li.no span{color:#a8362f}
-.mysolution{display:grid;gap:10px;max-width:70ch}
+.mysolution{display:grid;gap:10px;max-width:70ch;font-family:var(--display);font-size:18px;line-height:1.5}
 .mysolution p:first-child{font:600 26px var(--display)}
+@media (max-width:640px){.finder.mystery{padding:28px 18px 22px}.myrole{grid-template-columns:72px minmax(0,1fr);padding:22px 16px 16px}.myface{width:72px}.myid{grid-template-columns:64px minmax(0,1fr);gap:14px;padding:18px}.myid .myface{width:64px}.mymast{grid-template-columns:1fr}.mymast span,.mymast span:last-child{text-align:center}.mymast span:first-child{display:none}.mypaper{transform:none;padding:16px}}
 .stadd{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:16px;display:grid;gap:12px}
 .stchips{display:flex;flex-wrap:wrap;gap:8px}
 .stchip{font:600 14px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
@@ -1372,15 +1420,20 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
     </section>
 
     <section class="finder mystery" id="mystery" hidden>
-      <div class="myhead"><p class="eyebrow" id="myWhen"></p><h2 id="myTitle"></h2></div>
+      <div class="myhead"><p class="eyebrow" id="myWhen"></p><h2 id="myTitle"></h2><span class="mydeco" aria-hidden="true"></span></div>
       <div id="myChoose" class="cdmake" hidden>
-        <p class="mysetup" id="mySetupText"></p>
+        <div class="mypaper">
+          <div class="mymast"><span>Extra · Jan. 1, 1929</span><b>The Chicago Evening Star</b><span>Two cents</span></div>
+          <p class="myheadline">Owner found dead at midnight</p>
+          <p class="mydeck">Roof party at the Marigold ends in murder. Snow keeps police away until dawn.</p>
+          <p class="mysetup" id="mySetupText"></p>
+        </div>
         <div><h3>Pick your characters</h3><p class="sub">Each of you gets your own link, with your own secret and your own clues. Don't peek at the other one.</p></div>
         <div class="myroles" id="myRoles"></div>
         <input class="pplink" id="myLink" type="text" readonly hidden aria-label="Link for your partner">
       </div>
       <div id="myPlay" class="myplay" hidden>
-        <div class="myid"><p class="pplabel">Your character · <span id="myRole"></span></p><h3 id="myWho"></h3><p class="mylook"><b>Wear:</b> <span id="myLook"></span></p></div>
+        <div class="myid"><div class="myface" id="myFace"></div><div><p class="pplabel">Your character · <span id="myRole"></span></p><h3 id="myWho"></h3><p class="mylook"><b>Wear:</b> <span id="myLook"></span></p></div></div>
         <details class="mydet"><summary>The case: read it out loud before round 1</summary><p id="mySetup2"></p><p><b>The victim.</b> <span id="myVictim"></span></p></details>
         <div class="mycols">
           <div class="myblock"><p class="pplabel">Your introduction · read it in round 1</p><p class="myintro" id="myIntro"></p></div>
@@ -1400,6 +1453,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
           <button class="btn red" type="button" id="myAccuseBtn">Reveal the truth</button>
         </div>
         <div class="myreveal" id="myReveal" hidden aria-live="polite">
+          <div class="mymast"><span>Final edition</span><b>The Chicago Evening Star</b><span>Case closed</span></div>
           <p class="pplabel">The solution</p>
           <h3 id="myVerdict"></h3>
           <ul class="myscore" id="myScore"></ul>
@@ -1585,7 +1639,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/deep-talks.js?v=452bc1e0"></script>
 <script src="js/plus-kit.js?v=9764765f"></script>
 <script src="js/quiz.js?v=60181e75"></script>
-<script src="js/mystery.js?v=a02eb829"></script>
+<script src="js/mystery.js?v=fb98589c"></script>
 <script src="js/story.js?v=0cfd945e"></script>
 <script src="js/dream.js?v=02af4b85"></script>
 <script src="js/holiday.js?v=f52f2f63"></script>
