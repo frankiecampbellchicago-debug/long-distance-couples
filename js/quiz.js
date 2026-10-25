@@ -1,8 +1,8 @@
-// How Well Do You Know Me (Plus): answer ten questions about yourself, send the link, and they guess.
+// How Well Do You Know Me (Plus): answer twenty questions about yourself, send the link, and they guess.
 // The quiz travels in the link (#q=). Whoever receives it doesn't need Plus. The draft is saved on this device.
 (function () {
   const $ = id => document.getElementById(id);
-  const K = window.PlusKit, DRAFT = "liita-quiz", COUNT = 10;
+  const K = window.PlusKit, DRAFT = "liita-quiz", COUNT = 20;
 
   // about you, with four answers to start from. You pick yours and can rewrite any of them.
   window.QUIZ_BANK = [
@@ -37,10 +37,38 @@
     ["Which would I rather give up for a year?", ["Coffee", "Social media", "Sweets", "Music"]],
     ["What's my favorite kind of date with you?", ["A fancy dinner", "Staying in with food and a movie", "Doing something active", "Exploring somewhere new"]],
     ["What's the first thing I want to do when we're together again?", ["Hug for way too long", "Go eat somewhere", "Sleep in together", "Go somewhere new"]],
-    ["What do I want to be remembered for?", ["Being kind", "Being funny", "Making something", "Being there for people"]]
+    ["What do I want to be remembered for?", ["Being kind", "Being funny", "Making something", "Being there for people"]],
+    ["What's my favorite snack at 2am?", ["Chips", "Cereal", "Leftovers straight from the fridge", "Something sweet"]],
+    ["What song do I play when I'm in a good mood?", ["Something to dance to", "An old favorite from years ago", "Whatever's new this week", "Something I can sing loud"]],
+    ["What's my favorite way to spend a rainy day?", ["Under a blanket with a movie", "Reading", "Baking or cooking something", "Going out anyway"]],
+    ["What's my worst habit?", ["Staying up too late", "Being on my phone", "Running late", "Leaving things to the last minute"]],
+    ["What would my perfect pizza have on it?", ["Just cheese", "Pepperoni", "Everything", "Pineapple, and I'll defend it"]],
+    ["Which would I rather be: early or late?", ["Twenty minutes early", "Right on time", "A little late", "Late, but with snacks"]],
+    ["What do I miss most when we're apart?", ["Your hugs", "Talking face to face", "Doing nothing together", "Falling asleep next to you"]],
+    ["How do I take my eggs?", ["Scrambled", "Fried, runny yolk", "Boiled", "I don't eat eggs"]],
+    ["What's my go-to drink when we go out?", ["A cocktail", "Beer or wine", "Something without alcohol", "Whatever you're having"]],
+    ["What was my favorite subject in school?", ["Art or music", "English", "Math or science", "Lunch"]],
+    ["What's the best gift you could give me?", ["Something handmade", "An experience together", "Something I mentioned once", "Food. Always food."]],
+    ["Where would I go for a first trip together?", ["Somewhere warm with a beach", "A big city", "Mountains or a cabin", "Wherever you live"]],
+    ["What kind of shows do I binge?", ["Reality TV", "Crime and mysteries", "Comedies I've seen ten times", "Fantasy or sci-fi"]],
+    ["What do I do when I can't sleep?", ["Scroll on my phone", "Watch something", "Lie there overthinking", "Text you"]],
+    ["What's my favorite thing about myself?", ["My sense of humor", "My heart", "How hard I work", "My style"]],
+    ["What would I name a pet?", ["A human name, like Kevin", "A food, like Noodle", "Something from a movie or show", "Something fancy"]],
+    ["Cats or dogs?", ["Cats", "Dogs", "Both, obviously", "Neither, honestly"]],
+    ["What's my favorite kind of weather?", ["Sunny and hot", "Crisp and cool", "Rainy", "Snowy"]],
+    ["Where do I sit at the movies?", ["Right in the middle", "Near the back", "Close to the front", "On the aisle for easy escape"]],
+    ["What am I most proud of?", ["My work", "My friends and family", "Getting through a hard time", "Us"]],
+    ["How would I spend a surprise $1,000?", ["Save it", "A trip to see you", "Treat myself to something", "Give some of it away"]],
+    ["What's the first thing I notice about someone?", ["Their smile", "Their eyes", "How they talk to people", "Their style"]],
+    ["What's my comfort movie?", ["An animated movie", "A rom-com", "A movie from when I was a kid", "Something I can quote every line of"]],
+    ["What chore do I hate most?", ["Dishes", "Laundry", "Cleaning the bathroom", "Taking out the trash"]],
+    ["What would I bring to a desert island?", ["A good book", "Music", "Snacks", "You"]],
+    ["How do I like to say I love you?", ["Out loud", "Little gifts", "Doing things for you", "Random texts during the day"]],
+    ["What's my favorite holiday?", ["New Year's", "Halloween", "The winter holidays", "My birthday counts"]],
+    ["What do I think we'll be doing in ten years?", ["Living together somewhere new", "Traveling all the time", "Settled with a family", "Still laughing at the same jokes"]]
   ];
 
-  const pickTen = (keep) => {
+  const shuffled = (keep) => {
     const pool = window.QUIZ_BANK.map((q, i) => i).filter(i => !keep.includes(i));
     for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
     return pool;
@@ -65,7 +93,10 @@
   // ---- making one ----
   function make() {
     let st = K.load(DRAFT, null);
-    if (!st || !Array.isArray(st.q) || st.q.length !== COUNT) st = { a: "", q: pickTen([]).slice(0, COUNT).map(fresh) };
+    if (!st || !Array.isArray(st.q) || !st.q.length) st = { a: "", q: [] };
+    // older drafts had ten questions: keep those and top up to the full count
+    st.q = st.q.slice(0, COUNT);
+    if (st.q.length < COUNT) st.q = st.q.concat(shuffled(st.q.map(x => x.b)).slice(0, COUNT - st.q.length).map(fresh));
     $("qzName").value = st.a;
     const save = () => K.store(DRAFT, st);
 
@@ -95,14 +126,28 @@
     $("qzList").addEventListener("click", e => {
       if (e.target.dataset.act !== "swap") return;
       const i = +e.target.closest(".qzrow").dataset.i;
-      st.q[i] = fresh(pickTen(st.q.map(x => x.b))[0]);
+      st.q[i] = fresh(shuffled(st.q.map(x => x.b))[0]);
       save(); render();
       $("qzList").children[i].querySelector(".qzq").focus();
     });
     $("qzName").addEventListener("input", () => { st.a = $("qzName").value; save(); });
+    // Clear my answers: unpicks every answer and keeps the questions. The first tap asks, the second one clears.
+    let disarm;
+    $("qzReset").addEventListener("click", () => {
+      const b = $("qzReset");
+      if (!b.dataset.armed) {
+        b.dataset.armed = "1"; b.textContent = "Tap again to clear all " + COUNT;
+        disarm = setTimeout(() => { delete b.dataset.armed; b.textContent = "Clear my answers"; }, 4000);
+        return;
+      }
+      clearTimeout(disarm); delete b.dataset.armed; b.textContent = "Clear my answers";
+      st.q.forEach(x => { x.a = -1; });
+      $("qzOut").hidden = true; $("qzErr").hidden = true;
+      save(); render();
+    });
     $("qzShuffle").addEventListener("click", () => {
       // keep the ones you've already answered, swap the rest
-      const fill = pickTen(st.q.map(x => x.b));
+      const fill = shuffled(st.q.map(x => x.b));
       st.q = st.q.map(x => x.a >= 0 ? x : fresh(fill.shift()));
       save(); render();
     });

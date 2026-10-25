@@ -21,7 +21,7 @@ window.DATES=[
  {s:"take-a-class",k:"together",i:"vase",t:"Take a class together",d:"Pottery, salsa, cooking, anything you'd both be a little bad at. That's half the fun.",f:["$$","2–3 hrs"],tags:["adventurous"]},
  {s:"passport-night",k:"apart",plus:true,i:"plane",t:"Passport Night",d:"Spin the globe and land somewhere neither of you has been. Cook its dish, play its music, learn five words, walk one of its streets, then stamp your passports.",f:["Plus","2–3 hrs","24 countries"],tags:["cozy","adventurous"]},
  {s:"countdown-calendar",k:"apart",plus:true,i:"hourglass",t:"Countdown Calendar",d:"One little door for every day until you see each other: a note, a song, a question, a coupon for the visit. They open one a day, and never early.",f:["Plus","20 min to make","Up to 31 days"],tags:["cozy"]},
- {s:"how-well-do-you-know-me",k:"apart",plus:true,i:"heart",t:"How Well Do You Know Me?",d:"Answer ten questions about yourself and send the link. They guess every answer and get a score, and the ones they miss are the best part.",f:["Plus","30 min","Play by link"],tags:["cozy"]},
+ {s:"how-well-do-you-know-me",k:"apart",plus:true,i:"heart",t:"How Well Do You Know Me?",d:"Answer twenty questions about yourself and send the link. They guess every answer and get a score, and the ones they miss are the best part.",f:["Plus","45 min","Play by link"],tags:["cozy"]},
  {s:"murder-mystery",k:"apart",plus:true,i:"key",t:"Murder Mystery for Two",d:"New Year's Eve, 1928. The owner of a rooftop speakeasy is dead. You each get a character, a secret and half the clues. Solve it before the police arrive at dawn.",f:["Plus","2 hrs","1920s Chicago"],tags:["adventurous"]},
  {s:"our-story",k:"apart",plus:true,i:"book",t:"Our Story Timeline",d:"Build the story of you two, moment by moment: the first hello, the first goodbye, the day you knew. Add photos, then print it as a keepsake.",f:["Plus","1–2 hrs","Printable"],tags:["cozy"]},
  {s:"dream-life-night",k:"apart",plus:true,i:"sparkle",t:"Dream Life Night",d:"Plan the life you're building, out loud: where you live, a normal Tuesday, the first big trip, the month you close the distance. You end with a board to keep.",f:["Plus","1–2 hrs","Vision board"],tags:["cozy"]},
@@ -65,7 +65,7 @@ window.datePhoto=(d,cls)=>DATE_PHOTOS.includes(d.s)
 // app:true dates live inside the app (coming soon). tool names a widget on the page.
 window.DATE_MORE={
  "how-well-do-you-know-me":{tool:"quiz",gift:"q",
-  steps:["Each of you makes a quiz: ten questions about yourself, with your real answer picked.","Send each other the links.","Get on a call and take them at the same time, or one at a time while the other watches.","Go through every miss and ask for the story behind the answer."],
+  steps:["Each of you makes a quiz: twenty questions about yourself, with your real answer picked.","Send each other the links.","Get on a call and take them at the same time, or one at a time while the other watches.","Go through every miss and ask for the story behind the answer."],
   need:["About 10 minutes to make yours","A call to compare scores"],
   tip:"Rewrite the questions. The best ones are things only someone who really listens would know."},
  "murder-mystery":{tool:"mystery",gift:"role",
