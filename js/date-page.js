@@ -36,8 +36,10 @@
     el.innerHTML = "<small></small><strong></strong>";
     el.firstChild.textContent = label; el.lastChild.textContent = date.t;
   };
-  link($("prevLink"), "← Previous date", all[(idx - 1 + all.length) % all.length]);
-  link($("nextLink"), "Next date →", all[(idx + 1) % all.length]);
+  // Previous/next stay within the free dates, or within the Plus dates
+  const group = all.filter(x => !!x.plus === !!d.plus), gi = group.indexOf(d);
+  link($("prevLink"), "← Previous date", group[(gi - 1 + group.length) % group.length]);
+  link($("nextLink"), "Next date →", group[(gi + 1) % group.length]);
   $("page").hidden = false;
 
   // Plus dates: a preview and the waitlist until Plus launches. ?plus=preview unlocks this device for testing.

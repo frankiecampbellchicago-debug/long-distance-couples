@@ -924,7 +924,7 @@ cd();setInterval(cd,1000);
 
 // dates: a spinning wheel of date cards. Filter by where and mood, save with the heart, or spin for a surprise.
 const DATES=window.DATES,WHERE=window.DATE_WHERE,svgIcon=window.dateIcon;
-const WHERE_F=[["all","Anywhere"],["apart","While apart"],["together","When you visit"],["plus","Plus"],["saved","Saved"]];
+const WHERE_F=[["all","Anywhere"],["apart","While apart"],["together","When you visit"],["saved","Saved"]];
 const MOOD_F=[["any","Any mood"],["cozy","Cozy"],["adventurous","Adventurous"],["free","Free"]];
 const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20Z"/></svg>';
 const stage=document.getElementById("stage"),ring=document.getElementById("ring"),countEl=document.getElementById("dCount"),detailEl=document.getElementById("detail"),dSave=document.getElementById("dSave");
@@ -933,22 +933,23 @@ let fw="all",fm="any",favs=[],list=[],cards=[],rot=0,step=0,radius=400,anim=null
 try{favs=JSON.parse(localStorage.getItem("ldr-saved-dates")||"[]")}catch(e){}
 const keepFavs=()=>{try{localStorage.setItem("ldr-saved-dates",JSON.stringify(favs))}catch(e){}};
 function match(d){
-  // Plus dates live behind the "More dates with Plus" card: they show only in the Plus view (and Saved)
+  // Plus dates live behind the "More dates with Plus" card and show only in the Plus view it opens
   if(d.k==="plus")return fw==="all"&&fm==="any";
-  if(fw==="plus"&&!d.plus)return false;
-  if(d.plus&&fw!=="plus"&&fw!=="saved")return false;
+  if((fw==="plus")!==!!d.plus)return false;
   if(fw==="saved"&&!favs.includes(d.s))return false;
   if((fw==="apart"||fw==="together")&&d.k!==fw)return false;
   return fm==="any"||d.tags.includes(fm);
 }
 // set on this device by date.html?plus=preview until real Plus accounts exist
 function plusOn(){try{return localStorage.getItem("liita-plus")==="1"}catch(e){return false}}
-function showPlusDates(){fw="plus";document.querySelectorAll("#chipsWhere .chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.k==="plus"));build();document.getElementById("chipsWhere").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})}
+function showPlusDates(){fw="plus";const row=document.getElementById("chipsWhere");let c=row.querySelector('[data-k="plus"]');
+  if(!c){c=document.createElement("button");c.type="button";c.className="chip";c.dataset.k="plus";c.textContent="Plus dates";row.appendChild(c)}
+  row.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));build();document.getElementById("chipsWhere").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})}
 function chipRow(el,items,get,set){items.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.dataset.k=k;b.textContent=label;
   b.setAttribute("aria-pressed",k===get());b.addEventListener("click",()=>{set(k);el.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));build()});el.appendChild(b)})}
-chipRow(document.getElementById("chipsWhere"),WHERE_F,()=>fw,k=>fw=k);
+chipRow(document.getElementById("chipsWhere"),WHERE_F,()=>fw,k=>{fw=k;const p=document.querySelector('#chipsWhere [data-k="plus"]');if(p)p.remove()});
 chipRow(document.getElementById("chipsMood"),MOOD_F,()=>fm,k=>fm=k);
-function favCount(){const b=document.querySelector('#chipsWhere [data-k="saved"]');b.innerHTML="";b.append("Saved");if(favs.length){const n=document.createElement("span");n.className="n";n.textContent=favs.length;b.appendChild(n)}}
+function favCount(){const b=document.querySelector('#chipsWhere [data-k="saved"]');b.innerHTML="";b.append("Saved");const saved=DATES.filter(d=>!d.plus&&favs.includes(d.s)).length;if(saved){const n=document.createElement("span");n.className="n";n.textContent=saved;b.appendChild(n)}}
 function build(){
   list=DATES.filter(match);ring.innerHTML="";
   cards=list.map((d,i)=>{const c=document.createElement("div");c.className="dcard k-"+d.k;c.setAttribute("role","button");c.tabIndex=-1;
