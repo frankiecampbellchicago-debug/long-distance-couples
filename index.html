@@ -933,8 +933,10 @@ let fw="all",fm="any",favs=[],list=[],cards=[],rot=0,step=0,radius=400,anim=null
 try{favs=JSON.parse(localStorage.getItem("ldr-saved-dates")||"[]")}catch(e){}
 const keepFavs=()=>{try{localStorage.setItem("ldr-saved-dates",JSON.stringify(favs))}catch(e){}};
 function match(d){
-  if(d.k==="plus")return(fw==="all"||fw==="plus")&&fm==="any";
+  // Plus dates live behind the "More dates with Plus" card: they show only in the Plus view (and Saved)
+  if(d.k==="plus")return fw==="all"&&fm==="any";
   if(fw==="plus"&&!d.plus)return false;
+  if(d.plus&&fw!=="plus"&&fw!=="saved")return false;
   if(fw==="saved"&&!favs.includes(d.s))return false;
   if((fw==="apart"||fw==="together")&&d.k!==fw)return false;
   return fm==="any"||d.tags.includes(fm);
