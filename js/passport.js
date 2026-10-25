@@ -62,6 +62,11 @@
   const pano = ([lat, lon]) => "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + lat + "," + lon;
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
   const INKS = ["#a8362f", "#2c4a7a", "#5f7148", "#7a3a6a", "#9a5b16"];
+  // The airport you'd fly into for each city, for the boarding pass.
+  const CODES = { Italy: "FCO", France: "CDG", Japan: "KIX", Mexico: "MEX", Greece: "JTR", Spain: "SVQ", Portugal: "LIS", Morocco: "RAK", Thailand: "BKK", India: "JAI", Brazil: "GIG", "South Korea": "ICN",
+    Peru: "CUZ", Turkey: "IST", Vietnam: "DAD", Argentina: "EZE", Ireland: "SNN", Jamaica: "KIN", Lebanon: "BEY", Iceland: "KEF", Sweden: "ARN", Philippines: "MNL", Indonesia: "DPS", Nigeria: "LOS" };
+  const reduce = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const flap = el => { el.classList.remove("flap"); void el.offsetWidth; el.classList.add("flap"); };
 
   function stampSvg(s, i) {
     const ink = INKS[i % INKS.length], rot = ((i * 37) % 21) - 10, round = i % 3 !== 1;
@@ -84,13 +89,15 @@
     const pickSel = $("ppPick");
     P.forEach((p, i) => { const o = document.createElement("option"); o.value = i; o.textContent = p.c; pickSel.appendChild(o); });
 
-    function renderBook() {
+    // fresh: the stamp that was just added lands with a thump.
+    function renderBook(fresh) {
       const book = $("ppStamps");
       book.innerHTML = "";
       $("ppCount").textContent = st.stamps.length ? st.stamps.length + " of " + P.length + " countries" : "No stamps yet";
+      $("ppProg").style.width = (st.stamps.length / P.length * 100) + "%";
       $("ppReset").hidden = !st.stamps.length && !st.skip.length;
-      if (!st.stamps.length) { const p = document.createElement("p"); p.className = "ppempty"; p.textContent = "Finish your first night and stamp it here."; book.appendChild(p); return; }
-      st.stamps.forEach((s, i) => { const d = document.createElement("div"); d.className = "ppstamp"; d.innerHTML = stampSvg(s, i); book.appendChild(d); });
+      st.stamps.forEach((s, i) => { const d = document.createElement("div"); d.className = "ppstamp" + (fresh && i === st.stamps.length - 1 ? " fresh" : ""); d.innerHTML = stampSvg(s, i); book.appendChild(d); });
+      if (st.stamps.length < P.length) { const slot = document.createElement("div"); slot.className = "ppslot"; slot.textContent = st.stamps.length ? "Your next stamp" : "Your first stamp goes here"; book.appendChild(slot); }
     }
 
     function show(i) {
@@ -99,6 +106,11 @@
       pickSel.value = i;
       $("ppCountry").textContent = p.c;
       $("ppCity").textContent = "Tonight: " + p.city;
+      $("ppCode").textContent = $("ppStubCode").textContent = CODES[p.c] || p.city.slice(0, 3).toUpperCase();
+      $("ppFlight").textContent = "Flight LI " + (214 + i * 37);
+      [$("ppCountry"), $("ppCode")].forEach(flap);
+      $("passport").classList.remove("spinning");
+      $("ppTicket").classList.add("landed");
       $("ppDish").textContent = p.dish;
       $("ppNote").textContent = p.note;
       $("ppRecipe").href = "https://www.google.com/search?q=" + encodeURIComponent(p.dish + " recipe");
@@ -108,29 +120,42 @@
       const w = $("ppWords"); w.innerHTML = "";
       p.words.forEach(([mean, said, how]) => {
         const li = document.createElement("li");
-        li.innerHTML = "<small></small><b></b><span></span>";
-        li.children[0].textContent = mean; li.children[1].textContent = said; li.children[2].textContent = how;
+        li.innerHTML = '<button type="button" class="ppflip" aria-pressed="false"><span class="ppf"><small>How do you say</small><b></b><span class="pphint">Tap to flip</span></span><span class="ppf back" aria-hidden="true"><small></small><b></b><span></span></span></button>';
+        const [front, back] = li.querySelectorAll(".ppf");
+        front.querySelector("b").textContent = mean;
+        back.querySelector("small").textContent = mean; back.querySelector("b").textContent = said; back.querySelector("span").textContent = how;
         w.appendChild(li);
       });
+      $("ppFlipAll").textContent = "Flip them all";
       $("ppWalkName").textContent = p.place + ", " + p.city;
       $("ppWalk").href = pano(p.walk);
       const done = st.stamps.some(s => s.c === p.c);
       $("ppStamp").textContent = done ? "Stamped. Spin for the next one" : "We did it. Stamp our passports";
       $("ppStamp").dataset.done = done ? "1" : "";
-      $("ppResult").hidden = false;
+      $("ppVisited").hidden = !done;
+      const res = $("ppResult");
+      res.hidden = false; res.classList.remove("fresh"); void res.offsetWidth; res.classList.add("fresh");
     }
 
     function spin() {
       const done = new Set(st.stamps.map(s => s.c).concat(st.skip));
       let pool = P.map((p, i) => i).filter(i => !done.has(P[i].c) && i !== cur);
       if (!pool.length) pool = P.map((p, i) => i).filter(i => i !== cur);
-      const box = $("ppCountry");
+      const box = $("ppCountry"), code = $("ppCode");
       let n = 0;
-      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
       const final = pool[Math.floor(Math.random() * pool.length)];
-      if (reduce) return show(final);
-      $("ppResult").hidden = false;
-      const tick = () => { box.textContent = P[Math.floor(Math.random() * P.length)].c; if (++n < 14) setTimeout(tick, 40 + n * 9); else show(final); };
+      if (reduce()) return show(final);
+      // Departure-board shuffle while the plane takes off again from home.
+      $("passport").classList.add("spinning");
+      $("ppTicket").classList.remove("landed");
+      $("ppVisited").hidden = true;
+      $("ppCity").textContent = "Finding tonight's flight…";
+      const tick = () => {
+        const r = P[Math.floor(Math.random() * P.length)];
+        box.textContent = r.c; code.textContent = CODES[r.c] || "???";
+        flap(box); flap(code);
+        if (++n < 16) setTimeout(tick, 45 + n * 10); else show(final);
+      };
       tick();
     }
 
@@ -145,8 +170,22 @@
       if (cur === null) return;
       if ($("ppStamp").dataset.done) return spin();
       st.stamps.push({ c: P[cur].c, city: P[cur].city, t: Date.now() });
-      save(st); renderBook(); show(cur);
-      $("ppBook").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+      save(st); renderBook(true); show(cur);
+      $("ppBook").scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "center" });
+    });
+    $("ppWords").addEventListener("click", e => {
+      const b = e.target.closest(".ppflip"); if (!b) return;
+      const on = b.classList.toggle("on");
+      b.setAttribute("aria-pressed", on);
+      b.children[0].setAttribute("aria-hidden", on); b.children[1].setAttribute("aria-hidden", !on);
+    });
+    $("ppFlipAll").addEventListener("click", () => {
+      const cards = [...$("ppWords").querySelectorAll(".ppflip")], on = cards.some(b => !b.classList.contains("on"));
+      cards.forEach((b, i) => setTimeout(() => {
+        b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+        b.children[0].setAttribute("aria-hidden", on); b.children[1].setAttribute("aria-hidden", !on);
+      }, reduce() ? 0 : i * 90));
+      $("ppFlipAll").textContent = on ? "Flip them back" : "Flip them all";
     });
     $("ppSend").addEventListener("click", async () => {
       if (cur === null) return;

@@ -114,38 +114,102 @@ nav:not(.more) .btn:hover{background:#fdf3e4;color:#9c4426;filter:none}
 /* Passport Night */
 .ppctrl{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
 .ppctrl .field{min-width:220px}
-.pphead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:14px;border-bottom:1px dashed var(--line);padding-bottom:14px}
-.ppcountry{font-size:clamp(40px,7vw,64px);line-height:1}
+.ppglobe{width:19px;height:19px;flex:none}
+.passport.spinning .ppglobe{animation:ppspin .8s linear infinite}
+@keyframes ppspin{to{transform:rotate(360deg)}}
+/* the boarding pass */
+.ppticket{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 150px;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 22px 34px -26px rgba(90,45,20,.7)}
+.ppticket::before,.ppticket::after{content:"";position:absolute;left:0;right:0;height:7px;z-index:1;background:repeating-linear-gradient(135deg,#a8362f 0 14px,transparent 14px 22px,#2c4a7a 22px 36px,transparent 36px 44px)}
+.ppticket::before{top:0}.ppticket::after{bottom:0}
+.pptmain{padding:28px 28px 24px;display:grid;gap:16px;min-width:0}
+.ppttop{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font:800 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ppttop b{color:var(--red)}
+.pptroute{display:flex;align-items:center;gap:16px}
+.pptroute small,.pptmeta small,.pptstub small{display:block;font:700 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pptroute b{display:block;font:800 clamp(30px,5.4vw,46px)/1 var(--mono);letter-spacing:.06em;color:var(--ink)}
+.ppto{text-align:right}
+.pptpath{flex:1;position:relative;height:0;border-top:2px dashed var(--line);margin-top:14px}
+.pptplane{position:absolute;top:-13px;left:0;width:24px;height:24px;color:var(--red);transform:rotate(90deg);transition:left 1.3s cubic-bezier(.45,0,.2,1)}
+.ppticket.landed .pptplane{left:calc(100% - 24px)}
+.passport.spinning .pptplane{animation:ppbob .5s ease-in-out infinite alternate}
+@keyframes ppbob{to{top:-19px}}
+.ppcountry{font-size:clamp(42px,7.5vw,70px);line-height:1;overflow-wrap:anywhere}
+.flap{animation:ppflap .14s ease-out}
+@keyframes ppflap{from{transform:perspective(300px) rotateX(-80deg);opacity:.3}}
+.pptmeta{display:flex;flex-wrap:wrap;gap:12px 28px;border-top:1px dashed var(--line);padding-top:14px}
+.pptmeta b{font:700 15px var(--body)}
+.pptstub{position:relative;border-left:2px dashed var(--line);background:#f6ecd8;padding:28px 18px 24px;display:grid;align-content:space-between;gap:14px;text-align:center}
+.pptstub::before,.pptstub::after{content:"";position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:var(--card);border:1px solid var(--line);z-index:2}
+.pptstub::before{top:-12px}.pptstub::after{bottom:-12px}
+.pptstub b{font:600 30px/1 var(--display)}
+.pptbar{height:58px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 12px,var(--ink) 12px 13px,transparent 13px 17px)}
+.pptstub .ppstubcode{font:800 18px var(--mono);letter-spacing:.2em;color:var(--ink)}
+.pptvisited{position:absolute;right:200px;bottom:84px;z-index:3;transform:rotate(-14deg);border:3px double #a8362f;color:#a8362f;font:800 17px var(--mono);letter-spacing:.22em;text-transform:uppercase;padding:6px 14px;border-radius:6px;mix-blend-mode:multiply;opacity:.85;pointer-events:none;animation:ppthump .45s cubic-bezier(.3,1.4,.5,1) backwards}
+@keyframes ppthump{0%{transform:rotate(-14deg) scale(2.4);opacity:0}100%{transform:rotate(-14deg) scale(1);opacity:.85}}
+@media (max-width:640px){.ppticket{grid-template-columns:1fr}.pptmain{padding:24px 18px 18px}.pptstub{border-left:0;border-top:2px dashed var(--line);grid-template-columns:auto 1fr auto;align-items:center;padding:16px 18px 20px;text-align:left}.pptstub::before{top:-12px;left:-12px}.pptstub::after{top:-12px;bottom:auto;left:auto;right:-12px}.pptbar{height:34px}.pptvisited{right:18px;bottom:150px}}
+/* tonight's plan */
+.ppres{display:grid;gap:16px}
+.ppres.fresh .ppcard{animation:ppin .5s cubic-bezier(.2,.7,.3,1) backwards}
+.ppres.fresh .ppcard:nth-child(2){animation-delay:.08s}.ppres.fresh .ppcard:nth-child(3){animation-delay:.16s}.ppres.fresh .ppcard:nth-child(4){animation-delay:.24s}
+@keyframes ppin{from{opacity:0;transform:translateY(14px)}}
 .ppacts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .linkbtn{border:0;background:none;padding:0;font:600 14px var(--body);color:var(--muted);text-decoration:underline;cursor:pointer}
 .pplink{width:100%;font:14px var(--body);padding:8px 10px;border:1px solid var(--line);border-radius:3px;background:var(--paper)}
-.ppres{display:grid;gap:16px}
-.ppgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.ppcard{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:16px 18px;display:grid;gap:6px;align-content:start}
+.ppgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ppcard{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:18px 20px;display:grid;gap:8px;align-content:start}
+.passport .ppcard{border-top:4px solid var(--ink-c);transition:transform .25s cubic-bezier(.2,.7,.3,1),box-shadow .25s}
+.passport .ppcard:hover{transform:translateY(-3px);box-shadow:0 16px 24px -20px rgba(90,45,20,.7)}
 .ppcard.wide{grid-column:1/-1}
-.ppcard h4{font:600 22px/1.15 var(--display);margin:0}
+.ppcard.c1{--ink-c:#a8362f}.ppcard.c2{--ink-c:#2c4a7a}.ppcard.c3{--ink-c:#5f7148}.ppcard.c4{--ink-c:#9a5b16}
+.ppchead{display:flex;align-items:center;gap:10px}
+.ppico{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--ink-c);color:#fdf3e4}
+.ppico svg{width:19px;height:19px}
+.ppchead .linkbtn{margin-left:auto}
+.ppcard h4{font:600 24px/1.15 var(--display);margin:0}
 .ppcard p{color:var(--muted)}
-.ppcard a{font-weight:700;color:var(--red);justify-self:start}
+.ppcard a{font-weight:700;color:var(--ink-c,var(--red));justify-self:start}
 .ppcard .btn{color:var(--ink);margin-top:4px}
-.pplabel{font:800 11px var(--mono)!important;letter-spacing:.14em;text-transform:uppercase;color:var(--red)!important}
-.ppmusic{margin:0;padding-left:18px}
+.pplabel{font:800 11px var(--mono)!important;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-c,var(--red))!important}
+.ppmusic{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.ppmusic li{display:flex;align-items:center;gap:10px}
+.ppmusic li::before{content:"";width:22px;height:22px;flex:none;border-radius:50%;background:radial-gradient(circle,var(--paper) 0 2.5px,var(--ink) 3px 4px,#3d3128 4.5px 6px,var(--ink) 6.5px 100%)}
 .ppmusic a{color:var(--ink)!important;font-weight:600}
 .ppwords{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
-.ppwords li{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:10px 12px;display:grid;gap:2px}
-.ppwords small{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.ppwords b{font:600 21px/1.15 var(--display)}
-.ppwords span{font-size:13px;color:var(--muted)}
-.ppstampbtn{justify-self:start}
-.ppbook{background:#f1e4c8;border:1px solid var(--line);border-radius:4px;padding:18px 20px;display:grid;gap:12px;
+.ppwords li{perspective:900px}
+.ppflip{display:grid;width:100%;height:100%;padding:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+.ppflip.on{transform:rotateY(180deg)}
+.ppflip:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:4px}
+.ppf{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--line);border-radius:4px;padding:12px 14px;display:grid;gap:2px;align-content:center;min-height:96px;background:var(--card)}
+.ppf.back{transform:rotateY(180deg);background:#5f7148;border-color:#5f7148;color:#fdf3e4}
+.ppf small{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ppf.back small{color:rgba(253,243,228,.75)}
+.ppf b{font:600 22px/1.15 var(--display)}
+.ppf span{font-size:13px;color:var(--muted)}
+.ppf.back span{color:rgba(253,243,228,.85)}
+.ppf .pphint{font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#5f7148;margin-top:4px}
+.walkc{background:linear-gradient(90deg,var(--paper) 55%,rgba(244,233,212,.6)),repeating-linear-gradient(0deg,transparent 0 23px,rgba(154,91,22,.12) 23px 24px),repeating-linear-gradient(90deg,transparent 0 23px,rgba(154,91,22,.12) 23px 24px)}
+.ppstampbtn{justify-self:start;padding:14px 26px;font-size:16px}
+/* the passport itself */
+.ppbook{background:#6e2c16;border-radius:12px;padding:12px;box-shadow:0 24px 36px -26px rgba(60,25,10,.8),inset 0 0 0 2px rgba(195,149,78,.35)}
+.pppages{background:#f1e4c8;border-radius:6px;padding:20px 22px 22px;display:grid;gap:14px;
   background-image:repeating-linear-gradient(0deg,transparent 0 27px,rgba(122,50,25,.07) 27px 28px)}
-.ppbookhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.ppbookhead h3{font-size:26px}
-.ppbookhead span{font:700 12px var(--mono);color:var(--muted)}
+.ppbookhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.ppbrand{display:flex;align-items:center;gap:12px}
+.ppseal{width:46px;height:46px;flex:none;color:#c3954e}
+.ppbookhead h3{font-size:28px}
+.ppbookhead small{display:block;font:700 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .ppbookr{display:flex;gap:14px;align-items:baseline}
+.ppbookr span{font:700 12px var(--mono);color:var(--muted)}
 #ppReset[data-armed]{color:#a8362f;font-weight:800}
-.ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.ppprog{height:6px;border-radius:3px;background:rgba(122,50,25,.13);overflow:hidden}
+.ppprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#a8362f,#c3954e);border-radius:3px;transition:width .8s cubic-bezier(.2,.7,.3,1)}
+.ppstamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:12px}
 .ppstamp .stamp{display:block;width:100%;height:auto;opacity:.88;mix-blend-mode:multiply}
+.ppstamp.fresh{animation:ppstampin .55s cubic-bezier(.3,1.5,.5,1) backwards}
+@keyframes ppstampin{0%{transform:scale(2.6) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+.ppslot{aspect-ratio:1;border:2px dashed rgba(122,50,25,.28);border-radius:50%;display:grid;place-items:center;text-align:center;padding:12px;font:700 10px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(107,88,72,.75)}
 .ppempty{color:var(--muted);font-style:italic}
+@media (prefers-reduced-motion:reduce){.ppflip,.pptplane,.ppcard,.ppprog i{transition:none}.ppstamp.fresh,.pptvisited,.ppres.fresh .ppcard,.flap,.passport.spinning .ppglobe,.passport.spinning .pptplane{animation:none}}
 .cdmake,.cdview{display:grid;gap:18px}
 .cdtop{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:12px}
 .cdbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:10px}
@@ -1081,26 +1145,43 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
         <p class="sub">Spin the globe, or pick a country neither of you has been to. Then cook the same dish, put on its music, learn a few words, and take a walk down one of its streets together.</p>
       </div>
       <div class="ppctrl">
-        <button class="btn red" type="button" id="ppSpin">Spin the globe</button>
+        <button class="btn red" type="button" id="ppSpin"><svg class="ppglobe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 7h14M5 17h14"/></svg>Spin the globe</button>
         <div class="field"><label for="ppPick">Or pick a country</label><select id="ppPick"><option value="" disabled selected>Choose…</option></select></div>
       </div>
-      <div class="ppres" id="ppResult" hidden aria-live="polite">
-        <div class="pphead">
-          <div><p class="eyebrow" id="ppCity"></p><h3 class="ppcountry" id="ppCountry"></h3></div>
-          <div class="ppacts"><button class="btn ghost" type="button" id="ppSend">Send them tonight's country</button><button class="linkbtn" type="button" id="ppSkip">We've been there, skip it</button></div>
+      <div class="ppticket" id="ppTicket" aria-live="polite">
+        <div class="pptmain">
+          <div class="ppttop"><span>Boarding pass · <b>Passport Night</b></span><span id="ppFlight">Flight LI 000</span></div>
+          <div class="pptroute">
+            <div><small>From</small><b>HOME</b></div>
+            <div class="pptpath"><svg class="pptplane" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></div>
+            <div class="ppto"><small>To</small><b id="ppCode">???</b></div>
+          </div>
+          <div><p class="eyebrow" id="ppCity">Spin the globe to find out</p><h3 class="ppcountry" id="ppCountry">Where to?</h3></div>
+          <div class="pptmeta"><div><small>Passengers</small><b>The two of you</b></div><div><small>Departs</small><b>Tonight</b></div><div><small>Seat</small><b>Next to each other</b></div><div><small>Luggage</small><b>None needed</b></div></div>
         </div>
+        <div class="pptstub"><div><small>Admit</small><b>Two</b></div><div class="pptbar" aria-hidden="true"></div><span class="ppstubcode" id="ppStubCode">???</span></div>
+        <span class="pptvisited" id="ppVisited" hidden>Visited</span>
+      </div>
+      <div class="ppres" id="ppResult" hidden>
+        <div class="ppacts"><button class="btn ghost" type="button" id="ppSend">Send them tonight's country</button><button class="linkbtn" type="button" id="ppSkip">We've been there, skip it</button></div>
         <input class="pplink" id="ppLink" type="text" readonly hidden aria-label="Link for your partner">
         <div class="ppgrid">
-          <div class="ppcard"><p class="pplabel">1 · Cook</p><h4 id="ppDish"></h4><p id="ppNote"></p><a id="ppRecipe" target="_blank" rel="noopener">Find a recipe &#8594;</a></div>
-          <div class="ppcard"><p class="pplabel">2 · Listen</p><h4>Put this on while you cook</h4><ul class="ppmusic" id="ppMusic"></ul><a id="ppSpotify" target="_blank" rel="noopener">Search on Spotify &#8594;</a></div>
-          <div class="ppcard wide"><p class="pplabel">3 · Learn</p><h4>Say these to each other</h4><ul class="ppwords" id="ppWords"></ul></div>
-          <div class="ppcard wide walkc"><p class="pplabel">4 · Walk</p><h4>Take a walk down <span id="ppWalkName"></span></h4><p>Both open the link, share a screen if you like, and take turns choosing which way to go.</p><a class="btn ghost" id="ppWalk" target="_blank" rel="noopener">Open the street view</a></div>
+          <div class="ppcard c1"><div class="ppchead"><span class="ppico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16v2a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7z"/><path d="M2 11h20M9 7c0-1 1-1 1-2.5S9 3 9 2M14 7c0-1 1-1 1-2.5S14 3 14 2"/></svg></span><p class="pplabel">1 · Cook</p></div><h4 id="ppDish"></h4><p id="ppNote"></p><a id="ppRecipe" target="_blank" rel="noopener">Find a recipe &#8594;</a></div>
+          <div class="ppcard c2"><div class="ppchead"><span class="ppico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><p class="pplabel">2 · Listen</p></div><h4>Put this on while you cook</h4><ul class="ppmusic" id="ppMusic"></ul><a id="ppSpotify" target="_blank" rel="noopener">Search on Spotify &#8594;</a></div>
+          <div class="ppcard wide c3"><div class="ppchead"><span class="ppico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span><p class="pplabel">3 · Learn</p><button class="linkbtn" type="button" id="ppFlipAll">Flip them all</button></div><h4>Say these to each other</h4><p>Tap a card to see how it's said. Take turns: one reads, the other repeats.</p><ul class="ppwords" id="ppWords"></ul></div>
+          <div class="ppcard wide walkc c4"><div class="ppchead"><span class="ppico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><p class="pplabel">4 · Walk</p></div><h4>Take a walk down <span id="ppWalkName"></span></h4><p>Both open the link, share a screen if you like, and take turns choosing which way to go.</p><a class="btn ghost" id="ppWalk" target="_blank" rel="noopener">Open the street view</a></div>
         </div>
         <button class="btn red ppstampbtn" type="button" id="ppStamp">We did it. Stamp our passports</button>
       </div>
       <div class="ppbook" id="ppBook">
-        <div class="ppbookhead"><h3>Our passport</h3><div class="ppbookr"><span id="ppCount"></span><button class="linkbtn" type="button" id="ppReset" hidden>Reset</button></div></div>
-        <div class="ppstamps" id="ppStamps"></div>
+        <div class="pppages">
+          <div class="ppbookhead">
+            <div class="ppbrand"><svg class="ppseal" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="24" cy="24" r="21"/><circle cx="24" cy="24" r="12"/><ellipse cx="24" cy="24" rx="5" ry="12"/><path d="M12 24h24M14 18h20M14 30h20"/></svg><div><small>Passport Night</small><h3>Our passport</h3></div></div>
+            <div class="ppbookr"><span id="ppCount"></span><button class="linkbtn" type="button" id="ppReset" hidden>Reset</button></div>
+          </div>
+          <div class="ppprog" aria-hidden="true"><i id="ppProg"></i></div>
+          <div class="ppstamps" id="ppStamps"></div>
+        </div>
       </div>
       <p class="credit">Walks open in Google Street View. Stamps are saved on this device.</p>
     </section>
@@ -1406,7 +1487,7 @@ body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none
 <script src="js/dream.js?v=02af4b85"></script>
 <script src="js/holiday.js?v=f52f2f63"></script>
 <script src="js/countdown.js?v=08b0460c"></script>
-<script src="js/passport.js?v=5837a9ae"></script>
+<script src="js/passport.js?v=ddb63c05"></script>
 <script src="js/stars.js?v=be7b5d14"></script>
 <script src="js/date-page.js?v=917457ba"></script>
 </body>
